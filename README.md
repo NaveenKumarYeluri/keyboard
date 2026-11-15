@@ -1,158 +1,111 @@
-<img align="left" width="80" height="80"
-src=".github/repo_icon.png" alt="App icon">
+# Keyboard
 
-# FlorisBoard [![Crowdin](https://badges.crowdin.net/florisboard/localized.svg)](https://crowdin.florisboard.org) [![Matrix badge](https://img.shields.io/badge/chat-%23florisboard%3amatrix.org-blue)](https://matrix.to/#/#florisboard:matrix.org) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md) [![FlorisBoard CI](https://github.com/florisboard/florisboard/actions/workflows/android.yml/badge.svg?event=push)](https://github.com/florisboard/florisboard/actions/workflows/android.yml)
+A personal, privacy-first keyboard for Android — built on [FlorisBoard](https://github.com/florisboard/florisboard).
 
-**FlorisBoard** is a free and open-source keyboard for Android 8.0+
-devices. It aims at being modern, user-friendly and customizable while
-fully respecting your privacy. Currently in beta state.
+This is a **personal-use fork** of FlorisBoard (v0.6.0-alpha02 snapshot). It is not published to
+any app store and does not accept contributions. It exists purely for private use and
+experimentation.
 
-<table>
-<tr>
-<th style="text-align: center; width: 50%">
-<h3>Stable <a href="https://github.com/florisboard/florisboard/releases/latest"><img alt="Latest stable release" src="https://img.shields.io/github/v/release/florisboard/florisboard?sort=semver&display_name=tag&color=28a745"></a></h3>
-</th>
-<th style="text-align: center; width: 50%">
-<h3>Preview <a href="https://github.com/florisboard/florisboard/releases"><img alt="Latest preview release" src="https://img.shields.io/github/v/release/florisboard/florisboard?include_prereleases&sort=semver&display_name=tag&color=fd7e14"></a></h3>
-</th>
-</tr>
-<tr>
-<td style="vertical-align: top">
-<p><i>Major versions only</i><br><br>Updates are more polished, new features are matured and tested through to ensure a stable experience.</p>
-</td>
-<td style="vertical-align: top">
-<p><i>Major + Alpha/Beta/Rc versions</i><br><br>Updates contain new features that may not be fully matured yet and bugs are more likely to occur. Allows you to give early feedback.</p>
-</td>
-</tr>
-<tr>
-<td style="vertical-align: top">
-<p>
-<a href="https://apt.izzysoft.de/fdroid/index/apk/dev.patrickgold.florisboard"><img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" height="64" alt="IzzySoft repo badge"></a>
-<a href="https://f-droid.org/packages/dev.patrickgold.florisboard"><img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="64" alt="F-Droid badge"></a>
-</p>
-<p>
+## Credits
 
-**Google Play**: Join the [FlorisBoard Test Group](https://groups.google.com/g/florisboard-closed-beta-test), then visit the [testing page](https://play.google.com/apps/testing/dev.patrickgold.florisboard). Once joined and installed, updates will be delivered like for any other app. ([Store entry](https://play.google.com/store/apps/details?id=dev.patrickgold.florisboard))
+All credit for the original work belongs to the FlorisBoard project:
 
-</p>
-<p>
+- **[Patrick Goldinger (patrickgold)](https://github.com/patrickgold)** — creator and lead
+  developer of FlorisBoard
+- **[FlorisBoard Contributors](https://github.com/florisboard/florisboard/graphs/contributors)**
+  — everyone who contributed code, translations, and designs
+- **[k3lp](https://github.com/k3lp)** (the Keyboard3 layout/runtime library this fork builds
+  on) — by patrickgold and lm41
 
-**Obtainium**: [Auto-import stable config][obtainium_stable]
+This fork only changes, removes, or extends things for personal use; the vast majority of the
+codebase is upstream FlorisBoard, licensed under the
+[Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt). Please consider
+supporting or contributing to the original project.
 
-</p>
-<p>
+## What changed compared to upstream
 
-**Manual**: Download and install the APK from the release page.
+### Completed roadmap features (implemented in this fork)
+- **Word suggestions and spell checking** — a real, offline suggestion engine built on the
+  bundled English frequency dictionary (`ime/dict/data.json`) and the user dictionaries.
+  Suggestions are tap-to-pick only (no auto-commit), so there are no false-positive
+  autocorrections.
+- **Physical keyboard support** — hardware key events are handled by the IME (letters,
+  backspace, space, enter), flowing through the same pipeline as on-screen input so
+  suggestions stay live, with auto-repeat support.
+- **User dictionary reset** — "clear dictionary" actions now actually clear the Floris and
+  system user dictionaries.
 
-</p>
-</td>
-<td style="vertical-align: top">
-<p><a href="https://apt.izzysoft.de/fdroid/index/apk/dev.patrickgold.florisboard.beta"><img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" height="64" alt="IzzySoft repo badge"></a></p>
-<p>
+### Already present in upstream (no work needed)
+Floating keyboard mode, glide typing, emoji panel with search, landscape/extracted input,
+offline extension import/export, and the Keyboard3 layout engine.
 
-**Google Play**: Join the [FlorisBoard Test Group](https://groups.google.com/g/florisboard-closed-beta-test), then visit the [preview testing page](https://play.google.com/apps/testing/dev.patrickgold.florisboard.beta). Once joined and installed, updates will be delivered like for any other app. ([Store entry](https://play.google.com/store/apps/details?id=dev.patrickgold.florisboard.beta))
+### Removed for privacy and simplicity
+- The addons store "check for updates" feature and all store constants (no URLs are ever
+  constructed or opened from within the app; extension updates are not checked at all).
+- Crowdin integration, issue/PR templates, funding links, contributing/CoC/AI-policy docs.
+- The benchmark module, the reproducible-build Docker environment, and the empty Rust/NDK
+  placeholder library (`lib:native`) — building now requires no NDK, CMake, or Rust.
+- Beta/debug build flavors, store badges, and store release channels.
 
-</p>
-<p>
+### Rebranding
+- App name: **Keyboard**; application ID: `com.personal.keyboard`.
+- Minimal adaptive icon (letter "K").
+- The Kotlin source packages remain `dev.patrickgold.florisboard.*` for technical reasons
+  (renaming would touch ~284 files for no benefit). The `org.florisboard.*` extension asset
+  namespace is likewise unchanged.
 
-**Obtainium**: [Auto-import preview config][obtainium_preview]
+## Privacy
 
-</p>
-<p>
+- The app **does not request the `INTERNET` permission** and makes no network connections.
+  All suggestion, spell-check, glide-typing, and emoji processing happens locally on-device.
+- Emoji rendering uses AndroidX EmojiCompat with the **system emoji font as the first
+  choice**; on devices lacking an emoji font, Google Play Services may be used as a local
+  fallback to obtain one (a device-local font lookup, not data transfer).
+- Nothing is uploaded anywhere. There is no telemetry, no crash reporting service, and no
+  update checker.
 
-**Manual**: Download and install the APK from the release page.
+## Building
 
-</p>
-</td>
-</tr>
-</table>
+Builds run on **GitHub Actions**; nothing needs to be installed locally.
 
-Beginning with v0.7 FlorisBoard will enter the public beta on Google Play.
+1. Push this repository to GitHub.
+2. The `Build APK` workflow (`.github/workflows/android.yml`) runs on every push to `main`
+   and on `workflow_dispatch`, producing a signed release APK artifact
+   (`keyboard-release-apk`).
+3. Pushing a tag `v*` additionally creates a GitHub release with the APK attached.
 
-## Highlighted features
-- Integrated clipboard manager / history
-- Advanced theming support and customization
-- Integrated extension support (still evolving)
-- Emoji keyboard / history / suggestions
+### Signing
 
-> [!IMPORTANT]
-> Word suggestions/spell checking are not included in the current releases
-> and are a major goal for the v0.6 milestone.
+By default, the workflow generates a 4096-bit RSA keystore on its first run, caches it
+between runs, and signs releases with it. To use your own keystore instead, set these
+repository secrets — they take precedence:
 
-Feature roadmap: See [ROADMAP.md](ROADMAP.md)
+| Secret | Description |
+|---|---|
+| `SIGNING_KEYSTORE_BASE64` | Base64-encoded `.keystore`/`.jks` file |
+| `SIGNING_KEYSTORE_PASSWORD` | Keystore password |
+| `SIGNING_KEY_ALIAS` | Key alias |
+| `SIGNING_KEY_PASSWORD` | Key password |
 
-## Contributing
-Want to contribute to FlorisBoard? That's great to hear! There are lots of
-different ways to help out, please see the [contribution guidelines](CONTRIBUTING.md) for more info.
+> If the auto-generated keystore cache is ever lost, a *new* key is generated and installed
+> APKs will need to be uninstalled and reinstalled (Android treats it as a different
+> signature). Using the secrets above avoids this.
 
-## Addons Store
-The official [Addons Store](https://beta.addons.florisboard.org) offers the possibility for the community to share and download FlorisBoard extensions.
-Instructions on how to publish addons can be found [here](https://docs.florisboard.org/publishing).
+## Installing
 
-Many thanks to Ali ([@4H1R](https://github.com/4H1R)) for implementing the store!
+1. Download the APK artifact (or release) from GitHub.
+2. Enable *Keyboard* under **System settings → Languages & input → On-screen keyboard**.
+3. Switch to it via the input-method picker.
 
-> [!NOTE]
-> During the initial beta release phase, the Addons Store _will_ only accept theme extensions.
-> Later on we plan to add support for language packs and keyboard extensions.
+## Known limitations
 
-## List of permissions FlorisBoard requests
-Please refer to this [page](https://docs.florisboard.org/permissions)
-to get more information on this topic.
-
-## APK signing certificate hashes
-
-The package names and SHA-256 hashes of the signature certificate are listed below, so you can verify both FlorisBoard variants with apksigner by using `apksigner verify --print-certs florisboard-<version>-<track>.apk` when you download the APK.
-If you have [AppVerifier](https://github.com/soupslurpr/AppVerifier) installed, you can alternatively copy both the package name and the hash of the corresponding track and share them to AppVerifier.
-
-##### Stable track:
-
-dev.patrickgold.florisboard<br>
-0B:80:71:64:50:8E:AF:EB:1F:BB:81:5B:E7:A2:3C:77:FE:68:9D:94:B1:43:75:C9:9B:DA:A9:B6:57:7F:D6:D6
-
-##### Preview track:
-
-dev.patrickgold.florisboard.beta<br>
-0B:80:71:64:50:8E:AF:EB:1F:BB:81:5B:E7:A2:3C:77:FE:68:9D:94:B1:43:75:C9:9B:DA:A9:B6:57:7F:D6:D6
-
-
-## Used libraries, components and icons
-* [AndroidX libraries](https://github.com/androidx/androidx) by
-  [Android Jetpack](https://github.com/androidx)
-* [AboutLibraries](https://github.com/mikepenz/AboutLibraries) by
-  [mikepenz](https://github.com/mikepenz)
-* [Google Material icons](https://github.com/google/material-design-icons) by
-  [Google](https://github.com/google)
-* [JetPref preference library](https://github.com/patrickgold/jetpref) by
-  [patrickgold](https://github.com/patrickgold)
-* [KotlinX coroutines library](https://github.com/Kotlin/kotlinx.coroutines) by
-  [Kotlin](https://github.com/Kotlin)
-* [KotlinX serialization library](https://github.com/Kotlin/kotlinx.serialization) by
-  [Kotlin](https://github.com/Kotlin)
-
-Many thanks to [Nikolay Anzarov](https://www.behance.net/nikolayanzarov) ([@BloodRaven0](https://github.com/BloodRaven0)) for designing and providing the main app icons to this project!
+- Suggestions are English-only (driven by the bundled English frequency dictionary plus
+  whatever you add to the user dictionary); other languages fall back to the user
+  dictionary alone.
+- The language pack extension type and the Chinese shape-based input provider are dead code
+  in upstream and remain disabled here.
+- Emoji search works for the six languages shipped with upstream emoji keyword assets.
 
 ## License
-```
-Copyright 2020-2026 The FlorisBoard Contributors
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
-
-Thanks to [The FlorisBoard Contributors](https://github.com/florisboard/florisboard/graphs/contributors) for making this project possible!
-
-<!-- BEGIN SECTION: obtainium_links -->
-<!-- auto-generated link templates, do NOT edit by hand -->
-<!-- see fastlane/update-readme.sh -->
-[obtainium_preview]: https://apps.obtainium.imranr.dev/redirect.html?r=obtainium://app/%7B%22id%22%3A%22dev.patrickgold.florisboard.beta%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2Fflorisboard%2Fflorisboard%22%2C%22author%22%3A%22florisboard%22%2C%22name%22%3A%22FlorisBoard%20Preview%22%2C%22additionalSettings%22%3A%22%7B%5C%22includePrereleases%5C%22%3Atrue%2C%5C%22fallbackToOlderReleases%5C%22%3Atrue%2C%5C%22apkFilterRegEx%5C%22%3A%5C%22preview%5C%22%7D%22%7D%0A
-[obtainium_stable]: https://apps.obtainium.imranr.dev/redirect.html?r=obtainium://app/%7B%22id%22%3A%22dev.patrickgold.florisboard%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2Fflorisboard%2Fflorisboard%22%2C%22author%22%3A%22florisboard%22%2C%22name%22%3A%22FlorisBoard%20Stable%22%2C%22additionalSettings%22%3A%22%7B%5C%22includePrereleases%5C%22%3Afalse%2C%5C%22fallbackToOlderReleases%5C%22%3Atrue%2C%5C%22apkFilterRegEx%5C%22%3A%5C%22stable%5C%22%7D%22%7D%0A
-<!-- END SECTION: obtainium_links -->
+Apache License 2.0 — inherited from FlorisBoard. See [LICENSE](LICENSE).

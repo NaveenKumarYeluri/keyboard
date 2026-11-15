@@ -197,7 +197,7 @@ class ImeController(
                     val unicodeChar = event.getUnicodeChar(event.metaState)
                     if (unicodeChar != 0) {
                         updateStateBlocking {
-                            emitText(unicodeChar.toChar().toString().asK3String())
+                            emitText(String(Character.toChars(unicodeChar)).asK3String())
                         }
                         true
                     } else {
@@ -596,6 +596,8 @@ class ImeController(
                         inputContext = newInputContext,
                     ),
                 )
+                expectedContentQueue.push(state.content)
+                reevaluateInputShiftState()
                 state.editor.replaceText(range, newSurroundingText.textBefore, newSelection, newComposition)
                 true
             } else {
