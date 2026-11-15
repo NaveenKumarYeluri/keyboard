@@ -26,7 +26,7 @@ object BackupDefaults {
     const val CLIPBOARD_VIDEO_JSON_NAME = "clipboard_video.json"
     const val FILES_DIR = "files"
 
-    const val PACKAGE_NAME_PREFIX = "dev.patrickgold.florisboard"
+    const val PACKAGE_NAME_PREFIX = "com.personal.keyboard"
 
     const val RESTORE_MIN_VERSION_CODE = 64
     const val ARCHIVE_FILE_NAME = "backup.zip"

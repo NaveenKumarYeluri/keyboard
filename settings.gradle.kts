@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-rootProject.name = "FlorisBoard"
+rootProject.name = "PersonalKeyboard"
 
 pluginManagement {
     repositories {
@@ -44,9 +44,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 enableFeaturePreview("NO_IMPLICIT_LOOKUP_IN_PARENT_PROJECTS")
 
 include(":app")
-//include(":benchmark")
 include(":lib:android")
 include(":lib:compose")
 include(":lib:kotlin")
-include(":lib:native")
 include(":lib:snygg")

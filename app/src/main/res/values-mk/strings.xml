@@ -1,27 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!-- One-handed strings -->
-    <string name="one_handed__move_start_btn_content_description" comment="Content description for the one-handed move to left button">Помести ја тастатурата налево.</string>
-    <string name="one_handed__move_end_btn_content_description" comment="Content description for the one-handed move to right button">Помести ја тастатурата надесно.</string>
+    <string name="one_handed__move_start_btn_content_description" comment="Content description for the one-handed move to left button">ÐŸÐ¾Ð¼ÐµÑÑ‚Ð¸ Ñ˜Ð° Ñ‚Ð°ÑÑ‚Ð°Ñ‚ÑƒÑ€Ð°Ñ‚Ð° Ð½Ð°Ð»ÐµÐ²Ð¾.</string>
+    <string name="one_handed__move_end_btn_content_description" comment="Content description for the one-handed move to right button">ÐŸÐ¾Ð¼ÐµÑÑ‚Ð¸ Ñ˜Ð° Ñ‚Ð°ÑÑ‚Ð°Ñ‚ÑƒÑ€Ð°Ñ‚Ð° Ð½Ð°Ð´ÐµÑÐ½Ð¾.</string>
     <!-- Media strings -->
     <!-- Emoji strings -->
-    <string name="emoji__category__people_body" comment="Emoji category name">Луѓе &amp; Тело</string>
-    <string name="emoji__category__animals_nature" comment="Emoji category name">Животни &amp; Природа</string>
-    <string name="emoji__category__food_drink" comment="Emoji category name">Храна &amp; Пијалоци</string>
-    <string name="emoji__category__travel_places" comment="Emoji category name">Патувања &amp; Места</string>
-    <string name="emoji__category__activities" comment="Emoji category name">Активности</string>
-    <string name="emoji__category__objects" comment="Emoji category name">Објекти</string>
-    <string name="emoji__category__symbols" comment="Emoji category name">Симболи</string>
-    <string name="emoji__category__flags" comment="Emoji category name">Знамиња</string>
+    <string name="emoji__category__people_body" comment="Emoji category name">Ð›ÑƒÑ“Ðµ &amp; Ð¢ÐµÐ»Ð¾</string>
+    <string name="emoji__category__animals_nature" comment="Emoji category name">Ð–Ð¸Ð²Ð¾Ñ‚Ð½Ð¸ &amp; ÐŸÑ€Ð¸Ñ€Ð¾Ð´Ð°</string>
+    <string name="emoji__category__food_drink" comment="Emoji category name">Ð¥Ñ€Ð°Ð½Ð° &amp; ÐŸÐ¸Ñ˜Ð°Ð»Ð¾Ñ†Ð¸</string>
+    <string name="emoji__category__travel_places" comment="Emoji category name">ÐŸÐ°Ñ‚ÑƒÐ²Ð°ÑšÐ° &amp; ÐœÐµÑÑ‚Ð°</string>
+    <string name="emoji__category__activities" comment="Emoji category name">ÐÐºÑ‚Ð¸Ð²Ð½Ð¾ÑÑ‚Ð¸</string>
+    <string name="emoji__category__objects" comment="Emoji category name">ÐžÐ±Ñ˜ÐµÐºÑ‚Ð¸</string>
+    <string name="emoji__category__symbols" comment="Emoji category name">Ð¡Ð¸Ð¼Ð±Ð¾Ð»Ð¸</string>
+    <string name="emoji__category__flags" comment="Emoji category name">Ð—Ð½Ð°Ð¼Ð¸ÑšÐ°</string>
     <!-- Quick action strings -->
     <!-- Incognito mode strings -->
     <!-- Settings UI strings -->
-    <string name="settings__title" comment="Title of Settings">Подесувања</string>
-    <string name="settings__default" comment="General string which is used when a preference has the default value set">Стандардно</string>
-    <string name="settings__system_default" comment="General string which is used when a preference has the system default value set">Системски</string>
-    <string name="settings__home__title" comment="Title of the Home screen">Добредојдовте во {app_name}</string>
-    <string name="settings__theme__title" comment="Title of the Theme screen">Тема</string>
-    <string name="settings__keyboard__title" comment="Title of Keyboard preferences screen">Тастатура</string>
+    <string name="settings__title" comment="Title of Settings">ÐŸÐ¾Ð´ÐµÑÑƒÐ²Ð°ÑšÐ°</string>
+    <string name="settings__default" comment="General string which is used when a preference has the default value set">Ð¡Ñ‚Ð°Ð½Ð´Ð°Ñ€Ð´Ð½Ð¾</string>
+    <string name="settings__system_default" comment="General string which is used when a preference has the system default value set">Ð¡Ð¸ÑÑ‚ÐµÐ¼ÑÐºÐ¸</string>
+    <string name="settings__home__title" comment="Title of the Home screen">Ð”Ð¾Ð±Ñ€ÐµÐ´Ð¾Ñ˜Ð´Ð¾Ð²Ñ‚Ðµ Ð²Ð¾ {app_name}</string>
+    <string name="settings__theme__title" comment="Title of the Theme screen">Ð¢ÐµÐ¼Ð°</string>
+    <string name="settings__keyboard__title" comment="Title of Keyboard preferences screen">Ð¢Ð°ÑÑ‚Ð°Ñ‚ÑƒÑ€Ð°</string>
     <!-- Smartbar strings -->
     <!-- Typing strings -->
     <!-- About UI strings -->
@@ -30,7 +30,7 @@
     <!-- Back up & Restore -->
     <!-- Crash Dialog strings -->
     <!-- Clipboard strings -->
-    <string name="clip__delete_item">Избриши</string>
+    <string name="clip__delete_item">Ð˜Ð·Ð±Ñ€Ð¸ÑˆÐ¸</string>
     <!-- Devtools strings -->
     <!-- Extension strings -->
     <!-- Action strings -->

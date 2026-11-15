@@ -1,755 +1,754 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="app_name">FlorisBoard</string>
-    <string name="key__phone_pause" comment="Label for the Pause key in the telephone keyboard layout">ڕاگرتن</string>
-    <string name="key__phone_wait" comment="Label for the Wait key in the telephone keyboard layout">چاوەڕوانبە</string>
-    <string name="key_popup__threedots_alt" comment="Content description for the three-dots icon in a key popup">ئایکۆنی سێ نوقتە، ئەگەر چالاک بێت پیت و هێما لاوەکیەکانی خانەی دووەم پیشان ئەدرێن لەکاتی دەست ڕاگرتن</string>
+    <string name="key__phone_pause" comment="Label for the Pause key in the telephone keyboard layout">Ú•Ø§Ú¯Ø±ØªÙ†</string>
+    <string name="key__phone_wait" comment="Label for the Wait key in the telephone keyboard layout">Ú†Ø§ÙˆÛ•Ú•ÙˆØ§Ù†Ø¨Û•</string>
+    <string name="key_popup__threedots_alt" comment="Content description for the three-dots icon in a key popup">Ø¦Ø§ÛŒÚ©Û†Ù†ÛŒ Ø³ÛŽ Ù†ÙˆÙ‚ØªÛ•ØŒ Ø¦Û•Ú¯Û•Ø± Ú†Ø§Ù„Ø§Ú© Ø¨ÛŽØª Ù¾ÛŒØª Ùˆ Ù‡ÛŽÙ…Ø§ Ù„Ø§ÙˆÛ•Ú©ÛŒÛ•Ú©Ø§Ù†ÛŒ Ø®Ø§Ù†Û•ÛŒ Ø¯ÙˆÙˆÛ•Ù… Ù¾ÛŒØ´Ø§Ù† Ø¦Û•Ø¯Ø±ÛŽÙ† Ù„Û•Ú©Ø§ØªÛŒ Ø¯Û•Ø³Øª Ú•Ø§Ú¯Ø±ØªÙ†</string>
     <!-- One-handed strings -->
-    <string name="one_handed__close_btn_content_description" comment="Content description for the one-handed close button">داخستنی دۆخی بەکارهێنانی یەک دەست</string>
-    <string name="one_handed__move_start_btn_content_description" comment="Content description for the one-handed move to left button">بردنی تەختەکلیل بۆ لای چەپ</string>
-    <string name="one_handed__move_end_btn_content_description" comment="Content description for the one-handed move to right button">بردنی تەختەکلیل بۆ لای ڕاست</string>
+    <string name="one_handed__close_btn_content_description" comment="Content description for the one-handed close button">Ø¯Ø§Ø®Ø³ØªÙ†ÛŒ Ø¯Û†Ø®ÛŒ Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Ø§Ù†ÛŒ ÛŒÛ•Ú© Ø¯Û•Ø³Øª</string>
+    <string name="one_handed__move_start_btn_content_description" comment="Content description for the one-handed move to left button">Ø¨Ø±Ø¯Ù†ÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„ Ø¨Û† Ù„Ø§ÛŒ Ú†Û•Ù¾</string>
+    <string name="one_handed__move_end_btn_content_description" comment="Content description for the one-handed move to right button">Ø¨Ø±Ø¯Ù†ÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„ Ø¨Û† Ù„Ø§ÛŒ Ú•Ø§Ø³Øª</string>
     <!-- Media strings -->
-    <string name="settings__media__title">خەندەکان</string>
-    <string name="media__tab__emojis" comment="Tab description for emojis in the media UI">خەندەکان</string>
-    <string name="media__tab__emoticons" comment="Tab description for emoticons in the media UI">هێمای دەربڕینی هەستەکان</string>
-    <string name="media__tab__kaomoji" comment="Tab description for kaomoji in the media UI">کامۆجی</string>
-    <string name="prefs__media__emoji_preferred_skin_tone">ڕەنگی بنەڕەتی خەندەکان</string>
-    <string name="prefs__media__emoji_preferred_hair_style">ڕەنگی بنەڕەتی قژی خەندەکان</string>
-    <string name="prefs__media__emoji_history__title" comment="Preference group title">مێژووی ئیمۆجی</string>
-    <string name="prefs__media__emoji_history_enabled" comment="Preference title">مێژووی ئیمۆجی کارا بکە</string>
-    <string name="prefs__media__emoji_history_enabled__summary" comment="Preference summary">دوایین ئیمۆجییە بەکارھێندراوەکان بھێڵەوە بۆ ئاسانکاری</string>
-    <string name="prefs__media__emoji_history_pinned_update_strategy" comment="Preference title">ماوەی نوێبونەوە (جێگیرکراو)</string>
-    <string name="prefs__media__emoji_history_recent_update_strategy" comment="Preference title">ماوەی نوێبونەوە (دوایین)</string>
-    <string name="prefs__media__emoji_history_max_size">زۆرترین ڕێژەی هەڵگرتن</string>
-    <string name="prefs__media__emoji_history_pinned_reset">ڕێکخستنەوەی لیستی خەندە جێگیرکراوەکان</string>
-    <string name="prefs__media__emoji_history_reset">ڕێکخستنەوەی لیستی خەندەکان</string>
-    <string name="prefs__media__emoji_suggestion__title" comment="Preference group title">پێشنیارکردنی خەندەکان</string>
-    <string name="prefs__media__emoji_suggestion_enabled" comment="Preference title">چالاککردنی پێشنیاری خەندەکان</string>
-    <string name="prefs__media__emoji_suggestion_enabled__summary" comment="Preference summary">پێشنیارکردنی خەندە و کاردانەوەکان لەکاتی نووسیندا</string>
-    <string name="prefs__media__emoji_suggestion_type" comment="Preference title">شێوازی پێشنیاری خەندەکان</string>
-    <string name="prefs__media__emoji_suggestion_candidate_show_name" comment="Preference title">پیشاندانی ناوی خەندەکان</string>
+    <string name="settings__media__title">Ø®Û•Ù†Ø¯Û•Ú©Ø§Ù†</string>
+    <string name="media__tab__emojis" comment="Tab description for emojis in the media UI">Ø®Û•Ù†Ø¯Û•Ú©Ø§Ù†</string>
+    <string name="media__tab__emoticons" comment="Tab description for emoticons in the media UI">Ù‡ÛŽÙ…Ø§ÛŒ Ø¯Û•Ø±Ø¨Ú•ÛŒÙ†ÛŒ Ù‡Û•Ø³ØªÛ•Ú©Ø§Ù†</string>
+    <string name="media__tab__kaomoji" comment="Tab description for kaomoji in the media UI">Ú©Ø§Ù…Û†Ø¬ÛŒ</string>
+    <string name="prefs__media__emoji_preferred_skin_tone">Ú•Û•Ù†Ú¯ÛŒ Ø¨Ù†Û•Ú•Û•ØªÛŒ Ø®Û•Ù†Ø¯Û•Ú©Ø§Ù†</string>
+    <string name="prefs__media__emoji_preferred_hair_style">Ú•Û•Ù†Ú¯ÛŒ Ø¨Ù†Û•Ú•Û•ØªÛŒ Ù‚Ú˜ÛŒ Ø®Û•Ù†Ø¯Û•Ú©Ø§Ù†</string>
+    <string name="prefs__media__emoji_history__title" comment="Preference group title">Ù…ÛŽÚ˜ÙˆÙˆÛŒ Ø¦ÛŒÙ…Û†Ø¬ÛŒ</string>
+    <string name="prefs__media__emoji_history_enabled" comment="Preference title">Ù…ÛŽÚ˜ÙˆÙˆÛŒ Ø¦ÛŒÙ…Û†Ø¬ÛŒ Ú©Ø§Ø±Ø§ Ø¨Ú©Û•</string>
+    <string name="prefs__media__emoji_history_enabled__summary" comment="Preference summary">Ø¯ÙˆØ§ÛŒÛŒÙ† Ø¦ÛŒÙ…Û†Ø¬ÛŒÛŒÛ• Ø¨Û•Ú©Ø§Ø±Ú¾ÛŽÙ†Ø¯Ø±Ø§ÙˆÛ•Ú©Ø§Ù† Ø¨Ú¾ÛŽÚµÛ•ÙˆÛ• Ø¨Û† Ø¦Ø§Ø³Ø§Ù†Ú©Ø§Ø±ÛŒ</string>
+    <string name="prefs__media__emoji_history_pinned_update_strategy" comment="Preference title">Ù…Ø§ÙˆÛ•ÛŒ Ù†ÙˆÛŽØ¨ÙˆÙ†Û•ÙˆÛ• (Ø¬ÛŽÚ¯ÛŒØ±Ú©Ø±Ø§Ùˆ)</string>
+    <string name="prefs__media__emoji_history_recent_update_strategy" comment="Preference title">Ù…Ø§ÙˆÛ•ÛŒ Ù†ÙˆÛŽØ¨ÙˆÙ†Û•ÙˆÛ• (Ø¯ÙˆØ§ÛŒÛŒÙ†)</string>
+    <string name="prefs__media__emoji_history_max_size">Ø²Û†Ø±ØªØ±ÛŒÙ† Ú•ÛŽÚ˜Û•ÛŒ Ù‡Û•ÚµÚ¯Ø±ØªÙ†</string>
+    <string name="prefs__media__emoji_history_pinned_reset">Ú•ÛŽÚ©Ø®Ø³ØªÙ†Û•ÙˆÛ•ÛŒ Ù„ÛŒØ³ØªÛŒ Ø®Û•Ù†Ø¯Û• Ø¬ÛŽÚ¯ÛŒØ±Ú©Ø±Ø§ÙˆÛ•Ú©Ø§Ù†</string>
+    <string name="prefs__media__emoji_history_reset">Ú•ÛŽÚ©Ø®Ø³ØªÙ†Û•ÙˆÛ•ÛŒ Ù„ÛŒØ³ØªÛŒ Ø®Û•Ù†Ø¯Û•Ú©Ø§Ù†</string>
+    <string name="prefs__media__emoji_suggestion__title" comment="Preference group title">Ù¾ÛŽØ´Ù†ÛŒØ§Ø±Ú©Ø±Ø¯Ù†ÛŒ Ø®Û•Ù†Ø¯Û•Ú©Ø§Ù†</string>
+    <string name="prefs__media__emoji_suggestion_enabled" comment="Preference title">Ú†Ø§Ù„Ø§Ú©Ú©Ø±Ø¯Ù†ÛŒ Ù¾ÛŽØ´Ù†ÛŒØ§Ø±ÛŒ Ø®Û•Ù†Ø¯Û•Ú©Ø§Ù†</string>
+    <string name="prefs__media__emoji_suggestion_enabled__summary" comment="Preference summary">Ù¾ÛŽØ´Ù†ÛŒØ§Ø±Ú©Ø±Ø¯Ù†ÛŒ Ø®Û•Ù†Ø¯Û• Ùˆ Ú©Ø§Ø±Ø¯Ø§Ù†Û•ÙˆÛ•Ú©Ø§Ù† Ù„Û•Ú©Ø§ØªÛŒ Ù†ÙˆÙˆØ³ÛŒÙ†Ø¯Ø§</string>
+    <string name="prefs__media__emoji_suggestion_type" comment="Preference title">Ø´ÛŽÙˆØ§Ø²ÛŒ Ù¾ÛŽØ´Ù†ÛŒØ§Ø±ÛŒ Ø®Û•Ù†Ø¯Û•Ú©Ø§Ù†</string>
+    <string name="prefs__media__emoji_suggestion_candidate_show_name" comment="Preference title">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ù†Ø§ÙˆÛŒ Ø®Û•Ù†Ø¯Û•Ú©Ø§Ù†</string>
     <!-- Emoji strings -->
-    <string name="emoji__category__smileys_emotion" comment="Emoji category name">خەندەکان </string>
-    <string name="emoji__category__people_body" comment="Emoji category name">خەڵک</string>
-    <string name="emoji__category__animals_nature" comment="Emoji category name">ئاژەڵ</string>
-    <string name="emoji__category__food_drink" comment="Emoji category name">خواردن</string>
-    <string name="emoji__category__travel_places" comment="Emoji category name">گواستنەوە</string>
-    <string name="emoji__category__activities" comment="Emoji category name">چالاکی</string>
-    <string name="emoji__category__objects" comment="Emoji category name">ئامانجەکان</string>
-    <string name="emoji__category__symbols" comment="Emoji category name">هێماکان</string>
-    <string name="emoji__category__flags" comment="Emoji category name">ئاڵاکان</string>
-    <string name="emoji__history__pinned">جێگیرکراو</string>
-    <string name="emoji__history__recent">دوایین</string>
+    <string name="emoji__category__smileys_emotion" comment="Emoji category name">Ø®Û•Ù†Ø¯Û•Ú©Ø§Ù† </string>
+    <string name="emoji__category__people_body" comment="Emoji category name">Ø®Û•ÚµÚ©</string>
+    <string name="emoji__category__animals_nature" comment="Emoji category name">Ø¦Ø§Ú˜Û•Úµ</string>
+    <string name="emoji__category__food_drink" comment="Emoji category name">Ø®ÙˆØ§Ø±Ø¯Ù†</string>
+    <string name="emoji__category__travel_places" comment="Emoji category name">Ú¯ÙˆØ§Ø³ØªÙ†Û•ÙˆÛ•</string>
+    <string name="emoji__category__activities" comment="Emoji category name">Ú†Ø§Ù„Ø§Ú©ÛŒ</string>
+    <string name="emoji__category__objects" comment="Emoji category name">Ø¦Ø§Ù…Ø§Ù†Ø¬Û•Ú©Ø§Ù†</string>
+    <string name="emoji__category__symbols" comment="Emoji category name">Ù‡ÛŽÙ…Ø§Ú©Ø§Ù†</string>
+    <string name="emoji__category__flags" comment="Emoji category name">Ø¦Ø§ÚµØ§Ú©Ø§Ù†</string>
+    <string name="emoji__history__pinned">Ø¬ÛŽÚ¯ÛŒØ±Ú©Ø±Ø§Ùˆ</string>
+    <string name="emoji__history__recent">Ø¯ÙˆØ§ÛŒÛŒÙ†</string>
     <!-- Quick action strings -->
-    <string name="quick_action__arrow_up" comment="Please mind the limited available space for the quick action strings">چونە سەرەوە</string>
-    <string name="quick_action__arrow_up__tooltip">چوونە سەرەتای دێڕ</string>
-    <string name="quick_action__arrow_down" comment="Please mind the limited available space for the quick action strings">چونە خوارەوە</string>
-    <string name="quick_action__arrow_down__tooltip">چوونە کۆتایی دێڕ</string>
-    <string name="quick_action__arrow_left" comment="Please mind the limited available space for the quick action strings">چونە لای چەپ</string>
-    <string name="quick_action__arrow_left__tooltip">چوونە لای چەپی نووسین</string>
-    <string name="quick_action__arrow_right" comment="Please mind the limited available space for the quick action strings">چونەلای ڕاست</string>
-    <string name="quick_action__arrow_right__tooltip">چوونە لای ڕاستی نووسین</string>
-    <string name="quick_action__clipboard_clear_primary_clip" comment="Please mind the limited available space for the quick action strings">لابردنی گشتی</string>
-    <string name="quick_action__clipboard_clear_primary_clip__tooltip">سڕینەوەی سەرجەم لەبەرگیراوەکان</string>
-    <string name="quick_action__clipboard_copy" comment="Please mind the limited available space for the quick action strings">لەبەرگرتنەوە</string>
-    <string name="quick_action__clipboard_copy__tooltip">لەبەرگرتنەوەی شتەکان</string>
-    <string name="quick_action__clipboard_cut" comment="Please mind the limited available space for the quick action strings">بڕین</string>
-    <string name="quick_action__clipboard_cut__tooltip">برینی شتەکان</string>
-    <string name="quick_action__clipboard_paste" comment="Please mind the limited available space for the quick action strings">دانان</string>
-    <string name="quick_action__clipboard_paste__tooltip">دانانی لەبەرگیراوە</string>
-    <string name="quick_action__clipboard_select_all" comment="Please mind the limited available space for the quick action strings">دیاریکردن</string>
-    <string name="quick_action__clipboard_select_all__tooltip">دیاریکردنی تەواوی نووسین</string>
-    <string name="quick_action__ime_ui_mode_clipboard" comment="Please mind the limited available space for the quick action strings">کۆپیکراوەکان</string>
-    <string name="quick_action__ime_ui_mode_clipboard__tooltip">پیشاندانی لەبەرگیراوەکان</string>
-    <string name="quick_action__ime_ui_mode_media" comment="Please mind the limited available space for the quick action strings">ئیمۆجی</string>
-    <string name="quick_action__ime_ui_mode_media__tooltip">کردنەوەی لیستی ئیمۆجیەکان</string>
-    <string name="quick_action__language_switch" comment="Please mind the limited available space for the quick action strings">گۆڕینی زمان</string>
-    <string name="quick_action__language_switch__tooltip">گۆڕینی زمانی تەختەکلیل</string>
-    <string name="quick_action__settings" comment="Please mind the limited available space for the quick action strings">ڕێکخستنەکان</string>
-    <string name="quick_action__settings__tooltip">کردنەوەی ڕێکخستنەکان</string>
-    <string name="quick_action__undo" comment="Please mind the limited available space for the quick action strings">دواتر</string>
-    <string name="quick_action__undo__tooltip">گێڕانەوەی دوایین هەنگاو</string>
-    <string name="quick_action__redo" comment="Please mind the limited available space for the quick action strings">پێشتر</string>
-    <string name="quick_action__redo__tooltip">هێنانەوەی هەنگاوی پێشتر</string>
-    <string name="quick_action__toggle_actions_overflow" comment="Please mind the limited available space for the quick action strings">فرمانی زیاتر</string>
-    <string name="quick_action__toggle_actions_overflow__tooltip">پیشاندانی ئامرازی زیاتر</string>
-    <string name="quick_action__toggle_incognito_mode" comment="Please mind the limited available space for the quick action strings">دۆخی نادیار</string>
-    <string name="quick_action__toggle_incognito_mode__tooltip">چالاککردنی دۆخی نادیار</string>
-    <string name="quick_action__toggle_autocorrect" comment="Please mind the limited available space for the quick action strings">ڕاستکردنەوە</string>
-    <string name="quick_action__toggle_autocorrect__tooltip">چالاککردنی ڕاستکردنەوەی نووسین</string>
-    <string name="quick_action__voice_input" comment="Please mind the limited available space for the quick action strings">گەڕانی دەنگی</string>
-    <string name="quick_action__voice_input__tooltip" comment="IME stands for Input Method Editor and is indirectly equivalent to 'keyboard'.">کردنەوەی تایبەتمەندی گەڕانی دەنگی</string>
-    <string name="quick_action__one_handed_mode" comment="Please mind the limited available space for the quick action strings">دۆخی یەکدەست</string>
-    <string name="quick_action__one_handed_mode__tooltip">چالاککردنی بەکارهێنان بەیەکدەست</string>
-    <string name="quick_action__drag_marker" comment="This action is only used as a placeholder in the actions editor drag and drop screen and only visible in debug mode">شوێنی ئامراز</string>
-    <string name="quick_action__drag_marker__tooltip" comment="This action is only used as a placeholder in the actions editor drag and drop screen and only visible in debug mode">شوێنی ئامرازەکانی ئێستا</string>
-    <string name="quick_action__noop" comment="Noop=no operation; this action is only used as a placeholder in the actions editor drag and drop screen">هیچ نییە</string>
-    <string name="quick_action__noop__tooltip" comment="Noop=no operation; this action is only used as a placeholder in the actions editor drag and drop screen">هیچ فرمانێک</string>
-    <string name="quick_actions_overflow__customize_actions_button">گۆڕینی شوێن</string>
-    <string name="quick_actions_editor__header">دەستکاریکردنی شوێنی دوگمەکان</string>
-    <string name="quick_actions_editor__subheader_sticky_action">دوگمەی جێگیر ({n})</string>
-    <string name="quick_actions_editor__subheader_dynamic_actions">دوگمە سەرەکییەکان ({n})</string>
-    <string name="quick_actions_editor__subheader_hidden_actions">دوگمە شاراوەکان ({n})</string>
+    <string name="quick_action__arrow_up" comment="Please mind the limited available space for the quick action strings">Ú†ÙˆÙ†Û• Ø³Û•Ø±Û•ÙˆÛ•</string>
+    <string name="quick_action__arrow_up__tooltip">Ú†ÙˆÙˆÙ†Û• Ø³Û•Ø±Û•ØªØ§ÛŒ Ø¯ÛŽÚ•</string>
+    <string name="quick_action__arrow_down" comment="Please mind the limited available space for the quick action strings">Ú†ÙˆÙ†Û• Ø®ÙˆØ§Ø±Û•ÙˆÛ•</string>
+    <string name="quick_action__arrow_down__tooltip">Ú†ÙˆÙˆÙ†Û• Ú©Û†ØªØ§ÛŒÛŒ Ø¯ÛŽÚ•</string>
+    <string name="quick_action__arrow_left" comment="Please mind the limited available space for the quick action strings">Ú†ÙˆÙ†Û• Ù„Ø§ÛŒ Ú†Û•Ù¾</string>
+    <string name="quick_action__arrow_left__tooltip">Ú†ÙˆÙˆÙ†Û• Ù„Ø§ÛŒ Ú†Û•Ù¾ÛŒ Ù†ÙˆÙˆØ³ÛŒÙ†</string>
+    <string name="quick_action__arrow_right" comment="Please mind the limited available space for the quick action strings">Ú†ÙˆÙ†Û•Ù„Ø§ÛŒ Ú•Ø§Ø³Øª</string>
+    <string name="quick_action__arrow_right__tooltip">Ú†ÙˆÙˆÙ†Û• Ù„Ø§ÛŒ Ú•Ø§Ø³ØªÛŒ Ù†ÙˆÙˆØ³ÛŒÙ†</string>
+    <string name="quick_action__clipboard_clear_primary_clip" comment="Please mind the limited available space for the quick action strings">Ù„Ø§Ø¨Ø±Ø¯Ù†ÛŒ Ú¯Ø´ØªÛŒ</string>
+    <string name="quick_action__clipboard_clear_primary_clip__tooltip">Ø³Ú•ÛŒÙ†Û•ÙˆÛ•ÛŒ Ø³Û•Ø±Ø¬Û•Ù… Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù†</string>
+    <string name="quick_action__clipboard_copy" comment="Please mind the limited available space for the quick action strings">Ù„Û•Ø¨Û•Ø±Ú¯Ø±ØªÙ†Û•ÙˆÛ•</string>
+    <string name="quick_action__clipboard_copy__tooltip">Ù„Û•Ø¨Û•Ø±Ú¯Ø±ØªÙ†Û•ÙˆÛ•ÛŒ Ø´ØªÛ•Ú©Ø§Ù†</string>
+    <string name="quick_action__clipboard_cut" comment="Please mind the limited available space for the quick action strings">Ø¨Ú•ÛŒÙ†</string>
+    <string name="quick_action__clipboard_cut__tooltip">Ø¨Ø±ÛŒÙ†ÛŒ Ø´ØªÛ•Ú©Ø§Ù†</string>
+    <string name="quick_action__clipboard_paste" comment="Please mind the limited available space for the quick action strings">Ø¯Ø§Ù†Ø§Ù†</string>
+    <string name="quick_action__clipboard_paste__tooltip">Ø¯Ø§Ù†Ø§Ù†ÛŒ Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•</string>
+    <string name="quick_action__clipboard_select_all" comment="Please mind the limited available space for the quick action strings">Ø¯ÛŒØ§Ø±ÛŒÚ©Ø±Ø¯Ù†</string>
+    <string name="quick_action__clipboard_select_all__tooltip">Ø¯ÛŒØ§Ø±ÛŒÚ©Ø±Ø¯Ù†ÛŒ ØªÛ•ÙˆØ§ÙˆÛŒ Ù†ÙˆÙˆØ³ÛŒÙ†</string>
+    <string name="quick_action__ime_ui_mode_clipboard" comment="Please mind the limited available space for the quick action strings">Ú©Û†Ù¾ÛŒÚ©Ø±Ø§ÙˆÛ•Ú©Ø§Ù†</string>
+    <string name="quick_action__ime_ui_mode_clipboard__tooltip">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù†</string>
+    <string name="quick_action__ime_ui_mode_media" comment="Please mind the limited available space for the quick action strings">Ø¦ÛŒÙ…Û†Ø¬ÛŒ</string>
+    <string name="quick_action__ime_ui_mode_media__tooltip">Ú©Ø±Ø¯Ù†Û•ÙˆÛ•ÛŒ Ù„ÛŒØ³ØªÛŒ Ø¦ÛŒÙ…Û†Ø¬ÛŒÛ•Ú©Ø§Ù†</string>
+    <string name="quick_action__language_switch" comment="Please mind the limited available space for the quick action strings">Ú¯Û†Ú•ÛŒÙ†ÛŒ Ø²Ù…Ø§Ù†</string>
+    <string name="quick_action__language_switch__tooltip">Ú¯Û†Ú•ÛŒÙ†ÛŒ Ø²Ù…Ø§Ù†ÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="quick_action__settings" comment="Please mind the limited available space for the quick action strings">Ú•ÛŽÚ©Ø®Ø³ØªÙ†Û•Ú©Ø§Ù†</string>
+    <string name="quick_action__settings__tooltip">Ú©Ø±Ø¯Ù†Û•ÙˆÛ•ÛŒ Ú•ÛŽÚ©Ø®Ø³ØªÙ†Û•Ú©Ø§Ù†</string>
+    <string name="quick_action__undo" comment="Please mind the limited available space for the quick action strings">Ø¯ÙˆØ§ØªØ±</string>
+    <string name="quick_action__undo__tooltip">Ú¯ÛŽÚ•Ø§Ù†Û•ÙˆÛ•ÛŒ Ø¯ÙˆØ§ÛŒÛŒÙ† Ù‡Û•Ù†Ú¯Ø§Ùˆ</string>
+    <string name="quick_action__redo" comment="Please mind the limited available space for the quick action strings">Ù¾ÛŽØ´ØªØ±</string>
+    <string name="quick_action__redo__tooltip">Ù‡ÛŽÙ†Ø§Ù†Û•ÙˆÛ•ÛŒ Ù‡Û•Ù†Ú¯Ø§ÙˆÛŒ Ù¾ÛŽØ´ØªØ±</string>
+    <string name="quick_action__toggle_actions_overflow" comment="Please mind the limited available space for the quick action strings">ÙØ±Ù…Ø§Ù†ÛŒ Ø²ÛŒØ§ØªØ±</string>
+    <string name="quick_action__toggle_actions_overflow__tooltip">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ø¦Ø§Ù…Ø±Ø§Ø²ÛŒ Ø²ÛŒØ§ØªØ±</string>
+    <string name="quick_action__toggle_incognito_mode" comment="Please mind the limited available space for the quick action strings">Ø¯Û†Ø®ÛŒ Ù†Ø§Ø¯ÛŒØ§Ø±</string>
+    <string name="quick_action__toggle_incognito_mode__tooltip">Ú†Ø§Ù„Ø§Ú©Ú©Ø±Ø¯Ù†ÛŒ Ø¯Û†Ø®ÛŒ Ù†Ø§Ø¯ÛŒØ§Ø±</string>
+    <string name="quick_action__toggle_autocorrect" comment="Please mind the limited available space for the quick action strings">Ú•Ø§Ø³ØªÚ©Ø±Ø¯Ù†Û•ÙˆÛ•</string>
+    <string name="quick_action__toggle_autocorrect__tooltip">Ú†Ø§Ù„Ø§Ú©Ú©Ø±Ø¯Ù†ÛŒ Ú•Ø§Ø³ØªÚ©Ø±Ø¯Ù†Û•ÙˆÛ•ÛŒ Ù†ÙˆÙˆØ³ÛŒÙ†</string>
+    <string name="quick_action__voice_input" comment="Please mind the limited available space for the quick action strings">Ú¯Û•Ú•Ø§Ù†ÛŒ Ø¯Û•Ù†Ú¯ÛŒ</string>
+    <string name="quick_action__voice_input__tooltip" comment="IME stands for Input Method Editor and is indirectly equivalent to 'keyboard'.">Ú©Ø±Ø¯Ù†Û•ÙˆÛ•ÛŒ ØªØ§ÛŒØ¨Û•ØªÙ…Û•Ù†Ø¯ÛŒ Ú¯Û•Ú•Ø§Ù†ÛŒ Ø¯Û•Ù†Ú¯ÛŒ</string>
+    <string name="quick_action__one_handed_mode" comment="Please mind the limited available space for the quick action strings">Ø¯Û†Ø®ÛŒ ÛŒÛ•Ú©Ø¯Û•Ø³Øª</string>
+    <string name="quick_action__one_handed_mode__tooltip">Ú†Ø§Ù„Ø§Ú©Ú©Ø±Ø¯Ù†ÛŒ Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Ø§Ù† Ø¨Û•ÛŒÛ•Ú©Ø¯Û•Ø³Øª</string>
+    <string name="quick_action__drag_marker" comment="This action is only used as a placeholder in the actions editor drag and drop screen and only visible in debug mode">Ø´ÙˆÛŽÙ†ÛŒ Ø¦Ø§Ù…Ø±Ø§Ø²</string>
+    <string name="quick_action__drag_marker__tooltip" comment="This action is only used as a placeholder in the actions editor drag and drop screen and only visible in debug mode">Ø´ÙˆÛŽÙ†ÛŒ Ø¦Ø§Ù…Ø±Ø§Ø²Û•Ú©Ø§Ù†ÛŒ Ø¦ÛŽØ³ØªØ§</string>
+    <string name="quick_action__noop" comment="Noop=no operation; this action is only used as a placeholder in the actions editor drag and drop screen">Ù‡ÛŒÚ† Ù†ÛŒÛŒÛ•</string>
+    <string name="quick_action__noop__tooltip" comment="Noop=no operation; this action is only used as a placeholder in the actions editor drag and drop screen">Ù‡ÛŒÚ† ÙØ±Ù…Ø§Ù†ÛŽÚ©</string>
+    <string name="quick_actions_overflow__customize_actions_button">Ú¯Û†Ú•ÛŒÙ†ÛŒ Ø´ÙˆÛŽÙ†</string>
+    <string name="quick_actions_editor__header">Ø¯Û•Ø³ØªÚ©Ø§Ø±ÛŒÚ©Ø±Ø¯Ù†ÛŒ Ø´ÙˆÛŽÙ†ÛŒ Ø¯ÙˆÚ¯Ù…Û•Ú©Ø§Ù†</string>
+    <string name="quick_actions_editor__subheader_sticky_action">Ø¯ÙˆÚ¯Ù…Û•ÛŒ Ø¬ÛŽÚ¯ÛŒØ± ({n})</string>
+    <string name="quick_actions_editor__subheader_dynamic_actions">Ø¯ÙˆÚ¯Ù…Û• Ø³Û•Ø±Û•Ú©ÛŒÛŒÛ•Ú©Ø§Ù† ({n})</string>
+    <string name="quick_actions_editor__subheader_hidden_actions">Ø¯ÙˆÚ¯Ù…Û• Ø´Ø§Ø±Ø§ÙˆÛ•Ú©Ø§Ù† ({n})</string>
     <!-- Incognito mode strings -->
-    <string name="incognito_mode__toast_after_enabled">دۆخی نادیار چالاککرا\n\n{app_name} چیتر ووشەی نوێ پاشەکەوت ناکات لە فەرهەنگدا</string>
-    <string name="incognito_mode__toast_after_disabled">دۆخی نادیار نا چالاککرا</string>
+    <string name="incognito_mode__toast_after_enabled">Ø¯Û†Ø®ÛŒ Ù†Ø§Ø¯ÛŒØ§Ø± Ú†Ø§Ù„Ø§Ú©Ú©Ø±Ø§\n\n{app_name} Ú†ÛŒØªØ± ÙˆÙˆØ´Û•ÛŒ Ù†ÙˆÛŽ Ù¾Ø§Ø´Û•Ú©Û•ÙˆØª Ù†Ø§Ú©Ø§Øª Ù„Û• ÙÛ•Ø±Ù‡Û•Ù†Ú¯Ø¯Ø§</string>
+    <string name="incognito_mode__toast_after_disabled">Ø¯Û†Ø®ÛŒ Ù†Ø§Ø¯ÛŒØ§Ø± Ù†Ø§ Ú†Ø§Ù„Ø§Ú©Ú©Ø±Ø§</string>
     <!-- Settings UI strings -->
-    <string name="settings__title" comment="Title of Settings">ڕێکخستنەکان</string>
-    <string name="settings__preview_keyboard" comment="Hint for try your setup box">پیشاندانی تەختەکلیل</string>
-    <string name="settings__help" comment="General label for help buttons in Settings">یارمەتی</string>
-    <string name="settings__default" comment="General string which is used when a preference has the default value set">بنەڕەتی</string>
-    <string name="settings__system_default" comment="General string which is used when a preference has the system default value set">بەپێی سیستەم</string>
-    <string name="settings__home__title" comment="Title of the Home screen">بەخێربێی بۆ {app_name}</string>
-    <string name="settings__home__ime_not_enabled" comment="Error message shown in Home fragment when FlorisBoard is not enabled in the system">تەختەکلیلی FlorisBoard هێشتا چالاک نەکراوە لە ڕێکخستنەکانی سیستەمدا، پێویستە چالاکی بکەیت بۆ بەکارهێنان پەنجەبنێ بێرەدا.</string>
-    <string name="settings__home__ime_not_selected" comment="Warning message shown in Home fragment when FlorisBoard is not selected as the default keyboard">تەختەکلیلی FlorisBoard چالاککراوە لە ڕێکخستنەکانی سیستەمدا بەڵام هەڵنەبژێردراوە بۆ بەکارهێنان وەک تەختەکلیلی سەرەکی، پێویستە دیاریبکەیت بۆ بەکارهێنان پەنجەبنێ بێرەدا بۆ هەڵبژاردن.</string>
-    <string name="settings__localization__title" comment="Title of languages and Layout screen">زمان و شێوازەکان</string>
-    <string name="settings__localization__display_language_names_in__label" comment="Label of Display language names in preference">پیشاندانی ناوی زمان بەشێوەی</string>
-    <string name="settings__localization__group_subtypes__label" comment="Label of subtypes group">شێوازەکان</string>
-    <string name="settings__localization__subtype_add_title" comment="Title of subtype dialog when adding a new subtype">زیادکردنی زمان</string>
-    <string name="settings__localization__language_pack_title" comment="Title of the language pack manager screen for managing installed and custom language packs">ڕێکخستن فەرهەنگ و زمان</string>
-    <string name="settings__localization__language_pack_summary" comment="Summary of preference item for adding a new language pack">تاقیکاری: بەڕێوەبردنی درێژکراوەکان کە پشتگیری بۆ زمانە تایبەتەکان زیاد دەکەن (بۆ ئێستا هاتنە ژوورەوەی چینی لەسەر بنەمای شێوە)</string>
-    <string name="settings__localization__subtype_edit_title" comment="Title of subtype dialog when editing an existing subtype">دەستکاریکردن تەختەکلیل</string>
-    <string name="settings__localization__subtype_locale" comment="Label for locale dropdown in subtype dialog">زمانی سەرەکی</string>
-    <string name="settings__localization__subtype_popup_mapping" comment="Label for popup mapping dropdown in subtype screen">پیتەکانی خانەی دووەم</string>
-    <string name="settings__localization__subtype_characters_layout" comment="Label for layout dropdown in subtype dialog">شێوازی نووسین</string>
-    <string name="settings__localization__subtype_suggestion_provider" comment="Label for suggestion provider dropdown in subtype dialog">سەرچاوەی فەرهەنگ</string>
-    <string name="settings__localization__subtype_symbols_layout" comment="Label for layout dropdown in subtype dialog">شێوازی بنەڕەتی هێماکان</string>
-    <string name="settings__localization__subtype_symbols2_layout" comment="Label for layout dropdown in subtype dialog">شێوازی دووەمی هێماکان</string>
-    <string name="settings__localization__subtype_composer" comment="Label for composer dropdown in subtype dialog.">کۆدیک</string>
-    <string name="settings__localization__subtype_currency_set" comment="Label for currency set dropdown in subtype dialog. 'set' is used as a noun here and can be compared to a group of elements (in this case currency symbols).">دراوی بنەڕەتی</string>
-    <string name="settings__localization__subtype_numeric_layout" comment="Label for layout dropdown in subtype dialog">لیستی ژمارەکان</string>
-    <string name="settings__localization__subtype_numeric_advanced_layout" comment="Label for layout dropdown in subtype dialog">لیستی ژمارەکان (خانەی دووەم)</string>
-    <string name="settings__localization__subtype_numeric_row_layout" comment="Label for layout dropdown in subtype dialog">لیستی ژمارەکانی بەشی سەرەوە</string>
-    <string name="settings__localization__subtype_phone_layout" comment="Label for layout dropdown in subtype dialog">شێوازی بنەڕەتی ژمارەکان (تەلەفۆن)</string>
-    <string name="settings__localization__subtype_phone2_layout" comment="Label for layout dropdown in subtype dialog">شێوازی دووەمی ژمارەکان (تەلەفۆن)</string>
-    <string name="settings__localization__subtype_select_locale" comment="Subtype select language title">زمان دیاریبکە</string>
-    <string name="settings__localization__subtype_search_locale_placeholder" comment="Subtype search language placeholder">گەڕان بۆ زمان</string>
-    <string name="settings__localization__subtype_search_locale_not_found" comment="Subtype search language not found">هیچ زمانێک نەدۆزرایەوە بەناوی \"{search_term}\".</string>
-    <string name="settings__localization__subtype_select_placeholder" comment="Subtype dialog select value placeholder (&amp;#8210; is a hyphen character)">&#8210; دیارینەکراوە &#8210;</string>
+    <string name="settings__title" comment="Title of Settings">Ú•ÛŽÚ©Ø®Ø³ØªÙ†Û•Ú©Ø§Ù†</string>
+    <string name="settings__preview_keyboard" comment="Hint for try your setup box">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="settings__help" comment="General label for help buttons in Settings">ÛŒØ§Ø±Ù…Û•ØªÛŒ</string>
+    <string name="settings__default" comment="General string which is used when a preference has the default value set">Ø¨Ù†Û•Ú•Û•ØªÛŒ</string>
+    <string name="settings__system_default" comment="General string which is used when a preference has the system default value set">Ø¨Û•Ù¾ÛŽÛŒ Ø³ÛŒØ³ØªÛ•Ù…</string>
+    <string name="settings__home__title" comment="Title of the Home screen">Ø¨Û•Ø®ÛŽØ±Ø¨ÛŽÛŒ Ø¨Û† {app_name}</string>
+    <string name="settings__home__ime_not_enabled" comment="Error message shown in Home fragment when Keyboard is not enabled in the system">ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„ÛŒ Keyboard Ù‡ÛŽØ´ØªØ§ Ú†Ø§Ù„Ø§Ú© Ù†Û•Ú©Ø±Ø§ÙˆÛ• Ù„Û• Ú•ÛŽÚ©Ø®Ø³ØªÙ†Û•Ú©Ø§Ù†ÛŒ Ø³ÛŒØ³ØªÛ•Ù…Ø¯Ø§ØŒ Ù¾ÛŽÙˆÛŒØ³ØªÛ• Ú†Ø§Ù„Ø§Ú©ÛŒ Ø¨Ú©Û•ÛŒØª Ø¨Û† Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Ø§Ù† Ù¾Û•Ù†Ø¬Û•Ø¨Ù†ÛŽ Ø¨ÛŽØ±Û•Ø¯Ø§.</string>
+    <string name="settings__home__ime_not_selected" comment="Warning message shown in Home fragment when Keyboard is not selected as the default keyboard">ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„ÛŒ Keyboard Ú†Ø§Ù„Ø§Ú©Ú©Ø±Ø§ÙˆÛ• Ù„Û• Ú•ÛŽÚ©Ø®Ø³ØªÙ†Û•Ú©Ø§Ù†ÛŒ Ø³ÛŒØ³ØªÛ•Ù…Ø¯Ø§ Ø¨Û•ÚµØ§Ù… Ù‡Û•ÚµÙ†Û•Ø¨Ú˜ÛŽØ±Ø¯Ø±Ø§ÙˆÛ• Ø¨Û† Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Ø§Ù† ÙˆÛ•Ú© ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„ÛŒ Ø³Û•Ø±Û•Ú©ÛŒØŒ Ù¾ÛŽÙˆÛŒØ³ØªÛ• Ø¯ÛŒØ§Ø±ÛŒØ¨Ú©Û•ÛŒØª Ø¨Û† Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Ø§Ù† Ù¾Û•Ù†Ø¬Û•Ø¨Ù†ÛŽ Ø¨ÛŽØ±Û•Ø¯Ø§ Ø¨Û† Ù‡Û•ÚµØ¨Ú˜Ø§Ø±Ø¯Ù†.</string>
+    <string name="settings__localization__title" comment="Title of languages and Layout screen">Ø²Ù…Ø§Ù† Ùˆ Ø´ÛŽÙˆØ§Ø²Û•Ú©Ø§Ù†</string>
+    <string name="settings__localization__display_language_names_in__label" comment="Label of Display language names in preference">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ù†Ø§ÙˆÛŒ Ø²Ù…Ø§Ù† Ø¨Û•Ø´ÛŽÙˆÛ•ÛŒ</string>
+    <string name="settings__localization__group_subtypes__label" comment="Label of subtypes group">Ø´ÛŽÙˆØ§Ø²Û•Ú©Ø§Ù†</string>
+    <string name="settings__localization__subtype_add_title" comment="Title of subtype dialog when adding a new subtype">Ø²ÛŒØ§Ø¯Ú©Ø±Ø¯Ù†ÛŒ Ø²Ù…Ø§Ù†</string>
+    <string name="settings__localization__language_pack_title" comment="Title of the language pack manager screen for managing installed and custom language packs">Ú•ÛŽÚ©Ø®Ø³ØªÙ† ÙÛ•Ø±Ù‡Û•Ù†Ú¯ Ùˆ Ø²Ù…Ø§Ù†</string>
+    <string name="settings__localization__language_pack_summary" comment="Summary of preference item for adding a new language pack">ØªØ§Ù‚ÛŒÚ©Ø§Ø±ÛŒ: Ø¨Û•Ú•ÛŽÙˆÛ•Ø¨Ø±Ø¯Ù†ÛŒ Ø¯Ø±ÛŽÚ˜Ú©Ø±Ø§ÙˆÛ•Ú©Ø§Ù† Ú©Û• Ù¾Ø´ØªÚ¯ÛŒØ±ÛŒ Ø¨Û† Ø²Ù…Ø§Ù†Û• ØªØ§ÛŒØ¨Û•ØªÛ•Ú©Ø§Ù† Ø²ÛŒØ§Ø¯ Ø¯Û•Ú©Û•Ù† (Ø¨Û† Ø¦ÛŽØ³ØªØ§ Ù‡Ø§ØªÙ†Û• Ú˜ÙˆÙˆØ±Û•ÙˆÛ•ÛŒ Ú†ÛŒÙ†ÛŒ Ù„Û•Ø³Û•Ø± Ø¨Ù†Û•Ù…Ø§ÛŒ Ø´ÛŽÙˆÛ•)</string>
+    <string name="settings__localization__subtype_edit_title" comment="Title of subtype dialog when editing an existing subtype">Ø¯Û•Ø³ØªÚ©Ø§Ø±ÛŒÚ©Ø±Ø¯Ù† ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="settings__localization__subtype_locale" comment="Label for locale dropdown in subtype dialog">Ø²Ù…Ø§Ù†ÛŒ Ø³Û•Ø±Û•Ú©ÛŒ</string>
+    <string name="settings__localization__subtype_popup_mapping" comment="Label for popup mapping dropdown in subtype screen">Ù¾ÛŒØªÛ•Ú©Ø§Ù†ÛŒ Ø®Ø§Ù†Û•ÛŒ Ø¯ÙˆÙˆÛ•Ù…</string>
+    <string name="settings__localization__subtype_characters_layout" comment="Label for layout dropdown in subtype dialog">Ø´ÛŽÙˆØ§Ø²ÛŒ Ù†ÙˆÙˆØ³ÛŒÙ†</string>
+    <string name="settings__localization__subtype_suggestion_provider" comment="Label for suggestion provider dropdown in subtype dialog">Ø³Û•Ø±Ú†Ø§ÙˆÛ•ÛŒ ÙÛ•Ø±Ù‡Û•Ù†Ú¯</string>
+    <string name="settings__localization__subtype_symbols_layout" comment="Label for layout dropdown in subtype dialog">Ø´ÛŽÙˆØ§Ø²ÛŒ Ø¨Ù†Û•Ú•Û•ØªÛŒ Ù‡ÛŽÙ…Ø§Ú©Ø§Ù†</string>
+    <string name="settings__localization__subtype_symbols2_layout" comment="Label for layout dropdown in subtype dialog">Ø´ÛŽÙˆØ§Ø²ÛŒ Ø¯ÙˆÙˆÛ•Ù…ÛŒ Ù‡ÛŽÙ…Ø§Ú©Ø§Ù†</string>
+    <string name="settings__localization__subtype_composer" comment="Label for composer dropdown in subtype dialog.">Ú©Û†Ø¯ÛŒÚ©</string>
+    <string name="settings__localization__subtype_currency_set" comment="Label for currency set dropdown in subtype dialog. 'set' is used as a noun here and can be compared to a group of elements (in this case currency symbols).">Ø¯Ø±Ø§ÙˆÛŒ Ø¨Ù†Û•Ú•Û•ØªÛŒ</string>
+    <string name="settings__localization__subtype_numeric_layout" comment="Label for layout dropdown in subtype dialog">Ù„ÛŒØ³ØªÛŒ Ú˜Ù…Ø§Ø±Û•Ú©Ø§Ù†</string>
+    <string name="settings__localization__subtype_numeric_advanced_layout" comment="Label for layout dropdown in subtype dialog">Ù„ÛŒØ³ØªÛŒ Ú˜Ù…Ø§Ø±Û•Ú©Ø§Ù† (Ø®Ø§Ù†Û•ÛŒ Ø¯ÙˆÙˆÛ•Ù…)</string>
+    <string name="settings__localization__subtype_numeric_row_layout" comment="Label for layout dropdown in subtype dialog">Ù„ÛŒØ³ØªÛŒ Ú˜Ù…Ø§Ø±Û•Ú©Ø§Ù†ÛŒ Ø¨Û•Ø´ÛŒ Ø³Û•Ø±Û•ÙˆÛ•</string>
+    <string name="settings__localization__subtype_phone_layout" comment="Label for layout dropdown in subtype dialog">Ø´ÛŽÙˆØ§Ø²ÛŒ Ø¨Ù†Û•Ú•Û•ØªÛŒ Ú˜Ù…Ø§Ø±Û•Ú©Ø§Ù† (ØªÛ•Ù„Û•ÙÛ†Ù†)</string>
+    <string name="settings__localization__subtype_phone2_layout" comment="Label for layout dropdown in subtype dialog">Ø´ÛŽÙˆØ§Ø²ÛŒ Ø¯ÙˆÙˆÛ•Ù…ÛŒ Ú˜Ù…Ø§Ø±Û•Ú©Ø§Ù† (ØªÛ•Ù„Û•ÙÛ†Ù†)</string>
+    <string name="settings__localization__subtype_select_locale" comment="Subtype select language title">Ø²Ù…Ø§Ù† Ø¯ÛŒØ§Ø±ÛŒØ¨Ú©Û•</string>
+    <string name="settings__localization__subtype_search_locale_placeholder" comment="Subtype search language placeholder">Ú¯Û•Ú•Ø§Ù† Ø¨Û† Ø²Ù…Ø§Ù†</string>
+    <string name="settings__localization__subtype_search_locale_not_found" comment="Subtype search language not found">Ù‡ÛŒÚ† Ø²Ù…Ø§Ù†ÛŽÚ© Ù†Û•Ø¯Û†Ø²Ø±Ø§ÛŒÛ•ÙˆÛ• Ø¨Û•Ù†Ø§ÙˆÛŒ \"{search_term}\".</string>
+    <string name="settings__localization__subtype_select_placeholder" comment="Subtype dialog select value placeholder (&amp;#8210; is a hyphen character)">&#8210; Ø¯ÛŒØ§Ø±ÛŒÙ†Û•Ú©Ø±Ø§ÙˆÛ• &#8210;</string>
     <string name="settings__localization__subtype_summary" comment="Subtype summary">{characters_name} \ {symbols_name} \ {currency_set_name}</string>
-    <string name="settings__localization__suggested_subtype_presets" comment="Suggested presets title">زمان و شێوازی پێشنیارکراو</string>
-    <string name="settings__localization__suggested_subtype_presets_none_found" comment="Suggested presets none found">هیچ زمان و شێوازێک نییە بۆ پێشنیارکردن، پەنجەبنێ بە دوگمەی زیادکردنی زمان دواتر زمانێک لە لیستەکەدا هەڵبژێرە بۆ زیادکردن.</string>
-    <string name="settings__localization__subtype_presets" comment="Subtype presets dialog title">زمانەکان</string>
-    <string name="settings__localization__subtype_presets_view_all" comment="View all presets button">زیادکردنی زمان</string>
-    <string name="settings__localization__subtype_no_subtypes_configured_warning" comment="Warning message that no subtype has been defined">هیچ زمان و شێوازێک زیاد نەکراوە بۆ نووسین، لەبەر ئەوە زمانی ئینگلیزی و شێوازی قوەرتی بەشێوەی بنەڕەتی بەکاردێت بۆ تەختەکلیلەکە!</string>
-    <string name="settings__localization__subtype_error_already_exists" comment="Error message shown in subtype dialog when a subtype to add already exists">ئەم زمانە پێشتر زیادکراوە لە لیستەکەدا هەیە!</string>
-    <string name="settings__localization__subtype_error_fields_no_value" comment="Error message shown in subtype editor if at least one field is set to '- select -' (means no value specified)">یەکێ لە خانەکان دیاری نەکراوە بۆ هەڵبژاردن، تکایە سەرجەمیان دیاریبکە.</string>
-    <string name="settings__localization__subtype_error_layout_not_installed" comment="Error message shown in subtype list when a layout is not installed, where %s will be replaced by the layout ID">{layout_id} (دانەبەزێنراوە)</string>
-    <string name="settings__localization__group_layouts__label" comment="Label of layouts group">شێوازەکان</string>
-    <string name="settings__theme__title" comment="Title of the Theme screen">ڕووکار</string>
-    <string name="pref__theme__mode__label" comment="Label of the theme mode preference">دۆخی ڕووکار</string>
-    <string name="pref__theme__sunrise_time__label" comment="Label of the sunrise time preference">کاتی خۆرهەڵاتن</string>
-    <string name="pref__theme__sunset_time__label" comment="Label of the sunset time preference">کاتی خۆر ئاوابوون</string>
-    <string name="pref__theme__day" comment="Label of the day group (day means light theme)">ڕووناک</string>
-    <string name="pref__theme__night" comment="Label of the night group (night means dark theme)">تاریک</string>
-    <string name="settings__theme_manager__title_manage" comment="Title of the theme manager screen for managing installed and custom themes">ڕێکخستنی رووکارەکان</string>
-    <string name="pref__theme__source_assets" comment="Label for the theme source field">ڕەنگی بنەڕەتی بەرنامەکە</string>
-    <string name="pref__theme__source_internal" comment="Label for the theme source field">بیرگەی ناخۆیی</string>
-    <string name="pref__theme__source_external" comment="Label for the theme source field">بیرگەی دەرەکی</string>
-    <string name="settings__theme_manager__title_day" comment="Title of the theme manager screen for day theme selection">ڕووکارەکانی دۆخی ڕووناک</string>
-    <string name="settings__theme_manager__title_night" comment="Title of the theme manager screen for night theme selection">ڕووکارەکانی دۆخی تاریک</string>
-    <string name="settings__theme_editor__fine_tune__title">گۆڕینی ڕەنگ</string>
-    <string name="settings__theme_editor__fine_tune__level">ئاستی دەستکاریکردن</string>
-    <string name="settings__theme_editor__fine_tune__display_kbd_after_dialogs">پیشاندانی تەختەکلیل دوای دەستکاریکردن</string>
-    <string name="settings__theme_editor__add_rule">زیادکردن</string>
-    <string name="settings__theme_editor__edit_rule">دەستکاریکردن</string>
-    <string name="settings__theme_editor__no_rules_defined">ئەم پەڕەیە هیچ یاسایەکی پێناسە نەکراوە، زیادکردنی یاسایەک بۆ دەستکردن بە سازکردنی ئەم پەڕەیە.</string>
-    <string name="settings__theme_editor__rule_already_exists">ئەم یاسای پەڕەی ستایڵ پێشتر پێناسە کراوە.</string>
-    <string name="settings__theme_editor__rule_codes">سەرچاوەی کۆدی مەبەست</string>
-    <string name="settings__theme_editor__rule_groups">گرووپ</string>
-    <string name="settings__theme_editor__rule_selectors">هەڵبژاردن</string>
-    <string name="settings__theme_editor__add_code">زیادکردنی کۆدی دوگمە</string>
-    <string name="settings__theme_editor__edit_code">دەستکاریکردنی کۆد</string>
-    <string name="settings__theme_editor__no_codes_defined">جێبەجێکردن بۆ سەرجەم بەشەکان</string>
-    <string name="settings__theme_editor__code_already_exists">ئەم دوگمەیە پێشتر زیادکراوە</string>
-    <string name="settings__theme_editor__code_invalid">ئەم کۆدە کلیلە دروست نیە، دڵنیابە لەوەی کە کۆدی کلیلەکە لەناو مەودای {c_min} بۆ {c_max} بۆ پیتەکان یان {i_min} بۆ {i_max} بۆ کلیلە تایبەتەکان.</string>
-    <string name="settings__theme_editor__code_help_text">ئەم لینکانەی خوارەوە یارمەتیت ئەدەن بۆ دۆزینەوەی کۆدی کلیلی هاوتا:</string>
-    <string name="settings__theme_editor__code_placeholder">کۆد</string>
-    <string name="settings__theme_editor__code_recording_help_text">بۆ دۆزینەوەی کۆدی کلیلێک، دوگمەکە بەکاربهێنە جگە لە خانەی نوسینی کۆدەکە، کاتێک چالاک کرا، کلیلەکانی دواتر تۆمار دەکات و کۆدەکە دادەنێت بۆ خانەکە.</string>
-    <string name="settings__theme_editor__code_recording_started">دۆزینەوەی کۆد دەستیپێکرد</string>
-    <string name="settings__theme_editor__code_recording_stopped">دۆزینەوەی کۆد وەستێنرا</string>
-    <string name="settings__theme_editor__code_recording_requires_default_ime_floris">{app_name} پێویستە کرابێتە تەختەکلیلی بنەڕەتی بۆ ئەوەی بتوانی کۆدەکە بدۆیتەوە</string>
-    <string name="settings__theme_editor__code_recording_placeholder">دۆزینەوە…</string>
-    <string name="settings__theme_editor__add_property">زیادکردنی بەش</string>
-    <string name="settings__theme_editor__edit_property">دەستکاریکردنی بەش</string>
-    <string name="settings__theme_editor__property_already_exists">تایبەتمەندیەک بەم ناوە پێشتر لەناو ئەم یاسایەدا هەیە.</string>
-    <string name="settings__theme_editor__property_name">ناوی بەش</string>
-    <string name="settings__theme_editor__property_value">بەهای بەش</string>
-    <string name="settings__theme_editor__property_value_shape_apply_for_all_corners">هەمان قەبارە بۆ هەموو گۆشەکان</string>
-    <string name="settings__theme_editor__property_value_color_dialog_title">دەستکاریکردنی ڕەنگی نووسین</string>
-    <string name="settings__theme_editor__component_meta_is_night_theme">ڕووکاری تاریکە</string>
-    <string name="settings__theme_editor__component_meta_is_borderless">بێ لێوار</string>
-    <string name="settings__theme_editor__component_meta_stylesheet_path">شوێنی هەڵگرتن</string>
-    <string name="snygg__rule_annotation__font">فۆنت</string>
-    <string name="snygg__rule_annotation__font_name">ناوی فۆنت</string>
-    <string name="snygg__rule_element__root">بنەڕەتی</string>
-    <string name="snygg__rule_element__window">پەنجەرە</string>
-    <string name="snygg__rule_element__key">دوگمە</string>
-    <string name="snygg__rule_element__key_hint">پیتە لاوەکییەکان</string>
-    <string name="snygg__rule_element__clipboard_header">سەرەوەی لەبەرگیراوەکان</string>
-    <string name="snygg__rule_element__clipboard_item">لەبەرگیراوەکان</string>
-    <string name="snygg__rule_element__clipboard_item_popup">فرمانەکانی لەبەرگیراوەکان</string>
-    <string name="snygg__rule_element__extracted_landscape_input_layout">دۆخی ئاسۆیی</string>
-    <string name="snygg__rule_element__extracted_landscape_input_field">دۆخی ئاسۆیی</string>
-    <string name="snygg__rule_element__extracted_landscape_input_action">فرمانی دۆخی ئاسۆیی</string>
-    <string name="snygg__rule_element__glide_trail">هێڵی نووسین بەسەریەکەوە</string>
-    <string name="snygg__rule_element__incognito_mode_indicator">دۆخی نادیار</string>
-    <string name="snygg__rule_element__one_handed_panel">دۆخی یەکدەست</string>
-    <string name="snygg__rule_element__smartbar">بەشی سەرەوە</string>
-    <string name="snygg__rule_element__smartbar_shared_actions_row">ڕیزی فرمانەکانی توڵباری زیرەکی هاوبەشکراو</string>
-    <string name="snygg__rule_element__smartbar_shared_actions_toggle">دوگمەی توڵباری زیرەکی هاوبەش پێکراو</string>
-    <string name="snygg__rule_element__smartbar_extended_actions_row">ڕیزی فرمانەکانی تری توڵباری زیرەک</string>
-    <string name="snygg__rule_element__smartbar_extended_actions_toggle">دوگمەی فرمانەکانی تری توڵباری زیرەک</string>
-    <string name="snygg__rule_element__smartbar_action_key">کلیلی فرمانەکانی توڵباری زیرەک</string>
-    <string name="snygg__rule_element__smartbar_action_tile">تەختەی فرمانی توڵباری زیرەک</string>
-    <string name="snygg__rule_element__smartbar_candidate_word">ڕەنگی نووسینەکانی بەشی ئامراز</string>
-    <string name="snygg__rule_element__smartbar_candidate_clip">ڕەنگی ئایکۆنەکانی ئامراز</string>
-    <string name="snygg__rule_element__smartbar_candidate_spacer">ماوەی نێوان ئامرازەکان</string>
-    <string name="snygg__rule_selector__pressed">دەسلێدان</string>
-    <string name="snygg__rule_selector__focus">دەست ڕاگرتن</string>
-    <string name="snygg__rule_selector__disabled">نا چالاک</string>
-    <string name="snygg__property_name__background">پشت شاشە</string>
-    <string name="snygg__property_name__foreground">شاشەی لاوەکی</string>
-    <string name="snygg__property_name__border_color">ڕەنگی لێوار</string>
-    <string name="snygg__property_name__border_style">شێوەی لێوار</string>
-    <string name="snygg__property_name__border_width">پانی لێوار</string>
-    <string name="snygg__property_name__font_family">شێوازی فۆنت</string>
-    <string name="snygg__property_name__font_size">قەبارەی فۆنت</string>
-    <string name="snygg__property_name__font_style">شێوەی فۆنت</string>
-    <string name="snygg__property_name__font_weight">شێوەی فۆنت</string>
-    <string name="snygg__property_name__shadow_elevation">شکانەوەی سێبەر</string>
-    <string name="snygg__property_name__shape">شێوە</string>
-    <string name="snygg__property_name__var_primary">ڕەنگی بنەڕەتی</string>
-    <string name="snygg__property_name__var_primary_variant">ڕەنگی سەرەکی (هەمەجۆر)</string>
-    <string name="snygg__property_name__var_secondary">ڕەنگی دووەم</string>
-    <string name="snygg__property_name__var_secondary_variant">ڕەنگی دووەم (هەمەجۆر)</string>
-    <string name="snygg__property_name__var_background">ڕەنگی پشت شاشە</string>
-    <string name="snygg__property_name__var_surface">ڕەنگی دوگمەکان</string>
-    <string name="snygg__property_name__var_surface_variant">ڕەنگی دوگمەکان (هەمەجۆر)</string>
-    <string name="snygg__property_name__var_on_primary">ڕەنگی سەرەکی لاوەکی</string>
-    <string name="snygg__property_name__var_on_secondary">ڕەنگی دووەمی لاوەکی</string>
-    <string name="snygg__property_name__var_on_background">ڕەنگی لاوەکی پشت شاشە</string>
-    <string name="snygg__property_name__var_on_surface">ڕەنگی لاوەکی دوگمەکان</string>
-    <string name="snygg__property_name__var_on_surface_variant">ڕەنگی لاوەکی دوگمەکان (هەمەجۆر)</string>
-    <string name="snygg__property_name__var_shape">شێوەی دوگمەکان</string>
-    <string name="snygg__property_name__var_shape_variant">شێوەی دوگمەکان (هەمەجۆر)</string>
-    <string name="snygg__property_value__explicit_inherit">بنەڕەتی</string>
-    <string name="snygg__property_value__defined_var">سەرچاوە</string>
-    <string name="snygg__property_value__no">نەخێر</string>
-    <string name="snygg__property_value__solid_color">ڕەنگ</string>
-    <string name="snygg__property_value__rectangle_shape">چوارگۆشەیی</string>
-    <string name="snygg__property_value__circle_shape">بازنەیی</string>
-    <string name="snygg__property_value__cut_corner_shape_dp">گۆشە چوارگۆشەیی (dp)</string>
-    <string name="snygg__property_value__cut_corner_shape_percent">گۆشە چوارگۆشەیی (٪)</string>
-    <string name="snygg__property_value__rounded_corner_shape_dp">گۆشە بازنەیی (dp)</string>
-    <string name="snygg__property_value__rounded_corner_shape_percent">گۆشە بازنەیی (٪)</string>
-    <string name="snygg__property_value__dp_size">قەبارە (dp)</string>
-    <string name="snygg__property_value__sp_size">قەبارە (sp)</string>
-    <string name="snygg__property_value__percentage_size">قەبارە (٪)</string>
-    <string name="settings__input_feedback__title" comment="Title of Input Feedback screen">ڕێکخستنی دەنگ و لەرزین</string>
-    <string name="pref__input_feedback__group_audio__label" comment="Preference group title">کاریگەری دەنگ / دەستلێدان</string>
-    <string name="pref__input_feedback__audio_enabled__label" comment="Preference title">چالاککردنی کاریگەری دەنگی</string>
-    <string name="pref__input_feedback__audio_enabled__summary_disabled" comment="Preference summary">نا چالاککردنی دەنگ لەکاتی نووسین</string>
-    <string name="pref__input_feedback__audio_volume__label" comment="Preference title">دەنگی کاتی نووسینی هێماکان</string>
-    <string name="pref__input_feedback__audio_feat_key_press__label" comment="Preference title">دەنگی لەکاتی نووسین</string>
-    <string name="pref__input_feedback__audio_feat_key_long_press__label" comment="Preference title">دەنگ لەکاتی دەست ڕاگرتن</string>
-    <string name="pref__input_feedback__audio_feat_key_repeated_action__label" comment="Preference title">دەنگ لەکاتی فرمانە دووبارەکان</string>
-    <string name="pref__input_feedback__audio_feat_gesture_swipe__label" comment="Preference title">دەنگ لەکاتی ئاماژەکان</string>
-    <string name="pref__input_feedback__audio_feat_gesture_moving_swipe__label" comment="Preference title">دەنگ لەکاتی جوڵانی ئاماژەکان</string>
-    <string name="pref__input_feedback__group_haptic__label" comment="Preference group title">کاریگەری لەرزین / دەستلێدان</string>
-    <string name="pref__input_feedback__haptic_enabled__label" comment="Preference title">چالاککردنی کاریگەری لەرزین</string>
-    <string name="pref__input_feedback__haptic_enabled__summary_disabled" comment="Preference summary">نا چالاککردنی لەرزین لەکاتی نووسین</string>
-    <string name="pref__input_feedback__haptic_vibration_mode__label" comment="Preference title">دۆخی لەرینەوە</string>
-    <string name="pref__input_feedback__haptic_vibration_duration__label" comment="Preference title">ماوەی لەرزین</string>
-    <string name="pref__input_feedback__haptic_vibration_strength__label" comment="Preference title">هێزی لەرزین</string>
-    <string name="pref__input_feedback__haptic_vibration_strength__summary_no_vibrator" comment="Preference summary">ئەم تایبەتمەندییە پێویستی بە هاردوێری لەرینەوەیە کە لە ئامێرەکەتدا بوونی نییە</string>
-    <string name="pref__input_feedback__haptic_vibration_strength__summary_no_amplitude_ctrl" comment="Preference summary">مۆبایلەکەت پشتگری ئەم تایبەتمەندییە ناکات</string>
-    <string name="pref__input_feedback__haptic_feat_key_press__label" comment="Preference title">لەرزین لەکاتی نووسین</string>
-    <string name="pref__input_feedback__haptic_feat_key_long_press__label" comment="Preference title">لەرزین لەکاتی دەست ڕاگرتن</string>
-    <string name="pref__input_feedback__haptic_feat_key_repeated_action__label" comment="Preference title">لەرزین لەکاتی فرمانە دووبارەکان</string>
-    <string name="pref__input_feedback__haptic_feat_gesture_swipe__label" comment="Preference title">لەرزین لەکاتی ئاماژەکان</string>
-    <string name="pref__input_feedback__haptic_feat_gesture_moving_swipe__label" comment="Preference title">لەرزین لەکاتی جوڵانی ئاماژەکان</string>
-    <string name="pref__input_feedback__any_feat_key_press__summary" comment="Preference summary">نمونە: دوگمەکان، بەشی ئیمۆجی</string>
-    <string name="pref__input_feedback__any_feat_key_long_press__summary" comment="Preference summary">نمونە: پیتە لاوەکییەکان</string>
-    <string name="pref__input_feedback__any_feat_key_repeated_action__summary" comment="Preference summary">نمونە: دوگمەی سڕینەوە</string>
-    <string name="pref__input_feedback__any_feat_gesture_swipe__summary" comment="Preference summary">بەردەست نییە</string>
-    <string name="pref__input_feedback__any_feat_gesture_moving_swipe__summary" comment="Preference summary">نمونە: دەستخشاندن بۆ لای ڕاست یان چەپ</string>
-    <string name="settings__keyboard__title" comment="Title of Keyboard preferences screen">تەختەکلیل</string>
-    <string name="pref__keyboard__number_row__label" comment="Preference title">لیستی ژمارەکان</string>
-    <string name="pref__keyboard__number_row__summary" comment="Preference summary">پیشاندانی لیستی ژمارەکان لەبەشی سەرەوە</string>
-    <string name="pref__keyboard__hinted_number_row_mode__label" comment="Preference title">ژمارەکانی خانەی دووەم</string>
-    <string name="pref__keyboard__hinted_symbols_mode__label" comment="Preference title">هێماکانی خانەی دووەم</string>
-    <string name="pref__keyboard__utility_key_enabled__label" comment="Preference title">پیشاندانی دوگمەی فرمان</string>
-    <string name="pref__keyboard__utility_key_enabled__summary" comment="Preference summary">پیشاندانی دوگمەی ئامرازی دەستکاریکردن لە تەنیشت دوگمەی بۆشایی</string>
-    <string name="pref__keyboard__utility_key_action__label" comment="Preference title">فرمانی دوگمەی ئامراز</string>
-    <string name="pref__keyboard__font_size_multiplier__label" comment="Preference title">قەبارەی فۆنت</string>
-    <string name="pref__keyboard__group_layout__label" comment="Preference group title">شێوازەکان</string>
-    <string name="pref__keyboard__landscape_input_ui_mode__label" comment="Preference value">نووسین بە تەواوی شاشە لە باری خستە سەرلا</string>
-    <string name="pref__keyboard__group_keypress__label" comment="Preference group title">کاریگەرییەکان</string>
-    <string name="pref__keyboard__popup_enabled__label" comment="Preference title">بچووککراوەی پیت</string>
-    <string name="pref__keyboard__popup_enabled__summary" comment="Preference summary">پیشاندانی بچووککراوەی پیت لەکاتی نووسین</string>
-    <string name="pref__keyboard__merge_hint_popups_enabled__label" comment="Preference title">پیشاندانی پیتە لاوەکییەکانی خانەی دووەمی بەشی هێماکان</string>
-    <string name="pref__keyboard__merge_hint_popups_enabled__summary" comment="Preference summary">پیشاندانی بچووککراوەی هێماکانی خانەی دووەم</string>
-    <string name="pref__keyboard__long_press_delay__label" comment="Preference title">ماوەی دەست راگرتن بۆ پیتە لاوەکییەکان</string>
-    <string name="pref__keyboard__space_bar_switches_to_characters__label" comment="Preference title">گەڕانەوە بۆ تەختەکلیل</string>
-    <string name="pref__keyboard__space_bar_switches_to_characters__summary" comment="Preference summary">بەدەستدان لە دوگمەی بۆشایی لەبەشی هێما یان ژمارەکان راستەوخۆ ئەگرێتەوە بۆ بەشی تەختەکلیل</string>
+    <string name="settings__localization__suggested_subtype_presets" comment="Suggested presets title">Ø²Ù…Ø§Ù† Ùˆ Ø´ÛŽÙˆØ§Ø²ÛŒ Ù¾ÛŽØ´Ù†ÛŒØ§Ø±Ú©Ø±Ø§Ùˆ</string>
+    <string name="settings__localization__suggested_subtype_presets_none_found" comment="Suggested presets none found">Ù‡ÛŒÚ† Ø²Ù…Ø§Ù† Ùˆ Ø´ÛŽÙˆØ§Ø²ÛŽÚ© Ù†ÛŒÛŒÛ• Ø¨Û† Ù¾ÛŽØ´Ù†ÛŒØ§Ø±Ú©Ø±Ø¯Ù†ØŒ Ù¾Û•Ù†Ø¬Û•Ø¨Ù†ÛŽ Ø¨Û• Ø¯ÙˆÚ¯Ù…Û•ÛŒ Ø²ÛŒØ§Ø¯Ú©Ø±Ø¯Ù†ÛŒ Ø²Ù…Ø§Ù† Ø¯ÙˆØ§ØªØ± Ø²Ù…Ø§Ù†ÛŽÚ© Ù„Û• Ù„ÛŒØ³ØªÛ•Ú©Û•Ø¯Ø§ Ù‡Û•ÚµØ¨Ú˜ÛŽØ±Û• Ø¨Û† Ø²ÛŒØ§Ø¯Ú©Ø±Ø¯Ù†.</string>
+    <string name="settings__localization__subtype_presets" comment="Subtype presets dialog title">Ø²Ù…Ø§Ù†Û•Ú©Ø§Ù†</string>
+    <string name="settings__localization__subtype_presets_view_all" comment="View all presets button">Ø²ÛŒØ§Ø¯Ú©Ø±Ø¯Ù†ÛŒ Ø²Ù…Ø§Ù†</string>
+    <string name="settings__localization__subtype_no_subtypes_configured_warning" comment="Warning message that no subtype has been defined">Ù‡ÛŒÚ† Ø²Ù…Ø§Ù† Ùˆ Ø´ÛŽÙˆØ§Ø²ÛŽÚ© Ø²ÛŒØ§Ø¯ Ù†Û•Ú©Ø±Ø§ÙˆÛ• Ø¨Û† Ù†ÙˆÙˆØ³ÛŒÙ†ØŒ Ù„Û•Ø¨Û•Ø± Ø¦Û•ÙˆÛ• Ø²Ù…Ø§Ù†ÛŒ Ø¦ÛŒÙ†Ú¯Ù„ÛŒØ²ÛŒ Ùˆ Ø´ÛŽÙˆØ§Ø²ÛŒ Ù‚ÙˆÛ•Ø±ØªÛŒ Ø¨Û•Ø´ÛŽÙˆÛ•ÛŒ Ø¨Ù†Û•Ú•Û•ØªÛŒ Ø¨Û•Ú©Ø§Ø±Ø¯ÛŽØª Ø¨Û† ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„Û•Ú©Û•!</string>
+    <string name="settings__localization__subtype_error_already_exists" comment="Error message shown in subtype dialog when a subtype to add already exists">Ø¦Û•Ù… Ø²Ù…Ø§Ù†Û• Ù¾ÛŽØ´ØªØ± Ø²ÛŒØ§Ø¯Ú©Ø±Ø§ÙˆÛ• Ù„Û• Ù„ÛŒØ³ØªÛ•Ú©Û•Ø¯Ø§ Ù‡Û•ÛŒÛ•!</string>
+    <string name="settings__localization__subtype_error_fields_no_value" comment="Error message shown in subtype editor if at least one field is set to '- select -' (means no value specified)">ÛŒÛ•Ú©ÛŽ Ù„Û• Ø®Ø§Ù†Û•Ú©Ø§Ù† Ø¯ÛŒØ§Ø±ÛŒ Ù†Û•Ú©Ø±Ø§ÙˆÛ• Ø¨Û† Ù‡Û•ÚµØ¨Ú˜Ø§Ø±Ø¯Ù†ØŒ ØªÚ©Ø§ÛŒÛ• Ø³Û•Ø±Ø¬Û•Ù…ÛŒØ§Ù† Ø¯ÛŒØ§Ø±ÛŒØ¨Ú©Û•.</string>
+    <string name="settings__localization__subtype_error_layout_not_installed" comment="Error message shown in subtype list when a layout is not installed, where %s will be replaced by the layout ID">{layout_id} (Ø¯Ø§Ù†Û•Ø¨Û•Ø²ÛŽÙ†Ø±Ø§ÙˆÛ•)</string>
+    <string name="settings__localization__group_layouts__label" comment="Label of layouts group">Ø´ÛŽÙˆØ§Ø²Û•Ú©Ø§Ù†</string>
+    <string name="settings__theme__title" comment="Title of the Theme screen">Ú•ÙˆÙˆÚ©Ø§Ø±</string>
+    <string name="pref__theme__mode__label" comment="Label of the theme mode preference">Ø¯Û†Ø®ÛŒ Ú•ÙˆÙˆÚ©Ø§Ø±</string>
+    <string name="pref__theme__sunrise_time__label" comment="Label of the sunrise time preference">Ú©Ø§ØªÛŒ Ø®Û†Ø±Ù‡Û•ÚµØ§ØªÙ†</string>
+    <string name="pref__theme__sunset_time__label" comment="Label of the sunset time preference">Ú©Ø§ØªÛŒ Ø®Û†Ø± Ø¦Ø§ÙˆØ§Ø¨ÙˆÙˆÙ†</string>
+    <string name="pref__theme__day" comment="Label of the day group (day means light theme)">Ú•ÙˆÙˆÙ†Ø§Ú©</string>
+    <string name="pref__theme__night" comment="Label of the night group (night means dark theme)">ØªØ§Ø±ÛŒÚ©</string>
+    <string name="settings__theme_manager__title_manage" comment="Title of the theme manager screen for managing installed and custom themes">Ú•ÛŽÚ©Ø®Ø³ØªÙ†ÛŒ Ø±ÙˆÙˆÚ©Ø§Ø±Û•Ú©Ø§Ù†</string>
+    <string name="pref__theme__source_assets" comment="Label for the theme source field">Ú•Û•Ù†Ú¯ÛŒ Ø¨Ù†Û•Ú•Û•ØªÛŒ Ø¨Û•Ø±Ù†Ø§Ù…Û•Ú©Û•</string>
+    <string name="pref__theme__source_internal" comment="Label for the theme source field">Ø¨ÛŒØ±Ú¯Û•ÛŒ Ù†Ø§Ø®Û†ÛŒÛŒ</string>
+    <string name="pref__theme__source_external" comment="Label for the theme source field">Ø¨ÛŒØ±Ú¯Û•ÛŒ Ø¯Û•Ø±Û•Ú©ÛŒ</string>
+    <string name="settings__theme_manager__title_day" comment="Title of the theme manager screen for day theme selection">Ú•ÙˆÙˆÚ©Ø§Ø±Û•Ú©Ø§Ù†ÛŒ Ø¯Û†Ø®ÛŒ Ú•ÙˆÙˆÙ†Ø§Ú©</string>
+    <string name="settings__theme_manager__title_night" comment="Title of the theme manager screen for night theme selection">Ú•ÙˆÙˆÚ©Ø§Ø±Û•Ú©Ø§Ù†ÛŒ Ø¯Û†Ø®ÛŒ ØªØ§Ø±ÛŒÚ©</string>
+    <string name="settings__theme_editor__fine_tune__title">Ú¯Û†Ú•ÛŒÙ†ÛŒ Ú•Û•Ù†Ú¯</string>
+    <string name="settings__theme_editor__fine_tune__level">Ø¦Ø§Ø³ØªÛŒ Ø¯Û•Ø³ØªÚ©Ø§Ø±ÛŒÚ©Ø±Ø¯Ù†</string>
+    <string name="settings__theme_editor__fine_tune__display_kbd_after_dialogs">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„ Ø¯ÙˆØ§ÛŒ Ø¯Û•Ø³ØªÚ©Ø§Ø±ÛŒÚ©Ø±Ø¯Ù†</string>
+    <string name="settings__theme_editor__add_rule">Ø²ÛŒØ§Ø¯Ú©Ø±Ø¯Ù†</string>
+    <string name="settings__theme_editor__edit_rule">Ø¯Û•Ø³ØªÚ©Ø§Ø±ÛŒÚ©Ø±Ø¯Ù†</string>
+    <string name="settings__theme_editor__no_rules_defined">Ø¦Û•Ù… Ù¾Û•Ú•Û•ÛŒÛ• Ù‡ÛŒÚ† ÛŒØ§Ø³Ø§ÛŒÛ•Ú©ÛŒ Ù¾ÛŽÙ†Ø§Ø³Û• Ù†Û•Ú©Ø±Ø§ÙˆÛ•ØŒ Ø²ÛŒØ§Ø¯Ú©Ø±Ø¯Ù†ÛŒ ÛŒØ§Ø³Ø§ÛŒÛ•Ú© Ø¨Û† Ø¯Û•Ø³ØªÚ©Ø±Ø¯Ù† Ø¨Û• Ø³Ø§Ø²Ú©Ø±Ø¯Ù†ÛŒ Ø¦Û•Ù… Ù¾Û•Ú•Û•ÛŒÛ•.</string>
+    <string name="settings__theme_editor__rule_already_exists">Ø¦Û•Ù… ÛŒØ§Ø³Ø§ÛŒ Ù¾Û•Ú•Û•ÛŒ Ø³ØªØ§ÛŒÚµ Ù¾ÛŽØ´ØªØ± Ù¾ÛŽÙ†Ø§Ø³Û• Ú©Ø±Ø§ÙˆÛ•.</string>
+    <string name="settings__theme_editor__rule_codes">Ø³Û•Ø±Ú†Ø§ÙˆÛ•ÛŒ Ú©Û†Ø¯ÛŒ Ù…Û•Ø¨Û•Ø³Øª</string>
+    <string name="settings__theme_editor__rule_groups">Ú¯Ø±ÙˆÙˆÙ¾</string>
+    <string name="settings__theme_editor__rule_selectors">Ù‡Û•ÚµØ¨Ú˜Ø§Ø±Ø¯Ù†</string>
+    <string name="settings__theme_editor__add_code">Ø²ÛŒØ§Ø¯Ú©Ø±Ø¯Ù†ÛŒ Ú©Û†Ø¯ÛŒ Ø¯ÙˆÚ¯Ù…Û•</string>
+    <string name="settings__theme_editor__edit_code">Ø¯Û•Ø³ØªÚ©Ø§Ø±ÛŒÚ©Ø±Ø¯Ù†ÛŒ Ú©Û†Ø¯</string>
+    <string name="settings__theme_editor__no_codes_defined">Ø¬ÛŽØ¨Û•Ø¬ÛŽÚ©Ø±Ø¯Ù† Ø¨Û† Ø³Û•Ø±Ø¬Û•Ù… Ø¨Û•Ø´Û•Ú©Ø§Ù†</string>
+    <string name="settings__theme_editor__code_already_exists">Ø¦Û•Ù… Ø¯ÙˆÚ¯Ù…Û•ÛŒÛ• Ù¾ÛŽØ´ØªØ± Ø²ÛŒØ§Ø¯Ú©Ø±Ø§ÙˆÛ•</string>
+    <string name="settings__theme_editor__code_invalid">Ø¦Û•Ù… Ú©Û†Ø¯Û• Ú©Ù„ÛŒÙ„Û• Ø¯Ø±ÙˆØ³Øª Ù†ÛŒÛ•ØŒ Ø¯ÚµÙ†ÛŒØ§Ø¨Û• Ù„Û•ÙˆÛ•ÛŒ Ú©Û• Ú©Û†Ø¯ÛŒ Ú©Ù„ÛŒÙ„Û•Ú©Û• Ù„Û•Ù†Ø§Ùˆ Ù…Û•ÙˆØ¯Ø§ÛŒ {c_min} Ø¨Û† {c_max} Ø¨Û† Ù¾ÛŒØªÛ•Ú©Ø§Ù† ÛŒØ§Ù† {i_min} Ø¨Û† {i_max} Ø¨Û† Ú©Ù„ÛŒÙ„Û• ØªØ§ÛŒØ¨Û•ØªÛ•Ú©Ø§Ù†.</string>
+    <string name="settings__theme_editor__code_help_text">Ø¦Û•Ù… Ù„ÛŒÙ†Ú©Ø§Ù†Û•ÛŒ Ø®ÙˆØ§Ø±Û•ÙˆÛ• ÛŒØ§Ø±Ù…Û•ØªÛŒØª Ø¦Û•Ø¯Û•Ù† Ø¨Û† Ø¯Û†Ø²ÛŒÙ†Û•ÙˆÛ•ÛŒ Ú©Û†Ø¯ÛŒ Ú©Ù„ÛŒÙ„ÛŒ Ù‡Ø§ÙˆØªØ§:</string>
+    <string name="settings__theme_editor__code_placeholder">Ú©Û†Ø¯</string>
+    <string name="settings__theme_editor__code_recording_help_text">Ø¨Û† Ø¯Û†Ø²ÛŒÙ†Û•ÙˆÛ•ÛŒ Ú©Û†Ø¯ÛŒ Ú©Ù„ÛŒÙ„ÛŽÚ©ØŒ Ø¯ÙˆÚ¯Ù…Û•Ú©Û• Ø¨Û•Ú©Ø§Ø±Ø¨Ù‡ÛŽÙ†Û• Ø¬Ú¯Û• Ù„Û• Ø®Ø§Ù†Û•ÛŒ Ù†ÙˆØ³ÛŒÙ†ÛŒ Ú©Û†Ø¯Û•Ú©Û•ØŒ Ú©Ø§ØªÛŽÚ© Ú†Ø§Ù„Ø§Ú© Ú©Ø±Ø§ØŒ Ú©Ù„ÛŒÙ„Û•Ú©Ø§Ù†ÛŒ Ø¯ÙˆØ§ØªØ± ØªÛ†Ù…Ø§Ø± Ø¯Û•Ú©Ø§Øª Ùˆ Ú©Û†Ø¯Û•Ú©Û• Ø¯Ø§Ø¯Û•Ù†ÛŽØª Ø¨Û† Ø®Ø§Ù†Û•Ú©Û•.</string>
+    <string name="settings__theme_editor__code_recording_started">Ø¯Û†Ø²ÛŒÙ†Û•ÙˆÛ•ÛŒ Ú©Û†Ø¯ Ø¯Û•Ø³ØªÛŒÙ¾ÛŽÚ©Ø±Ø¯</string>
+    <string name="settings__theme_editor__code_recording_stopped">Ø¯Û†Ø²ÛŒÙ†Û•ÙˆÛ•ÛŒ Ú©Û†Ø¯ ÙˆÛ•Ø³ØªÛŽÙ†Ø±Ø§</string>
+    <string name="settings__theme_editor__code_recording_requires_default_ime_floris">{app_name} Ù¾ÛŽÙˆÛŒØ³ØªÛ• Ú©Ø±Ø§Ø¨ÛŽØªÛ• ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„ÛŒ Ø¨Ù†Û•Ú•Û•ØªÛŒ Ø¨Û† Ø¦Û•ÙˆÛ•ÛŒ Ø¨ØªÙˆØ§Ù†ÛŒ Ú©Û†Ø¯Û•Ú©Û• Ø¨Ø¯Û†ÛŒØªÛ•ÙˆÛ•</string>
+    <string name="settings__theme_editor__code_recording_placeholder">Ø¯Û†Ø²ÛŒÙ†Û•ÙˆÛ•â€¦</string>
+    <string name="settings__theme_editor__add_property">Ø²ÛŒØ§Ø¯Ú©Ø±Ø¯Ù†ÛŒ Ø¨Û•Ø´</string>
+    <string name="settings__theme_editor__edit_property">Ø¯Û•Ø³ØªÚ©Ø§Ø±ÛŒÚ©Ø±Ø¯Ù†ÛŒ Ø¨Û•Ø´</string>
+    <string name="settings__theme_editor__property_already_exists">ØªØ§ÛŒØ¨Û•ØªÙ…Û•Ù†Ø¯ÛŒÛ•Ú© Ø¨Û•Ù… Ù†Ø§ÙˆÛ• Ù¾ÛŽØ´ØªØ± Ù„Û•Ù†Ø§Ùˆ Ø¦Û•Ù… ÛŒØ§Ø³Ø§ÛŒÛ•Ø¯Ø§ Ù‡Û•ÛŒÛ•.</string>
+    <string name="settings__theme_editor__property_name">Ù†Ø§ÙˆÛŒ Ø¨Û•Ø´</string>
+    <string name="settings__theme_editor__property_value">Ø¨Û•Ù‡Ø§ÛŒ Ø¨Û•Ø´</string>
+    <string name="settings__theme_editor__property_value_shape_apply_for_all_corners">Ù‡Û•Ù…Ø§Ù† Ù‚Û•Ø¨Ø§Ø±Û• Ø¨Û† Ù‡Û•Ù…ÙˆÙˆ Ú¯Û†Ø´Û•Ú©Ø§Ù†</string>
+    <string name="settings__theme_editor__property_value_color_dialog_title">Ø¯Û•Ø³ØªÚ©Ø§Ø±ÛŒÚ©Ø±Ø¯Ù†ÛŒ Ú•Û•Ù†Ú¯ÛŒ Ù†ÙˆÙˆØ³ÛŒÙ†</string>
+    <string name="settings__theme_editor__component_meta_is_night_theme">Ú•ÙˆÙˆÚ©Ø§Ø±ÛŒ ØªØ§Ø±ÛŒÚ©Û•</string>
+    <string name="settings__theme_editor__component_meta_is_borderless">Ø¨ÛŽ Ù„ÛŽÙˆØ§Ø±</string>
+    <string name="settings__theme_editor__component_meta_stylesheet_path">Ø´ÙˆÛŽÙ†ÛŒ Ù‡Û•ÚµÚ¯Ø±ØªÙ†</string>
+    <string name="snygg__rule_annotation__font">ÙÛ†Ù†Øª</string>
+    <string name="snygg__rule_annotation__font_name">Ù†Ø§ÙˆÛŒ ÙÛ†Ù†Øª</string>
+    <string name="snygg__rule_element__root">Ø¨Ù†Û•Ú•Û•ØªÛŒ</string>
+    <string name="snygg__rule_element__window">Ù¾Û•Ù†Ø¬Û•Ø±Û•</string>
+    <string name="snygg__rule_element__key">Ø¯ÙˆÚ¯Ù…Û•</string>
+    <string name="snygg__rule_element__key_hint">Ù¾ÛŒØªÛ• Ù„Ø§ÙˆÛ•Ú©ÛŒÛŒÛ•Ú©Ø§Ù†</string>
+    <string name="snygg__rule_element__clipboard_header">Ø³Û•Ø±Û•ÙˆÛ•ÛŒ Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù†</string>
+    <string name="snygg__rule_element__clipboard_item">Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù†</string>
+    <string name="snygg__rule_element__clipboard_item_popup">ÙØ±Ù…Ø§Ù†Û•Ú©Ø§Ù†ÛŒ Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù†</string>
+    <string name="snygg__rule_element__extracted_landscape_input_layout">Ø¯Û†Ø®ÛŒ Ø¦Ø§Ø³Û†ÛŒÛŒ</string>
+    <string name="snygg__rule_element__extracted_landscape_input_field">Ø¯Û†Ø®ÛŒ Ø¦Ø§Ø³Û†ÛŒÛŒ</string>
+    <string name="snygg__rule_element__extracted_landscape_input_action">ÙØ±Ù…Ø§Ù†ÛŒ Ø¯Û†Ø®ÛŒ Ø¦Ø§Ø³Û†ÛŒÛŒ</string>
+    <string name="snygg__rule_element__glide_trail">Ù‡ÛŽÚµÛŒ Ù†ÙˆÙˆØ³ÛŒÙ† Ø¨Û•Ø³Û•Ø±ÛŒÛ•Ú©Û•ÙˆÛ•</string>
+    <string name="snygg__rule_element__incognito_mode_indicator">Ø¯Û†Ø®ÛŒ Ù†Ø§Ø¯ÛŒØ§Ø±</string>
+    <string name="snygg__rule_element__one_handed_panel">Ø¯Û†Ø®ÛŒ ÛŒÛ•Ú©Ø¯Û•Ø³Øª</string>
+    <string name="snygg__rule_element__smartbar">Ø¨Û•Ø´ÛŒ Ø³Û•Ø±Û•ÙˆÛ•</string>
+    <string name="snygg__rule_element__smartbar_shared_actions_row">Ú•ÛŒØ²ÛŒ ÙØ±Ù…Ø§Ù†Û•Ú©Ø§Ù†ÛŒ ØªÙˆÚµØ¨Ø§Ø±ÛŒ Ø²ÛŒØ±Û•Ú©ÛŒ Ù‡Ø§ÙˆØ¨Û•Ø´Ú©Ø±Ø§Ùˆ</string>
+    <string name="snygg__rule_element__smartbar_shared_actions_toggle">Ø¯ÙˆÚ¯Ù…Û•ÛŒ ØªÙˆÚµØ¨Ø§Ø±ÛŒ Ø²ÛŒØ±Û•Ú©ÛŒ Ù‡Ø§ÙˆØ¨Û•Ø´ Ù¾ÛŽÚ©Ø±Ø§Ùˆ</string>
+    <string name="snygg__rule_element__smartbar_extended_actions_row">Ú•ÛŒØ²ÛŒ ÙØ±Ù…Ø§Ù†Û•Ú©Ø§Ù†ÛŒ ØªØ±ÛŒ ØªÙˆÚµØ¨Ø§Ø±ÛŒ Ø²ÛŒØ±Û•Ú©</string>
+    <string name="snygg__rule_element__smartbar_extended_actions_toggle">Ø¯ÙˆÚ¯Ù…Û•ÛŒ ÙØ±Ù…Ø§Ù†Û•Ú©Ø§Ù†ÛŒ ØªØ±ÛŒ ØªÙˆÚµØ¨Ø§Ø±ÛŒ Ø²ÛŒØ±Û•Ú©</string>
+    <string name="snygg__rule_element__smartbar_action_key">Ú©Ù„ÛŒÙ„ÛŒ ÙØ±Ù…Ø§Ù†Û•Ú©Ø§Ù†ÛŒ ØªÙˆÚµØ¨Ø§Ø±ÛŒ Ø²ÛŒØ±Û•Ú©</string>
+    <string name="snygg__rule_element__smartbar_action_tile">ØªÛ•Ø®ØªÛ•ÛŒ ÙØ±Ù…Ø§Ù†ÛŒ ØªÙˆÚµØ¨Ø§Ø±ÛŒ Ø²ÛŒØ±Û•Ú©</string>
+    <string name="snygg__rule_element__smartbar_candidate_word">Ú•Û•Ù†Ú¯ÛŒ Ù†ÙˆÙˆØ³ÛŒÙ†Û•Ú©Ø§Ù†ÛŒ Ø¨Û•Ø´ÛŒ Ø¦Ø§Ù…Ø±Ø§Ø²</string>
+    <string name="snygg__rule_element__smartbar_candidate_clip">Ú•Û•Ù†Ú¯ÛŒ Ø¦Ø§ÛŒÚ©Û†Ù†Û•Ú©Ø§Ù†ÛŒ Ø¦Ø§Ù…Ø±Ø§Ø²</string>
+    <string name="snygg__rule_element__smartbar_candidate_spacer">Ù…Ø§ÙˆÛ•ÛŒ Ù†ÛŽÙˆØ§Ù† Ø¦Ø§Ù…Ø±Ø§Ø²Û•Ú©Ø§Ù†</string>
+    <string name="snygg__rule_selector__pressed">Ø¯Û•Ø³Ù„ÛŽØ¯Ø§Ù†</string>
+    <string name="snygg__rule_selector__focus">Ø¯Û•Ø³Øª Ú•Ø§Ú¯Ø±ØªÙ†</string>
+    <string name="snygg__rule_selector__disabled">Ù†Ø§ Ú†Ø§Ù„Ø§Ú©</string>
+    <string name="snygg__property_name__background">Ù¾Ø´Øª Ø´Ø§Ø´Û•</string>
+    <string name="snygg__property_name__foreground">Ø´Ø§Ø´Û•ÛŒ Ù„Ø§ÙˆÛ•Ú©ÛŒ</string>
+    <string name="snygg__property_name__border_color">Ú•Û•Ù†Ú¯ÛŒ Ù„ÛŽÙˆØ§Ø±</string>
+    <string name="snygg__property_name__border_style">Ø´ÛŽÙˆÛ•ÛŒ Ù„ÛŽÙˆØ§Ø±</string>
+    <string name="snygg__property_name__border_width">Ù¾Ø§Ù†ÛŒ Ù„ÛŽÙˆØ§Ø±</string>
+    <string name="snygg__property_name__font_family">Ø´ÛŽÙˆØ§Ø²ÛŒ ÙÛ†Ù†Øª</string>
+    <string name="snygg__property_name__font_size">Ù‚Û•Ø¨Ø§Ø±Û•ÛŒ ÙÛ†Ù†Øª</string>
+    <string name="snygg__property_name__font_style">Ø´ÛŽÙˆÛ•ÛŒ ÙÛ†Ù†Øª</string>
+    <string name="snygg__property_name__font_weight">Ø´ÛŽÙˆÛ•ÛŒ ÙÛ†Ù†Øª</string>
+    <string name="snygg__property_name__shadow_elevation">Ø´Ú©Ø§Ù†Û•ÙˆÛ•ÛŒ Ø³ÛŽØ¨Û•Ø±</string>
+    <string name="snygg__property_name__shape">Ø´ÛŽÙˆÛ•</string>
+    <string name="snygg__property_name__var_primary">Ú•Û•Ù†Ú¯ÛŒ Ø¨Ù†Û•Ú•Û•ØªÛŒ</string>
+    <string name="snygg__property_name__var_primary_variant">Ú•Û•Ù†Ú¯ÛŒ Ø³Û•Ø±Û•Ú©ÛŒ (Ù‡Û•Ù…Û•Ø¬Û†Ø±)</string>
+    <string name="snygg__property_name__var_secondary">Ú•Û•Ù†Ú¯ÛŒ Ø¯ÙˆÙˆÛ•Ù…</string>
+    <string name="snygg__property_name__var_secondary_variant">Ú•Û•Ù†Ú¯ÛŒ Ø¯ÙˆÙˆÛ•Ù… (Ù‡Û•Ù…Û•Ø¬Û†Ø±)</string>
+    <string name="snygg__property_name__var_background">Ú•Û•Ù†Ú¯ÛŒ Ù¾Ø´Øª Ø´Ø§Ø´Û•</string>
+    <string name="snygg__property_name__var_surface">Ú•Û•Ù†Ú¯ÛŒ Ø¯ÙˆÚ¯Ù…Û•Ú©Ø§Ù†</string>
+    <string name="snygg__property_name__var_surface_variant">Ú•Û•Ù†Ú¯ÛŒ Ø¯ÙˆÚ¯Ù…Û•Ú©Ø§Ù† (Ù‡Û•Ù…Û•Ø¬Û†Ø±)</string>
+    <string name="snygg__property_name__var_on_primary">Ú•Û•Ù†Ú¯ÛŒ Ø³Û•Ø±Û•Ú©ÛŒ Ù„Ø§ÙˆÛ•Ú©ÛŒ</string>
+    <string name="snygg__property_name__var_on_secondary">Ú•Û•Ù†Ú¯ÛŒ Ø¯ÙˆÙˆÛ•Ù…ÛŒ Ù„Ø§ÙˆÛ•Ú©ÛŒ</string>
+    <string name="snygg__property_name__var_on_background">Ú•Û•Ù†Ú¯ÛŒ Ù„Ø§ÙˆÛ•Ú©ÛŒ Ù¾Ø´Øª Ø´Ø§Ø´Û•</string>
+    <string name="snygg__property_name__var_on_surface">Ú•Û•Ù†Ú¯ÛŒ Ù„Ø§ÙˆÛ•Ú©ÛŒ Ø¯ÙˆÚ¯Ù…Û•Ú©Ø§Ù†</string>
+    <string name="snygg__property_name__var_on_surface_variant">Ú•Û•Ù†Ú¯ÛŒ Ù„Ø§ÙˆÛ•Ú©ÛŒ Ø¯ÙˆÚ¯Ù…Û•Ú©Ø§Ù† (Ù‡Û•Ù…Û•Ø¬Û†Ø±)</string>
+    <string name="snygg__property_name__var_shape">Ø´ÛŽÙˆÛ•ÛŒ Ø¯ÙˆÚ¯Ù…Û•Ú©Ø§Ù†</string>
+    <string name="snygg__property_name__var_shape_variant">Ø´ÛŽÙˆÛ•ÛŒ Ø¯ÙˆÚ¯Ù…Û•Ú©Ø§Ù† (Ù‡Û•Ù…Û•Ø¬Û†Ø±)</string>
+    <string name="snygg__property_value__explicit_inherit">Ø¨Ù†Û•Ú•Û•ØªÛŒ</string>
+    <string name="snygg__property_value__defined_var">Ø³Û•Ø±Ú†Ø§ÙˆÛ•</string>
+    <string name="snygg__property_value__no">Ù†Û•Ø®ÛŽØ±</string>
+    <string name="snygg__property_value__solid_color">Ú•Û•Ù†Ú¯</string>
+    <string name="snygg__property_value__rectangle_shape">Ú†ÙˆØ§Ø±Ú¯Û†Ø´Û•ÛŒÛŒ</string>
+    <string name="snygg__property_value__circle_shape">Ø¨Ø§Ø²Ù†Û•ÛŒÛŒ</string>
+    <string name="snygg__property_value__cut_corner_shape_dp">Ú¯Û†Ø´Û• Ú†ÙˆØ§Ø±Ú¯Û†Ø´Û•ÛŒÛŒ (dp)</string>
+    <string name="snygg__property_value__cut_corner_shape_percent">Ú¯Û†Ø´Û• Ú†ÙˆØ§Ø±Ú¯Û†Ø´Û•ÛŒÛŒ (Ùª)</string>
+    <string name="snygg__property_value__rounded_corner_shape_dp">Ú¯Û†Ø´Û• Ø¨Ø§Ø²Ù†Û•ÛŒÛŒ (dp)</string>
+    <string name="snygg__property_value__rounded_corner_shape_percent">Ú¯Û†Ø´Û• Ø¨Ø§Ø²Ù†Û•ÛŒÛŒ (Ùª)</string>
+    <string name="snygg__property_value__dp_size">Ù‚Û•Ø¨Ø§Ø±Û• (dp)</string>
+    <string name="snygg__property_value__sp_size">Ù‚Û•Ø¨Ø§Ø±Û• (sp)</string>
+    <string name="snygg__property_value__percentage_size">Ù‚Û•Ø¨Ø§Ø±Û• (Ùª)</string>
+    <string name="settings__input_feedback__title" comment="Title of Input Feedback screen">Ú•ÛŽÚ©Ø®Ø³ØªÙ†ÛŒ Ø¯Û•Ù†Ú¯ Ùˆ Ù„Û•Ø±Ø²ÛŒÙ†</string>
+    <string name="pref__input_feedback__group_audio__label" comment="Preference group title">Ú©Ø§Ø±ÛŒÚ¯Û•Ø±ÛŒ Ø¯Û•Ù†Ú¯ / Ø¯Û•Ø³ØªÙ„ÛŽØ¯Ø§Ù†</string>
+    <string name="pref__input_feedback__audio_enabled__label" comment="Preference title">Ú†Ø§Ù„Ø§Ú©Ú©Ø±Ø¯Ù†ÛŒ Ú©Ø§Ø±ÛŒÚ¯Û•Ø±ÛŒ Ø¯Û•Ù†Ú¯ÛŒ</string>
+    <string name="pref__input_feedback__audio_enabled__summary_disabled" comment="Preference summary">Ù†Ø§ Ú†Ø§Ù„Ø§Ú©Ú©Ø±Ø¯Ù†ÛŒ Ø¯Û•Ù†Ú¯ Ù„Û•Ú©Ø§ØªÛŒ Ù†ÙˆÙˆØ³ÛŒÙ†</string>
+    <string name="pref__input_feedback__audio_volume__label" comment="Preference title">Ø¯Û•Ù†Ú¯ÛŒ Ú©Ø§ØªÛŒ Ù†ÙˆÙˆØ³ÛŒÙ†ÛŒ Ù‡ÛŽÙ…Ø§Ú©Ø§Ù†</string>
+    <string name="pref__input_feedback__audio_feat_key_press__label" comment="Preference title">Ø¯Û•Ù†Ú¯ÛŒ Ù„Û•Ú©Ø§ØªÛŒ Ù†ÙˆÙˆØ³ÛŒÙ†</string>
+    <string name="pref__input_feedback__audio_feat_key_long_press__label" comment="Preference title">Ø¯Û•Ù†Ú¯ Ù„Û•Ú©Ø§ØªÛŒ Ø¯Û•Ø³Øª Ú•Ø§Ú¯Ø±ØªÙ†</string>
+    <string name="pref__input_feedback__audio_feat_key_repeated_action__label" comment="Preference title">Ø¯Û•Ù†Ú¯ Ù„Û•Ú©Ø§ØªÛŒ ÙØ±Ù…Ø§Ù†Û• Ø¯ÙˆÙˆØ¨Ø§Ø±Û•Ú©Ø§Ù†</string>
+    <string name="pref__input_feedback__audio_feat_gesture_swipe__label" comment="Preference title">Ø¯Û•Ù†Ú¯ Ù„Û•Ú©Ø§ØªÛŒ Ø¦Ø§Ù…Ø§Ú˜Û•Ú©Ø§Ù†</string>
+    <string name="pref__input_feedback__audio_feat_gesture_moving_swipe__label" comment="Preference title">Ø¯Û•Ù†Ú¯ Ù„Û•Ú©Ø§ØªÛŒ Ø¬ÙˆÚµØ§Ù†ÛŒ Ø¦Ø§Ù…Ø§Ú˜Û•Ú©Ø§Ù†</string>
+    <string name="pref__input_feedback__group_haptic__label" comment="Preference group title">Ú©Ø§Ø±ÛŒÚ¯Û•Ø±ÛŒ Ù„Û•Ø±Ø²ÛŒÙ† / Ø¯Û•Ø³ØªÙ„ÛŽØ¯Ø§Ù†</string>
+    <string name="pref__input_feedback__haptic_enabled__label" comment="Preference title">Ú†Ø§Ù„Ø§Ú©Ú©Ø±Ø¯Ù†ÛŒ Ú©Ø§Ø±ÛŒÚ¯Û•Ø±ÛŒ Ù„Û•Ø±Ø²ÛŒÙ†</string>
+    <string name="pref__input_feedback__haptic_enabled__summary_disabled" comment="Preference summary">Ù†Ø§ Ú†Ø§Ù„Ø§Ú©Ú©Ø±Ø¯Ù†ÛŒ Ù„Û•Ø±Ø²ÛŒÙ† Ù„Û•Ú©Ø§ØªÛŒ Ù†ÙˆÙˆØ³ÛŒÙ†</string>
+    <string name="pref__input_feedback__haptic_vibration_mode__label" comment="Preference title">Ø¯Û†Ø®ÛŒ Ù„Û•Ø±ÛŒÙ†Û•ÙˆÛ•</string>
+    <string name="pref__input_feedback__haptic_vibration_duration__label" comment="Preference title">Ù…Ø§ÙˆÛ•ÛŒ Ù„Û•Ø±Ø²ÛŒÙ†</string>
+    <string name="pref__input_feedback__haptic_vibration_strength__label" comment="Preference title">Ù‡ÛŽØ²ÛŒ Ù„Û•Ø±Ø²ÛŒÙ†</string>
+    <string name="pref__input_feedback__haptic_vibration_strength__summary_no_vibrator" comment="Preference summary">Ø¦Û•Ù… ØªØ§ÛŒØ¨Û•ØªÙ…Û•Ù†Ø¯ÛŒÛŒÛ• Ù¾ÛŽÙˆÛŒØ³ØªÛŒ Ø¨Û• Ù‡Ø§Ø±Ø¯ÙˆÛŽØ±ÛŒ Ù„Û•Ø±ÛŒÙ†Û•ÙˆÛ•ÛŒÛ• Ú©Û• Ù„Û• Ø¦Ø§Ù…ÛŽØ±Û•Ú©Û•ØªØ¯Ø§ Ø¨ÙˆÙˆÙ†ÛŒ Ù†ÛŒÛŒÛ•</string>
+    <string name="pref__input_feedback__haptic_vibration_strength__summary_no_amplitude_ctrl" comment="Preference summary">Ù…Û†Ø¨Ø§ÛŒÙ„Û•Ú©Û•Øª Ù¾Ø´ØªÚ¯Ø±ÛŒ Ø¦Û•Ù… ØªØ§ÛŒØ¨Û•ØªÙ…Û•Ù†Ø¯ÛŒÛŒÛ• Ù†Ø§Ú©Ø§Øª</string>
+    <string name="pref__input_feedback__haptic_feat_key_press__label" comment="Preference title">Ù„Û•Ø±Ø²ÛŒÙ† Ù„Û•Ú©Ø§ØªÛŒ Ù†ÙˆÙˆØ³ÛŒÙ†</string>
+    <string name="pref__input_feedback__haptic_feat_key_long_press__label" comment="Preference title">Ù„Û•Ø±Ø²ÛŒÙ† Ù„Û•Ú©Ø§ØªÛŒ Ø¯Û•Ø³Øª Ú•Ø§Ú¯Ø±ØªÙ†</string>
+    <string name="pref__input_feedback__haptic_feat_key_repeated_action__label" comment="Preference title">Ù„Û•Ø±Ø²ÛŒÙ† Ù„Û•Ú©Ø§ØªÛŒ ÙØ±Ù…Ø§Ù†Û• Ø¯ÙˆÙˆØ¨Ø§Ø±Û•Ú©Ø§Ù†</string>
+    <string name="pref__input_feedback__haptic_feat_gesture_swipe__label" comment="Preference title">Ù„Û•Ø±Ø²ÛŒÙ† Ù„Û•Ú©Ø§ØªÛŒ Ø¦Ø§Ù…Ø§Ú˜Û•Ú©Ø§Ù†</string>
+    <string name="pref__input_feedback__haptic_feat_gesture_moving_swipe__label" comment="Preference title">Ù„Û•Ø±Ø²ÛŒÙ† Ù„Û•Ú©Ø§ØªÛŒ Ø¬ÙˆÚµØ§Ù†ÛŒ Ø¦Ø§Ù…Ø§Ú˜Û•Ú©Ø§Ù†</string>
+    <string name="pref__input_feedback__any_feat_key_press__summary" comment="Preference summary">Ù†Ù…ÙˆÙ†Û•: Ø¯ÙˆÚ¯Ù…Û•Ú©Ø§Ù†ØŒ Ø¨Û•Ø´ÛŒ Ø¦ÛŒÙ…Û†Ø¬ÛŒ</string>
+    <string name="pref__input_feedback__any_feat_key_long_press__summary" comment="Preference summary">Ù†Ù…ÙˆÙ†Û•: Ù¾ÛŒØªÛ• Ù„Ø§ÙˆÛ•Ú©ÛŒÛŒÛ•Ú©Ø§Ù†</string>
+    <string name="pref__input_feedback__any_feat_key_repeated_action__summary" comment="Preference summary">Ù†Ù…ÙˆÙ†Û•: Ø¯ÙˆÚ¯Ù…Û•ÛŒ Ø³Ú•ÛŒÙ†Û•ÙˆÛ•</string>
+    <string name="pref__input_feedback__any_feat_gesture_swipe__summary" comment="Preference summary">Ø¨Û•Ø±Ø¯Û•Ø³Øª Ù†ÛŒÛŒÛ•</string>
+    <string name="pref__input_feedback__any_feat_gesture_moving_swipe__summary" comment="Preference summary">Ù†Ù…ÙˆÙ†Û•: Ø¯Û•Ø³ØªØ®Ø´Ø§Ù†Ø¯Ù† Ø¨Û† Ù„Ø§ÛŒ Ú•Ø§Ø³Øª ÛŒØ§Ù† Ú†Û•Ù¾</string>
+    <string name="settings__keyboard__title" comment="Title of Keyboard preferences screen">ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="pref__keyboard__number_row__label" comment="Preference title">Ù„ÛŒØ³ØªÛŒ Ú˜Ù…Ø§Ø±Û•Ú©Ø§Ù†</string>
+    <string name="pref__keyboard__number_row__summary" comment="Preference summary">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ù„ÛŒØ³ØªÛŒ Ú˜Ù…Ø§Ø±Û•Ú©Ø§Ù† Ù„Û•Ø¨Û•Ø´ÛŒ Ø³Û•Ø±Û•ÙˆÛ•</string>
+    <string name="pref__keyboard__hinted_number_row_mode__label" comment="Preference title">Ú˜Ù…Ø§Ø±Û•Ú©Ø§Ù†ÛŒ Ø®Ø§Ù†Û•ÛŒ Ø¯ÙˆÙˆÛ•Ù…</string>
+    <string name="pref__keyboard__hinted_symbols_mode__label" comment="Preference title">Ù‡ÛŽÙ…Ø§Ú©Ø§Ù†ÛŒ Ø®Ø§Ù†Û•ÛŒ Ø¯ÙˆÙˆÛ•Ù…</string>
+    <string name="pref__keyboard__utility_key_enabled__label" comment="Preference title">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ø¯ÙˆÚ¯Ù…Û•ÛŒ ÙØ±Ù…Ø§Ù†</string>
+    <string name="pref__keyboard__utility_key_enabled__summary" comment="Preference summary">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ø¯ÙˆÚ¯Ù…Û•ÛŒ Ø¦Ø§Ù…Ø±Ø§Ø²ÛŒ Ø¯Û•Ø³ØªÚ©Ø§Ø±ÛŒÚ©Ø±Ø¯Ù† Ù„Û• ØªÛ•Ù†ÛŒØ´Øª Ø¯ÙˆÚ¯Ù…Û•ÛŒ Ø¨Û†Ø´Ø§ÛŒÛŒ</string>
+    <string name="pref__keyboard__utility_key_action__label" comment="Preference title">ÙØ±Ù…Ø§Ù†ÛŒ Ø¯ÙˆÚ¯Ù…Û•ÛŒ Ø¦Ø§Ù…Ø±Ø§Ø²</string>
+    <string name="pref__keyboard__font_size_multiplier__label" comment="Preference title">Ù‚Û•Ø¨Ø§Ø±Û•ÛŒ ÙÛ†Ù†Øª</string>
+    <string name="pref__keyboard__group_layout__label" comment="Preference group title">Ø´ÛŽÙˆØ§Ø²Û•Ú©Ø§Ù†</string>
+    <string name="pref__keyboard__landscape_input_ui_mode__label" comment="Preference value">Ù†ÙˆÙˆØ³ÛŒÙ† Ø¨Û• ØªÛ•ÙˆØ§ÙˆÛŒ Ø´Ø§Ø´Û• Ù„Û• Ø¨Ø§Ø±ÛŒ Ø®Ø³ØªÛ• Ø³Û•Ø±Ù„Ø§</string>
+    <string name="pref__keyboard__group_keypress__label" comment="Preference group title">Ú©Ø§Ø±ÛŒÚ¯Û•Ø±ÛŒÛŒÛ•Ú©Ø§Ù†</string>
+    <string name="pref__keyboard__popup_enabled__label" comment="Preference title">Ø¨Ú†ÙˆÙˆÚ©Ú©Ø±Ø§ÙˆÛ•ÛŒ Ù¾ÛŒØª</string>
+    <string name="pref__keyboard__popup_enabled__summary" comment="Preference summary">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ø¨Ú†ÙˆÙˆÚ©Ú©Ø±Ø§ÙˆÛ•ÛŒ Ù¾ÛŒØª Ù„Û•Ú©Ø§ØªÛŒ Ù†ÙˆÙˆØ³ÛŒÙ†</string>
+    <string name="pref__keyboard__merge_hint_popups_enabled__label" comment="Preference title">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ù¾ÛŒØªÛ• Ù„Ø§ÙˆÛ•Ú©ÛŒÛŒÛ•Ú©Ø§Ù†ÛŒ Ø®Ø§Ù†Û•ÛŒ Ø¯ÙˆÙˆÛ•Ù…ÛŒ Ø¨Û•Ø´ÛŒ Ù‡ÛŽÙ…Ø§Ú©Ø§Ù†</string>
+    <string name="pref__keyboard__merge_hint_popups_enabled__summary" comment="Preference summary">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ø¨Ú†ÙˆÙˆÚ©Ú©Ø±Ø§ÙˆÛ•ÛŒ Ù‡ÛŽÙ…Ø§Ú©Ø§Ù†ÛŒ Ø®Ø§Ù†Û•ÛŒ Ø¯ÙˆÙˆÛ•Ù…</string>
+    <string name="pref__keyboard__long_press_delay__label" comment="Preference title">Ù…Ø§ÙˆÛ•ÛŒ Ø¯Û•Ø³Øª Ø±Ø§Ú¯Ø±ØªÙ† Ø¨Û† Ù¾ÛŒØªÛ• Ù„Ø§ÙˆÛ•Ú©ÛŒÛŒÛ•Ú©Ø§Ù†</string>
+    <string name="pref__keyboard__space_bar_switches_to_characters__label" comment="Preference title">Ú¯Û•Ú•Ø§Ù†Û•ÙˆÛ• Ø¨Û† ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="pref__keyboard__space_bar_switches_to_characters__summary" comment="Preference summary">Ø¨Û•Ø¯Û•Ø³ØªØ¯Ø§Ù† Ù„Û• Ø¯ÙˆÚ¯Ù…Û•ÛŒ Ø¨Û†Ø´Ø§ÛŒÛŒ Ù„Û•Ø¨Û•Ø´ÛŒ Ù‡ÛŽÙ…Ø§ ÛŒØ§Ù† Ú˜Ù…Ø§Ø±Û•Ú©Ø§Ù† Ø±Ø§Ø³ØªÛ•ÙˆØ®Û† Ø¦Û•Ú¯Ø±ÛŽØªÛ•ÙˆÛ• Ø¨Û† Ø¨Û•Ø´ÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
     <!-- Smartbar strings -->
-    <string name="settings__smartbar__title" comment="Title of Smartbar screen">بەشی سەرەوە</string>
-    <string name="pref__smartbar__enabled__label" comment="Preference title">پیشاندانی بەشی سەرەوە (SmartBar)</string>
-    <string name="pref__smartbar__enabled__summary" comment="Preference summary">پیشاندانی ئامرازەکانی دەستکاریکردنی نووسین لەبەشی سەرەوەی تەختەکلیل</string>
-    <string name="pref__smartbar__layout__label" comment="Preference title">شێواز</string>
-    <string name="pref__smartbar__flip_toggles__label" comment="Preference title">پیچەوانەکردنەوەی دوگمەکان</string>
-    <string name="pref__smartbar__flip_toggles__summary" comment="Preference summary">پێچەوانەکردنەوەی دوگمەکانی ئامرازەکان</string>
+    <string name="settings__smartbar__title" comment="Title of Smartbar screen">Ø¨Û•Ø´ÛŒ Ø³Û•Ø±Û•ÙˆÛ•</string>
+    <string name="pref__smartbar__enabled__label" comment="Preference title">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ø¨Û•Ø´ÛŒ Ø³Û•Ø±Û•ÙˆÛ• (SmartBar)</string>
+    <string name="pref__smartbar__enabled__summary" comment="Preference summary">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ø¦Ø§Ù…Ø±Ø§Ø²Û•Ú©Ø§Ù†ÛŒ Ø¯Û•Ø³ØªÚ©Ø§Ø±ÛŒÚ©Ø±Ø¯Ù†ÛŒ Ù†ÙˆÙˆØ³ÛŒÙ† Ù„Û•Ø¨Û•Ø´ÛŒ Ø³Û•Ø±Û•ÙˆÛ•ÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="pref__smartbar__layout__label" comment="Preference title">Ø´ÛŽÙˆØ§Ø²</string>
+    <string name="pref__smartbar__flip_toggles__label" comment="Preference title">Ù¾ÛŒÚ†Û•ÙˆØ§Ù†Û•Ú©Ø±Ø¯Ù†Û•ÙˆÛ•ÛŒ Ø¯ÙˆÚ¯Ù…Û•Ú©Ø§Ù†</string>
+    <string name="pref__smartbar__flip_toggles__summary" comment="Preference summary">Ù¾ÛŽÚ†Û•ÙˆØ§Ù†Û•Ú©Ø±Ø¯Ù†Û•ÙˆÛ•ÛŒ Ø¯ÙˆÚ¯Ù…Û•Ú©Ø§Ù†ÛŒ Ø¦Ø§Ù…Ø±Ø§Ø²Û•Ú©Ø§Ù†</string>
     <!-- Typing strings -->
-    <string name="settings__typing__title" comment="Title of Typing screen">تەختەکلیل</string>
-    <string name="pref__suggestion__title" comment="Preference group title">پێشنیارکردنی ووشە</string>
-    <string name="pref__suggestion__enabled__label" comment="Preference title">پێشنیارکردنی ووشە</string>
-    <string name="pref__suggestion__enabled__summary" comment="Preference summary">پیشاندانی ووشە پێشنیارکراوەکان لەکاتی نووسیندا</string>
-    <string name="pref__suggestion__display_mode__label" comment="Preference title">شێوەی دەرکەوتنی پێشنیارەکان</string>
-    <string name="pref__suggestion__block_possibly_offensive__label" comment="Preference title">ڕێگریکردن لە ووشەی نابەجێ</string>
-    <string name="pref__suggestion__api30_inline_suggestions_enabled__summary" comment="Preference summary">پیشاندانی پێشنیاری تەواوکەری خۆکاری </string>
-    <string name="pref__correction__title" comment="Preference group title">ڕاستکردنەوە</string>
-    <string name="pref__correction__auto_capitalization__label" comment="Preference title">گەورەکردنی خۆکاری</string>
-    <string name="pref__correction__auto_capitalization__summary" comment="Preference summary">گەورەکردنی پیتەکان بە خۆکاری تەنها بۆ زمانە لاتینییەکان</string>
-    <string name="pref__correction__auto_space_punctuation__label" comment="Preference title">خاڵبەندی و بۆشایی</string>
-    <string name="pref__correction__auto_space_punctuation__summary" comment="Preference summary">دانانی خاڵبەندی و بۆشایی بەخۆکاری لەکۆتایی ڕستەدا</string>
-    <string name="pref__correction__remember_caps_lock_state__label" comment="Preference title">گەورەکردنی هەمیشەیی</string>
-    <string name="pref__correction__remember_caps_lock_state__summary" comment="Preference summary">سەرجەم پیتەکان هەمیشە بە گەورەیی(کاپیتاڵ) دەمێننەوە تەنها بۆ ئینگلیزی و زمانە لاتینییەکان</string>
-    <string name="pref__correction__double_space_period__label" comment="Preference title">دانانی خاڵ بە دوگمەی بۆشایی</string>
-    <string name="pref__correction__double_space_period__summary" comment="Preference summary">دووجار دەست بنێیت بە دوگمەی بۆشاییدا خاڵ یان هێمای کۆتایی ڕستە دەنوسێت</string>
-    <string name="pref__spelling__title" comment="Preference group title">ڕاستکردنەوەی هەڵەی ڕێنووس</string>
-    <string name="pref__spelling__active_spellchecker__summary_disabled">ناچالاککردنی ڕاستکەرەوەی سیستەم، هێڵی سوور پیشان نادرێت لەکاتی نووسینی ووشە هەڵەکاندا، پەنجە لێرە بدە بۆ ڕێکخستن.</string>
-    <string name="pref__spelling__active_spellchecker__summary_none">هیچ ڕاستکەرەوەیەکی هەڵەی ڕێنووس دیارینەکراوە، پەنجە لێرە بدە بۆ ڕێکخستن.</string>
-    <string name="pref__spelling__language_mode__label" comment="Label of Language mode pref">زمان</string>
-    <string name="pref__spelling__use_contacts__label" comment="Label of Use contact list pref">بەکارهێنانی ناوەکانی ناو مۆبایل</string>
-    <string name="pref__spelling__use_contacts__summary" comment="Summary of Use contact list pref">راستکردنەوە و پیشاندانی ناوەکان</string>
-    <string name="pref__spelling__use_udm_entries__label" comment="Label of Use user dictionary entries pref">زیادکراوەکانی فەرهەنگی تایبەت</string>
-    <string name="pref__spelling__use_udm_entries__summary" comment="Summary of Use user dictionary entries pref">پیشاندان و راستکردنەوە لەڕێی فەرهەنگی بەکارهێنەرەوە</string>
-    <string name="settings__dictionary__title" comment="Title of the User dictionaries screen">فەرهەنگی بەکارهێنەر</string>
-    <string name="pref__dictionary__enable_system_user_dictionary__label" comment="Preference title">فەرهەنگی تایبەتی بەکارهێنەر</string>
-    <string name="pref__dictionary__enable_system_user_dictionary__summary" comment="Preference summary">پێشنیارکردنی ئەو ووشانەی لەفەرهەنگی تایبەتی بەکارهێنەردا پاشەکەوتکراون</string>
-    <string name="pref__dictionary__manage_system_user_dictionary__label" comment="Preference title">ڕێکخستنی فەرهەنگی تایبەت</string>
-    <string name="pref__dictionary__manage_system_user_dictionary__summary" comment="Preference summary">زیادکردن، بینین، یان سڕینەوەی ووشەکانی ناو فەرهەنگی تایبەتی</string>
-    <string name="pref__dictionary__enable_internal_user_dictionary__label" comment="Preference title">فەرهەنگی ناوخۆیی بەرنامەکە</string>
-    <string name="pref__dictionary__enable_internal_user_dictionary__summary" comment="Preference summary">پێشنیارکردنی ئەو ووشانەی لەفەرهەنگی ناوخۆیی بەرنامەکەدا پاشەکەوتکراون</string>
-    <string name="pref__dictionary__manage_floris_user_dictionary__label" comment="Preference title">ڕێکخستنی فەرهەنگی ناوخۆیی</string>
-    <string name="pref__dictionary__manage_floris_user_dictionary__summary" comment="Preference summary">زیادکردن، بینین، یان سڕینەوەی ووشەکانی ناو فەرهەنگی ناوخۆیی</string>
-    <string name="settings__udm__title_floris" comment="Title of the User Dictionary Manager activity for internal">فەرهەنگی تایبەت</string>
-    <string name="settings__udm__title_system" comment="Title of the User Dictionary Manager activity for system">فەرهەنگی سیستەم</string>
-    <string name="settings__udm__no_words_in_dictionary" comment="String to show if no words are present in the dictionary">فەرهەنگی تایبەتی بەکارهێنەر هیچ ووشەیەکی تێدا نیە.</string>
-    <string name="settings__udm__word_summary_freq" comment="Summary label for a word entry. The decimal placeholder inserts the frequency for the word it summarizes.">ژمارە: {freq}</string>
-    <string name="settings__udm__word_summary_freq_shortcut" comment="Summary label for a word entry. The first placeholder inserts the frequency for the word it summarizes, the second placeholder the shortcut defined.">ژمارە: {freq} | کورتکراوە: {shortcut}</string>
-    <string name="settings__udm__all_languages" comment="Label of the For all languages entry in the language list">بۆ هەموو زمانەکان</string>
-    <string name="settings__udm__open_system_manager_ui" comment="Label of the Open system manager UI menu option">ڕێکخستنی فەرهەنگی سیستەم</string>
-    <string name="settings__udm__dictionary_import_success" comment="Message for dictionary import success">فەرهەنگی بەکارهێنەر بەسەرکەوتوویی هێنرا!</string>
-    <string name="settings__udm__dictionary_export_success" comment="Message for dictionary export success">فەرهەنگی بەکارهێنەر بەسەرکەوتوویی هەڵگیرا!</string>
-    <string name="settings__udm__dialog__title_add" comment="Label for the title (when in adding mode) in the user dictionary add/edit dialog">زیادکردن</string>
-    <string name="settings__udm__dialog__title_edit" comment="Label for the title (when in editing mode) in the user dictionary add/edit dialog">دەستکاریکردن</string>
-    <string name="settings__udm__dialog__word_label" comment="Label for the word in the user dictionary add/edit dialog">ووشە</string>
-    <string name="settings__udm__dialog__word_error_empty" comment="Error label for the word in the user dictionary add/edit dialog">تکایە ووشەیەک بنووسە</string>
-    <string name="settings__udm__dialog__word_error_invalid" comment="Error label for the word in the user dictionary add/edit dialog">تکایە ووشەیەک بنوسە بۆ {regex}</string>
-    <string name="settings__udm__dialog__freq_label" comment="Label for the frequency in the user dictionary add/edit dialog. The two decimal placeholders are the minimum and maximum frequency, both inclusive.">ژمارە (لەنێوان {f_min} تا {f_max})</string>
-    <string name="settings__udm__dialog__freq_error_empty" comment="Error label for the frequency in the user dictionary add/edit dialog">تکایە بەهای ژمارە بنوسە</string>
-    <string name="settings__udm__dialog__freq_error_invalid" comment="Error label for the frequency in the user dictionary add/edit dialog">تکایە ژمارەیەکی دروستی دیاریکراو بنوسە</string>
-    <string name="settings__udm__dialog__shortcut_label" comment="Label for the shortcut in the user dictionary add/edit dialog">کورتکراوە (ئارەزوومەندانە)</string>
-    <string name="settings__udm__dialog__shortcut_error_invalid" comment="Error label for the shortcut in the user dictionary add/edit dialog">تکایە کورتکراوەیەک بنوسە بۆ {regex}</string>
-    <string name="settings__udm__dialog__locale_label" comment="Label for the language code in the user dictionary add/edit dialog">کۆدی زمان (ئارەزومەند)</string>
-    <string name="settings__udm__dialog__locale_error_invalid" comment="Error label for the language code in the user dictionary add/edit dialog">ئەم کۆدی زمانە نەناسراوە، کۆدی زمان پێویستە تەنها لە دوو پیت پێکبێت بۆ نمونە (en یان ku)، یان کۆدی زمان و ووڵات بۆ نمونە (en_US یان ku_IQ).</string>
-    <string name="settings__gestures__title" comment="Title of Gestures screen">ئاماژەکان و نووسین بەسەریەکەوە</string>
-    <string name="pref__glide__title" comment="Preference group title">نووسین بەسەریەکەوە</string>
-    <string name="pref__glide__enabled__label" comment="Preference title">نووسین بەسەریەکەوە</string>
-    <string name="pref__glide__enabled__summary" comment="Preference summary">نووسین بەسەریەکەوە بەشێوەی دەسخشاندن بەسەر پیتەکاندا</string>
-    <string name="pref__glide__show_trail__label" comment="Preference title">پیشاندانی هێما</string>
-    <string name="pref__glide__show_trail__summary" comment="Preference summary">لەدوای هەر ووشەیەک دەردەکەوێ</string>
-    <string name="pref__glide_trail_fade_duration">ماوەی دەرکەوتن</string>
-    <string name="pref__glide_preview_refresh_delay">ماوەی پیشاندان</string>
-    <string name="pref__glide__show_preview">پیشاندانی هێما لەکاتی نووسین بەسەریەکەوە</string>
-    <string name="pref__glide__immediate_backspace_deletes_word__label">هەمیشە سڕینەوەی ووشە</string>
-    <string name="pref__glide__immediate_backspace_deletes_word__summary">دەسدان لە دوگمەی سڕینەوە و ڕاکێشان بۆ لای ڕاست دوای ئاماژەکان سەرجەم ووشەکان ئەسڕێتەوە</string>
-    <string name="pref__gestures__general_title" comment="Preference group title">ئاماژە گشتییەکان</string>
-    <string name="pref__gestures__space_bar_title" comment="Preference group title">ئاماژەی دوگمەی بۆشایی</string>
-    <string name="pref__gestures__other_title" comment="Preference group title">ئاماژەکانی/فرمانەکانی تر</string>
-    <string name="pref__gestures__swipe_up__label" comment="Preference title">ڕاکێشان بۆ سەرەوە</string>
-    <string name="pref__gestures__swipe_down__label" comment="Preference title">ڕاکێشان بۆ خوارەوە</string>
-    <string name="pref__gestures__swipe_left__label" comment="Preference title">ڕاکێشان بۆ لای چەپ</string>
-    <string name="pref__gestures__swipe_right__label" comment="Preference title">ڕاکێشان بۆ لای ڕاست</string>
-    <string name="pref__gestures__space_bar_swipe_up__label" comment="Preference title">دوگمەی بۆشایی بۆ سەرەوە</string>
-    <string name="pref__gestures__space_bar_swipe_left__label" comment="Preference title">دوگمەی بۆشایی بۆ لای چەپ</string>
-    <string name="pref__gestures__space_bar_swipe_right__label" comment="Preference title">دوگمەی بۆشایی بۆ لای ڕاست</string>
-    <string name="pref__gestures__space_bar_long_press__label" comment="Preference title">دوگمەی بۆشایی لەکاتی دەستڕاگرتن</string>
-    <string name="pref__gestures__delete_key_swipe_left__label" comment="Preference title">دوگمەی سڕینەوە بۆ لای چەپ</string>
-    <string name="pref__gestures__delete_key_long_press__label" comment="Preference title">دوگمەی سڕینەوە لەکاتی دەست ڕاگرتن</string>
-    <string name="pref__gestures__swipe_velocity_threshold__label" comment="Preference title">ئاستی خێرایی ڕاکێشان</string>
-    <string name="pref__gestures__swipe_distance_threshold__label" comment="Preference title">ماوەی ڕاکێشان</string>
+    <string name="settings__typing__title" comment="Title of Typing screen">ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="pref__suggestion__title" comment="Preference group title">Ù¾ÛŽØ´Ù†ÛŒØ§Ø±Ú©Ø±Ø¯Ù†ÛŒ ÙˆÙˆØ´Û•</string>
+    <string name="pref__suggestion__enabled__label" comment="Preference title">Ù¾ÛŽØ´Ù†ÛŒØ§Ø±Ú©Ø±Ø¯Ù†ÛŒ ÙˆÙˆØ´Û•</string>
+    <string name="pref__suggestion__enabled__summary" comment="Preference summary">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ ÙˆÙˆØ´Û• Ù¾ÛŽØ´Ù†ÛŒØ§Ø±Ú©Ø±Ø§ÙˆÛ•Ú©Ø§Ù† Ù„Û•Ú©Ø§ØªÛŒ Ù†ÙˆÙˆØ³ÛŒÙ†Ø¯Ø§</string>
+    <string name="pref__suggestion__display_mode__label" comment="Preference title">Ø´ÛŽÙˆÛ•ÛŒ Ø¯Û•Ø±Ú©Û•ÙˆØªÙ†ÛŒ Ù¾ÛŽØ´Ù†ÛŒØ§Ø±Û•Ú©Ø§Ù†</string>
+    <string name="pref__suggestion__block_possibly_offensive__label" comment="Preference title">Ú•ÛŽÚ¯Ø±ÛŒÚ©Ø±Ø¯Ù† Ù„Û• ÙˆÙˆØ´Û•ÛŒ Ù†Ø§Ø¨Û•Ø¬ÛŽ</string>
+    <string name="pref__suggestion__api30_inline_suggestions_enabled__summary" comment="Preference summary">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ù¾ÛŽØ´Ù†ÛŒØ§Ø±ÛŒ ØªÛ•ÙˆØ§ÙˆÚ©Û•Ø±ÛŒ Ø®Û†Ú©Ø§Ø±ÛŒ </string>
+    <string name="pref__correction__title" comment="Preference group title">Ú•Ø§Ø³ØªÚ©Ø±Ø¯Ù†Û•ÙˆÛ•</string>
+    <string name="pref__correction__auto_capitalization__label" comment="Preference title">Ú¯Û•ÙˆØ±Û•Ú©Ø±Ø¯Ù†ÛŒ Ø®Û†Ú©Ø§Ø±ÛŒ</string>
+    <string name="pref__correction__auto_capitalization__summary" comment="Preference summary">Ú¯Û•ÙˆØ±Û•Ú©Ø±Ø¯Ù†ÛŒ Ù¾ÛŒØªÛ•Ú©Ø§Ù† Ø¨Û• Ø®Û†Ú©Ø§Ø±ÛŒ ØªÛ•Ù†Ù‡Ø§ Ø¨Û† Ø²Ù…Ø§Ù†Û• Ù„Ø§ØªÛŒÙ†ÛŒÛŒÛ•Ú©Ø§Ù†</string>
+    <string name="pref__correction__auto_space_punctuation__label" comment="Preference title">Ø®Ø§ÚµØ¨Û•Ù†Ø¯ÛŒ Ùˆ Ø¨Û†Ø´Ø§ÛŒÛŒ</string>
+    <string name="pref__correction__auto_space_punctuation__summary" comment="Preference summary">Ø¯Ø§Ù†Ø§Ù†ÛŒ Ø®Ø§ÚµØ¨Û•Ù†Ø¯ÛŒ Ùˆ Ø¨Û†Ø´Ø§ÛŒÛŒ Ø¨Û•Ø®Û†Ú©Ø§Ø±ÛŒ Ù„Û•Ú©Û†ØªØ§ÛŒÛŒ Ú•Ø³ØªÛ•Ø¯Ø§</string>
+    <string name="pref__correction__remember_caps_lock_state__label" comment="Preference title">Ú¯Û•ÙˆØ±Û•Ú©Ø±Ø¯Ù†ÛŒ Ù‡Û•Ù…ÛŒØ´Û•ÛŒÛŒ</string>
+    <string name="pref__correction__remember_caps_lock_state__summary" comment="Preference summary">Ø³Û•Ø±Ø¬Û•Ù… Ù¾ÛŒØªÛ•Ú©Ø§Ù† Ù‡Û•Ù…ÛŒØ´Û• Ø¨Û• Ú¯Û•ÙˆØ±Û•ÛŒÛŒ(Ú©Ø§Ù¾ÛŒØªØ§Úµ) Ø¯Û•Ù…ÛŽÙ†Ù†Û•ÙˆÛ• ØªÛ•Ù†Ù‡Ø§ Ø¨Û† Ø¦ÛŒÙ†Ú¯Ù„ÛŒØ²ÛŒ Ùˆ Ø²Ù…Ø§Ù†Û• Ù„Ø§ØªÛŒÙ†ÛŒÛŒÛ•Ú©Ø§Ù†</string>
+    <string name="pref__correction__double_space_period__label" comment="Preference title">Ø¯Ø§Ù†Ø§Ù†ÛŒ Ø®Ø§Úµ Ø¨Û• Ø¯ÙˆÚ¯Ù…Û•ÛŒ Ø¨Û†Ø´Ø§ÛŒÛŒ</string>
+    <string name="pref__correction__double_space_period__summary" comment="Preference summary">Ø¯ÙˆÙˆØ¬Ø§Ø± Ø¯Û•Ø³Øª Ø¨Ù†ÛŽÛŒØª Ø¨Û• Ø¯ÙˆÚ¯Ù…Û•ÛŒ Ø¨Û†Ø´Ø§ÛŒÛŒØ¯Ø§ Ø®Ø§Úµ ÛŒØ§Ù† Ù‡ÛŽÙ…Ø§ÛŒ Ú©Û†ØªØ§ÛŒÛŒ Ú•Ø³ØªÛ• Ø¯Û•Ù†ÙˆØ³ÛŽØª</string>
+    <string name="pref__spelling__title" comment="Preference group title">Ú•Ø§Ø³ØªÚ©Ø±Ø¯Ù†Û•ÙˆÛ•ÛŒ Ù‡Û•ÚµÛ•ÛŒ Ú•ÛŽÙ†ÙˆÙˆØ³</string>
+    <string name="pref__spelling__active_spellchecker__summary_disabled">Ù†Ø§Ú†Ø§Ù„Ø§Ú©Ú©Ø±Ø¯Ù†ÛŒ Ú•Ø§Ø³ØªÚ©Û•Ø±Û•ÙˆÛ•ÛŒ Ø³ÛŒØ³ØªÛ•Ù…ØŒ Ù‡ÛŽÚµÛŒ Ø³ÙˆÙˆØ± Ù¾ÛŒØ´Ø§Ù† Ù†Ø§Ø¯Ø±ÛŽØª Ù„Û•Ú©Ø§ØªÛŒ Ù†ÙˆÙˆØ³ÛŒÙ†ÛŒ ÙˆÙˆØ´Û• Ù‡Û•ÚµÛ•Ú©Ø§Ù†Ø¯Ø§ØŒ Ù¾Û•Ù†Ø¬Û• Ù„ÛŽØ±Û• Ø¨Ø¯Û• Ø¨Û† Ú•ÛŽÚ©Ø®Ø³ØªÙ†.</string>
+    <string name="pref__spelling__active_spellchecker__summary_none">Ù‡ÛŒÚ† Ú•Ø§Ø³ØªÚ©Û•Ø±Û•ÙˆÛ•ÛŒÛ•Ú©ÛŒ Ù‡Û•ÚµÛ•ÛŒ Ú•ÛŽÙ†ÙˆÙˆØ³ Ø¯ÛŒØ§Ø±ÛŒÙ†Û•Ú©Ø±Ø§ÙˆÛ•ØŒ Ù¾Û•Ù†Ø¬Û• Ù„ÛŽØ±Û• Ø¨Ø¯Û• Ø¨Û† Ú•ÛŽÚ©Ø®Ø³ØªÙ†.</string>
+    <string name="pref__spelling__language_mode__label" comment="Label of Language mode pref">Ø²Ù…Ø§Ù†</string>
+    <string name="pref__spelling__use_contacts__label" comment="Label of Use contact list pref">Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Ø§Ù†ÛŒ Ù†Ø§ÙˆÛ•Ú©Ø§Ù†ÛŒ Ù†Ø§Ùˆ Ù…Û†Ø¨Ø§ÛŒÙ„</string>
+    <string name="pref__spelling__use_contacts__summary" comment="Summary of Use contact list pref">Ø±Ø§Ø³ØªÚ©Ø±Ø¯Ù†Û•ÙˆÛ• Ùˆ Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ù†Ø§ÙˆÛ•Ú©Ø§Ù†</string>
+    <string name="pref__spelling__use_udm_entries__label" comment="Label of Use user dictionary entries pref">Ø²ÛŒØ§Ø¯Ú©Ø±Ø§ÙˆÛ•Ú©Ø§Ù†ÛŒ ÙÛ•Ø±Ù‡Û•Ù†Ú¯ÛŒ ØªØ§ÛŒØ¨Û•Øª</string>
+    <string name="pref__spelling__use_udm_entries__summary" comment="Summary of Use user dictionary entries pref">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù† Ùˆ Ø±Ø§Ø³ØªÚ©Ø±Ø¯Ù†Û•ÙˆÛ• Ù„Û•Ú•ÛŽÛŒ ÙÛ•Ø±Ù‡Û•Ù†Ú¯ÛŒ Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Û•Ø±Û•ÙˆÛ•</string>
+    <string name="settings__dictionary__title" comment="Title of the User dictionaries screen">ÙÛ•Ø±Ù‡Û•Ù†Ú¯ÛŒ Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Û•Ø±</string>
+    <string name="pref__dictionary__enable_system_user_dictionary__label" comment="Preference title">ÙÛ•Ø±Ù‡Û•Ù†Ú¯ÛŒ ØªØ§ÛŒØ¨Û•ØªÛŒ Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Û•Ø±</string>
+    <string name="pref__dictionary__enable_system_user_dictionary__summary" comment="Preference summary">Ù¾ÛŽØ´Ù†ÛŒØ§Ø±Ú©Ø±Ø¯Ù†ÛŒ Ø¦Û•Ùˆ ÙˆÙˆØ´Ø§Ù†Û•ÛŒ Ù„Û•ÙÛ•Ø±Ù‡Û•Ù†Ú¯ÛŒ ØªØ§ÛŒØ¨Û•ØªÛŒ Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Û•Ø±Ø¯Ø§ Ù¾Ø§Ø´Û•Ú©Û•ÙˆØªÚ©Ø±Ø§ÙˆÙ†</string>
+    <string name="pref__dictionary__manage_system_user_dictionary__label" comment="Preference title">Ú•ÛŽÚ©Ø®Ø³ØªÙ†ÛŒ ÙÛ•Ø±Ù‡Û•Ù†Ú¯ÛŒ ØªØ§ÛŒØ¨Û•Øª</string>
+    <string name="pref__dictionary__manage_system_user_dictionary__summary" comment="Preference summary">Ø²ÛŒØ§Ø¯Ú©Ø±Ø¯Ù†ØŒ Ø¨ÛŒÙ†ÛŒÙ†ØŒ ÛŒØ§Ù† Ø³Ú•ÛŒÙ†Û•ÙˆÛ•ÛŒ ÙˆÙˆØ´Û•Ú©Ø§Ù†ÛŒ Ù†Ø§Ùˆ ÙÛ•Ø±Ù‡Û•Ù†Ú¯ÛŒ ØªØ§ÛŒØ¨Û•ØªÛŒ</string>
+    <string name="pref__dictionary__enable_internal_user_dictionary__label" comment="Preference title">ÙÛ•Ø±Ù‡Û•Ù†Ú¯ÛŒ Ù†Ø§ÙˆØ®Û†ÛŒÛŒ Ø¨Û•Ø±Ù†Ø§Ù…Û•Ú©Û•</string>
+    <string name="pref__dictionary__enable_internal_user_dictionary__summary" comment="Preference summary">Ù¾ÛŽØ´Ù†ÛŒØ§Ø±Ú©Ø±Ø¯Ù†ÛŒ Ø¦Û•Ùˆ ÙˆÙˆØ´Ø§Ù†Û•ÛŒ Ù„Û•ÙÛ•Ø±Ù‡Û•Ù†Ú¯ÛŒ Ù†Ø§ÙˆØ®Û†ÛŒÛŒ Ø¨Û•Ø±Ù†Ø§Ù…Û•Ú©Û•Ø¯Ø§ Ù¾Ø§Ø´Û•Ú©Û•ÙˆØªÚ©Ø±Ø§ÙˆÙ†</string>
+    <string name="pref__dictionary__manage_floris_user_dictionary__label" comment="Preference title">Ú•ÛŽÚ©Ø®Ø³ØªÙ†ÛŒ ÙÛ•Ø±Ù‡Û•Ù†Ú¯ÛŒ Ù†Ø§ÙˆØ®Û†ÛŒÛŒ</string>
+    <string name="pref__dictionary__manage_floris_user_dictionary__summary" comment="Preference summary">Ø²ÛŒØ§Ø¯Ú©Ø±Ø¯Ù†ØŒ Ø¨ÛŒÙ†ÛŒÙ†ØŒ ÛŒØ§Ù† Ø³Ú•ÛŒÙ†Û•ÙˆÛ•ÛŒ ÙˆÙˆØ´Û•Ú©Ø§Ù†ÛŒ Ù†Ø§Ùˆ ÙÛ•Ø±Ù‡Û•Ù†Ú¯ÛŒ Ù†Ø§ÙˆØ®Û†ÛŒÛŒ</string>
+    <string name="settings__udm__title_floris" comment="Title of the User Dictionary Manager activity for internal">ÙÛ•Ø±Ù‡Û•Ù†Ú¯ÛŒ ØªØ§ÛŒØ¨Û•Øª</string>
+    <string name="settings__udm__title_system" comment="Title of the User Dictionary Manager activity for system">ÙÛ•Ø±Ù‡Û•Ù†Ú¯ÛŒ Ø³ÛŒØ³ØªÛ•Ù…</string>
+    <string name="settings__udm__no_words_in_dictionary" comment="String to show if no words are present in the dictionary">ÙÛ•Ø±Ù‡Û•Ù†Ú¯ÛŒ ØªØ§ÛŒØ¨Û•ØªÛŒ Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Û•Ø± Ù‡ÛŒÚ† ÙˆÙˆØ´Û•ÛŒÛ•Ú©ÛŒ ØªÛŽØ¯Ø§ Ù†ÛŒÛ•.</string>
+    <string name="settings__udm__word_summary_freq" comment="Summary label for a word entry. The decimal placeholder inserts the frequency for the word it summarizes.">Ú˜Ù…Ø§Ø±Û•: {freq}</string>
+    <string name="settings__udm__word_summary_freq_shortcut" comment="Summary label for a word entry. The first placeholder inserts the frequency for the word it summarizes, the second placeholder the shortcut defined.">Ú˜Ù…Ø§Ø±Û•: {freq} | Ú©ÙˆØ±ØªÚ©Ø±Ø§ÙˆÛ•: {shortcut}</string>
+    <string name="settings__udm__all_languages" comment="Label of the For all languages entry in the language list">Ø¨Û† Ù‡Û•Ù…ÙˆÙˆ Ø²Ù…Ø§Ù†Û•Ú©Ø§Ù†</string>
+    <string name="settings__udm__open_system_manager_ui" comment="Label of the Open system manager UI menu option">Ú•ÛŽÚ©Ø®Ø³ØªÙ†ÛŒ ÙÛ•Ø±Ù‡Û•Ù†Ú¯ÛŒ Ø³ÛŒØ³ØªÛ•Ù…</string>
+    <string name="settings__udm__dictionary_import_success" comment="Message for dictionary import success">ÙÛ•Ø±Ù‡Û•Ù†Ú¯ÛŒ Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Û•Ø± Ø¨Û•Ø³Û•Ø±Ú©Û•ÙˆØªÙˆÙˆÛŒÛŒ Ù‡ÛŽÙ†Ø±Ø§!</string>
+    <string name="settings__udm__dictionary_export_success" comment="Message for dictionary export success">ÙÛ•Ø±Ù‡Û•Ù†Ú¯ÛŒ Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Û•Ø± Ø¨Û•Ø³Û•Ø±Ú©Û•ÙˆØªÙˆÙˆÛŒÛŒ Ù‡Û•ÚµÚ¯ÛŒØ±Ø§!</string>
+    <string name="settings__udm__dialog__title_add" comment="Label for the title (when in adding mode) in the user dictionary add/edit dialog">Ø²ÛŒØ§Ø¯Ú©Ø±Ø¯Ù†</string>
+    <string name="settings__udm__dialog__title_edit" comment="Label for the title (when in editing mode) in the user dictionary add/edit dialog">Ø¯Û•Ø³ØªÚ©Ø§Ø±ÛŒÚ©Ø±Ø¯Ù†</string>
+    <string name="settings__udm__dialog__word_label" comment="Label for the word in the user dictionary add/edit dialog">ÙˆÙˆØ´Û•</string>
+    <string name="settings__udm__dialog__word_error_empty" comment="Error label for the word in the user dictionary add/edit dialog">ØªÚ©Ø§ÛŒÛ• ÙˆÙˆØ´Û•ÛŒÛ•Ú© Ø¨Ù†ÙˆÙˆØ³Û•</string>
+    <string name="settings__udm__dialog__word_error_invalid" comment="Error label for the word in the user dictionary add/edit dialog">ØªÚ©Ø§ÛŒÛ• ÙˆÙˆØ´Û•ÛŒÛ•Ú© Ø¨Ù†ÙˆØ³Û• Ø¨Û† {regex}</string>
+    <string name="settings__udm__dialog__freq_label" comment="Label for the frequency in the user dictionary add/edit dialog. The two decimal placeholders are the minimum and maximum frequency, both inclusive.">Ú˜Ù…Ø§Ø±Û• (Ù„Û•Ù†ÛŽÙˆØ§Ù† {f_min} ØªØ§ {f_max})</string>
+    <string name="settings__udm__dialog__freq_error_empty" comment="Error label for the frequency in the user dictionary add/edit dialog">ØªÚ©Ø§ÛŒÛ• Ø¨Û•Ù‡Ø§ÛŒ Ú˜Ù…Ø§Ø±Û• Ø¨Ù†ÙˆØ³Û•</string>
+    <string name="settings__udm__dialog__freq_error_invalid" comment="Error label for the frequency in the user dictionary add/edit dialog">ØªÚ©Ø§ÛŒÛ• Ú˜Ù…Ø§Ø±Û•ÛŒÛ•Ú©ÛŒ Ø¯Ø±ÙˆØ³ØªÛŒ Ø¯ÛŒØ§Ø±ÛŒÚ©Ø±Ø§Ùˆ Ø¨Ù†ÙˆØ³Û•</string>
+    <string name="settings__udm__dialog__shortcut_label" comment="Label for the shortcut in the user dictionary add/edit dialog">Ú©ÙˆØ±ØªÚ©Ø±Ø§ÙˆÛ• (Ø¦Ø§Ø±Û•Ø²ÙˆÙˆÙ…Û•Ù†Ø¯Ø§Ù†Û•)</string>
+    <string name="settings__udm__dialog__shortcut_error_invalid" comment="Error label for the shortcut in the user dictionary add/edit dialog">ØªÚ©Ø§ÛŒÛ• Ú©ÙˆØ±ØªÚ©Ø±Ø§ÙˆÛ•ÛŒÛ•Ú© Ø¨Ù†ÙˆØ³Û• Ø¨Û† {regex}</string>
+    <string name="settings__udm__dialog__locale_label" comment="Label for the language code in the user dictionary add/edit dialog">Ú©Û†Ø¯ÛŒ Ø²Ù…Ø§Ù† (Ø¦Ø§Ø±Û•Ø²ÙˆÙ…Û•Ù†Ø¯)</string>
+    <string name="settings__udm__dialog__locale_error_invalid" comment="Error label for the language code in the user dictionary add/edit dialog">Ø¦Û•Ù… Ú©Û†Ø¯ÛŒ Ø²Ù…Ø§Ù†Û• Ù†Û•Ù†Ø§Ø³Ø±Ø§ÙˆÛ•ØŒ Ú©Û†Ø¯ÛŒ Ø²Ù…Ø§Ù† Ù¾ÛŽÙˆÛŒØ³ØªÛ• ØªÛ•Ù†Ù‡Ø§ Ù„Û• Ø¯ÙˆÙˆ Ù¾ÛŒØª Ù¾ÛŽÚ©Ø¨ÛŽØª Ø¨Û† Ù†Ù…ÙˆÙ†Û• (en ÛŒØ§Ù† ku)ØŒ ÛŒØ§Ù† Ú©Û†Ø¯ÛŒ Ø²Ù…Ø§Ù† Ùˆ ÙˆÙˆÚµØ§Øª Ø¨Û† Ù†Ù…ÙˆÙ†Û• (en_US ÛŒØ§Ù† ku_IQ).</string>
+    <string name="settings__gestures__title" comment="Title of Gestures screen">Ø¦Ø§Ù…Ø§Ú˜Û•Ú©Ø§Ù† Ùˆ Ù†ÙˆÙˆØ³ÛŒÙ† Ø¨Û•Ø³Û•Ø±ÛŒÛ•Ú©Û•ÙˆÛ•</string>
+    <string name="pref__glide__title" comment="Preference group title">Ù†ÙˆÙˆØ³ÛŒÙ† Ø¨Û•Ø³Û•Ø±ÛŒÛ•Ú©Û•ÙˆÛ•</string>
+    <string name="pref__glide__enabled__label" comment="Preference title">Ù†ÙˆÙˆØ³ÛŒÙ† Ø¨Û•Ø³Û•Ø±ÛŒÛ•Ú©Û•ÙˆÛ•</string>
+    <string name="pref__glide__enabled__summary" comment="Preference summary">Ù†ÙˆÙˆØ³ÛŒÙ† Ø¨Û•Ø³Û•Ø±ÛŒÛ•Ú©Û•ÙˆÛ• Ø¨Û•Ø´ÛŽÙˆÛ•ÛŒ Ø¯Û•Ø³Ø®Ø´Ø§Ù†Ø¯Ù† Ø¨Û•Ø³Û•Ø± Ù¾ÛŒØªÛ•Ú©Ø§Ù†Ø¯Ø§</string>
+    <string name="pref__glide__show_trail__label" comment="Preference title">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ù‡ÛŽÙ…Ø§</string>
+    <string name="pref__glide__show_trail__summary" comment="Preference summary">Ù„Û•Ø¯ÙˆØ§ÛŒ Ù‡Û•Ø± ÙˆÙˆØ´Û•ÛŒÛ•Ú© Ø¯Û•Ø±Ø¯Û•Ú©Û•ÙˆÛŽ</string>
+    <string name="pref__glide_trail_fade_duration">Ù…Ø§ÙˆÛ•ÛŒ Ø¯Û•Ø±Ú©Û•ÙˆØªÙ†</string>
+    <string name="pref__glide_preview_refresh_delay">Ù…Ø§ÙˆÛ•ÛŒ Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†</string>
+    <string name="pref__glide__show_preview">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ù‡ÛŽÙ…Ø§ Ù„Û•Ú©Ø§ØªÛŒ Ù†ÙˆÙˆØ³ÛŒÙ† Ø¨Û•Ø³Û•Ø±ÛŒÛ•Ú©Û•ÙˆÛ•</string>
+    <string name="pref__glide__immediate_backspace_deletes_word__label">Ù‡Û•Ù…ÛŒØ´Û• Ø³Ú•ÛŒÙ†Û•ÙˆÛ•ÛŒ ÙˆÙˆØ´Û•</string>
+    <string name="pref__glide__immediate_backspace_deletes_word__summary">Ø¯Û•Ø³Ø¯Ø§Ù† Ù„Û• Ø¯ÙˆÚ¯Ù…Û•ÛŒ Ø³Ú•ÛŒÙ†Û•ÙˆÛ• Ùˆ Ú•Ø§Ú©ÛŽØ´Ø§Ù† Ø¨Û† Ù„Ø§ÛŒ Ú•Ø§Ø³Øª Ø¯ÙˆØ§ÛŒ Ø¦Ø§Ù…Ø§Ú˜Û•Ú©Ø§Ù† Ø³Û•Ø±Ø¬Û•Ù… ÙˆÙˆØ´Û•Ú©Ø§Ù† Ø¦Û•Ø³Ú•ÛŽØªÛ•ÙˆÛ•</string>
+    <string name="pref__gestures__general_title" comment="Preference group title">Ø¦Ø§Ù…Ø§Ú˜Û• Ú¯Ø´ØªÛŒÛŒÛ•Ú©Ø§Ù†</string>
+    <string name="pref__gestures__space_bar_title" comment="Preference group title">Ø¦Ø§Ù…Ø§Ú˜Û•ÛŒ Ø¯ÙˆÚ¯Ù…Û•ÛŒ Ø¨Û†Ø´Ø§ÛŒÛŒ</string>
+    <string name="pref__gestures__other_title" comment="Preference group title">Ø¦Ø§Ù…Ø§Ú˜Û•Ú©Ø§Ù†ÛŒ/ÙØ±Ù…Ø§Ù†Û•Ú©Ø§Ù†ÛŒ ØªØ±</string>
+    <string name="pref__gestures__swipe_up__label" comment="Preference title">Ú•Ø§Ú©ÛŽØ´Ø§Ù† Ø¨Û† Ø³Û•Ø±Û•ÙˆÛ•</string>
+    <string name="pref__gestures__swipe_down__label" comment="Preference title">Ú•Ø§Ú©ÛŽØ´Ø§Ù† Ø¨Û† Ø®ÙˆØ§Ø±Û•ÙˆÛ•</string>
+    <string name="pref__gestures__swipe_left__label" comment="Preference title">Ú•Ø§Ú©ÛŽØ´Ø§Ù† Ø¨Û† Ù„Ø§ÛŒ Ú†Û•Ù¾</string>
+    <string name="pref__gestures__swipe_right__label" comment="Preference title">Ú•Ø§Ú©ÛŽØ´Ø§Ù† Ø¨Û† Ù„Ø§ÛŒ Ú•Ø§Ø³Øª</string>
+    <string name="pref__gestures__space_bar_swipe_up__label" comment="Preference title">Ø¯ÙˆÚ¯Ù…Û•ÛŒ Ø¨Û†Ø´Ø§ÛŒÛŒ Ø¨Û† Ø³Û•Ø±Û•ÙˆÛ•</string>
+    <string name="pref__gestures__space_bar_swipe_left__label" comment="Preference title">Ø¯ÙˆÚ¯Ù…Û•ÛŒ Ø¨Û†Ø´Ø§ÛŒÛŒ Ø¨Û† Ù„Ø§ÛŒ Ú†Û•Ù¾</string>
+    <string name="pref__gestures__space_bar_swipe_right__label" comment="Preference title">Ø¯ÙˆÚ¯Ù…Û•ÛŒ Ø¨Û†Ø´Ø§ÛŒÛŒ Ø¨Û† Ù„Ø§ÛŒ Ú•Ø§Ø³Øª</string>
+    <string name="pref__gestures__space_bar_long_press__label" comment="Preference title">Ø¯ÙˆÚ¯Ù…Û•ÛŒ Ø¨Û†Ø´Ø§ÛŒÛŒ Ù„Û•Ú©Ø§ØªÛŒ Ø¯Û•Ø³ØªÚ•Ø§Ú¯Ø±ØªÙ†</string>
+    <string name="pref__gestures__delete_key_swipe_left__label" comment="Preference title">Ø¯ÙˆÚ¯Ù…Û•ÛŒ Ø³Ú•ÛŒÙ†Û•ÙˆÛ• Ø¨Û† Ù„Ø§ÛŒ Ú†Û•Ù¾</string>
+    <string name="pref__gestures__delete_key_long_press__label" comment="Preference title">Ø¯ÙˆÚ¯Ù…Û•ÛŒ Ø³Ú•ÛŒÙ†Û•ÙˆÛ• Ù„Û•Ú©Ø§ØªÛŒ Ø¯Û•Ø³Øª Ú•Ø§Ú¯Ø±ØªÙ†</string>
+    <string name="pref__gestures__swipe_velocity_threshold__label" comment="Preference title">Ø¦Ø§Ø³ØªÛŒ Ø®ÛŽØ±Ø§ÛŒÛŒ Ú•Ø§Ú©ÛŽØ´Ø§Ù†</string>
+    <string name="pref__gestures__swipe_distance_threshold__label" comment="Preference title">Ù…Ø§ÙˆÛ•ÛŒ Ú•Ø§Ú©ÛŽØ´Ø§Ù†</string>
     <!-- About UI strings -->
-    <string name="about__title" comment="Title of About activity">دەربارە</string>
-    <string name="about__app_icon_content_description" comment="Content description of app icon in About">پیشاندانی ئایکۆنی بەرنامەکە</string>
-    <string name="about__view_licenses" comment="Label of View licenses button in About">مەرج و مۆڵەتی سەرچاوەکان</string>
-    <string name="about__view_privacy_policy" comment="Label of View privacy policy button in About">تایبەتمەندێتی ڕامیاری</string>
-    <string name="about__view_source_code" comment="Label of View source code button in About">کۆدی سەرچاوەکراوە</string>
-    <string name="about__license__title" comment="Title of Open-source licenses dialog">مەرج و مۆڵەتی سەرچاوەکان</string>
-    <string name="about__version__title" comment="Preference title">وەشان</string>
-    <string name="about__version_copied__title" comment="Title of the toast for copying the version string">ژمارە و ناوی وەشان کۆپیکرا</string>
-    <string name="about__version_copied__error" comment="Title of the error toast for copying the version string">ھەڵەیەک ڕوویدا: {error_message}</string>
-    <string name="about__changelog__title" comment="Preference title">گۆڕانکارییەکان</string>
-    <string name="about__changelog__summary" comment="Preference summary">نوێکارییەکان</string>
-    <string name="about__repository__title" comment="Preference title">کۆدی سەرچاوە (GitHub)</string>
-    <string name="about__repository__summary" comment="Preference summary">کۆدی بەرنامەکە، فێرکاری و زانیاری</string>
-    <string name="about__privacy_policy__title" comment="Preference title">تایبەتمەندێتی ڕامیاری</string>
-    <string name="about__privacy_policy__summary" comment="Preference summary">زانیاری تایبەتمەندێتی بەرنامەکە</string>
-    <string name="about__project_license__title" comment="Preference title">مۆڵەتی پڕۆژە</string>
-    <string name="about__project_license__summary" comment="Preference summary">بەرنامەکە مۆڵەتی {license_name} هەیە</string>
-    <string name="about__project_license__error_license_text_failed" comment="Error text for license text loading failure">هەڵە ڕوویدا: نەتوانرا زانیاری مۆڵەت بکرێتەوە.\n-&gt; هۆکار: {error_message}</string>
-    <string name="about__project_license__error_reason_asset_manager_null" comment="Error text if asset manager is null">بەڕێوەبەری فایلەکان پڕ بووە</string>
-    <string name="about__third_party_licenses__title" comment="Preference title">مۆڵەتی سەرچاوە-دەرەکییەکان</string>
-    <string name="about__third_party_licenses__summary" comment="Preference summary">مۆڵەتی ئەو سەرچاوە-دەرەکییانەی کە لە بەرنامەکەدا بەکارهاتووە</string>
+    <string name="about__title" comment="Title of About activity">Ø¯Û•Ø±Ø¨Ø§Ø±Û•</string>
+    <string name="about__app_icon_content_description" comment="Content description of app icon in About">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ø¦Ø§ÛŒÚ©Û†Ù†ÛŒ Ø¨Û•Ø±Ù†Ø§Ù…Û•Ú©Û•</string>
+    <string name="about__view_licenses" comment="Label of View licenses button in About">Ù…Û•Ø±Ø¬ Ùˆ Ù…Û†ÚµÛ•ØªÛŒ Ø³Û•Ø±Ú†Ø§ÙˆÛ•Ú©Ø§Ù†</string>
+    <string name="about__view_privacy_policy" comment="Label of View privacy policy button in About">ØªØ§ÛŒØ¨Û•ØªÙ…Û•Ù†Ø¯ÛŽØªÛŒ Ú•Ø§Ù…ÛŒØ§Ø±ÛŒ</string>
+    <string name="about__view_source_code" comment="Label of View source code button in About">Ú©Û†Ø¯ÛŒ Ø³Û•Ø±Ú†Ø§ÙˆÛ•Ú©Ø±Ø§ÙˆÛ•</string>
+    <string name="about__license__title" comment="Title of Open-source licenses dialog">Ù…Û•Ø±Ø¬ Ùˆ Ù…Û†ÚµÛ•ØªÛŒ Ø³Û•Ø±Ú†Ø§ÙˆÛ•Ú©Ø§Ù†</string>
+    <string name="about__version__title" comment="Preference title">ÙˆÛ•Ø´Ø§Ù†</string>
+    <string name="about__version_copied__title" comment="Title of the toast for copying the version string">Ú˜Ù…Ø§Ø±Û• Ùˆ Ù†Ø§ÙˆÛŒ ÙˆÛ•Ø´Ø§Ù† Ú©Û†Ù¾ÛŒÚ©Ø±Ø§</string>
+    <string name="about__version_copied__error" comment="Title of the error toast for copying the version string">Ú¾Û•ÚµÛ•ÛŒÛ•Ú© Ú•ÙˆÙˆÛŒØ¯Ø§: {error_message}</string>
+    <string name="about__changelog__title" comment="Preference title">Ú¯Û†Ú•Ø§Ù†Ú©Ø§Ø±ÛŒÛŒÛ•Ú©Ø§Ù†</string>
+    <string name="about__changelog__summary" comment="Preference summary">Ù†ÙˆÛŽÚ©Ø§Ø±ÛŒÛŒÛ•Ú©Ø§Ù†</string>
+    <string name="about__repository__title" comment="Preference title">Ú©Û†Ø¯ÛŒ Ø³Û•Ø±Ú†Ø§ÙˆÛ• (GitHub)</string>
+    <string name="about__repository__summary" comment="Preference summary">Ú©Û†Ø¯ÛŒ Ø¨Û•Ø±Ù†Ø§Ù…Û•Ú©Û•ØŒ ÙÛŽØ±Ú©Ø§Ø±ÛŒ Ùˆ Ø²Ø§Ù†ÛŒØ§Ø±ÛŒ</string>
+    <string name="about__privacy_policy__title" comment="Preference title">ØªØ§ÛŒØ¨Û•ØªÙ…Û•Ù†Ø¯ÛŽØªÛŒ Ú•Ø§Ù…ÛŒØ§Ø±ÛŒ</string>
+    <string name="about__privacy_policy__summary" comment="Preference summary">Ø²Ø§Ù†ÛŒØ§Ø±ÛŒ ØªØ§ÛŒØ¨Û•ØªÙ…Û•Ù†Ø¯ÛŽØªÛŒ Ø¨Û•Ø±Ù†Ø§Ù…Û•Ú©Û•</string>
+    <string name="about__project_license__title" comment="Preference title">Ù…Û†ÚµÛ•ØªÛŒ Ù¾Ú•Û†Ú˜Û•</string>
+    <string name="about__project_license__summary" comment="Preference summary">Ø¨Û•Ø±Ù†Ø§Ù…Û•Ú©Û• Ù…Û†ÚµÛ•ØªÛŒ {license_name} Ù‡Û•ÛŒÛ•</string>
+    <string name="about__project_license__error_license_text_failed" comment="Error text for license text loading failure">Ù‡Û•ÚµÛ• Ú•ÙˆÙˆÛŒØ¯Ø§: Ù†Û•ØªÙˆØ§Ù†Ø±Ø§ Ø²Ø§Ù†ÛŒØ§Ø±ÛŒ Ù…Û†ÚµÛ•Øª Ø¨Ú©Ø±ÛŽØªÛ•ÙˆÛ•.\n-&gt; Ù‡Û†Ú©Ø§Ø±: {error_message}</string>
+    <string name="about__project_license__error_reason_asset_manager_null" comment="Error text if asset manager is null">Ø¨Û•Ú•ÛŽÙˆÛ•Ø¨Û•Ø±ÛŒ ÙØ§ÛŒÙ„Û•Ú©Ø§Ù† Ù¾Ú• Ø¨ÙˆÙˆÛ•</string>
+    <string name="about__third_party_licenses__title" comment="Preference title">Ù…Û†ÚµÛ•ØªÛŒ Ø³Û•Ø±Ú†Ø§ÙˆÛ•-Ø¯Û•Ø±Û•Ú©ÛŒÛŒÛ•Ú©Ø§Ù†</string>
+    <string name="about__third_party_licenses__summary" comment="Preference summary">Ù…Û†ÚµÛ•ØªÛŒ Ø¦Û•Ùˆ Ø³Û•Ø±Ú†Ø§ÙˆÛ•-Ø¯Û•Ø±Û•Ú©ÛŒÛŒØ§Ù†Û•ÛŒ Ú©Û• Ù„Û• Ø¨Û•Ø±Ù†Ø§Ù…Û•Ú©Û•Ø¯Ø§ Ø¨Û•Ú©Ø§Ø±Ù‡Ø§ØªÙˆÙˆÛ•</string>
     <!-- Setup UI strings -->
-    <string name="setup__title" comment="Title of Setup">بەخێربێیت!</string>
-    <string name="setup__intro_message" comment="Short intro message welcoming new users">سوپاس بۆ بەکارهێنانی {app_name}! ئەم فێرکارییە یارمەتیت دەدات بۆ چالاککردن و ڕێکخستنی {app_name} لەسەر مۆبایلەکەت.</string>
-    <string name="setup__footer__privacy_policy" comment="Privacy policy label for URL">تایبەتمەندێتی ڕامیاری</string>
-    <string name="setup__footer__repository" comment="Repository label for URL">کۆگا</string>
-    <string name="setup__enable_ime__title">چالاککردنی {app_name}</string>
-    <string name="setup__enable_ime__description">پێویستە  \"{app_name}\"  چالاک بکەیت لە ڕێکخستنەکانی مۆبایلەکەتدا، تا بتوانی پێی بنوسی و بەکاری بهێنیت.</string>
-    <string name="setup__enable_ime__open_settings_btn">چالاککردنی تەختەکلیل</string>
-    <string name="setup__select_ime__title">هەڵبژاردنی {app_name}</string>
-    <string name="setup__select_ime__description">{app_name} ئێستا چالاککراوە لەسەر مۆبایلەکەت، بەڵام هەڵنەبژێردراوە بۆ بەکارهێنان پێویستە {app_name} بکەیتە سەرەکی بۆ ئەوەی بتوانی پێی بنوسیت!</string>
-    <string name="setup__select_ime__switch_keyboard_btn">هەڵبژاردنی تەختەکلیل</string>
-    <string name="setup__finish_up__title">تەواو</string>
-    <string name="setup__finish_up__description_p1">{app_name} ئێستا چالاکە بۆ بەکارهێنان و نووسین لەسەر مۆبایلەکەت.</string>
-    <string name="setup__finish_up__description_p2">لەکاتی بوونی هەر پرسیار و سەرنج و پێشنیارێک ئەتوانن سەردانی بەشی تایبەتی یارمەتیدان بکەن!</string>
-    <string name="setup__finish_up__finish_btn">ڕێکخستنەکانی تەختەکلیل</string>
+    <string name="setup__title" comment="Title of Setup">Ø¨Û•Ø®ÛŽØ±Ø¨ÛŽÛŒØª!</string>
+    <string name="setup__intro_message" comment="Short intro message welcoming new users">Ø³ÙˆÙ¾Ø§Ø³ Ø¨Û† Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Ø§Ù†ÛŒ {app_name}! Ø¦Û•Ù… ÙÛŽØ±Ú©Ø§Ø±ÛŒÛŒÛ• ÛŒØ§Ø±Ù…Û•ØªÛŒØª Ø¯Û•Ø¯Ø§Øª Ø¨Û† Ú†Ø§Ù„Ø§Ú©Ú©Ø±Ø¯Ù† Ùˆ Ú•ÛŽÚ©Ø®Ø³ØªÙ†ÛŒ {app_name} Ù„Û•Ø³Û•Ø± Ù…Û†Ø¨Ø§ÛŒÙ„Û•Ú©Û•Øª.</string>
+    <string name="setup__footer__privacy_policy" comment="Privacy policy label for URL">ØªØ§ÛŒØ¨Û•ØªÙ…Û•Ù†Ø¯ÛŽØªÛŒ Ú•Ø§Ù…ÛŒØ§Ø±ÛŒ</string>
+    <string name="setup__footer__repository" comment="Repository label for URL">Ú©Û†Ú¯Ø§</string>
+    <string name="setup__enable_ime__title">Ú†Ø§Ù„Ø§Ú©Ú©Ø±Ø¯Ù†ÛŒ {app_name}</string>
+    <string name="setup__enable_ime__description">Ù¾ÛŽÙˆÛŒØ³ØªÛ•  \"{app_name}\"  Ú†Ø§Ù„Ø§Ú© Ø¨Ú©Û•ÛŒØª Ù„Û• Ú•ÛŽÚ©Ø®Ø³ØªÙ†Û•Ú©Ø§Ù†ÛŒ Ù…Û†Ø¨Ø§ÛŒÙ„Û•Ú©Û•ØªØ¯Ø§ØŒ ØªØ§ Ø¨ØªÙˆØ§Ù†ÛŒ Ù¾ÛŽÛŒ Ø¨Ù†ÙˆØ³ÛŒ Ùˆ Ø¨Û•Ú©Ø§Ø±ÛŒ Ø¨Ù‡ÛŽÙ†ÛŒØª.</string>
+    <string name="setup__enable_ime__open_settings_btn">Ú†Ø§Ù„Ø§Ú©Ú©Ø±Ø¯Ù†ÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="setup__select_ime__title">Ù‡Û•ÚµØ¨Ú˜Ø§Ø±Ø¯Ù†ÛŒ {app_name}</string>
+    <string name="setup__select_ime__description">{app_name} Ø¦ÛŽØ³ØªØ§ Ú†Ø§Ù„Ø§Ú©Ú©Ø±Ø§ÙˆÛ• Ù„Û•Ø³Û•Ø± Ù…Û†Ø¨Ø§ÛŒÙ„Û•Ú©Û•ØªØŒ Ø¨Û•ÚµØ§Ù… Ù‡Û•ÚµÙ†Û•Ø¨Ú˜ÛŽØ±Ø¯Ø±Ø§ÙˆÛ• Ø¨Û† Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Ø§Ù† Ù¾ÛŽÙˆÛŒØ³ØªÛ• {app_name} Ø¨Ú©Û•ÛŒØªÛ• Ø³Û•Ø±Û•Ú©ÛŒ Ø¨Û† Ø¦Û•ÙˆÛ•ÛŒ Ø¨ØªÙˆØ§Ù†ÛŒ Ù¾ÛŽÛŒ Ø¨Ù†ÙˆØ³ÛŒØª!</string>
+    <string name="setup__select_ime__switch_keyboard_btn">Ù‡Û•ÚµØ¨Ú˜Ø§Ø±Ø¯Ù†ÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="setup__finish_up__title">ØªÛ•ÙˆØ§Ùˆ</string>
+    <string name="setup__finish_up__description_p1">{app_name} Ø¦ÛŽØ³ØªØ§ Ú†Ø§Ù„Ø§Ú©Û• Ø¨Û† Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Ø§Ù† Ùˆ Ù†ÙˆÙˆØ³ÛŒÙ† Ù„Û•Ø³Û•Ø± Ù…Û†Ø¨Ø§ÛŒÙ„Û•Ú©Û•Øª.</string>
+    <string name="setup__finish_up__description_p2">Ù„Û•Ú©Ø§ØªÛŒ Ø¨ÙˆÙˆÙ†ÛŒ Ù‡Û•Ø± Ù¾Ø±Ø³ÛŒØ§Ø± Ùˆ Ø³Û•Ø±Ù†Ø¬ Ùˆ Ù¾ÛŽØ´Ù†ÛŒØ§Ø±ÛŽÚ© Ø¦Û•ØªÙˆØ§Ù†Ù† Ø³Û•Ø±Ø¯Ø§Ù†ÛŒ Ø¨Û•Ø´ÛŒ ØªØ§ÛŒØ¨Û•ØªÛŒ ÛŒØ§Ø±Ù…Û•ØªÛŒØ¯Ø§Ù† Ø¨Ú©Û•Ù†!</string>
+    <string name="setup__finish_up__finish_btn">Ú•ÛŽÚ©Ø®Ø³ØªÙ†Û•Ú©Ø§Ù†ÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
     <!-- Physical keyboard -->
     <!-- Back up & Restore -->
-    <string name="backup_and_restore__title">پاشەکەوتکردن و گێڕانەوە</string>
-    <string name="backup_and_restore__back_up__title">پاشەکەوتکردنی داتاکان</string>
-    <string name="backup_and_restore__back_up__summary">هەڵگرتنی ڕێکخستن و دەستکاریکردنەکانی تەختەکلیل</string>
-    <string name="backup_and_restore__back_up__destination">شوێنی پاشەکەوتکردن دیاریبکە</string>
-    <string name="backup_and_restore__back_up__destination_file_sys">لەناو فایلی ناوخۆیی سیستەم</string>
-    <string name="backup_and_restore__back_up__destination_share_intent">فایلی دەرەکی و بڵاوکردنەوە</string>
-    <string name="backup_and_restore__back_up__files">ئەو بەشانە دیاریبکە کە دەتەوێ پاشەکەوتی بکەیت</string>
-    <string name="backup_and_restore__back_up__files_jetpref_datastore">ڕێکخستنەکان</string>
-    <string name="backup_and_restore__back_up__files_ime_keyboard">زیادکراوەکانی تەختەکلیل</string>
-    <string name="backup_and_restore__back_up__files_ime_spelling">پێوەکراوی ڕێنووس / فەرهەنگ</string>
-    <string name="backup_and_restore__back_up__files_ime_theme">ڕووکارەکان</string>
-    <string name="backup_and_restore__back_up__success">فایلی پاشەکەوتکردن بەسەرکەوتوویی دروستکرا!</string>
-    <string name="backup_and_restore__back_up__failure">هەڵگرتنی پاشەکەوتکردن سەرکەوتو نەبوو: {error_message}</string>
-    <string name="backup_and_restore__restore__title">گێڕانەوەی داتاکان</string>
-    <string name="backup_and_restore__restore__summary">گێڕانەوەی ڕێکخستن و زیادکراوە هەڵگیراوەکان لەڕێی فایلی پاشکەوتکراوەوە</string>
-    <string name="backup_and_restore__restore__files">ئەو بەشانە دیاریبکە کە دەتەوێ بیگێڕیتەوە</string>
-    <string name="backup_and_restore__restore__metadata">فایلی پاشەکەوتی هەڵبژێردراو</string>
-    <string name="backup_and_restore__restore__metadata_warn_different_version">ئەم فایلە پاشەکەوتکراوە بە وەشانێکی تری جیاواز لەمەی ئێستا دروست کراوە، کە بە گشتی پشتگیری دەکرێت ئاگاداربە هەرچەندە کە کێشە لاوەکیەکان دەتوانن ڕوو بدەن یان هەندێک لە پەسەندەکان لەوانەیە بە شێوەیەکی گونجاو نەگوێزرێنەوە بەهۆی جیاوازی تایبەتمەندیەکان.</string>
-    <string name="backup_and_restore__restore__metadata_warn_different_vendor">ئەم فایلە پاشەکەوتە بە بەرنامەی لایەنی سێیەم دروست کراوە، کە بە گشتی پشتگیری نەکراوە، کە لەوانەیە هەندێ فایل لەدەست بدەیت، بیانگێڕەوە لەسەر بەرپرسیاری خۆت!</string>
-    <string name="backup_and_restore__restore__metadata_error_invalid_metadata">ئەم فایلە پاشەکەوتە داتای نادروستی تێدایە، یان تێکچووە یان بە خراپی گۆڕانکاری تێدا کراوە، لەبەر ئەوە ناتوانی ئەم فایلە بگەڕێنیتەوە، تکایە یەکێکی تر دیاریبکە.</string>
-    <string name="backup_and_restore__restore__metadata_error_nothing_to_restore">ئەم فایلە پاشەکەوتە هیچ فایلێکی تێدا نییە بۆ گێڕانەوە، تکایە یەکێکی تر دیاریبکە.</string>
-    <string name="backup_and_restore__restore__mode">شێوازی گێڕانەوە</string>
-    <string name="backup_and_restore__restore__mode_merge">تێکەڵکردن لەگەڵ داتاکانی ئێستا</string>
-    <string name="backup_and_restore__restore__mode_erase_and_overwrite">سڕینەوە و گۆڕینی داتاکانی ئێستا</string>
-    <string name="backup_and_restore__restore__success">داتاکان بەسەرکەوتوویی گەڕێنرانەوە!</string>
-    <string name="backup_and_restore__restore__failure">گێڕانەوەی داتاکان سەرکەوتو نەبوو: {error_message}</string>
+    <string name="backup_and_restore__title">Ù¾Ø§Ø´Û•Ú©Û•ÙˆØªÚ©Ø±Ø¯Ù† Ùˆ Ú¯ÛŽÚ•Ø§Ù†Û•ÙˆÛ•</string>
+    <string name="backup_and_restore__back_up__title">Ù¾Ø§Ø´Û•Ú©Û•ÙˆØªÚ©Ø±Ø¯Ù†ÛŒ Ø¯Ø§ØªØ§Ú©Ø§Ù†</string>
+    <string name="backup_and_restore__back_up__summary">Ù‡Û•ÚµÚ¯Ø±ØªÙ†ÛŒ Ú•ÛŽÚ©Ø®Ø³ØªÙ† Ùˆ Ø¯Û•Ø³ØªÚ©Ø§Ø±ÛŒÚ©Ø±Ø¯Ù†Û•Ú©Ø§Ù†ÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="backup_and_restore__back_up__destination">Ø´ÙˆÛŽÙ†ÛŒ Ù¾Ø§Ø´Û•Ú©Û•ÙˆØªÚ©Ø±Ø¯Ù† Ø¯ÛŒØ§Ø±ÛŒØ¨Ú©Û•</string>
+    <string name="backup_and_restore__back_up__destination_file_sys">Ù„Û•Ù†Ø§Ùˆ ÙØ§ÛŒÙ„ÛŒ Ù†Ø§ÙˆØ®Û†ÛŒÛŒ Ø³ÛŒØ³ØªÛ•Ù…</string>
+    <string name="backup_and_restore__back_up__destination_share_intent">ÙØ§ÛŒÙ„ÛŒ Ø¯Û•Ø±Û•Ú©ÛŒ Ùˆ Ø¨ÚµØ§ÙˆÚ©Ø±Ø¯Ù†Û•ÙˆÛ•</string>
+    <string name="backup_and_restore__back_up__files">Ø¦Û•Ùˆ Ø¨Û•Ø´Ø§Ù†Û• Ø¯ÛŒØ§Ø±ÛŒØ¨Ú©Û• Ú©Û• Ø¯Û•ØªÛ•ÙˆÛŽ Ù¾Ø§Ø´Û•Ú©Û•ÙˆØªÛŒ Ø¨Ú©Û•ÛŒØª</string>
+    <string name="backup_and_restore__back_up__files_jetpref_datastore">Ú•ÛŽÚ©Ø®Ø³ØªÙ†Û•Ú©Ø§Ù†</string>
+    <string name="backup_and_restore__back_up__files_ime_keyboard">Ø²ÛŒØ§Ø¯Ú©Ø±Ø§ÙˆÛ•Ú©Ø§Ù†ÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="backup_and_restore__back_up__files_ime_spelling">Ù¾ÛŽÙˆÛ•Ú©Ø±Ø§ÙˆÛŒ Ú•ÛŽÙ†ÙˆÙˆØ³ / ÙÛ•Ø±Ù‡Û•Ù†Ú¯</string>
+    <string name="backup_and_restore__back_up__files_ime_theme">Ú•ÙˆÙˆÚ©Ø§Ø±Û•Ú©Ø§Ù†</string>
+    <string name="backup_and_restore__back_up__success">ÙØ§ÛŒÙ„ÛŒ Ù¾Ø§Ø´Û•Ú©Û•ÙˆØªÚ©Ø±Ø¯Ù† Ø¨Û•Ø³Û•Ø±Ú©Û•ÙˆØªÙˆÙˆÛŒÛŒ Ø¯Ø±ÙˆØ³ØªÚ©Ø±Ø§!</string>
+    <string name="backup_and_restore__back_up__failure">Ù‡Û•ÚµÚ¯Ø±ØªÙ†ÛŒ Ù¾Ø§Ø´Û•Ú©Û•ÙˆØªÚ©Ø±Ø¯Ù† Ø³Û•Ø±Ú©Û•ÙˆØªÙˆ Ù†Û•Ø¨ÙˆÙˆ: {error_message}</string>
+    <string name="backup_and_restore__restore__title">Ú¯ÛŽÚ•Ø§Ù†Û•ÙˆÛ•ÛŒ Ø¯Ø§ØªØ§Ú©Ø§Ù†</string>
+    <string name="backup_and_restore__restore__summary">Ú¯ÛŽÚ•Ø§Ù†Û•ÙˆÛ•ÛŒ Ú•ÛŽÚ©Ø®Ø³ØªÙ† Ùˆ Ø²ÛŒØ§Ø¯Ú©Ø±Ø§ÙˆÛ• Ù‡Û•ÚµÚ¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù† Ù„Û•Ú•ÛŽÛŒ ÙØ§ÛŒÙ„ÛŒ Ù¾Ø§Ø´Ú©Û•ÙˆØªÚ©Ø±Ø§ÙˆÛ•ÙˆÛ•</string>
+    <string name="backup_and_restore__restore__files">Ø¦Û•Ùˆ Ø¨Û•Ø´Ø§Ù†Û• Ø¯ÛŒØ§Ø±ÛŒØ¨Ú©Û• Ú©Û• Ø¯Û•ØªÛ•ÙˆÛŽ Ø¨ÛŒÚ¯ÛŽÚ•ÛŒØªÛ•ÙˆÛ•</string>
+    <string name="backup_and_restore__restore__metadata">ÙØ§ÛŒÙ„ÛŒ Ù¾Ø§Ø´Û•Ú©Û•ÙˆØªÛŒ Ù‡Û•ÚµØ¨Ú˜ÛŽØ±Ø¯Ø±Ø§Ùˆ</string>
+    <string name="backup_and_restore__restore__metadata_warn_different_version">Ø¦Û•Ù… ÙØ§ÛŒÙ„Û• Ù¾Ø§Ø´Û•Ú©Û•ÙˆØªÚ©Ø±Ø§ÙˆÛ• Ø¨Û• ÙˆÛ•Ø´Ø§Ù†ÛŽÚ©ÛŒ ØªØ±ÛŒ Ø¬ÛŒØ§ÙˆØ§Ø² Ù„Û•Ù…Û•ÛŒ Ø¦ÛŽØ³ØªØ§ Ø¯Ø±ÙˆØ³Øª Ú©Ø±Ø§ÙˆÛ•ØŒ Ú©Û• Ø¨Û• Ú¯Ø´ØªÛŒ Ù¾Ø´ØªÚ¯ÛŒØ±ÛŒ Ø¯Û•Ú©Ø±ÛŽØª Ø¦Ø§Ú¯Ø§Ø¯Ø§Ø±Ø¨Û• Ù‡Û•Ø±Ú†Û•Ù†Ø¯Û• Ú©Û• Ú©ÛŽØ´Û• Ù„Ø§ÙˆÛ•Ú©ÛŒÛ•Ú©Ø§Ù† Ø¯Û•ØªÙˆØ§Ù†Ù† Ú•ÙˆÙˆ Ø¨Ø¯Û•Ù† ÛŒØ§Ù† Ù‡Û•Ù†Ø¯ÛŽÚ© Ù„Û• Ù¾Û•Ø³Û•Ù†Ø¯Û•Ú©Ø§Ù† Ù„Û•ÙˆØ§Ù†Û•ÛŒÛ• Ø¨Û• Ø´ÛŽÙˆÛ•ÛŒÛ•Ú©ÛŒ Ú¯ÙˆÙ†Ø¬Ø§Ùˆ Ù†Û•Ú¯ÙˆÛŽØ²Ø±ÛŽÙ†Û•ÙˆÛ• Ø¨Û•Ù‡Û†ÛŒ Ø¬ÛŒØ§ÙˆØ§Ø²ÛŒ ØªØ§ÛŒØ¨Û•ØªÙ…Û•Ù†Ø¯ÛŒÛ•Ú©Ø§Ù†.</string>
+    <string name="backup_and_restore__restore__metadata_warn_different_vendor">Ø¦Û•Ù… ÙØ§ÛŒÙ„Û• Ù¾Ø§Ø´Û•Ú©Û•ÙˆØªÛ• Ø¨Û• Ø¨Û•Ø±Ù†Ø§Ù…Û•ÛŒ Ù„Ø§ÛŒÛ•Ù†ÛŒ Ø³ÛŽÛŒÛ•Ù… Ø¯Ø±ÙˆØ³Øª Ú©Ø±Ø§ÙˆÛ•ØŒ Ú©Û• Ø¨Û• Ú¯Ø´ØªÛŒ Ù¾Ø´ØªÚ¯ÛŒØ±ÛŒ Ù†Û•Ú©Ø±Ø§ÙˆÛ•ØŒ Ú©Û• Ù„Û•ÙˆØ§Ù†Û•ÛŒÛ• Ù‡Û•Ù†Ø¯ÛŽ ÙØ§ÛŒÙ„ Ù„Û•Ø¯Û•Ø³Øª Ø¨Ø¯Û•ÛŒØªØŒ Ø¨ÛŒØ§Ù†Ú¯ÛŽÚ•Û•ÙˆÛ• Ù„Û•Ø³Û•Ø± Ø¨Û•Ø±Ù¾Ø±Ø³ÛŒØ§Ø±ÛŒ Ø®Û†Øª!</string>
+    <string name="backup_and_restore__restore__metadata_error_invalid_metadata">Ø¦Û•Ù… ÙØ§ÛŒÙ„Û• Ù¾Ø§Ø´Û•Ú©Û•ÙˆØªÛ• Ø¯Ø§ØªØ§ÛŒ Ù†Ø§Ø¯Ø±ÙˆØ³ØªÛŒ ØªÛŽØ¯Ø§ÛŒÛ•ØŒ ÛŒØ§Ù† ØªÛŽÚ©Ú†ÙˆÙˆÛ• ÛŒØ§Ù† Ø¨Û• Ø®Ø±Ø§Ù¾ÛŒ Ú¯Û†Ú•Ø§Ù†Ú©Ø§Ø±ÛŒ ØªÛŽØ¯Ø§ Ú©Ø±Ø§ÙˆÛ•ØŒ Ù„Û•Ø¨Û•Ø± Ø¦Û•ÙˆÛ• Ù†Ø§ØªÙˆØ§Ù†ÛŒ Ø¦Û•Ù… ÙØ§ÛŒÙ„Û• Ø¨Ú¯Û•Ú•ÛŽÙ†ÛŒØªÛ•ÙˆÛ•ØŒ ØªÚ©Ø§ÛŒÛ• ÛŒÛ•Ú©ÛŽÚ©ÛŒ ØªØ± Ø¯ÛŒØ§Ø±ÛŒØ¨Ú©Û•.</string>
+    <string name="backup_and_restore__restore__metadata_error_nothing_to_restore">Ø¦Û•Ù… ÙØ§ÛŒÙ„Û• Ù¾Ø§Ø´Û•Ú©Û•ÙˆØªÛ• Ù‡ÛŒÚ† ÙØ§ÛŒÙ„ÛŽÚ©ÛŒ ØªÛŽØ¯Ø§ Ù†ÛŒÛŒÛ• Ø¨Û† Ú¯ÛŽÚ•Ø§Ù†Û•ÙˆÛ•ØŒ ØªÚ©Ø§ÛŒÛ• ÛŒÛ•Ú©ÛŽÚ©ÛŒ ØªØ± Ø¯ÛŒØ§Ø±ÛŒØ¨Ú©Û•.</string>
+    <string name="backup_and_restore__restore__mode">Ø´ÛŽÙˆØ§Ø²ÛŒ Ú¯ÛŽÚ•Ø§Ù†Û•ÙˆÛ•</string>
+    <string name="backup_and_restore__restore__mode_merge">ØªÛŽÚ©Û•ÚµÚ©Ø±Ø¯Ù† Ù„Û•Ú¯Û•Úµ Ø¯Ø§ØªØ§Ú©Ø§Ù†ÛŒ Ø¦ÛŽØ³ØªØ§</string>
+    <string name="backup_and_restore__restore__mode_erase_and_overwrite">Ø³Ú•ÛŒÙ†Û•ÙˆÛ• Ùˆ Ú¯Û†Ú•ÛŒÙ†ÛŒ Ø¯Ø§ØªØ§Ú©Ø§Ù†ÛŒ Ø¦ÛŽØ³ØªØ§</string>
+    <string name="backup_and_restore__restore__success">Ø¯Ø§ØªØ§Ú©Ø§Ù† Ø¨Û•Ø³Û•Ø±Ú©Û•ÙˆØªÙˆÙˆÛŒÛŒ Ú¯Û•Ú•ÛŽÙ†Ø±Ø§Ù†Û•ÙˆÛ•!</string>
+    <string name="backup_and_restore__restore__failure">Ú¯ÛŽÚ•Ø§Ù†Û•ÙˆÛ•ÛŒ Ø¯Ø§ØªØ§Ú©Ø§Ù† Ø³Û•Ø±Ú©Û•ÙˆØªÙˆ Ù†Û•Ø¨ÙˆÙˆ: {error_message}</string>
     <!-- Crash Dialog strings -->
-    <string name="crash_dialog__title" comment="Title of crash dialog">FlorisBorad ڕاپۆرتی هەڵەی</string>
-    <string name="crash_dialog__description" comment="Description of crash dialog">بەداخەوە، بەهۆی هەڵەیەکی لەناکاو تەختەکلیلی FlorisBoard لەکارکەوت.</string>
-    <string name="crash_dialog__report_instructions" comment="Issue tracker report instructions for the crash dialog. The %s placeholder is the name of the crash report template and always in English/LTR.">بەهۆی هەڵەیەکی لەناکاو تەختەکلیل  لەکارکەوت...\nبەکارهێنەری بەرێز لەکاتی بوونی کێشە یان وەستانی لەناکاوی بەرنامەکە تکایە ئەم بەشە فەرامۆش مەکەو هاوکاربە لە چارەسەرکردنیدا\n
-پەنجەبنێ بە دوگمەی <b>لەبەرگرتنەوەی ڕاپۆرتی هەڵە</b>، دواتر پەنجەبنێ بە دوگمەی <b>ناردنی ڕاپۆرتی هەڵە</b> بۆ دۆزینەوەی جۆری کێشەکە و چارەسەرکردن و باشترکردنی بەرنامەکەمان لە وەشانەکانی دواتردا</string>
-    <string name="crash_dialog__copy_to_clipboard" comment="Label of Copy to clipboard button in crash dialog">لەبەرگرتنەوەی ڕاپۆرتی هەڵە</string>
-    <string name="crash_dialog__copy_to_clipboard_success" comment="Label of Copy to clipboard success message in crash dialog">ڕاپۆرت لەبەریگیرایەوە</string>
-    <string name="crash_dialog__copy_to_clipboard_failure" comment="Label of Copy to clipboard failure message in crash dialog">ناتوانرێ کۆپی بکرێت چونکە مۆبایلەکەت پشتگیری ناکات</string>
-    <string name="crash_dialog__open_issue_tracker" comment="Label of Open issue tracker button in crash dialog">ڕاگەیاندنی ڕاپۆرتی هەڵە لە (github.com)</string>
-    <string name="crash_dialog__close" comment="Label of Close button in crash dialog">داخستن</string>
-    <string name="crash_notification_channel__title" comment="Title of crash notification channel">FlorisBorad ڕاپۆرتی هەڵەی</string>
-    <string name="crash_once_notification__title" comment="Title of the notification for a single crash">تەختەکلیلی FlorisBoard لە کارکەوت…</string>
-    <string name="crash_once_notification__body" comment="Body of the notification for a single crash">بینینی زانیاری ڕاپۆرتی هەڵە</string>
-    <string name="crash_multiple_notification__title" comment="Title of the notification for consecutive crashes">تەختەکلیلی FlorisBoard لەوانەیە زوو زوو لەکارکردن بوەستێت…</string>
-    <string name="crash_multiple_notification__body" comment="Body of the notification for consecutive crashes">گۆڕین بۆ تەختەکلیلی پێشوو لەکاتی بوونی هەڵە و وەستانی لەناکاو، بینینی زانیاری هەڵەکان</string>
+    <string name="crash_dialog__title" comment="Title of crash dialog">Keyboard Ú•Ø§Ù¾Û†Ø±ØªÛŒ Ù‡Û•ÚµÛ•ÛŒ</string>
+    <string name="crash_dialog__description" comment="Description of crash dialog">Ø¨Û•Ø¯Ø§Ø®Û•ÙˆÛ•ØŒ Ø¨Û•Ù‡Û†ÛŒ Ù‡Û•ÚµÛ•ÛŒÛ•Ú©ÛŒ Ù„Û•Ù†Ø§Ú©Ø§Ùˆ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„ÛŒ Keyboard Ù„Û•Ú©Ø§Ø±Ú©Û•ÙˆØª.</string>
+    <string name="crash_dialog__report_instructions" comment="Issue tracker report instructions for the crash dialog. The %s placeholder is the name of the crash report template and always in English/LTR.">Ø¨Û•Ù‡Û†ÛŒ Ù‡Û•ÚµÛ•ÛŒÛ•Ú©ÛŒ Ù„Û•Ù†Ø§Ú©Ø§Ùˆ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„  Ù„Û•Ú©Ø§Ø±Ú©Û•ÙˆØª...\nØ¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Û•Ø±ÛŒ Ø¨Û•Ø±ÛŽØ² Ù„Û•Ú©Ø§ØªÛŒ Ø¨ÙˆÙˆÙ†ÛŒ Ú©ÛŽØ´Û• ÛŒØ§Ù† ÙˆÛ•Ø³ØªØ§Ù†ÛŒ Ù„Û•Ù†Ø§Ú©Ø§ÙˆÛŒ Ø¨Û•Ø±Ù†Ø§Ù…Û•Ú©Û• ØªÚ©Ø§ÛŒÛ• Ø¦Û•Ù… Ø¨Û•Ø´Û• ÙÛ•Ø±Ø§Ù…Û†Ø´ Ù…Û•Ú©Û•Ùˆ Ù‡Ø§ÙˆÚ©Ø§Ø±Ø¨Û• Ù„Û• Ú†Ø§Ø±Û•Ø³Û•Ø±Ú©Ø±Ø¯Ù†ÛŒØ¯Ø§\n
+Ù¾Û•Ù†Ø¬Û•Ø¨Ù†ÛŽ Ø¨Û• Ø¯ÙˆÚ¯Ù…Û•ÛŒ <b>Ù„Û•Ø¨Û•Ø±Ú¯Ø±ØªÙ†Û•ÙˆÛ•ÛŒ Ú•Ø§Ù¾Û†Ø±ØªÛŒ Ù‡Û•ÚµÛ•</b>ØŒ Ø¯ÙˆØ§ØªØ± Ù¾Û•Ù†Ø¬Û•Ø¨Ù†ÛŽ Ø¨Û• Ø¯ÙˆÚ¯Ù…Û•ÛŒ <b>Ù†Ø§Ø±Ø¯Ù†ÛŒ Ú•Ø§Ù¾Û†Ø±ØªÛŒ Ù‡Û•ÚµÛ•</b> Ø¨Û† Ø¯Û†Ø²ÛŒÙ†Û•ÙˆÛ•ÛŒ Ø¬Û†Ø±ÛŒ Ú©ÛŽØ´Û•Ú©Û• Ùˆ Ú†Ø§Ø±Û•Ø³Û•Ø±Ú©Ø±Ø¯Ù† Ùˆ Ø¨Ø§Ø´ØªØ±Ú©Ø±Ø¯Ù†ÛŒ Ø¨Û•Ø±Ù†Ø§Ù…Û•Ú©Û•Ù…Ø§Ù† Ù„Û• ÙˆÛ•Ø´Ø§Ù†Û•Ú©Ø§Ù†ÛŒ Ø¯ÙˆØ§ØªØ±Ø¯Ø§</string>
+    <string name="crash_dialog__copy_to_clipboard" comment="Label of Copy to clipboard button in crash dialog">Ù„Û•Ø¨Û•Ø±Ú¯Ø±ØªÙ†Û•ÙˆÛ•ÛŒ Ú•Ø§Ù¾Û†Ø±ØªÛŒ Ù‡Û•ÚµÛ•</string>
+    <string name="crash_dialog__copy_to_clipboard_success" comment="Label of Copy to clipboard success message in crash dialog">Ú•Ø§Ù¾Û†Ø±Øª Ù„Û•Ø¨Û•Ø±ÛŒÚ¯ÛŒØ±Ø§ÛŒÛ•ÙˆÛ•</string>
+    <string name="crash_dialog__copy_to_clipboard_failure" comment="Label of Copy to clipboard failure message in crash dialog">Ù†Ø§ØªÙˆØ§Ù†Ø±ÛŽ Ú©Û†Ù¾ÛŒ Ø¨Ú©Ø±ÛŽØª Ú†ÙˆÙ†Ú©Û• Ù…Û†Ø¨Ø§ÛŒÙ„Û•Ú©Û•Øª Ù¾Ø´ØªÚ¯ÛŒØ±ÛŒ Ù†Ø§Ú©Ø§Øª</string>
+    <string name="crash_dialog__open_issue_tracker" comment="Label of Open issue tracker button in crash dialog">Ú•Ø§Ú¯Û•ÛŒØ§Ù†Ø¯Ù†ÛŒ Ú•Ø§Ù¾Û†Ø±ØªÛŒ Ù‡Û•ÚµÛ• Ù„Û• (github.com)</string>
+    <string name="crash_dialog__close" comment="Label of Close button in crash dialog">Ø¯Ø§Ø®Ø³ØªÙ†</string>
+    <string name="crash_notification_channel__title" comment="Title of crash notification channel">Keyboard Ú•Ø§Ù¾Û†Ø±ØªÛŒ Ù‡Û•ÚµÛ•ÛŒ</string>
+    <string name="crash_once_notification__title" comment="Title of the notification for a single crash">ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„ÛŒ Keyboard Ù„Û• Ú©Ø§Ø±Ú©Û•ÙˆØªâ€¦</string>
+    <string name="crash_once_notification__body" comment="Body of the notification for a single crash">Ø¨ÛŒÙ†ÛŒÙ†ÛŒ Ø²Ø§Ù†ÛŒØ§Ø±ÛŒ Ú•Ø§Ù¾Û†Ø±ØªÛŒ Ù‡Û•ÚµÛ•</string>
+    <string name="crash_multiple_notification__title" comment="Title of the notification for consecutive crashes">ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„ÛŒ Keyboard Ù„Û•ÙˆØ§Ù†Û•ÛŒÛ• Ø²ÙˆÙˆ Ø²ÙˆÙˆ Ù„Û•Ú©Ø§Ø±Ú©Ø±Ø¯Ù† Ø¨ÙˆÛ•Ø³ØªÛŽØªâ€¦</string>
+    <string name="crash_multiple_notification__body" comment="Body of the notification for consecutive crashes">Ú¯Û†Ú•ÛŒÙ† Ø¨Û† ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„ÛŒ Ù¾ÛŽØ´ÙˆÙˆ Ù„Û•Ú©Ø§ØªÛŒ Ø¨ÙˆÙˆÙ†ÛŒ Ù‡Û•ÚµÛ• Ùˆ ÙˆÛ•Ø³ØªØ§Ù†ÛŒ Ù„Û•Ù†Ø§Ú©Ø§ÙˆØŒ Ø¨ÛŒÙ†ÛŒÙ†ÛŒ Ø²Ø§Ù†ÛŒØ§Ø±ÛŒ Ù‡Û•ÚµÛ•Ú©Ø§Ù†</string>
     <!-- Clipboard strings -->
-    <string name="clipboard__header_title">لەبەرگیراوەکان</string>
-    <string name="clipboard__disabled__title">بەشی لەبەرگیراوەکان نا چالاککراوە </string>
-    <string name="clipboard__disabled__message">بەشی لەبەرگیراوەکانی {app_name} ڕێگە دەدات بە هەڵگرتن و هێشتنەوەی شتە کۆپی کراوەکانت و ڕێکخستنیان بەدڵی خۆت.</string>
-    <string name="clipboard__disabled__enable_button">بەکارهێنانی بەشی لەبەرگیراوەکان</string>
-    <string name="clipboard__empty__title">بەشی لەبەرگیراوەکان بەتاڵە</string>
-    <string name="clipboard__empty__message">هەر کاتێ نووسین یان وێنەیەکت کۆپی کرد لێرەدا دەرەکەون.</string>
-    <string name="clipboard__locked__title">بەشی لەبەرگیراوەکان قفڵکراوە</string>
-    <string name="clipboard__locked__message">بۆ بینینی شتەکانی بەشی لەبەرگیراوەکان، پێویستە قفڵی مۆبایلەکەت بکەیتەوە.</string>
-    <string name="clipboard__group_pinned">جێگیرکراو</string>
-    <string name="clipboard__group_recent">دوایین لەبەرگیراوە</string>
-    <string name="clipboard__group_other">جۆری تر</string>
-    <string name="clipboard__item_description_email">ئیمەیڵ</string>
-    <string name="clipboard__item_description_url">URL بەستەر</string>
-    <string name="clipboard__item_description_phone">تەلەفۆن</string>
-    <string name="clip__clear_history">سڕینەوەی مێژوو</string>
-    <string name="clip__unpin_item">جێگیر نەکردن</string>
-    <string name="clip__pin_item">جێگیر کردن</string>
-    <string name="clip__delete_item">سڕینەوە</string>
-    <string name="clip__paste_item">دانان</string>
-    <string name="clip__back_to_text_input">گەڕانەوە</string>
-    <string name="clip__cant_paste">ئەم بەرنامەیە پشتگیری دانانی شتەکان ناکات.</string>
-    <string name="clipboard__cleared_primary_clip">سڕینەوەی گشتی</string>
-    <string name="clipboard__cleared_history">سڕینەوەی مێژوو</string>
-    <string name="clipboard__cleared_full_history">سڕینەوەی هەموو شتێک</string>
-    <string name="settings__clipboard__title">لەبەرگیراوەکان</string>
-    <string name="pref__clipboard__use_internal_clipboard__label">بەشی لەبەرگیراوەکان</string>
-    <string name="pref__clipboard__use_internal_clipboard__summary">بەکارهێنانی بەشی لەبەرگیراوەکان بۆ هەڵگرتنی شتەکان</string>
-    <string name="pref__clipboard__sync_from_system_clipboard__label">لەبەرگیراوەی سیستەم</string>
-    <string name="pref__clipboard__sync_to_system_clipboard__label">لەبەرگیراوەی بەرنامەکە</string>
-    <string name="pref__clipboard__group_clipboard_history__label">لەبەرگیراوەکان</string>
-    <string name="pref__clipboard__enable_clipboard_history__label">بەکارهێنانی بەشی لەبەرگیراوەکان</string>
-    <string name="pref__clipboard__enable_clipboard_history__summary">هێشتنەوەی لەبەرگیراوەکان لەسەر شاشە بۆ خێرا دەست پێگەیشتن</string>
-    <string name="pref__clipboard__clean_up_old__label">سڕینەوەی لەبەرگیراوە کۆنەکان</string>
-    <string name="pref__clipboard__clean_up_after__label">سڕینەوەی لەبەرگیراوە کۆنەکان</string>
-    <string name="pref__clipboard__limit_history_size__label">سنوردارکردنی مێژووی هەڵگرتن</string>
-    <string name="pref__clipboard__max_history_size__label">زۆررین ڕێژەی هەڵگرتن</string>
+    <string name="clipboard__header_title">Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù†</string>
+    <string name="clipboard__disabled__title">Ø¨Û•Ø´ÛŒ Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù† Ù†Ø§ Ú†Ø§Ù„Ø§Ú©Ú©Ø±Ø§ÙˆÛ• </string>
+    <string name="clipboard__disabled__message">Ø¨Û•Ø´ÛŒ Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù†ÛŒ {app_name} Ú•ÛŽÚ¯Û• Ø¯Û•Ø¯Ø§Øª Ø¨Û• Ù‡Û•ÚµÚ¯Ø±ØªÙ† Ùˆ Ù‡ÛŽØ´ØªÙ†Û•ÙˆÛ•ÛŒ Ø´ØªÛ• Ú©Û†Ù¾ÛŒ Ú©Ø±Ø§ÙˆÛ•Ú©Ø§Ù†Øª Ùˆ Ú•ÛŽÚ©Ø®Ø³ØªÙ†ÛŒØ§Ù† Ø¨Û•Ø¯ÚµÛŒ Ø®Û†Øª.</string>
+    <string name="clipboard__disabled__enable_button">Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Ø§Ù†ÛŒ Ø¨Û•Ø´ÛŒ Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù†</string>
+    <string name="clipboard__empty__title">Ø¨Û•Ø´ÛŒ Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù† Ø¨Û•ØªØ§ÚµÛ•</string>
+    <string name="clipboard__empty__message">Ù‡Û•Ø± Ú©Ø§ØªÛŽ Ù†ÙˆÙˆØ³ÛŒÙ† ÛŒØ§Ù† ÙˆÛŽÙ†Û•ÛŒÛ•Ú©Øª Ú©Û†Ù¾ÛŒ Ú©Ø±Ø¯ Ù„ÛŽØ±Û•Ø¯Ø§ Ø¯Û•Ø±Û•Ú©Û•ÙˆÙ†.</string>
+    <string name="clipboard__locked__title">Ø¨Û•Ø´ÛŒ Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù† Ù‚ÙÚµÚ©Ø±Ø§ÙˆÛ•</string>
+    <string name="clipboard__locked__message">Ø¨Û† Ø¨ÛŒÙ†ÛŒÙ†ÛŒ Ø´ØªÛ•Ú©Ø§Ù†ÛŒ Ø¨Û•Ø´ÛŒ Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù†ØŒ Ù¾ÛŽÙˆÛŒØ³ØªÛ• Ù‚ÙÚµÛŒ Ù…Û†Ø¨Ø§ÛŒÙ„Û•Ú©Û•Øª Ø¨Ú©Û•ÛŒØªÛ•ÙˆÛ•.</string>
+    <string name="clipboard__group_pinned">Ø¬ÛŽÚ¯ÛŒØ±Ú©Ø±Ø§Ùˆ</string>
+    <string name="clipboard__group_recent">Ø¯ÙˆØ§ÛŒÛŒÙ† Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•</string>
+    <string name="clipboard__group_other">Ø¬Û†Ø±ÛŒ ØªØ±</string>
+    <string name="clipboard__item_description_email">Ø¦ÛŒÙ…Û•ÛŒÚµ</string>
+    <string name="clipboard__item_description_url">URL Ø¨Û•Ø³ØªÛ•Ø±</string>
+    <string name="clipboard__item_description_phone">ØªÛ•Ù„Û•ÙÛ†Ù†</string>
+    <string name="clip__clear_history">Ø³Ú•ÛŒÙ†Û•ÙˆÛ•ÛŒ Ù…ÛŽÚ˜ÙˆÙˆ</string>
+    <string name="clip__unpin_item">Ø¬ÛŽÚ¯ÛŒØ± Ù†Û•Ú©Ø±Ø¯Ù†</string>
+    <string name="clip__pin_item">Ø¬ÛŽÚ¯ÛŒØ± Ú©Ø±Ø¯Ù†</string>
+    <string name="clip__delete_item">Ø³Ú•ÛŒÙ†Û•ÙˆÛ•</string>
+    <string name="clip__paste_item">Ø¯Ø§Ù†Ø§Ù†</string>
+    <string name="clip__back_to_text_input">Ú¯Û•Ú•Ø§Ù†Û•ÙˆÛ•</string>
+    <string name="clip__cant_paste">Ø¦Û•Ù… Ø¨Û•Ø±Ù†Ø§Ù…Û•ÛŒÛ• Ù¾Ø´ØªÚ¯ÛŒØ±ÛŒ Ø¯Ø§Ù†Ø§Ù†ÛŒ Ø´ØªÛ•Ú©Ø§Ù† Ù†Ø§Ú©Ø§Øª.</string>
+    <string name="clipboard__cleared_primary_clip">Ø³Ú•ÛŒÙ†Û•ÙˆÛ•ÛŒ Ú¯Ø´ØªÛŒ</string>
+    <string name="clipboard__cleared_history">Ø³Ú•ÛŒÙ†Û•ÙˆÛ•ÛŒ Ù…ÛŽÚ˜ÙˆÙˆ</string>
+    <string name="clipboard__cleared_full_history">Ø³Ú•ÛŒÙ†Û•ÙˆÛ•ÛŒ Ù‡Û•Ù…ÙˆÙˆ Ø´ØªÛŽÚ©</string>
+    <string name="settings__clipboard__title">Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù†</string>
+    <string name="pref__clipboard__use_internal_clipboard__label">Ø¨Û•Ø´ÛŒ Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù†</string>
+    <string name="pref__clipboard__use_internal_clipboard__summary">Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Ø§Ù†ÛŒ Ø¨Û•Ø´ÛŒ Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù† Ø¨Û† Ù‡Û•ÚµÚ¯Ø±ØªÙ†ÛŒ Ø´ØªÛ•Ú©Ø§Ù†</string>
+    <string name="pref__clipboard__sync_from_system_clipboard__label">Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•ÛŒ Ø³ÛŒØ³ØªÛ•Ù…</string>
+    <string name="pref__clipboard__sync_to_system_clipboard__label">Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•ÛŒ Ø¨Û•Ø±Ù†Ø§Ù…Û•Ú©Û•</string>
+    <string name="pref__clipboard__group_clipboard_history__label">Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù†</string>
+    <string name="pref__clipboard__enable_clipboard_history__label">Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Ø§Ù†ÛŒ Ø¨Û•Ø´ÛŒ Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù†</string>
+    <string name="pref__clipboard__enable_clipboard_history__summary">Ù‡ÛŽØ´ØªÙ†Û•ÙˆÛ•ÛŒ Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù† Ù„Û•Ø³Û•Ø± Ø´Ø§Ø´Û• Ø¨Û† Ø®ÛŽØ±Ø§ Ø¯Û•Ø³Øª Ù¾ÛŽÚ¯Û•ÛŒØ´ØªÙ†</string>
+    <string name="pref__clipboard__clean_up_old__label">Ø³Ú•ÛŒÙ†Û•ÙˆÛ•ÛŒ Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ• Ú©Û†Ù†Û•Ú©Ø§Ù†</string>
+    <string name="pref__clipboard__clean_up_after__label">Ø³Ú•ÛŒÙ†Û•ÙˆÛ•ÛŒ Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ• Ú©Û†Ù†Û•Ú©Ø§Ù†</string>
+    <string name="pref__clipboard__limit_history_size__label">Ø³Ù†ÙˆØ±Ø¯Ø§Ø±Ú©Ø±Ø¯Ù†ÛŒ Ù…ÛŽÚ˜ÙˆÙˆÛŒ Ù‡Û•ÚµÚ¯Ø±ØªÙ†</string>
+    <string name="pref__clipboard__max_history_size__label">Ø²Û†Ø±Ø±ÛŒÙ† Ú•ÛŽÚ˜Û•ÛŒ Ù‡Û•ÚµÚ¯Ø±ØªÙ†</string>
     <!-- Devtools strings -->
-    <string name="devtools__title" comment="Title of Devtools screen. Translators: treat this string as 'Developer tools' for translation, except a similar short term is available for your language.">ئامرازەکان</string>
-    <string name="devtools__enabled__label" comment="Label of Enable developer tools in Devtools">پیشاندانی زانیاری تایبەتمەندی</string>
-    <string name="devtools__enabled__summary" comment="Summary of Enable developer tools in Devtools">پیشاندانی زانیاری لەسەر هەندێ تایبەتمەندی تەختەکلیل</string>
-    <string name="devtools__show_primary_clip__label" comment="Label of Show primary clip in Devtools">پیشاندانی لەبەرگیراوەی بنەڕەتی</string>
-    <string name="devtools__show_primary_clip__summary" comment="Summary of Show primary clip in Devtools">جێگۆڕینی لەبەرگیراوەکانی ئێستا لەگەڵ لەبەرگیراوەی بەرنامەکە</string>
-    <string name="devtools__show_input_state_overlay__label" comment="Label of Show input cache overlay in Devtools">پیشاندانی دۆخی تەختەکلیل</string>
-    <string name="devtools__show_input_state_overlay__summary" comment="Summary of Show input cache overlay in Devtools">پیشاندانی زانیاری دۆخی  تەختەکلیل</string>
-    <string name="devtools__show_spelling_overlay__label" comment="Label of Show spelling overlay in Devtools">پیشاندانی ڕاستکردنەوەی ڕێنووس</string>
-    <string name="devtools__show_spelling_overlay__summary" comment="Summary of Show spelling overlay in Devtools">پیشاندانی ڕاستکردنەوەی هەڵەی ڕێنووس لەسەروی تەختەکلیل</string>
-    <string name="devtools__show_key_touch_boundaries__label" comment="Label of Show key touch boundaries in Devtools">پیشاندانی سنوورەکانی کلیل</string>
-    <string name="devtools__show_key_touch_boundaries__summary" comment="Summary of Show key touch boundaries in Devtools">هێڵکاریکردنی سنوورەکانی کلیل دەسلێدان بە سوور</string>
-    <string name="devtools__show_drag_and_drop_helpers__label" comment="Label of Show drag and drop helpers in Devtools">پیشاندانی فێرکاری ڕاکێشان و دانان</string>
-    <string name="devtools__clear_udm_internal_database__label" comment="Label of Clear internal user dictionary database in Devtools">لابردنی فەرهەنگی تایبەتی بەکارهێنەر</string>
-    <string name="devtools__clear_udm_internal_database__summary" comment="Summary of Clear internal user dictionary database in Devtools">سڕینەوەی ووشە زیادکراوەکانی فەرهەنگی تایبەتی بەکارهێنەر</string>
-    <string name="devtools__reset_flag__label" comment="Label of Reset flag preferences in Devtools">\"{flag_name}\" ڕێکخستنەوەی</string>
-    <string name="devtools__reset_flag_is_ime_set_up__summary" comment="Summary of Reset is IME set up flag in Devtools">فرمانێکی دارێژەرییە بۆ پیشاندانەوەی شاشەی دامەزراندن</string>
-    <string name="devtools__test_crash_report__label" comment="Label of Test Crash Report in Devtools">پیشاندانی بەشی ڕاپۆرتکردنی هەڵە</string>
-    <string name="devtools__test_crash_report__summary" comment="Summary of Test Crash Report in Devtools">دەردەکەوێ لەکاتی بوونی کێشە لە بەرنامەکەدا</string>
-    <string name="devtools__group_android__title" comment="Title of Android group in Devtools">ئامرازەکانی سیستەمی ئەندرۆید</string>
-    <string name="devtools__android_settings_global__title" comment="Title of Android settings (global) screen">ئامرازە گشتییەکان</string>
-    <string name="devtools__android_settings_secure__title" comment="Title of Android settings (secure) screen">ئامرازەکانی پاراستن</string>
-    <string name="devtools__android_settings_system__title" comment="Title of Android settings (system) screen">ڕێکخستنەکانی سیستەمی ئەندرۆید</string>
-    <string name="devtools__android_locales__title" comment="Title of Android locales screen">زمانەکانی سیستەم</string>
+    <string name="devtools__title" comment="Title of Devtools screen. Translators: treat this string as 'Developer tools' for translation, except a similar short term is available for your language.">Ø¦Ø§Ù…Ø±Ø§Ø²Û•Ú©Ø§Ù†</string>
+    <string name="devtools__enabled__label" comment="Label of Enable developer tools in Devtools">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ø²Ø§Ù†ÛŒØ§Ø±ÛŒ ØªØ§ÛŒØ¨Û•ØªÙ…Û•Ù†Ø¯ÛŒ</string>
+    <string name="devtools__enabled__summary" comment="Summary of Enable developer tools in Devtools">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ø²Ø§Ù†ÛŒØ§Ø±ÛŒ Ù„Û•Ø³Û•Ø± Ù‡Û•Ù†Ø¯ÛŽ ØªØ§ÛŒØ¨Û•ØªÙ…Û•Ù†Ø¯ÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="devtools__show_primary_clip__label" comment="Label of Show primary clip in Devtools">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•ÛŒ Ø¨Ù†Û•Ú•Û•ØªÛŒ</string>
+    <string name="devtools__show_primary_clip__summary" comment="Summary of Show primary clip in Devtools">Ø¬ÛŽÚ¯Û†Ú•ÛŒÙ†ÛŒ Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù†ÛŒ Ø¦ÛŽØ³ØªØ§ Ù„Û•Ú¯Û•Úµ Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•ÛŒ Ø¨Û•Ø±Ù†Ø§Ù…Û•Ú©Û•</string>
+    <string name="devtools__show_input_state_overlay__label" comment="Label of Show input cache overlay in Devtools">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ø¯Û†Ø®ÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="devtools__show_input_state_overlay__summary" comment="Summary of Show input cache overlay in Devtools">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ø²Ø§Ù†ÛŒØ§Ø±ÛŒ Ø¯Û†Ø®ÛŒ  ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="devtools__show_spelling_overlay__label" comment="Label of Show spelling overlay in Devtools">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ú•Ø§Ø³ØªÚ©Ø±Ø¯Ù†Û•ÙˆÛ•ÛŒ Ú•ÛŽÙ†ÙˆÙˆØ³</string>
+    <string name="devtools__show_spelling_overlay__summary" comment="Summary of Show spelling overlay in Devtools">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ú•Ø§Ø³ØªÚ©Ø±Ø¯Ù†Û•ÙˆÛ•ÛŒ Ù‡Û•ÚµÛ•ÛŒ Ú•ÛŽÙ†ÙˆÙˆØ³ Ù„Û•Ø³Û•Ø±ÙˆÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="devtools__show_key_touch_boundaries__label" comment="Label of Show key touch boundaries in Devtools">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ø³Ù†ÙˆÙˆØ±Û•Ú©Ø§Ù†ÛŒ Ú©Ù„ÛŒÙ„</string>
+    <string name="devtools__show_key_touch_boundaries__summary" comment="Summary of Show key touch boundaries in Devtools">Ù‡ÛŽÚµÚ©Ø§Ø±ÛŒÚ©Ø±Ø¯Ù†ÛŒ Ø³Ù†ÙˆÙˆØ±Û•Ú©Ø§Ù†ÛŒ Ú©Ù„ÛŒÙ„ Ø¯Û•Ø³Ù„ÛŽØ¯Ø§Ù† Ø¨Û• Ø³ÙˆÙˆØ±</string>
+    <string name="devtools__show_drag_and_drop_helpers__label" comment="Label of Show drag and drop helpers in Devtools">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ ÙÛŽØ±Ú©Ø§Ø±ÛŒ Ú•Ø§Ú©ÛŽØ´Ø§Ù† Ùˆ Ø¯Ø§Ù†Ø§Ù†</string>
+    <string name="devtools__clear_udm_internal_database__label" comment="Label of Clear internal user dictionary database in Devtools">Ù„Ø§Ø¨Ø±Ø¯Ù†ÛŒ ÙÛ•Ø±Ù‡Û•Ù†Ú¯ÛŒ ØªØ§ÛŒØ¨Û•ØªÛŒ Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Û•Ø±</string>
+    <string name="devtools__clear_udm_internal_database__summary" comment="Summary of Clear internal user dictionary database in Devtools">Ø³Ú•ÛŒÙ†Û•ÙˆÛ•ÛŒ ÙˆÙˆØ´Û• Ø²ÛŒØ§Ø¯Ú©Ø±Ø§ÙˆÛ•Ú©Ø§Ù†ÛŒ ÙÛ•Ø±Ù‡Û•Ù†Ú¯ÛŒ ØªØ§ÛŒØ¨Û•ØªÛŒ Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Û•Ø±</string>
+    <string name="devtools__reset_flag__label" comment="Label of Reset flag preferences in Devtools">\"{flag_name}\" Ú•ÛŽÚ©Ø®Ø³ØªÙ†Û•ÙˆÛ•ÛŒ</string>
+    <string name="devtools__reset_flag_is_ime_set_up__summary" comment="Summary of Reset is IME set up flag in Devtools">ÙØ±Ù…Ø§Ù†ÛŽÚ©ÛŒ Ø¯Ø§Ø±ÛŽÚ˜Û•Ø±ÛŒÛŒÛ• Ø¨Û† Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†Û•ÙˆÛ•ÛŒ Ø´Ø§Ø´Û•ÛŒ Ø¯Ø§Ù…Û•Ø²Ø±Ø§Ù†Ø¯Ù†</string>
+    <string name="devtools__test_crash_report__label" comment="Label of Test Crash Report in Devtools">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ø¨Û•Ø´ÛŒ Ú•Ø§Ù¾Û†Ø±ØªÚ©Ø±Ø¯Ù†ÛŒ Ù‡Û•ÚµÛ•</string>
+    <string name="devtools__test_crash_report__summary" comment="Summary of Test Crash Report in Devtools">Ø¯Û•Ø±Ø¯Û•Ú©Û•ÙˆÛŽ Ù„Û•Ú©Ø§ØªÛŒ Ø¨ÙˆÙˆÙ†ÛŒ Ú©ÛŽØ´Û• Ù„Û• Ø¨Û•Ø±Ù†Ø§Ù…Û•Ú©Û•Ø¯Ø§</string>
+    <string name="devtools__group_android__title" comment="Title of Android group in Devtools">Ø¦Ø§Ù…Ø±Ø§Ø²Û•Ú©Ø§Ù†ÛŒ Ø³ÛŒØ³ØªÛ•Ù…ÛŒ Ø¦Û•Ù†Ø¯Ø±Û†ÛŒØ¯</string>
+    <string name="devtools__android_settings_global__title" comment="Title of Android settings (global) screen">Ø¦Ø§Ù…Ø±Ø§Ø²Û• Ú¯Ø´ØªÛŒÛŒÛ•Ú©Ø§Ù†</string>
+    <string name="devtools__android_settings_secure__title" comment="Title of Android settings (secure) screen">Ø¦Ø§Ù…Ø±Ø§Ø²Û•Ú©Ø§Ù†ÛŒ Ù¾Ø§Ø±Ø§Ø³ØªÙ†</string>
+    <string name="devtools__android_settings_system__title" comment="Title of Android settings (system) screen">Ú•ÛŽÚ©Ø®Ø³ØªÙ†Û•Ú©Ø§Ù†ÛŒ Ø³ÛŒØ³ØªÛ•Ù…ÛŒ Ø¦Û•Ù†Ø¯Ø±Û†ÛŒØ¯</string>
+    <string name="devtools__android_locales__title" comment="Title of Android locales screen">Ø²Ù…Ø§Ù†Û•Ú©Ø§Ù†ÛŒ Ø³ÛŒØ³ØªÛ•Ù…</string>
     <!-- Extension strings -->
-    <string name="ext__meta__authors">دیزاینەر</string>
-    <string name="ext__meta__components">زیادکراوەکان</string>
-    <string name="ext__meta__components_theme">ڕووکارە دروستکراوەکان</string>
-    <string name="ext__meta__components_language_pack">زمانە بەردەستەکان</string>
-    <string name="ext__meta__components_none_found">ئەم فایلە ئەرشیفە هیچ پێکهاتەیەکی لەخۆ نەگرتووە.</string>
-    <string name="ext__meta__description">زانیاری</string>
-    <string name="ext__meta__homepage">پەڕەی سەرەکی</string>
+    <string name="ext__meta__authors">Ø¯ÛŒØ²Ø§ÛŒÙ†Û•Ø±</string>
+    <string name="ext__meta__components">Ø²ÛŒØ§Ø¯Ú©Ø±Ø§ÙˆÛ•Ú©Ø§Ù†</string>
+    <string name="ext__meta__components_theme">Ú•ÙˆÙˆÚ©Ø§Ø±Û• Ø¯Ø±ÙˆØ³ØªÚ©Ø±Ø§ÙˆÛ•Ú©Ø§Ù†</string>
+    <string name="ext__meta__components_language_pack">Ø²Ù…Ø§Ù†Û• Ø¨Û•Ø±Ø¯Û•Ø³ØªÛ•Ú©Ø§Ù†</string>
+    <string name="ext__meta__components_none_found">Ø¦Û•Ù… ÙØ§ÛŒÙ„Û• Ø¦Û•Ø±Ø´ÛŒÙÛ• Ù‡ÛŒÚ† Ù¾ÛŽÚ©Ù‡Ø§ØªÛ•ÛŒÛ•Ú©ÛŒ Ù„Û•Ø®Û† Ù†Û•Ú¯Ø±ØªÙˆÙˆÛ•.</string>
+    <string name="ext__meta__description">Ø²Ø§Ù†ÛŒØ§Ø±ÛŒ</string>
+    <string name="ext__meta__homepage">Ù¾Û•Ú•Û•ÛŒ Ø³Û•Ø±Û•Ú©ÛŒ</string>
     <string name="ext__meta__id">ID</string>
-    <string name="ext__meta__issue_tracker">دۆزەرەوەی هەڵە</string>
-    <string name="ext__meta__keywords">کلیلە ووشە</string>
-    <string name="ext__meta__label">ناو</string>
-    <string name="ext__meta__license">مۆڵەت</string>
-    <string name="ext__meta__maintainers">گەشەپێدەر</string>
-    <string name="ext__meta__maintainers_by">لەلایەن: {maintainers}</string>
-    <string name="ext__meta__title">ناو</string>
-    <string name="ext__meta__version">وەشان</string>
-    <string name="ext__error__not_found_title">زیادکراو نەدۆزرایەوە</string>
-    <string name="ext__error__not_found_description">هیچ زیادکراوێک بەناوی \"{id}\" نەدۆزرایەوە.</string>
-    <string name="ext__editor__title_create_any">دروستکردن</string>
-    <string name="ext__editor__title_create_keyboard">دروستکردنی زیادکراوی تەختەکلیل</string>
-    <string name="ext__editor__title_create_theme">دروستکردنی ڕووکار</string>
-    <string name="ext__editor__title_edit_any">دەستکاریکردن</string>
-    <string name="ext__editor__title_edit_keyboard">دەستکاریکردنی زیادکراوی تەختەکلیل</string>
-    <string name="ext__editor__title_edit_theme">دەستکاریکردنی ڕووکار</string>
-    <string name="ext__editor__metadata__title">ڕێکخستنی سەرچاوەکان</string>
-    <string name="ext__editor__metadata__title_invalid">داتای سەرچاوە نادروستە</string>
-    <string name="ext__editor__metadata__message_invalid">داتای زانیاری بۆ ئەم درێژکراوەیە دروست نیە، تکایە بژارکەری داتای زانیاری بپشکنە بۆ وردەکاریەکان!</string>
-    <string name="ext__editor__dependencies__title">ڕێکخستنی سەرچاوەکان</string>
-    <string name="ext__editor__files__title">ڕێکخستنی فایلەکانی ئەرشیف</string>
-    <string name="ext__editor__create_component__title">دروستکردنی ناوەڕۆک</string>
-    <string name="ext__editor__create_component__title_theme">دروستکردنی ڕووکار</string>
-    <string name="ext__editor__create_component__from_empty">دروستکردن لە سەرەتاوە</string>
-    <string name="ext__editor__create_component__from_existing">دروستکردن لە ڕووکارەکانەوە</string>
-    <string name="ext__editor__create_component__from_empty_warning">دروستکردنی ڕووکارێکی بەتاڵ لەسەرەتاوە بۆ {app_name} لەوانەیە گران بێت و شارەزایی پێویستە ئەگەر بەکارهێنەرێکی نوێی بەرنامەکەیت یان شارەزایی کۆد و سەرچاوەکانی دیزاین نەبیت!</string>
-    <string name="ext__editor__edit_component__title">دەستکاریکردنی پێکهاتەکان</string>
-    <string name="ext__editor__edit_component__title_theme">دەستکاریکردنی ڕووکارەکان</string>
-    <string name="ext__export__success">زیادکراو بەسەرکەوتوویی هەڵگیرا!</string>
-    <string name="ext__export__failure">هەڵگرتنی زیادکراو سەرکەوتو نەبوو: {error_message}</string>
-    <string name="ext__import__success">زیادکراو بەسەرکەوتوویی هێنرا!</string>
-    <string name="ext__import__failure">هێنانی زیادکراو سەرکەوتو نەبوو: {error_message}</string>
-    <string name="ext__import__ext_any" comment="Title of Importer screen for import of any supported FlorisBoard extension">هێنانی زیادکراو</string>
-    <string name="ext__import__ext_keyboard" comment="Title of Importer screen for keyboard extension import">هێنانی زیادکراوی تەختەکلیل</string>
-    <string name="ext__import__ext_theme" comment="Title of Importer screen for theme extension import">هێنانی ڕووکار</string>
-    <string name="ext__import__ext_languagepack" comment="Title of Importer screen for language pack extension import">هێنانی فەرهەنگ</string>
-    <string name="ext__import__file_skip" comment="Label when a file cannot be imported in the current context. The actual reason string is in a separate text view below this string.">فایلەکە نەتوانرا بهێنرێت، بەهۆی:</string>
-    <string name="ext__import__file_skip_unsupported" comment="Reason string when file is unsupported">جۆری فایل نەگونجاوە یان بەباشی ڕێکنەخراوە(تێکچووە).</string>
-    <string name="ext__import__file_skip_ext_core" comment="Reason string when ext has core extension ID">ناتوانێت پاکێجەکانی پاشکۆی گریمانەیی جێگۆڕکێ بکات یان نوێ بکاتەوە کە لەگەڵ سەرمایەکانی ناوکی کاربەرنامە دابین کراوە. ڕەچاوکردنی نوێکردنەوەی کاربەرنامەی خۆی ئەگەر تۆ دەتەوێت وەشانێکی نوێتری پاکێجی درێژکراوەی ناوکی بەکاربهێنیت.</string>
-    <string name="ext__import__file_skip_ext_corrupted" comment="Reason string when file seems to be ext but is corrupted">فایلەکە دەردەکەوێت کە ئەرشیفێکی درێژکراوە بێت بەڵام شیکردنەوەی داتای ئەرشیف سەرکەوتوو نەبوو. یان ئەرشیف تێکچووە یان ئەم فایلە بە هیچ شێوەیەک درێژکراوە نییە.</string>
-    <string name="ext__import__file_skip_ext_incorrect_type" comment="Reason string when file is of incorrect extension serial type">چاوەڕوانی ئەرشیفێکی درێژکراوەی جۆری زنجیرەی \"{expected_serial_type}\" بەڵام \"{actual_serial_type}\" بوو.</string>
-    <string name="ext__import__file_skip_ext_not_supported" comment="Reason string when file is loaded in incorrect context">چاوەڕوانی فایلێکی میدیایی (وێنە، دەنگ، فۆنت، هتد) بەڵام ئەرشیفێکی درێژکراوەی دۆزیەوە.</string>
-    <string name="ext__import__file_skip_media_not_supported" comment="Reason string when file is loaded in incorrect context">ئەرشیفێکی درێژکراوە چاوەڕوانکراو بەڵام فایلێکی میدیایی دۆزیەوە (وێنە، دەنگ، فۆنت، هتد).</string>
-    <string name="ext__import__error_unexpected_exception" comment="Label when an error occurred during import. The error message will be appended below this text view">هەڵەیەکی نەزانراو ڕوویدا لەکاتی هێنانی فایلەکەدا، ئەم زانیاریانە پێشکەشکران:</string>
+    <string name="ext__meta__issue_tracker">Ø¯Û†Ø²Û•Ø±Û•ÙˆÛ•ÛŒ Ù‡Û•ÚµÛ•</string>
+    <string name="ext__meta__keywords">Ú©Ù„ÛŒÙ„Û• ÙˆÙˆØ´Û•</string>
+    <string name="ext__meta__label">Ù†Ø§Ùˆ</string>
+    <string name="ext__meta__license">Ù…Û†ÚµÛ•Øª</string>
+    <string name="ext__meta__maintainers">Ú¯Û•Ø´Û•Ù¾ÛŽØ¯Û•Ø±</string>
+    <string name="ext__meta__maintainers_by">Ù„Û•Ù„Ø§ÛŒÛ•Ù†: {maintainers}</string>
+    <string name="ext__meta__title">Ù†Ø§Ùˆ</string>
+    <string name="ext__meta__version">ÙˆÛ•Ø´Ø§Ù†</string>
+    <string name="ext__error__not_found_title">Ø²ÛŒØ§Ø¯Ú©Ø±Ø§Ùˆ Ù†Û•Ø¯Û†Ø²Ø±Ø§ÛŒÛ•ÙˆÛ•</string>
+    <string name="ext__error__not_found_description">Ù‡ÛŒÚ† Ø²ÛŒØ§Ø¯Ú©Ø±Ø§ÙˆÛŽÚ© Ø¨Û•Ù†Ø§ÙˆÛŒ \"{id}\" Ù†Û•Ø¯Û†Ø²Ø±Ø§ÛŒÛ•ÙˆÛ•.</string>
+    <string name="ext__editor__title_create_any">Ø¯Ø±ÙˆØ³ØªÚ©Ø±Ø¯Ù†</string>
+    <string name="ext__editor__title_create_keyboard">Ø¯Ø±ÙˆØ³ØªÚ©Ø±Ø¯Ù†ÛŒ Ø²ÛŒØ§Ø¯Ú©Ø±Ø§ÙˆÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="ext__editor__title_create_theme">Ø¯Ø±ÙˆØ³ØªÚ©Ø±Ø¯Ù†ÛŒ Ú•ÙˆÙˆÚ©Ø§Ø±</string>
+    <string name="ext__editor__title_edit_any">Ø¯Û•Ø³ØªÚ©Ø§Ø±ÛŒÚ©Ø±Ø¯Ù†</string>
+    <string name="ext__editor__title_edit_keyboard">Ø¯Û•Ø³ØªÚ©Ø§Ø±ÛŒÚ©Ø±Ø¯Ù†ÛŒ Ø²ÛŒØ§Ø¯Ú©Ø±Ø§ÙˆÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="ext__editor__title_edit_theme">Ø¯Û•Ø³ØªÚ©Ø§Ø±ÛŒÚ©Ø±Ø¯Ù†ÛŒ Ú•ÙˆÙˆÚ©Ø§Ø±</string>
+    <string name="ext__editor__metadata__title">Ú•ÛŽÚ©Ø®Ø³ØªÙ†ÛŒ Ø³Û•Ø±Ú†Ø§ÙˆÛ•Ú©Ø§Ù†</string>
+    <string name="ext__editor__metadata__title_invalid">Ø¯Ø§ØªØ§ÛŒ Ø³Û•Ø±Ú†Ø§ÙˆÛ• Ù†Ø§Ø¯Ø±ÙˆØ³ØªÛ•</string>
+    <string name="ext__editor__metadata__message_invalid">Ø¯Ø§ØªØ§ÛŒ Ø²Ø§Ù†ÛŒØ§Ø±ÛŒ Ø¨Û† Ø¦Û•Ù… Ø¯Ø±ÛŽÚ˜Ú©Ø±Ø§ÙˆÛ•ÛŒÛ• Ø¯Ø±ÙˆØ³Øª Ù†ÛŒÛ•ØŒ ØªÚ©Ø§ÛŒÛ• Ø¨Ú˜Ø§Ø±Ú©Û•Ø±ÛŒ Ø¯Ø§ØªØ§ÛŒ Ø²Ø§Ù†ÛŒØ§Ø±ÛŒ Ø¨Ù¾Ø´Ú©Ù†Û• Ø¨Û† ÙˆØ±Ø¯Û•Ú©Ø§Ø±ÛŒÛ•Ú©Ø§Ù†!</string>
+    <string name="ext__editor__dependencies__title">Ú•ÛŽÚ©Ø®Ø³ØªÙ†ÛŒ Ø³Û•Ø±Ú†Ø§ÙˆÛ•Ú©Ø§Ù†</string>
+    <string name="ext__editor__files__title">Ú•ÛŽÚ©Ø®Ø³ØªÙ†ÛŒ ÙØ§ÛŒÙ„Û•Ú©Ø§Ù†ÛŒ Ø¦Û•Ø±Ø´ÛŒÙ</string>
+    <string name="ext__editor__create_component__title">Ø¯Ø±ÙˆØ³ØªÚ©Ø±Ø¯Ù†ÛŒ Ù†Ø§ÙˆÛ•Ú•Û†Ú©</string>
+    <string name="ext__editor__create_component__title_theme">Ø¯Ø±ÙˆØ³ØªÚ©Ø±Ø¯Ù†ÛŒ Ú•ÙˆÙˆÚ©Ø§Ø±</string>
+    <string name="ext__editor__create_component__from_empty">Ø¯Ø±ÙˆØ³ØªÚ©Ø±Ø¯Ù† Ù„Û• Ø³Û•Ø±Û•ØªØ§ÙˆÛ•</string>
+    <string name="ext__editor__create_component__from_existing">Ø¯Ø±ÙˆØ³ØªÚ©Ø±Ø¯Ù† Ù„Û• Ú•ÙˆÙˆÚ©Ø§Ø±Û•Ú©Ø§Ù†Û•ÙˆÛ•</string>
+    <string name="ext__editor__create_component__from_empty_warning">Ø¯Ø±ÙˆØ³ØªÚ©Ø±Ø¯Ù†ÛŒ Ú•ÙˆÙˆÚ©Ø§Ø±ÛŽÚ©ÛŒ Ø¨Û•ØªØ§Úµ Ù„Û•Ø³Û•Ø±Û•ØªØ§ÙˆÛ• Ø¨Û† {app_name} Ù„Û•ÙˆØ§Ù†Û•ÛŒÛ• Ú¯Ø±Ø§Ù† Ø¨ÛŽØª Ùˆ Ø´Ø§Ø±Û•Ø²Ø§ÛŒÛŒ Ù¾ÛŽÙˆÛŒØ³ØªÛ• Ø¦Û•Ú¯Û•Ø± Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Û•Ø±ÛŽÚ©ÛŒ Ù†ÙˆÛŽÛŒ Ø¨Û•Ø±Ù†Ø§Ù…Û•Ú©Û•ÛŒØª ÛŒØ§Ù† Ø´Ø§Ø±Û•Ø²Ø§ÛŒÛŒ Ú©Û†Ø¯ Ùˆ Ø³Û•Ø±Ú†Ø§ÙˆÛ•Ú©Ø§Ù†ÛŒ Ø¯ÛŒØ²Ø§ÛŒÙ† Ù†Û•Ø¨ÛŒØª!</string>
+    <string name="ext__editor__edit_component__title">Ø¯Û•Ø³ØªÚ©Ø§Ø±ÛŒÚ©Ø±Ø¯Ù†ÛŒ Ù¾ÛŽÚ©Ù‡Ø§ØªÛ•Ú©Ø§Ù†</string>
+    <string name="ext__editor__edit_component__title_theme">Ø¯Û•Ø³ØªÚ©Ø§Ø±ÛŒÚ©Ø±Ø¯Ù†ÛŒ Ú•ÙˆÙˆÚ©Ø§Ø±Û•Ú©Ø§Ù†</string>
+    <string name="ext__export__success">Ø²ÛŒØ§Ø¯Ú©Ø±Ø§Ùˆ Ø¨Û•Ø³Û•Ø±Ú©Û•ÙˆØªÙˆÙˆÛŒÛŒ Ù‡Û•ÚµÚ¯ÛŒØ±Ø§!</string>
+    <string name="ext__export__failure">Ù‡Û•ÚµÚ¯Ø±ØªÙ†ÛŒ Ø²ÛŒØ§Ø¯Ú©Ø±Ø§Ùˆ Ø³Û•Ø±Ú©Û•ÙˆØªÙˆ Ù†Û•Ø¨ÙˆÙˆ: {error_message}</string>
+    <string name="ext__import__success">Ø²ÛŒØ§Ø¯Ú©Ø±Ø§Ùˆ Ø¨Û•Ø³Û•Ø±Ú©Û•ÙˆØªÙˆÙˆÛŒÛŒ Ù‡ÛŽÙ†Ø±Ø§!</string>
+    <string name="ext__import__failure">Ù‡ÛŽÙ†Ø§Ù†ÛŒ Ø²ÛŒØ§Ø¯Ú©Ø±Ø§Ùˆ Ø³Û•Ø±Ú©Û•ÙˆØªÙˆ Ù†Û•Ø¨ÙˆÙˆ: {error_message}</string>
+    <string name="ext__import__ext_any" comment="Title of Importer screen for import of any supported Keyboard extension">Ù‡ÛŽÙ†Ø§Ù†ÛŒ Ø²ÛŒØ§Ø¯Ú©Ø±Ø§Ùˆ</string>
+    <string name="ext__import__ext_keyboard" comment="Title of Importer screen for keyboard extension import">Ù‡ÛŽÙ†Ø§Ù†ÛŒ Ø²ÛŒØ§Ø¯Ú©Ø±Ø§ÙˆÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="ext__import__ext_theme" comment="Title of Importer screen for theme extension import">Ù‡ÛŽÙ†Ø§Ù†ÛŒ Ú•ÙˆÙˆÚ©Ø§Ø±</string>
+    <string name="ext__import__ext_languagepack" comment="Title of Importer screen for language pack extension import">Ù‡ÛŽÙ†Ø§Ù†ÛŒ ÙÛ•Ø±Ù‡Û•Ù†Ú¯</string>
+    <string name="ext__import__file_skip" comment="Label when a file cannot be imported in the current context. The actual reason string is in a separate text view below this string.">ÙØ§ÛŒÙ„Û•Ú©Û• Ù†Û•ØªÙˆØ§Ù†Ø±Ø§ Ø¨Ù‡ÛŽÙ†Ø±ÛŽØªØŒ Ø¨Û•Ù‡Û†ÛŒ:</string>
+    <string name="ext__import__file_skip_unsupported" comment="Reason string when file is unsupported">Ø¬Û†Ø±ÛŒ ÙØ§ÛŒÙ„ Ù†Û•Ú¯ÙˆÙ†Ø¬Ø§ÙˆÛ• ÛŒØ§Ù† Ø¨Û•Ø¨Ø§Ø´ÛŒ Ú•ÛŽÚ©Ù†Û•Ø®Ø±Ø§ÙˆÛ•(ØªÛŽÚ©Ú†ÙˆÙˆÛ•).</string>
+    <string name="ext__import__file_skip_ext_core" comment="Reason string when ext has core extension ID">Ù†Ø§ØªÙˆØ§Ù†ÛŽØª Ù¾Ø§Ú©ÛŽØ¬Û•Ú©Ø§Ù†ÛŒ Ù¾Ø§Ø´Ú©Û†ÛŒ Ú¯Ø±ÛŒÙ…Ø§Ù†Û•ÛŒÛŒ Ø¬ÛŽÚ¯Û†Ú•Ú©ÛŽ Ø¨Ú©Ø§Øª ÛŒØ§Ù† Ù†ÙˆÛŽ Ø¨Ú©Ø§ØªÛ•ÙˆÛ• Ú©Û• Ù„Û•Ú¯Û•Úµ Ø³Û•Ø±Ù…Ø§ÛŒÛ•Ú©Ø§Ù†ÛŒ Ù†Ø§ÙˆÚ©ÛŒ Ú©Ø§Ø±Ø¨Û•Ø±Ù†Ø§Ù…Û• Ø¯Ø§Ø¨ÛŒÙ† Ú©Ø±Ø§ÙˆÛ•. Ú•Û•Ú†Ø§ÙˆÚ©Ø±Ø¯Ù†ÛŒ Ù†ÙˆÛŽÚ©Ø±Ø¯Ù†Û•ÙˆÛ•ÛŒ Ú©Ø§Ø±Ø¨Û•Ø±Ù†Ø§Ù…Û•ÛŒ Ø®Û†ÛŒ Ø¦Û•Ú¯Û•Ø± ØªÛ† Ø¯Û•ØªÛ•ÙˆÛŽØª ÙˆÛ•Ø´Ø§Ù†ÛŽÚ©ÛŒ Ù†ÙˆÛŽØªØ±ÛŒ Ù¾Ø§Ú©ÛŽØ¬ÛŒ Ø¯Ø±ÛŽÚ˜Ú©Ø±Ø§ÙˆÛ•ÛŒ Ù†Ø§ÙˆÚ©ÛŒ Ø¨Û•Ú©Ø§Ø±Ø¨Ù‡ÛŽÙ†ÛŒØª.</string>
+    <string name="ext__import__file_skip_ext_corrupted" comment="Reason string when file seems to be ext but is corrupted">ÙØ§ÛŒÙ„Û•Ú©Û• Ø¯Û•Ø±Ø¯Û•Ú©Û•ÙˆÛŽØª Ú©Û• Ø¦Û•Ø±Ø´ÛŒÙÛŽÚ©ÛŒ Ø¯Ø±ÛŽÚ˜Ú©Ø±Ø§ÙˆÛ• Ø¨ÛŽØª Ø¨Û•ÚµØ§Ù… Ø´ÛŒÚ©Ø±Ø¯Ù†Û•ÙˆÛ•ÛŒ Ø¯Ø§ØªØ§ÛŒ Ø¦Û•Ø±Ø´ÛŒÙ Ø³Û•Ø±Ú©Û•ÙˆØªÙˆÙˆ Ù†Û•Ø¨ÙˆÙˆ. ÛŒØ§Ù† Ø¦Û•Ø±Ø´ÛŒÙ ØªÛŽÚ©Ú†ÙˆÙˆÛ• ÛŒØ§Ù† Ø¦Û•Ù… ÙØ§ÛŒÙ„Û• Ø¨Û• Ù‡ÛŒÚ† Ø´ÛŽÙˆÛ•ÛŒÛ•Ú© Ø¯Ø±ÛŽÚ˜Ú©Ø±Ø§ÙˆÛ• Ù†ÛŒÛŒÛ•.</string>
+    <string name="ext__import__file_skip_ext_incorrect_type" comment="Reason string when file is of incorrect extension serial type">Ú†Ø§ÙˆÛ•Ú•ÙˆØ§Ù†ÛŒ Ø¦Û•Ø±Ø´ÛŒÙÛŽÚ©ÛŒ Ø¯Ø±ÛŽÚ˜Ú©Ø±Ø§ÙˆÛ•ÛŒ Ø¬Û†Ø±ÛŒ Ø²Ù†Ø¬ÛŒØ±Û•ÛŒ \"{expected_serial_type}\" Ø¨Û•ÚµØ§Ù… \"{actual_serial_type}\" Ø¨ÙˆÙˆ.</string>
+    <string name="ext__import__file_skip_ext_not_supported" comment="Reason string when file is loaded in incorrect context">Ú†Ø§ÙˆÛ•Ú•ÙˆØ§Ù†ÛŒ ÙØ§ÛŒÙ„ÛŽÚ©ÛŒ Ù…ÛŒØ¯ÛŒØ§ÛŒÛŒ (ÙˆÛŽÙ†Û•ØŒ Ø¯Û•Ù†Ú¯ØŒ ÙÛ†Ù†ØªØŒ Ù‡ØªØ¯) Ø¨Û•ÚµØ§Ù… Ø¦Û•Ø±Ø´ÛŒÙÛŽÚ©ÛŒ Ø¯Ø±ÛŽÚ˜Ú©Ø±Ø§ÙˆÛ•ÛŒ Ø¯Û†Ø²ÛŒÛ•ÙˆÛ•.</string>
+    <string name="ext__import__file_skip_media_not_supported" comment="Reason string when file is loaded in incorrect context">Ø¦Û•Ø±Ø´ÛŒÙÛŽÚ©ÛŒ Ø¯Ø±ÛŽÚ˜Ú©Ø±Ø§ÙˆÛ• Ú†Ø§ÙˆÛ•Ú•ÙˆØ§Ù†Ú©Ø±Ø§Ùˆ Ø¨Û•ÚµØ§Ù… ÙØ§ÛŒÙ„ÛŽÚ©ÛŒ Ù…ÛŒØ¯ÛŒØ§ÛŒÛŒ Ø¯Û†Ø²ÛŒÛ•ÙˆÛ• (ÙˆÛŽÙ†Û•ØŒ Ø¯Û•Ù†Ú¯ØŒ ÙÛ†Ù†ØªØŒ Ù‡ØªØ¯).</string>
+    <string name="ext__import__error_unexpected_exception" comment="Label when an error occurred during import. The error message will be appended below this text view">Ù‡Û•ÚµÛ•ÛŒÛ•Ú©ÛŒ Ù†Û•Ø²Ø§Ù†Ø±Ø§Ùˆ Ú•ÙˆÙˆÛŒØ¯Ø§ Ù„Û•Ú©Ø§ØªÛŒ Ù‡ÛŽÙ†Ø§Ù†ÛŒ ÙØ§ÛŒÙ„Û•Ú©Û•Ø¯Ø§ØŒ Ø¦Û•Ù… Ø²Ø§Ù†ÛŒØ§Ø±ÛŒØ§Ù†Û• Ù¾ÛŽØ´Ú©Û•Ø´Ú©Ø±Ø§Ù†:</string>
     <!-- Action strings -->
-    <string name="action__add">زیادکردن</string>
-    <string name="action__apply">جێبەجێکردن</string>
-    <string name="action__back_up">پاشەکەوتکردن</string>
-    <string name="action__cancel">پاشگەزبونەوە</string>
-    <string name="action__create">دروستکردن</string>
-    <string name="action__default">بنەڕەتی</string>
-    <string name="action__delete">سڕینەوە</string>
-    <string name="action__delete_confirm_title">دڵنیاکردنەوە</string>
-    <string name="action__delete_confirm_message">ئایا دڵنیایت لە سڕینەوەی \"{name}\"؟ ئەم فرمانە ناتوانرێ بگەرێندرێتەوە کە یەکجار جێبەجێکرا.</string>
-    <string name="action__discard">فەرامۆشکردن</string>
-    <string name="action__discard_confirm_title">گۆڕانکاری پاشکەوتنەکراو</string>
-    <string name="action__discard_confirm_message">ئایا دڵنیایت لەوەی دەتەوێت گۆڕانکاریە هەڵنەگیراوەکان پشتگوێ بخەیت؟ ئەم کارە ناکرێت یەکجار جێبەجێکرا ناتوانرێ بگەڕێتەوە.</string>
-    <string name="action__edit">دەستکاری</string>
-    <string name="action__export">هەڵگرتن</string>
-    <string name="action__import">هێنان</string>
-    <string name="action__no">نەخێر</string>
-    <string name="action__ok">باشە</string>
-    <string name="action__restore">گێڕانەوە</string>
-    <string name="action__save">پاراستن</string>
-    <string name="action__select">دیاریکردن</string>
-    <string name="action__select_dir">فۆڵدەر دیاریبکە</string>
-    <string name="action__select_dirs">فۆڵدەرەکان دیاریبکە</string>
-    <string name="action__select_file">فایلێک دیاریبکە</string>
-    <string name="action__select_files">فایلێک دیاریبکە</string>
-    <string name="action__yes">بەڵێ</string>
+    <string name="action__add">Ø²ÛŒØ§Ø¯Ú©Ø±Ø¯Ù†</string>
+    <string name="action__apply">Ø¬ÛŽØ¨Û•Ø¬ÛŽÚ©Ø±Ø¯Ù†</string>
+    <string name="action__back_up">Ù¾Ø§Ø´Û•Ú©Û•ÙˆØªÚ©Ø±Ø¯Ù†</string>
+    <string name="action__cancel">Ù¾Ø§Ø´Ú¯Û•Ø²Ø¨ÙˆÙ†Û•ÙˆÛ•</string>
+    <string name="action__create">Ø¯Ø±ÙˆØ³ØªÚ©Ø±Ø¯Ù†</string>
+    <string name="action__default">Ø¨Ù†Û•Ú•Û•ØªÛŒ</string>
+    <string name="action__delete">Ø³Ú•ÛŒÙ†Û•ÙˆÛ•</string>
+    <string name="action__delete_confirm_title">Ø¯ÚµÙ†ÛŒØ§Ú©Ø±Ø¯Ù†Û•ÙˆÛ•</string>
+    <string name="action__delete_confirm_message">Ø¦Ø§ÛŒØ§ Ø¯ÚµÙ†ÛŒØ§ÛŒØª Ù„Û• Ø³Ú•ÛŒÙ†Û•ÙˆÛ•ÛŒ \"{name}\"ØŸ Ø¦Û•Ù… ÙØ±Ù…Ø§Ù†Û• Ù†Ø§ØªÙˆØ§Ù†Ø±ÛŽ Ø¨Ú¯Û•Ø±ÛŽÙ†Ø¯Ø±ÛŽØªÛ•ÙˆÛ• Ú©Û• ÛŒÛ•Ú©Ø¬Ø§Ø± Ø¬ÛŽØ¨Û•Ø¬ÛŽÚ©Ø±Ø§.</string>
+    <string name="action__discard">ÙÛ•Ø±Ø§Ù…Û†Ø´Ú©Ø±Ø¯Ù†</string>
+    <string name="action__discard_confirm_title">Ú¯Û†Ú•Ø§Ù†Ú©Ø§Ø±ÛŒ Ù¾Ø§Ø´Ú©Û•ÙˆØªÙ†Û•Ú©Ø±Ø§Ùˆ</string>
+    <string name="action__discard_confirm_message">Ø¦Ø§ÛŒØ§ Ø¯ÚµÙ†ÛŒØ§ÛŒØª Ù„Û•ÙˆÛ•ÛŒ Ø¯Û•ØªÛ•ÙˆÛŽØª Ú¯Û†Ú•Ø§Ù†Ú©Ø§Ø±ÛŒÛ• Ù‡Û•ÚµÙ†Û•Ú¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù† Ù¾Ø´ØªÚ¯ÙˆÛŽ Ø¨Ø®Û•ÛŒØªØŸ Ø¦Û•Ù… Ú©Ø§Ø±Û• Ù†Ø§Ú©Ø±ÛŽØª ÛŒÛ•Ú©Ø¬Ø§Ø± Ø¬ÛŽØ¨Û•Ø¬ÛŽÚ©Ø±Ø§ Ù†Ø§ØªÙˆØ§Ù†Ø±ÛŽ Ø¨Ú¯Û•Ú•ÛŽØªÛ•ÙˆÛ•.</string>
+    <string name="action__edit">Ø¯Û•Ø³ØªÚ©Ø§Ø±ÛŒ</string>
+    <string name="action__export">Ù‡Û•ÚµÚ¯Ø±ØªÙ†</string>
+    <string name="action__import">Ù‡ÛŽÙ†Ø§Ù†</string>
+    <string name="action__no">Ù†Û•Ø®ÛŽØ±</string>
+    <string name="action__ok">Ø¨Ø§Ø´Û•</string>
+    <string name="action__restore">Ú¯ÛŽÚ•Ø§Ù†Û•ÙˆÛ•</string>
+    <string name="action__save">Ù¾Ø§Ø±Ø§Ø³ØªÙ†</string>
+    <string name="action__select">Ø¯ÛŒØ§Ø±ÛŒÚ©Ø±Ø¯Ù†</string>
+    <string name="action__select_dir">ÙÛ†ÚµØ¯Û•Ø± Ø¯ÛŒØ§Ø±ÛŒØ¨Ú©Û•</string>
+    <string name="action__select_dirs">ÙÛ†ÚµØ¯Û•Ø±Û•Ú©Ø§Ù† Ø¯ÛŒØ§Ø±ÛŒØ¨Ú©Û•</string>
+    <string name="action__select_file">ÙØ§ÛŒÙ„ÛŽÚ© Ø¯ÛŒØ§Ø±ÛŒØ¨Ú©Û•</string>
+    <string name="action__select_files">ÙØ§ÛŒÙ„ÛŽÚ© Ø¯ÛŒØ§Ø±ÛŒØ¨Ú©Û•</string>
+    <string name="action__yes">Ø¨Û•ÚµÛŽ</string>
     <!-- Error strings (generic) -->
-    <string name="error__title">هەڵەیەک ڕوویدا</string>
-    <string name="error__details">زانیاری زیاتر</string>
-    <string name="error__invalid">نا درووستە</string>
-    <string name="error__snackbar_message">هەڵەیەکی نەزانراو ڕوویدا</string>
-    <string name="error__snackbar_message_template">ھەڵەیەک ڕوویدا: {error_message}</string>
+    <string name="error__title">Ù‡Û•ÚµÛ•ÛŒÛ•Ú© Ú•ÙˆÙˆÛŒØ¯Ø§</string>
+    <string name="error__details">Ø²Ø§Ù†ÛŒØ§Ø±ÛŒ Ø²ÛŒØ§ØªØ±</string>
+    <string name="error__invalid">Ù†Ø§ Ø¯Ø±ÙˆÙˆØ³ØªÛ•</string>
+    <string name="error__snackbar_message">Ù‡Û•ÚµÛ•ÛŒÛ•Ú©ÛŒ Ù†Û•Ø²Ø§Ù†Ø±Ø§Ùˆ Ú•ÙˆÙˆÛŒØ¯Ø§</string>
+    <string name="error__snackbar_message_template">Ú¾Û•ÚµÛ•ÛŒÛ•Ú© Ú•ÙˆÙˆÛŒØ¯Ø§: {error_message}</string>
     <!-- General strings -->
-    <string name="general__example_given" comment="This string is used where an example will be inserted in the {example} block. When translating, use the abbreviation used in your language for 'example given'.">نمونە. {example}</string>
-    <string name="general__no_browser_app_found_for_url">هیچ بەرنامەیەکی وێبگەڕ نەدۆزرایەوە بۆ کردنەوەی {url}</string>
-    <string name="general__select_dropdown_value_placeholder">&#45; دیاریبکە &#45;</string>
-    <string name="general__unlimited">بێ سنوور</string>
-    <string name="general__file_name">ناوی فایل</string>
-    <string name="general__auto" comment="Generic shorthand for 'Automatic' value">خۆکار</string>
+    <string name="general__example_given" comment="This string is used where an example will be inserted in the {example} block. When translating, use the abbreviation used in your language for 'example given'.">Ù†Ù…ÙˆÙ†Û•. {example}</string>
+    <string name="general__no_browser_app_found_for_url">Ù‡ÛŒÚ† Ø¨Û•Ø±Ù†Ø§Ù…Û•ÛŒÛ•Ú©ÛŒ ÙˆÛŽØ¨Ú¯Û•Ú• Ù†Û•Ø¯Û†Ø²Ø±Ø§ÛŒÛ•ÙˆÛ• Ø¨Û† Ú©Ø±Ø¯Ù†Û•ÙˆÛ•ÛŒ {url}</string>
+    <string name="general__select_dropdown_value_placeholder">&#45; Ø¯ÛŒØ§Ø±ÛŒØ¨Ú©Û• &#45;</string>
+    <string name="general__unlimited">Ø¨ÛŽ Ø³Ù†ÙˆÙˆØ±</string>
+    <string name="general__file_name">Ù†Ø§ÙˆÛŒ ÙØ§ÛŒÙ„</string>
+    <string name="general__auto" comment="Generic shorthand for 'Automatic' value">Ø®Û†Ú©Ø§Ø±</string>
     <!-- Screen orientation strings -->
-    <string name="screen_orientation__portrait">دۆخی ئاسایی</string>
-    <string name="screen_orientation__landscape">دۆخی خستنە سەرلا</string>
-    <string name="screen_orientation__vertical">ستوونی</string>
-    <string name="screen_orientation__horizontal">ئاسۆیی</string>
+    <string name="screen_orientation__portrait">Ø¯Û†Ø®ÛŒ Ø¦Ø§Ø³Ø§ÛŒÛŒ</string>
+    <string name="screen_orientation__landscape">Ø¯Û†Ø®ÛŒ Ø®Ø³ØªÙ†Û• Ø³Û•Ø±Ù„Ø§</string>
+    <string name="screen_orientation__vertical">Ø³ØªÙˆÙˆÙ†ÛŒ</string>
+    <string name="screen_orientation__horizontal">Ø¦Ø§Ø³Û†ÛŒÛŒ</string>
     <!-- State strings -->
-    <string name="state__disabled">نا چالاک</string>
-    <string name="state__enabled">چالاک</string>
-    <string name="state__no_dir_selected">هیچ فۆڵدەرێک دیاری نەکراوە</string>
-    <string name="state__no_dirs_selected">هیچ فۆڵدەرێک دیاری نەکراوە</string>
-    <string name="state__no_file_selected">هیچ فایلێک دیاری نەکراوە</string>
-    <string name="state__no_files_selected">هیچ فایلێک دیاری نەکراوە</string>
+    <string name="state__disabled">Ù†Ø§ Ú†Ø§Ù„Ø§Ú©</string>
+    <string name="state__enabled">Ú†Ø§Ù„Ø§Ú©</string>
+    <string name="state__no_dir_selected">Ù‡ÛŒÚ† ÙÛ†ÚµØ¯Û•Ø±ÛŽÚ© Ø¯ÛŒØ§Ø±ÛŒ Ù†Û•Ú©Ø±Ø§ÙˆÛ•</string>
+    <string name="state__no_dirs_selected">Ù‡ÛŒÚ† ÙÛ†ÚµØ¯Û•Ø±ÛŽÚ© Ø¯ÛŒØ§Ø±ÛŒ Ù†Û•Ú©Ø±Ø§ÙˆÛ•</string>
+    <string name="state__no_file_selected">Ù‡ÛŒÚ† ÙØ§ÛŒÙ„ÛŽÚ© Ø¯ÛŒØ§Ø±ÛŒ Ù†Û•Ú©Ø±Ø§ÙˆÛ•</string>
+    <string name="state__no_files_selected">Ù‡ÛŒÚ† ÙØ§ÛŒÙ„ÛŽÚ© Ø¯ÛŒØ§Ø±ÛŒ Ù†Û•Ú©Ø±Ø§ÙˆÛ•</string>
     <!-- Enum label and description strings -->
-    <string name="enum__candidates_display_mode__classic" comment="Enum value label">ئاسایی (٣ ڕیز)</string>
-    <string name="enum__candidates_display_mode__dynamic" comment="Enum value label">جوڵاو</string>
-    <string name="enum__candidates_display_mode__dynamic_scrollable" comment="Enum value label">جوڵاو و ڕاکێشان</string>
-    <string name="enum__color_representation__rgb" comment="Enum value label">سوور سەوز شین</string>
-    <string name="enum__display_kbd_after_dialogs__always" comment="Enum value label">هەمیشە پیشاندان</string>
-    <string name="enum__display_kbd_after_dialogs__always__description" comment="Enum value description">پیشاندانی تەختەکلیل دوای داخستنی بەشی دەستکاریکردنی ڕووکار</string>
-    <string name="enum__display_kbd_after_dialogs__never" comment="Enum value label">پیشان نەدان</string>
-    <string name="enum__display_kbd_after_dialogs__never__description" comment="Enum value description">پیشاندانی نەدانی تەختەکلیل دوای داخستنی بەشی دەستکاریکردنی ڕووکار</string>
-    <string name="enum__display_kbd_after_dialogs__remember" comment="Enum value label">بیرخستنەوەی کۆتا دۆخ</string>
-    <string name="enum__display_kbd_after_dialogs__remember__description" comment="Enum value description">تەنها تەختەکلیلەکە نیشان بدە دوای داخستنی دیالۆگی هەر سەرنووسەرێک ئەگەر پێشتر بینرابێت</string>
-    <string name="enum__display_language_names_in__system_locale" comment="Enum value label">زمانی سیستەم</string>
-    <string name="enum__display_language_names_in__system_locale__description" comment="Enum value description">ناوی زمانەکان لە ناو بەرنامە و ڕووکاری تەختەکلیل پیشان دەدرێن بەپێی زمانی سەرەکی سیستەم</string>
-    <string name="enum__display_language_names_in__native_locale" comment="Enum value label">ناوی بنەڕەتی زمان</string>
-    <string name="enum__display_language_names_in__native_locale__description" comment="Enum value description">ناوی زمانەکان لە ناو بەرنامە و ڕووکاری تەختەکلیل پیشان دەدرێن بەپێی ناوی ڕاستەقینەی زمانەکە</string>
-    <string name="enum__emoji_skin_tone__default" comment="Enum value label">{emoji} بنەڕەتی</string>
-    <string name="enum__emoji_skin_tone__light_skin_tone" comment="Enum value label">{emoji} سپی</string>
-    <string name="enum__emoji_skin_tone__medium_light_skin_tone" comment="Enum value label">{emoji} بۆر</string>
-    <string name="enum__emoji_skin_tone__medium_skin_tone" comment="Enum value label">{emoji} بۆر</string>
-    <string name="enum__emoji_skin_tone__medium_dark_skin_tone" comment="Enum value label">{emoji} گەنمی</string>
-    <string name="enum__emoji_skin_tone__dark_skin_tone" comment="Enum value label">{emoji} ڕەش</string>
-    <string name="enum__emoji_hair_style__default" comment="Enum value label">{emoji} بنەڕەتی</string>
-    <string name="enum__emoji_hair_style__red_hair" comment="Enum value label">{emoji} سوور</string>
-    <string name="enum__emoji_hair_style__curly_hair" comment="Enum value label">{emoji} لوول</string>
-    <string name="enum__emoji_hair_style__white_hair" comment="Enum value label">{emoji} سپی</string>
-    <string name="enum__emoji_hair_style__bald" comment="Enum value label">{emoji} کەچەڵ</string>
-    <string name="enum__haptic_vibration_mode__use_vibrator_directly" comment="Enum value label">لەرینەوەی ڕاستەوخۆ</string>
-    <string name="enum__haptic_vibration_mode__use_vibrator_directly__description" comment="Enum value description">{app_name} ڕاستەوخۆ هەستەوەری لەرینەوەی ئامێر بەکاردێت لەکاتی نووسین، بەڵام لەوانەیە لە هەندێ مۆبایلدا بەردەست نەبێت</string>
-    <string name="enum__haptic_vibration_mode__use_haptic_feedback_interface" comment="Enum value label">لەرینەوەی ئاسایی</string>
-    <string name="enum__haptic_vibration_mode__use_haptic_feedback_interface__description" comment="Enum value description">{app_name} لەرینەوەی ئاسایی ڕێکخراو بەکاردێت لەکاتی نووسین، ئەم هەڵبژاردنە لە زۆربەی مۆبایلەکاندا بەباشی کاردەکات و لەوانەیە لەهەندێکیشیان کار نەکات</string>
-    <string name="enum__key_hint_mode__accent_priority" comment="Enum value label">پیتەکان لەپێشدا</string>
-    <string name="enum__key_hint_mode__accent_priority__description" comment="Enum value description">پیشاندانی یەکەم پیتی خانەی دووەم لەکاتی دەست راگرتن</string>
-    <string name="enum__key_hint_mode__hint_priority" comment="Enum value label">هێماکان لەپێشدا</string>
-    <string name="enum__key_hint_mode__hint_priority__description" comment="Enum value description">پیشاندانی یەکەم هێمای خانەی دووەم لەکاتی دەست راگرتن</string>
-    <string name="enum__key_hint_mode__smart_priority" comment="Enum value label">هەڵبژاردنی زیرەک</string>
-    <string name="enum__key_hint_mode__smart_priority__description" comment="Enum value description">پیشاندانی یەکەم پیت یان هێمای خانەی دووەم لەکاتی دەست راگرتن بەخۆکاری بەپێی زمانی هەڵبژێردراو</string>
-    <string name="enum__input_feedback_activation_mode__audio_respect_system_settings" comment="Enum value label">کاریگەری دەنگی ئاسایی بەپێی ڕێکخستنی سیستەم</string>
-    <string name="enum__input_feedback_activation_mode__audio_ignore_system_settings" comment="Enum value label">دەنگی هەمیشەیی بەپێی ڕێکخستنی بەرنامەکە</string>
-    <string name="enum__input_feedback_activation_mode__haptic_respect_system_settings" comment="Enum value label">لەرینەوەی ئاسایی بەپێی ڕێکخستنی سیستەم</string>
-    <string name="enum__input_feedback_activation_mode__haptic_ignore_system_settings" comment="Enum value label">لەرینەوەی هەمیشەیی بەپێی ڕێکخستنی بەرنامەکە</string>
-    <string name="enum__input_shift_state__unshifted" comment="Enum value label">ئاسایی</string>
-    <string name="enum__input_shift_state__shifted_manual" comment="Enum value label">شێفت (دەستی)</string>
-    <string name="enum__input_shift_state__shifted_automatic" comment="Enum value label">شێفت (خۆکاری)</string>
-    <string name="enum__input_shift_state__caps_lock" comment="Enum value label">قفڵکردنی شێفت</string>
-    <string name="enum__landscape_input_ui_mode__never_show" comment="Enum value label">شاردنەوە</string>
-    <string name="enum__landscape_input_ui_mode__always_show" comment="Enum value label">هەمیشە پیشاندان</string>
-    <string name="enum__landscape_input_ui_mode__dynamically_show" comment="Enum value label">پیشاندانی زیرەکانە</string>
-    <string name="enum__shape_corner__top_start" comment="Enum value label">سەرەتای سەرەوە</string>
-    <string name="enum__shape_corner__top_end" comment="Enum value label">کۆتایی سەرەوە</string>
-    <string name="enum__shape_corner__bottom_end" comment="Enum value label">کۆتایی خوارەوە</string>
-    <string name="enum__shape_corner__bottom_start" comment="Enum value label">سەرەتای خوارەوە</string>
-    <string name="enum__smartbar_layout__suggestions_only" comment="Enum value label">تەنیا پێشنیارکردن</string>
-    <string name="enum__smartbar_layout__actions_only" comment="Enum value label">تەنیا ئامرازەکان</string>
-    <string name="enum__snygg_level__basic" comment="Enum value label">بنچینەیی</string>
-    <string name="enum__snygg_level__basic__description" comment="Enum value description">تەنیا زانیاری ڕەنگەکان پیشان ئەدرێن، درێژە و بەشەکانی تر وەردەگێڕدرێن.</string>
-    <string name="enum__snygg_level__advanced" comment="Enum value label">ڕێکخستنی زیاتر</string>
-    <string name="enum__snygg_level__advanced__description" comment="Enum value description">هەموو زانیارییەکانی ڕەنگەکان پیشان ئەدرێن، درێژە و بەشەکانی تر وەردەگێڕدرێن.</string>
-    <string name="enum__snygg_level__developer" comment="Enum value label">گەشەپێدەر</string>
-    <string name="enum__snygg_level__developer__description" comment="Enum value description">هەموو زانیارییەکانی ڕەنگەکان پیشان ئەدرێن، زانیاری ڕووکار هەمان ناوی فایل پیشان ئەدات.</string>
-    <string name="enum__space_bar_mode__nothing" comment="Enum value label">بێ ناو</string>
-    <string name="enum__space_bar_mode__current_language" comment="Enum value label">ناوی زمان</string>
-    <string name="enum__space_bar_mode__space_bar_key" comment="Enum value label">␣</string>
-    <string name="enum__spelling_language_mode__use_system_languages" comment="Enum value label">بەکارهێنانی زمانی سیستەم</string>
-    <string name="enum__spelling_language_mode__use_keyboard_subtypes" comment="Enum value label">بەکارهێنانی ناوی تەختەکلیل</string>
-    <string name="enum__swipe_action__no_action" comment="Enum value label">هیچ فرمانێک</string>
-    <string name="enum__swipe_action__cycle_to_previous_keyboard_mode" comment="Enum value label">گەڕانەوە بۆ شێوازی پێشوو</string>
-    <string name="enum__swipe_action__cycle_to_next_keyboard_mode" comment="Enum value label">گەڕانەوە بۆ شێوازی دواتر</string>
-    <string name="enum__swipe_action__delete_character" comment="Enum value label">سڕینەوەی پیتی پێش هێما</string>
-    <string name="enum__swipe_action__delete_characters_precisely" comment="Enum value label">سڕینەوەی پیتەکان یەک بە یەک</string>
-    <string name="enum__swipe_action__delete_word" comment="Enum value label">سڕینەوەی ووشەی پێش هێما</string>
-    <string name="enum__swipe_action__delete_words_precisely" comment="Enum value label">سڕینەوەی ووشەکان یەک بە یەک</string>
-    <string name="enum__swipe_action__hide_keyboard" comment="Enum value label">لابردنی تەختەکلیل</string>
-    <string name="enum__swipe_action__insert_space" comment="Enum value label">زیادکردنی ماوە</string>
-    <string name="enum__swipe_action__move_cursor_up" comment="Enum value label">بردن بۆ سەرەوە</string>
-    <string name="enum__swipe_action__move_cursor_down" comment="Enum value label">بردن بۆ خوارەوە</string>
-    <string name="enum__swipe_action__move_cursor_left" comment="Enum value label">بردن بۆ لای چەپ</string>
-    <string name="enum__swipe_action__move_cursor_right" comment="Enum value label">بردن بۆ لای ڕاست</string>
-    <string name="enum__swipe_action__move_cursor_start_of_line" comment="Enum value label">چوون بۆ سەرەتای ڕستە</string>
-    <string name="enum__swipe_action__move_cursor_end_of_line" comment="Enum value label">چوون بۆ کۆتایی ڕستە</string>
-    <string name="enum__swipe_action__move_cursor_start_of_page" comment="Enum value label">چوون بۆ سەرەتای پەڕە</string>
-    <string name="enum__swipe_action__move_cursor_end_of_page" comment="Enum value label">چوون بۆ کۆتایی پەڕە</string>
-    <string name="enum__swipe_action__switch_to_clipboard_context" comment="Enum value label">کردنەوەی لەبەرگیراوەکان</string>
-    <string name="enum__swipe_action__shift" comment="Enum value label">گەورەکردن (Shift) </string>
-    <string name="enum__swipe_action__redo" comment="Enum value label">هەنگاوێک پێشتر</string>
-    <string name="enum__swipe_action__undo" comment="Enum value label">هەنگاوێک دواتر</string>
-    <string name="enum__swipe_action__select_characters_precisely" comment="Enum value label">دیاریکردنی پیتەکان یەک بە یەک</string>
-    <string name="enum__swipe_action__select_words_precisely" comment="Enum value label">دیاریکردنی ووشەکان یەک بە یەک</string>
-    <string name="enum__swipe_action__show_input_method_picker" comment="Enum value label">گۆڕینی تەختەکلیل</string>
-    <string name="enum__swipe_action__switch_to_prev_keyboard" comment="Enum value label">گۆڕین بۆ تەختەکلیلی پێشوو</string>
-    <string name="enum__swipe_action__switch_to_prev_subtype" comment="Enum value label">گۆڕین بۆ زمانی پێشوو</string>
-    <string name="enum__swipe_action__switch_to_next_subtype" comment="Enum value label">گۆڕین بۆ زمانی دواتر</string>
-    <string name="enum__swipe_action__toggle_smartbar_visibility" comment="Enum value label">شاردنەوە/ پیشاندانی بەشی سەرەوە</string>
-    <string name="enum__theme_mode__always_day" comment="Enum value label">هەمیشە ڕووناک</string>
-    <string name="enum__theme_mode__always_night" comment="Enum value label">هەمیشە تاریک</string>
-    <string name="enum__theme_mode__follow_system" comment="Enum value label">بەپێی سیستەم</string>
-    <string name="enum__theme_mode__follow_time" comment="Enum value label">بەپێی کات</string>
-    <string name="enum__utility_key_action__switch_to_emojis" comment="Enum value label">کردنەوەی خەندەکان</string>
-    <string name="enum__utility_key_action__switch_language" comment="Enum value label">گۆڕینی زمان</string>
-    <string name="enum__utility_key_action__switch_keyboard_app" comment="Enum value label">گؤرینی تەختەکلیل</string>
-    <string name="enum__utility_key_action__dynamic_switch_language_emojis" comment="Enum value label">زیرەکانە: کردنەوەی خەندەکان/گۆڕینی زمان</string>
+    <string name="enum__candidates_display_mode__classic" comment="Enum value label">Ø¦Ø§Ø³Ø§ÛŒÛŒ (Ù£ Ú•ÛŒØ²)</string>
+    <string name="enum__candidates_display_mode__dynamic" comment="Enum value label">Ø¬ÙˆÚµØ§Ùˆ</string>
+    <string name="enum__candidates_display_mode__dynamic_scrollable" comment="Enum value label">Ø¬ÙˆÚµØ§Ùˆ Ùˆ Ú•Ø§Ú©ÛŽØ´Ø§Ù†</string>
+    <string name="enum__color_representation__rgb" comment="Enum value label">Ø³ÙˆÙˆØ± Ø³Û•ÙˆØ² Ø´ÛŒÙ†</string>
+    <string name="enum__display_kbd_after_dialogs__always" comment="Enum value label">Ù‡Û•Ù…ÛŒØ´Û• Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†</string>
+    <string name="enum__display_kbd_after_dialogs__always__description" comment="Enum value description">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„ Ø¯ÙˆØ§ÛŒ Ø¯Ø§Ø®Ø³ØªÙ†ÛŒ Ø¨Û•Ø´ÛŒ Ø¯Û•Ø³ØªÚ©Ø§Ø±ÛŒÚ©Ø±Ø¯Ù†ÛŒ Ú•ÙˆÙˆÚ©Ø§Ø±</string>
+    <string name="enum__display_kbd_after_dialogs__never" comment="Enum value label">Ù¾ÛŒØ´Ø§Ù† Ù†Û•Ø¯Ø§Ù†</string>
+    <string name="enum__display_kbd_after_dialogs__never__description" comment="Enum value description">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ù†Û•Ø¯Ø§Ù†ÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„ Ø¯ÙˆØ§ÛŒ Ø¯Ø§Ø®Ø³ØªÙ†ÛŒ Ø¨Û•Ø´ÛŒ Ø¯Û•Ø³ØªÚ©Ø§Ø±ÛŒÚ©Ø±Ø¯Ù†ÛŒ Ú•ÙˆÙˆÚ©Ø§Ø±</string>
+    <string name="enum__display_kbd_after_dialogs__remember" comment="Enum value label">Ø¨ÛŒØ±Ø®Ø³ØªÙ†Û•ÙˆÛ•ÛŒ Ú©Û†ØªØ§ Ø¯Û†Ø®</string>
+    <string name="enum__display_kbd_after_dialogs__remember__description" comment="Enum value description">ØªÛ•Ù†Ù‡Ø§ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„Û•Ú©Û• Ù†ÛŒØ´Ø§Ù† Ø¨Ø¯Û• Ø¯ÙˆØ§ÛŒ Ø¯Ø§Ø®Ø³ØªÙ†ÛŒ Ø¯ÛŒØ§Ù„Û†Ú¯ÛŒ Ù‡Û•Ø± Ø³Û•Ø±Ù†ÙˆÙˆØ³Û•Ø±ÛŽÚ© Ø¦Û•Ú¯Û•Ø± Ù¾ÛŽØ´ØªØ± Ø¨ÛŒÙ†Ø±Ø§Ø¨ÛŽØª</string>
+    <string name="enum__display_language_names_in__system_locale" comment="Enum value label">Ø²Ù…Ø§Ù†ÛŒ Ø³ÛŒØ³ØªÛ•Ù…</string>
+    <string name="enum__display_language_names_in__system_locale__description" comment="Enum value description">Ù†Ø§ÙˆÛŒ Ø²Ù…Ø§Ù†Û•Ú©Ø§Ù† Ù„Û• Ù†Ø§Ùˆ Ø¨Û•Ø±Ù†Ø§Ù…Û• Ùˆ Ú•ÙˆÙˆÚ©Ø§Ø±ÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„ Ù¾ÛŒØ´Ø§Ù† Ø¯Û•Ø¯Ø±ÛŽÙ† Ø¨Û•Ù¾ÛŽÛŒ Ø²Ù…Ø§Ù†ÛŒ Ø³Û•Ø±Û•Ú©ÛŒ Ø³ÛŒØ³ØªÛ•Ù…</string>
+    <string name="enum__display_language_names_in__native_locale" comment="Enum value label">Ù†Ø§ÙˆÛŒ Ø¨Ù†Û•Ú•Û•ØªÛŒ Ø²Ù…Ø§Ù†</string>
+    <string name="enum__display_language_names_in__native_locale__description" comment="Enum value description">Ù†Ø§ÙˆÛŒ Ø²Ù…Ø§Ù†Û•Ú©Ø§Ù† Ù„Û• Ù†Ø§Ùˆ Ø¨Û•Ø±Ù†Ø§Ù…Û• Ùˆ Ú•ÙˆÙˆÚ©Ø§Ø±ÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„ Ù¾ÛŒØ´Ø§Ù† Ø¯Û•Ø¯Ø±ÛŽÙ† Ø¨Û•Ù¾ÛŽÛŒ Ù†Ø§ÙˆÛŒ Ú•Ø§Ø³ØªÛ•Ù‚ÛŒÙ†Û•ÛŒ Ø²Ù…Ø§Ù†Û•Ú©Û•</string>
+    <string name="enum__emoji_skin_tone__default" comment="Enum value label">{emoji} Ø¨Ù†Û•Ú•Û•ØªÛŒ</string>
+    <string name="enum__emoji_skin_tone__light_skin_tone" comment="Enum value label">{emoji} Ø³Ù¾ÛŒ</string>
+    <string name="enum__emoji_skin_tone__medium_light_skin_tone" comment="Enum value label">{emoji} Ø¨Û†Ø±</string>
+    <string name="enum__emoji_skin_tone__medium_skin_tone" comment="Enum value label">{emoji} Ø¨Û†Ø±</string>
+    <string name="enum__emoji_skin_tone__medium_dark_skin_tone" comment="Enum value label">{emoji} Ú¯Û•Ù†Ù…ÛŒ</string>
+    <string name="enum__emoji_skin_tone__dark_skin_tone" comment="Enum value label">{emoji} Ú•Û•Ø´</string>
+    <string name="enum__emoji_hair_style__default" comment="Enum value label">{emoji} Ø¨Ù†Û•Ú•Û•ØªÛŒ</string>
+    <string name="enum__emoji_hair_style__red_hair" comment="Enum value label">{emoji} Ø³ÙˆÙˆØ±</string>
+    <string name="enum__emoji_hair_style__curly_hair" comment="Enum value label">{emoji} Ù„ÙˆÙˆÙ„</string>
+    <string name="enum__emoji_hair_style__white_hair" comment="Enum value label">{emoji} Ø³Ù¾ÛŒ</string>
+    <string name="enum__emoji_hair_style__bald" comment="Enum value label">{emoji} Ú©Û•Ú†Û•Úµ</string>
+    <string name="enum__haptic_vibration_mode__use_vibrator_directly" comment="Enum value label">Ù„Û•Ø±ÛŒÙ†Û•ÙˆÛ•ÛŒ Ú•Ø§Ø³ØªÛ•ÙˆØ®Û†</string>
+    <string name="enum__haptic_vibration_mode__use_vibrator_directly__description" comment="Enum value description">{app_name} Ú•Ø§Ø³ØªÛ•ÙˆØ®Û† Ù‡Û•Ø³ØªÛ•ÙˆÛ•Ø±ÛŒ Ù„Û•Ø±ÛŒÙ†Û•ÙˆÛ•ÛŒ Ø¦Ø§Ù…ÛŽØ± Ø¨Û•Ú©Ø§Ø±Ø¯ÛŽØª Ù„Û•Ú©Ø§ØªÛŒ Ù†ÙˆÙˆØ³ÛŒÙ†ØŒ Ø¨Û•ÚµØ§Ù… Ù„Û•ÙˆØ§Ù†Û•ÛŒÛ• Ù„Û• Ù‡Û•Ù†Ø¯ÛŽ Ù…Û†Ø¨Ø§ÛŒÙ„Ø¯Ø§ Ø¨Û•Ø±Ø¯Û•Ø³Øª Ù†Û•Ø¨ÛŽØª</string>
+    <string name="enum__haptic_vibration_mode__use_haptic_feedback_interface" comment="Enum value label">Ù„Û•Ø±ÛŒÙ†Û•ÙˆÛ•ÛŒ Ø¦Ø§Ø³Ø§ÛŒÛŒ</string>
+    <string name="enum__haptic_vibration_mode__use_haptic_feedback_interface__description" comment="Enum value description">{app_name} Ù„Û•Ø±ÛŒÙ†Û•ÙˆÛ•ÛŒ Ø¦Ø§Ø³Ø§ÛŒÛŒ Ú•ÛŽÚ©Ø®Ø±Ø§Ùˆ Ø¨Û•Ú©Ø§Ø±Ø¯ÛŽØª Ù„Û•Ú©Ø§ØªÛŒ Ù†ÙˆÙˆØ³ÛŒÙ†ØŒ Ø¦Û•Ù… Ù‡Û•ÚµØ¨Ú˜Ø§Ø±Ø¯Ù†Û• Ù„Û• Ø²Û†Ø±Ø¨Û•ÛŒ Ù…Û†Ø¨Ø§ÛŒÙ„Û•Ú©Ø§Ù†Ø¯Ø§ Ø¨Û•Ø¨Ø§Ø´ÛŒ Ú©Ø§Ø±Ø¯Û•Ú©Ø§Øª Ùˆ Ù„Û•ÙˆØ§Ù†Û•ÛŒÛ• Ù„Û•Ù‡Û•Ù†Ø¯ÛŽÚ©ÛŒØ´ÛŒØ§Ù† Ú©Ø§Ø± Ù†Û•Ú©Ø§Øª</string>
+    <string name="enum__key_hint_mode__accent_priority" comment="Enum value label">Ù¾ÛŒØªÛ•Ú©Ø§Ù† Ù„Û•Ù¾ÛŽØ´Ø¯Ø§</string>
+    <string name="enum__key_hint_mode__accent_priority__description" comment="Enum value description">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ ÛŒÛ•Ú©Û•Ù… Ù¾ÛŒØªÛŒ Ø®Ø§Ù†Û•ÛŒ Ø¯ÙˆÙˆÛ•Ù… Ù„Û•Ú©Ø§ØªÛŒ Ø¯Û•Ø³Øª Ø±Ø§Ú¯Ø±ØªÙ†</string>
+    <string name="enum__key_hint_mode__hint_priority" comment="Enum value label">Ù‡ÛŽÙ…Ø§Ú©Ø§Ù† Ù„Û•Ù¾ÛŽØ´Ø¯Ø§</string>
+    <string name="enum__key_hint_mode__hint_priority__description" comment="Enum value description">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ ÛŒÛ•Ú©Û•Ù… Ù‡ÛŽÙ…Ø§ÛŒ Ø®Ø§Ù†Û•ÛŒ Ø¯ÙˆÙˆÛ•Ù… Ù„Û•Ú©Ø§ØªÛŒ Ø¯Û•Ø³Øª Ø±Ø§Ú¯Ø±ØªÙ†</string>
+    <string name="enum__key_hint_mode__smart_priority" comment="Enum value label">Ù‡Û•ÚµØ¨Ú˜Ø§Ø±Ø¯Ù†ÛŒ Ø²ÛŒØ±Û•Ú©</string>
+    <string name="enum__key_hint_mode__smart_priority__description" comment="Enum value description">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ ÛŒÛ•Ú©Û•Ù… Ù¾ÛŒØª ÛŒØ§Ù† Ù‡ÛŽÙ…Ø§ÛŒ Ø®Ø§Ù†Û•ÛŒ Ø¯ÙˆÙˆÛ•Ù… Ù„Û•Ú©Ø§ØªÛŒ Ø¯Û•Ø³Øª Ø±Ø§Ú¯Ø±ØªÙ† Ø¨Û•Ø®Û†Ú©Ø§Ø±ÛŒ Ø¨Û•Ù¾ÛŽÛŒ Ø²Ù…Ø§Ù†ÛŒ Ù‡Û•ÚµØ¨Ú˜ÛŽØ±Ø¯Ø±Ø§Ùˆ</string>
+    <string name="enum__input_feedback_activation_mode__audio_respect_system_settings" comment="Enum value label">Ú©Ø§Ø±ÛŒÚ¯Û•Ø±ÛŒ Ø¯Û•Ù†Ú¯ÛŒ Ø¦Ø§Ø³Ø§ÛŒÛŒ Ø¨Û•Ù¾ÛŽÛŒ Ú•ÛŽÚ©Ø®Ø³ØªÙ†ÛŒ Ø³ÛŒØ³ØªÛ•Ù…</string>
+    <string name="enum__input_feedback_activation_mode__audio_ignore_system_settings" comment="Enum value label">Ø¯Û•Ù†Ú¯ÛŒ Ù‡Û•Ù…ÛŒØ´Û•ÛŒÛŒ Ø¨Û•Ù¾ÛŽÛŒ Ú•ÛŽÚ©Ø®Ø³ØªÙ†ÛŒ Ø¨Û•Ø±Ù†Ø§Ù…Û•Ú©Û•</string>
+    <string name="enum__input_feedback_activation_mode__haptic_respect_system_settings" comment="Enum value label">Ù„Û•Ø±ÛŒÙ†Û•ÙˆÛ•ÛŒ Ø¦Ø§Ø³Ø§ÛŒÛŒ Ø¨Û•Ù¾ÛŽÛŒ Ú•ÛŽÚ©Ø®Ø³ØªÙ†ÛŒ Ø³ÛŒØ³ØªÛ•Ù…</string>
+    <string name="enum__input_feedback_activation_mode__haptic_ignore_system_settings" comment="Enum value label">Ù„Û•Ø±ÛŒÙ†Û•ÙˆÛ•ÛŒ Ù‡Û•Ù…ÛŒØ´Û•ÛŒÛŒ Ø¨Û•Ù¾ÛŽÛŒ Ú•ÛŽÚ©Ø®Ø³ØªÙ†ÛŒ Ø¨Û•Ø±Ù†Ø§Ù…Û•Ú©Û•</string>
+    <string name="enum__input_shift_state__unshifted" comment="Enum value label">Ø¦Ø§Ø³Ø§ÛŒÛŒ</string>
+    <string name="enum__input_shift_state__shifted_manual" comment="Enum value label">Ø´ÛŽÙØª (Ø¯Û•Ø³ØªÛŒ)</string>
+    <string name="enum__input_shift_state__shifted_automatic" comment="Enum value label">Ø´ÛŽÙØª (Ø®Û†Ú©Ø§Ø±ÛŒ)</string>
+    <string name="enum__input_shift_state__caps_lock" comment="Enum value label">Ù‚ÙÚµÚ©Ø±Ø¯Ù†ÛŒ Ø´ÛŽÙØª</string>
+    <string name="enum__landscape_input_ui_mode__never_show" comment="Enum value label">Ø´Ø§Ø±Ø¯Ù†Û•ÙˆÛ•</string>
+    <string name="enum__landscape_input_ui_mode__always_show" comment="Enum value label">Ù‡Û•Ù…ÛŒØ´Û• Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†</string>
+    <string name="enum__landscape_input_ui_mode__dynamically_show" comment="Enum value label">Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ø²ÛŒØ±Û•Ú©Ø§Ù†Û•</string>
+    <string name="enum__shape_corner__top_start" comment="Enum value label">Ø³Û•Ø±Û•ØªØ§ÛŒ Ø³Û•Ø±Û•ÙˆÛ•</string>
+    <string name="enum__shape_corner__top_end" comment="Enum value label">Ú©Û†ØªØ§ÛŒÛŒ Ø³Û•Ø±Û•ÙˆÛ•</string>
+    <string name="enum__shape_corner__bottom_end" comment="Enum value label">Ú©Û†ØªØ§ÛŒÛŒ Ø®ÙˆØ§Ø±Û•ÙˆÛ•</string>
+    <string name="enum__shape_corner__bottom_start" comment="Enum value label">Ø³Û•Ø±Û•ØªØ§ÛŒ Ø®ÙˆØ§Ø±Û•ÙˆÛ•</string>
+    <string name="enum__smartbar_layout__suggestions_only" comment="Enum value label">ØªÛ•Ù†ÛŒØ§ Ù¾ÛŽØ´Ù†ÛŒØ§Ø±Ú©Ø±Ø¯Ù†</string>
+    <string name="enum__smartbar_layout__actions_only" comment="Enum value label">ØªÛ•Ù†ÛŒØ§ Ø¦Ø§Ù…Ø±Ø§Ø²Û•Ú©Ø§Ù†</string>
+    <string name="enum__snygg_level__basic" comment="Enum value label">Ø¨Ù†Ú†ÛŒÙ†Û•ÛŒÛŒ</string>
+    <string name="enum__snygg_level__basic__description" comment="Enum value description">ØªÛ•Ù†ÛŒØ§ Ø²Ø§Ù†ÛŒØ§Ø±ÛŒ Ú•Û•Ù†Ú¯Û•Ú©Ø§Ù† Ù¾ÛŒØ´Ø§Ù† Ø¦Û•Ø¯Ø±ÛŽÙ†ØŒ Ø¯Ø±ÛŽÚ˜Û• Ùˆ Ø¨Û•Ø´Û•Ú©Ø§Ù†ÛŒ ØªØ± ÙˆÛ•Ø±Ø¯Û•Ú¯ÛŽÚ•Ø¯Ø±ÛŽÙ†.</string>
+    <string name="enum__snygg_level__advanced" comment="Enum value label">Ú•ÛŽÚ©Ø®Ø³ØªÙ†ÛŒ Ø²ÛŒØ§ØªØ±</string>
+    <string name="enum__snygg_level__advanced__description" comment="Enum value description">Ù‡Û•Ù…ÙˆÙˆ Ø²Ø§Ù†ÛŒØ§Ø±ÛŒÛŒÛ•Ú©Ø§Ù†ÛŒ Ú•Û•Ù†Ú¯Û•Ú©Ø§Ù† Ù¾ÛŒØ´Ø§Ù† Ø¦Û•Ø¯Ø±ÛŽÙ†ØŒ Ø¯Ø±ÛŽÚ˜Û• Ùˆ Ø¨Û•Ø´Û•Ú©Ø§Ù†ÛŒ ØªØ± ÙˆÛ•Ø±Ø¯Û•Ú¯ÛŽÚ•Ø¯Ø±ÛŽÙ†.</string>
+    <string name="enum__snygg_level__developer" comment="Enum value label">Ú¯Û•Ø´Û•Ù¾ÛŽØ¯Û•Ø±</string>
+    <string name="enum__snygg_level__developer__description" comment="Enum value description">Ù‡Û•Ù…ÙˆÙˆ Ø²Ø§Ù†ÛŒØ§Ø±ÛŒÛŒÛ•Ú©Ø§Ù†ÛŒ Ú•Û•Ù†Ú¯Û•Ú©Ø§Ù† Ù¾ÛŒØ´Ø§Ù† Ø¦Û•Ø¯Ø±ÛŽÙ†ØŒ Ø²Ø§Ù†ÛŒØ§Ø±ÛŒ Ú•ÙˆÙˆÚ©Ø§Ø± Ù‡Û•Ù…Ø§Ù† Ù†Ø§ÙˆÛŒ ÙØ§ÛŒÙ„ Ù¾ÛŒØ´Ø§Ù† Ø¦Û•Ø¯Ø§Øª.</string>
+    <string name="enum__space_bar_mode__nothing" comment="Enum value label">Ø¨ÛŽ Ù†Ø§Ùˆ</string>
+    <string name="enum__space_bar_mode__current_language" comment="Enum value label">Ù†Ø§ÙˆÛŒ Ø²Ù…Ø§Ù†</string>
+    <string name="enum__space_bar_mode__space_bar_key" comment="Enum value label">â£</string>
+    <string name="enum__spelling_language_mode__use_system_languages" comment="Enum value label">Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Ø§Ù†ÛŒ Ø²Ù…Ø§Ù†ÛŒ Ø³ÛŒØ³ØªÛ•Ù…</string>
+    <string name="enum__spelling_language_mode__use_keyboard_subtypes" comment="Enum value label">Ø¨Û•Ú©Ø§Ø±Ù‡ÛŽÙ†Ø§Ù†ÛŒ Ù†Ø§ÙˆÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="enum__swipe_action__no_action" comment="Enum value label">Ù‡ÛŒÚ† ÙØ±Ù…Ø§Ù†ÛŽÚ©</string>
+    <string name="enum__swipe_action__cycle_to_previous_keyboard_mode" comment="Enum value label">Ú¯Û•Ú•Ø§Ù†Û•ÙˆÛ• Ø¨Û† Ø´ÛŽÙˆØ§Ø²ÛŒ Ù¾ÛŽØ´ÙˆÙˆ</string>
+    <string name="enum__swipe_action__cycle_to_next_keyboard_mode" comment="Enum value label">Ú¯Û•Ú•Ø§Ù†Û•ÙˆÛ• Ø¨Û† Ø´ÛŽÙˆØ§Ø²ÛŒ Ø¯ÙˆØ§ØªØ±</string>
+    <string name="enum__swipe_action__delete_character" comment="Enum value label">Ø³Ú•ÛŒÙ†Û•ÙˆÛ•ÛŒ Ù¾ÛŒØªÛŒ Ù¾ÛŽØ´ Ù‡ÛŽÙ…Ø§</string>
+    <string name="enum__swipe_action__delete_characters_precisely" comment="Enum value label">Ø³Ú•ÛŒÙ†Û•ÙˆÛ•ÛŒ Ù¾ÛŒØªÛ•Ú©Ø§Ù† ÛŒÛ•Ú© Ø¨Û• ÛŒÛ•Ú©</string>
+    <string name="enum__swipe_action__delete_word" comment="Enum value label">Ø³Ú•ÛŒÙ†Û•ÙˆÛ•ÛŒ ÙˆÙˆØ´Û•ÛŒ Ù¾ÛŽØ´ Ù‡ÛŽÙ…Ø§</string>
+    <string name="enum__swipe_action__delete_words_precisely" comment="Enum value label">Ø³Ú•ÛŒÙ†Û•ÙˆÛ•ÛŒ ÙˆÙˆØ´Û•Ú©Ø§Ù† ÛŒÛ•Ú© Ø¨Û• ÛŒÛ•Ú©</string>
+    <string name="enum__swipe_action__hide_keyboard" comment="Enum value label">Ù„Ø§Ø¨Ø±Ø¯Ù†ÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="enum__swipe_action__insert_space" comment="Enum value label">Ø²ÛŒØ§Ø¯Ú©Ø±Ø¯Ù†ÛŒ Ù…Ø§ÙˆÛ•</string>
+    <string name="enum__swipe_action__move_cursor_up" comment="Enum value label">Ø¨Ø±Ø¯Ù† Ø¨Û† Ø³Û•Ø±Û•ÙˆÛ•</string>
+    <string name="enum__swipe_action__move_cursor_down" comment="Enum value label">Ø¨Ø±Ø¯Ù† Ø¨Û† Ø®ÙˆØ§Ø±Û•ÙˆÛ•</string>
+    <string name="enum__swipe_action__move_cursor_left" comment="Enum value label">Ø¨Ø±Ø¯Ù† Ø¨Û† Ù„Ø§ÛŒ Ú†Û•Ù¾</string>
+    <string name="enum__swipe_action__move_cursor_right" comment="Enum value label">Ø¨Ø±Ø¯Ù† Ø¨Û† Ù„Ø§ÛŒ Ú•Ø§Ø³Øª</string>
+    <string name="enum__swipe_action__move_cursor_start_of_line" comment="Enum value label">Ú†ÙˆÙˆÙ† Ø¨Û† Ø³Û•Ø±Û•ØªØ§ÛŒ Ú•Ø³ØªÛ•</string>
+    <string name="enum__swipe_action__move_cursor_end_of_line" comment="Enum value label">Ú†ÙˆÙˆÙ† Ø¨Û† Ú©Û†ØªØ§ÛŒÛŒ Ú•Ø³ØªÛ•</string>
+    <string name="enum__swipe_action__move_cursor_start_of_page" comment="Enum value label">Ú†ÙˆÙˆÙ† Ø¨Û† Ø³Û•Ø±Û•ØªØ§ÛŒ Ù¾Û•Ú•Û•</string>
+    <string name="enum__swipe_action__move_cursor_end_of_page" comment="Enum value label">Ú†ÙˆÙˆÙ† Ø¨Û† Ú©Û†ØªØ§ÛŒÛŒ Ù¾Û•Ú•Û•</string>
+    <string name="enum__swipe_action__switch_to_clipboard_context" comment="Enum value label">Ú©Ø±Ø¯Ù†Û•ÙˆÛ•ÛŒ Ù„Û•Ø¨Û•Ø±Ú¯ÛŒØ±Ø§ÙˆÛ•Ú©Ø§Ù†</string>
+    <string name="enum__swipe_action__shift" comment="Enum value label">Ú¯Û•ÙˆØ±Û•Ú©Ø±Ø¯Ù† (Shift) </string>
+    <string name="enum__swipe_action__redo" comment="Enum value label">Ù‡Û•Ù†Ú¯Ø§ÙˆÛŽÚ© Ù¾ÛŽØ´ØªØ±</string>
+    <string name="enum__swipe_action__undo" comment="Enum value label">Ù‡Û•Ù†Ú¯Ø§ÙˆÛŽÚ© Ø¯ÙˆØ§ØªØ±</string>
+    <string name="enum__swipe_action__select_characters_precisely" comment="Enum value label">Ø¯ÛŒØ§Ø±ÛŒÚ©Ø±Ø¯Ù†ÛŒ Ù¾ÛŒØªÛ•Ú©Ø§Ù† ÛŒÛ•Ú© Ø¨Û• ÛŒÛ•Ú©</string>
+    <string name="enum__swipe_action__select_words_precisely" comment="Enum value label">Ø¯ÛŒØ§Ø±ÛŒÚ©Ø±Ø¯Ù†ÛŒ ÙˆÙˆØ´Û•Ú©Ø§Ù† ÛŒÛ•Ú© Ø¨Û• ÛŒÛ•Ú©</string>
+    <string name="enum__swipe_action__show_input_method_picker" comment="Enum value label">Ú¯Û†Ú•ÛŒÙ†ÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="enum__swipe_action__switch_to_prev_keyboard" comment="Enum value label">Ú¯Û†Ú•ÛŒÙ† Ø¨Û† ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„ÛŒ Ù¾ÛŽØ´ÙˆÙˆ</string>
+    <string name="enum__swipe_action__switch_to_prev_subtype" comment="Enum value label">Ú¯Û†Ú•ÛŒÙ† Ø¨Û† Ø²Ù…Ø§Ù†ÛŒ Ù¾ÛŽØ´ÙˆÙˆ</string>
+    <string name="enum__swipe_action__switch_to_next_subtype" comment="Enum value label">Ú¯Û†Ú•ÛŒÙ† Ø¨Û† Ø²Ù…Ø§Ù†ÛŒ Ø¯ÙˆØ§ØªØ±</string>
+    <string name="enum__swipe_action__toggle_smartbar_visibility" comment="Enum value label">Ø´Ø§Ø±Ø¯Ù†Û•ÙˆÛ•/ Ù¾ÛŒØ´Ø§Ù†Ø¯Ø§Ù†ÛŒ Ø¨Û•Ø´ÛŒ Ø³Û•Ø±Û•ÙˆÛ•</string>
+    <string name="enum__theme_mode__always_day" comment="Enum value label">Ù‡Û•Ù…ÛŒØ´Û• Ú•ÙˆÙˆÙ†Ø§Ú©</string>
+    <string name="enum__theme_mode__always_night" comment="Enum value label">Ù‡Û•Ù…ÛŒØ´Û• ØªØ§Ø±ÛŒÚ©</string>
+    <string name="enum__theme_mode__follow_system" comment="Enum value label">Ø¨Û•Ù¾ÛŽÛŒ Ø³ÛŒØ³ØªÛ•Ù…</string>
+    <string name="enum__theme_mode__follow_time" comment="Enum value label">Ø¨Û•Ù¾ÛŽÛŒ Ú©Ø§Øª</string>
+    <string name="enum__utility_key_action__switch_to_emojis" comment="Enum value label">Ú©Ø±Ø¯Ù†Û•ÙˆÛ•ÛŒ Ø®Û•Ù†Ø¯Û•Ú©Ø§Ù†</string>
+    <string name="enum__utility_key_action__switch_language" comment="Enum value label">Ú¯Û†Ú•ÛŒÙ†ÛŒ Ø²Ù…Ø§Ù†</string>
+    <string name="enum__utility_key_action__switch_keyboard_app" comment="Enum value label">Ú¯Ø¤Ø±ÛŒÙ†ÛŒ ØªÛ•Ø®ØªÛ•Ú©Ù„ÛŒÙ„</string>
+    <string name="enum__utility_key_action__dynamic_switch_language_emojis" comment="Enum value label">Ø²ÛŒØ±Û•Ú©Ø§Ù†Û•: Ú©Ø±Ø¯Ù†Û•ÙˆÛ•ÛŒ Ø®Û•Ù†Ø¯Û•Ú©Ø§Ù†/Ú¯Û†Ú•ÛŒÙ†ÛŒ Ø²Ù…Ø§Ù†</string>
     <!-- Unit strings (symbols) -->
     <!-- Unit strings (written words) -->
     <plurals name="unit__hours__written">
-        <item quantity="one">{v} کاتژمێر</item>
-        <item quantity="other">{v} کاتژمێر</item>
+        <item quantity="one">{v} Ú©Ø§ØªÚ˜Ù…ÛŽØ±</item>
+        <item quantity="other">{v} Ú©Ø§ØªÚ˜Ù…ÛŽØ±</item>
     </plurals>
     <plurals name="unit__minutes__written">
-        <item quantity="one">{v} خولەک</item>
-        <item quantity="other">{v} خولەک</item>
+        <item quantity="one">{v} Ø®ÙˆÙ„Û•Ú©</item>
+        <item quantity="other">{v} Ø®ÙˆÙ„Û•Ú©</item>
     </plurals>
     <plurals name="unit__seconds__written">
-        <item quantity="one">{v} چرکە</item>
-        <item quantity="other">{v} چرکە</item>
+        <item quantity="one">{v} Ú†Ø±Ú©Û•</item>
+        <item quantity="other">{v} Ú†Ø±Ú©Û•</item>
     </plurals>
     <plurals name="unit__items__written">
-        <item quantity="one">{v} دانە</item>
-        <item quantity="other">{v} دانە</item>
+        <item quantity="one">{v} Ø¯Ø§Ù†Û•</item>
+        <item quantity="other">{v} Ø¯Ø§Ù†Û•</item>
     </plurals>
     <plurals name="unit__characters__written">
-        <item quantity="one">{v} پیت</item>
-        <item quantity="other">{v} پیت</item>
+        <item quantity="one">{v} Ù¾ÛŒØª</item>
+        <item quantity="other">{v} Ù¾ÛŒØª</item>
     </plurals>
     <plurals name="unit__candidates__written">
-        <item quantity="one">{v} دانە</item>
-        <item quantity="other">{v} دانە</item>
+        <item quantity="one">{v} Ø¯Ø§Ù†Û•</item>
+        <item quantity="other">{v} Ø¯Ø§Ù†Û•</item>
     </plurals>
 </resources>

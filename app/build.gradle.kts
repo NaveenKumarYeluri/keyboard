@@ -29,13 +29,6 @@ plugins {
 }
 
 val projectVersionName = providers.gradleProperty("projectVersionName").get()
-val projectVersionNameSuffix = projectVersionName.substringAfter("-", "").let { suffix ->
-    if (suffix.isNotEmpty()) {
-        "-$suffix"
-    } else {
-        suffix
-    }
-}
 
 kotlin {
     compilerOptions {
@@ -55,7 +48,6 @@ configure<ApplicationExtension> {
     namespace = "dev.patrickgold.florisboard"
     compileSdk = providers.gradleProperty("projectCompileSdk").get().toInt()
     buildToolsVersion = tools.versions.buildTools.get()
-    ndkVersion = tools.versions.ndk.get()
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -63,7 +55,7 @@ configure<ApplicationExtension> {
     }
 
     defaultConfig {
-        applicationId = "dev.patrickgold.florisboard"
+        applicationId = "com.personal.keyboard"
         minSdk = providers.gradleProperty("projectMinSdk").get().toInt()
         targetSdk = providers.gradleProperty("projectTargetSdk").get().toInt()
         versionCode = providers.gradleProperty("projectVersionCode").get().toInt()
@@ -80,12 +72,16 @@ configure<ApplicationExtension> {
         }
     }
 
-    bundle {
-        language {
-            // We disable language split because FlorisBoard does not use
-            // runtime Google Play Service APIs and thus cannot dynamically
-            // request to download the language resources for a specific locale.
-            enableSplit = false
+    signingConfigs {
+        // Personal signing config used by the CI workflow. All properties are provided via environment
+        // variables; if they are not set, the config stays inert and the release build falls back to the
+        // debug signing config below.
+        create("personal") {
+            val storeFilePath = System.getenv("FL_SIGNING_STORE_FILE") ?: return@create
+            storeFile = file(storeFilePath)
+            storePassword = System.getenv("FL_SIGNING_STORE_PASSWORD")
+            keyAlias = System.getenv("FL_SIGNING_KEY_ALIAS")
+            keyPassword = System.getenv("FL_SIGNING_KEY_PASSWORD")
         }
     }
 
@@ -96,38 +92,19 @@ configure<ApplicationExtension> {
 
     buildTypes {
         named("debug") {
-            applicationIdSuffix = ".debug"
-            versionNameSuffix = "-debug+${getGitCommitHash(short = true).get()}"
-
             isDebuggable = true
             isJniDebuggable = false
         }
 
-        create("beta") {
-            applicationIdSuffix = ".beta"
-            versionNameSuffix = projectVersionNameSuffix
-
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            isMinifyEnabled = true
-            isShrinkResources = true
-        }
-
         named("release") {
-            versionNameSuffix = projectVersionNameSuffix
-
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             isMinifyEnabled = true
             isShrinkResources = true
-        }
-
-        create("benchmark") {
-            initWith(getByName("release"))
-
-            applicationIdSuffix = ".bench"
-            versionNameSuffix = "-bench+${getGitCommitHash(short = true).get()}"
-
-            signingConfig = signingConfigs.getByName("debug")
-            matchingFallbacks += listOf("release")
+            signingConfig = if (System.getenv("FL_SIGNING_STORE_FILE") != null) {
+                signingConfigs.getByName("personal")
+            } else {
+                signingConfigs.getByName("debug")
+            }
         }
     }
 
@@ -210,7 +187,6 @@ dependencies {
     implementation(projects.lib.android)
     implementation(projects.lib.compose)
     implementation(projects.lib.kotlin)
-    implementation(projects.lib.native)
     implementation(projects.lib.snygg)
 
     testImplementation(libs.kotest.assertions.core)
