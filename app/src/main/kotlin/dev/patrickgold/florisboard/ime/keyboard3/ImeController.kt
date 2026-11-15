@@ -5,7 +5,6 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
-import dev.patrickgold.florisboard.ime.text.key.KeyCode
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -22,6 +21,7 @@ import android.text.TextUtils
 import android.view.KeyEvent
 import android.view.inputmethod.InputConnection
 import androidx.compose.runtime.staticCompositionLocalOf
+import dev.patrickgold.florisboard.FlorisApplication
 import dev.patrickgold.florisboard.FlorisImeService
 import dev.patrickgold.florisboard.app.FlorisPreferenceStore
 import dev.patrickgold.florisboard.ime.ImeUiMode
@@ -62,6 +62,9 @@ import org.k3lp.lib.text.K3Descriptor
 import org.k3lp.lib.text.K3String
 import org.k3lp.lib.text.K3StringOrDescriptor
 import org.k3lp.lib.text.asK3String
+import org.k3lp.lib.text.buildK3String
+import org.k3lp.lib.text.normalize
+import org.k3lp.lib.text.unicode.NormalizationForm
 import org.k3lp.model.K3Model
 import org.k3lp.model.layer.K3LayerId
 import org.k3lp.runtime.K3Content
@@ -92,7 +95,8 @@ class ImeController(
     private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
     private val breakIterators = BreakIterators()
     private val expectedContentQueue = ExpectedContentQueue()
-    private var emitInterceptor = AtomicReference<EmitInterceptor?>(null)
+    private val emitInterceptor = AtomicReference<EmitInterceptor?>(null)
+    private val nlpManager by lazy { FlorisApplication.getHack().nlpManager.value }
 
     val activeTouchModelOptions = combine<Any, TouchModelOptions>(
         prefs.keyboard.numberRow.asFlow(),
@@ -138,22 +142,25 @@ class ImeController(
         scope.launch {
             loadFoundationKeyboard(this@ImeController, storageController.activeStorage.value)
         }
+
+        // Trigger the suggestion pipeline whenever the IME state (and with it the editor content) changes.
+        scope.launch {
+            activeState.collect { state ->
+                runCatching {
+                    nlpManager.suggest(
+                        subtype = FlorisApplication.getHack().subtypeManager.value.activeSubtype,
+                        content = state.content,
+                    )
+                }.onFailure { flogDebug { "Suggestion pipeline failed: $it" } }
+            }
+        }
     }
 
+    /**
+     * Returns true if the given hardware key event will be handled (and thus consumed) by this input method.
+     * Handled actions are performed here (and not on key up) so that hardware key auto-repeat works.
+     */
     fun onHardwareKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (event == null) {
-            return false
-        }
-        return when (keyCode) {
-            // TODO KeyEvent.KEYCODE_SPACE (auto-commit candidate)
-            KeyEvent.KEYCODE_DEL -> true
-            KeyEvent.KEYCODE_FORWARD_DEL -> true
-            // TODO KeyEvent.KEYCODE_SHIFT_LEFT, KeyEvent.KEYCODE_SHIFT_RIGHT
-            else -> false
-        }
-    }
-
-    fun onHardwareKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
         if (event == null) {
             return false
         }
@@ -170,8 +177,54 @@ class ImeController(
                 }
                 true
             }
-            // TODO KeyEvent.KEYCODE_SHIFT_LEFT, KeyEvent.KEYCODE_SHIFT_RIGHT
-            else -> false
+            KeyEvent.KEYCODE_SPACE -> {
+                updateStateBlocking {
+                    emitText(SPACE_SEQ)
+                }
+                true
+            }
+            KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_NUMPAD_ENTER -> {
+                updateStateBlocking {
+                    emitEnter()
+                }
+                true
+            }
+            else -> {
+                // Printable key: commit the character derived from the key and its meta state, so that hardware
+                // keyboard input flows through the same pipeline as on-screen key input and suggestions are
+                // updated accordingly.
+                if (event.isPrintingKey) {
+                    val unicodeChar = event.getUnicodeChar(event.metaState)
+                    if (unicodeChar != 0) {
+                        updateStateBlocking {
+                            emitText(unicodeChar.toChar().toString().asK3String())
+                        }
+                        true
+                    } else {
+                        // Dead key or unsupported character: let the system handle it.
+                        false
+                    }
+                } else {
+                    false
+                }
+            }
+        }
+    }
+
+    fun onHardwareKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
+        if (event == null) {
+            return false
+        }
+        // All actions are performed on key down to support auto-repeat; key up events of keys consumed in
+        // [onHardwareKeyDown] are consumed without further action.
+        return when (keyCode) {
+            KeyEvent.KEYCODE_DEL,
+            KeyEvent.KEYCODE_FORWARD_DEL,
+            KeyEvent.KEYCODE_SPACE,
+            KeyEvent.KEYCODE_ENTER,
+            KeyEvent.KEYCODE_NUMPAD_ENTER,
+            -> true
+            else -> event.isPrintingKey && event.getUnicodeChar(event.metaState) != 0
         }
     }
 
@@ -517,23 +570,39 @@ class ImeController(
         fun emitCompletion(candidate: SuggestionCandidate): Boolean {
             val text = candidate.text.toString()
             if (text.isEmpty() || state.editor.info.isRawInputEditor) return false
-//            val content = activeContent
-//            return if (content.composing.isValid) {
-//                phantomSpace.setActive(showComposingRegion = false, candidate = candidate)
-//                super.finalizeComposingText(text)
-//            } else {
-//                val isPhantomSpaceActive = phantomSpace.determine(text)
-//                phantomSpace.setActive(showComposingRegion = false, candidate = candidate)
-//                return if (isPhantomSpaceActive) {
-//                    super.commitText("$SPACE$text")
-//                } else {
-//                    super.commitText(text)
-//                }.also {
-//                    // handled in finalizeComposingText if content.composing.isValid
-//                    updateLastCommitPosition()
-//                }
-//            }
-            return false
+            val content = state.content
+            val composition = content.composition
+            val compositionText = content.compositionText
+            return if (composition != null && compositionText != null && composition.min < content.selection.min) {
+                // Replace the currently composed word with the candidate text. This mirrors the logic of
+                // `emitText`, but removes the composed word from the tracked input context first.
+                val tail = compositionText.asK3String().normalize(NormalizationForm.NFD)
+                val headLength = (content.inputContext.length - tail.length).coerceAtLeast(0)
+                val newInputContext = buildK3String {
+                    append(content.inputContext.slice(0..<headLength))
+                    append(text.asK3String())
+                }
+                val newSurroundingText = content.surroundingText.copy(
+                    textBefore = newInputContext.normalize(NormalizationForm.NFC).toText(),
+                )
+                val range = content.offset..<content.selection.min
+                val newSelection = K3TextRange(content.offset + newSurroundingText.textBefore.length)
+                val newComposition = evaluateCompositionOf(state.model, newSelection, newSurroundingText)
+                state = state.copy(
+                    content = content.copy(
+                        selection = newSelection,
+                        composition = newComposition,
+                        surroundingText = newSurroundingText,
+                        inputContext = newInputContext,
+                    ),
+                )
+                state.editor.replaceText(range, newSurroundingText.textBefore, newSelection, newComposition)
+                true
+            } else {
+                // No composition region present: simply commit the candidate text at the cursor position.
+                emitText(text.asK3String())
+                true
+            }
         }
 
         override fun switchTouchLayer(newTouchLayerId: K3LayerId) {
@@ -611,6 +680,7 @@ class ImeController(
             resetContent()
             state = state.copy(editor = ImeEditor.Disconnected)
             expectedContentQueue.clear()
+            scope.launch { nlpManager.clearSuggestions() }
         }
 
         override fun evaluateCompositionOf(
@@ -646,6 +716,7 @@ class ImeController(
 
     companion object {
         private val NEWLINE_SEQ = "\n".asK3String()
+        private val SPACE_SEQ = " ".asK3String()
     }
 }
 

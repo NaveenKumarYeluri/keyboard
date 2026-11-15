@@ -228,7 +228,7 @@ abstract class FlorisUserDictionaryDatabase : RoomDatabase(), UserDictionaryData
     abstract override fun userDictionaryDao(): UserDictionaryDao
 
     override fun reset() {
-        TODO("Not yet implemented")
+        userDictionaryDao().deleteAll()
     }
 
     class Converters {
@@ -466,7 +466,11 @@ class SystemUserDictionaryDatabase(context: Context) : UserDictionaryDatabase {
     }
 
     override fun reset() {
-        TODO("Not yet implemented")
+        // The system user dictionary content provider does not support bulk deletion, so entries are
+        // removed one by one.
+        for (entry in dao.queryAll()) {
+            dao.delete(entry)
+        }
     }
 }
 

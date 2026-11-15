@@ -151,7 +151,7 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
         isPrivateSession: Boolean,
     ): List<SuggestionCandidate> = withContext(Dispatchers.IO) {
         val locale = subtype.primaryLocale
-        val composingWord = content.composingText.toString().lowercase(locale)
+        val composingWord = content.compositionText?.lowercase(locale) ?: ""
 
         if (composingWord.isEmpty() || !composingWord.any { it.isLetter() }) {
             return@withContext emptyList()
@@ -196,7 +196,7 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
             .take(maxCandidateCount)
             .map { (word, confidence) ->
                 WordSuggestionCandidate(
-                    text = adaptCase(word, content.composingText.toString()),
+                    text = adaptCase(word, content.compositionText ?: ""),
                     confidence = confidence,
                     // We deliberately never auto-commit: the user decides which candidate to pick. This avoids
                     // frustrating false-positive autocorrections with the small on-device dictionaries.
