@@ -34,13 +34,13 @@ import kotlinx.serialization.builtins.MapSerializer
 import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.Json
 import org.florisboard.lib.android.readText
-import org.florisboard.lib.kotlin.guardedByLock
 import org.k3lp.runtime.K3Content
+import java.util.concurrent.ConcurrentHashMap
 import kotlin.math.abs
 
 /**
  * Latin script language provider which provides word suggestions, autocorrect candidates and spell checking
- * based on an on-device frequency dictionary (see `ime/dict/*.json` assets) and the user dictionary
+ * based on an on-device frequency dictionary (see the JSON assets in the `ime/dict` folder) and the user dictionary
  * databases managed by [DictionaryManager].
  *
  * All processing is done fully offline on the device.
@@ -69,8 +69,8 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
 
     private class Dictionary(val words: Map<String, Int>, val maxFrequency: Int)
 
-    // Frequency dictionaries, indexed by language code. Loaded lazily per language on preload.
-    private val dictionaries = guardedByLock { mutableMapOf<String, Dictionary>() }
+    // Frequency dictionaries, indexed by language code. Loaded lazily per language on preload or first lookup.
+    private val dictionaries = ConcurrentHashMap<String, Dictionary>()
     private val wordDataSerializer = MapSerializer(String.serializer(), Int.serializer())
 
     override val providerId = ProviderId
@@ -79,16 +79,10 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
         // Here we initialize our provider, set up all things which are not language dependent.
     }
 
-    override suspend fun preload(subtype: Subtype) = withContext(Dispatchers.IO) {
-        val language = subtype.primaryLocale.language
-        val isLoaded = dictionaries.withLock { it.containsKey(language) }
-        if (isLoaded) {
-            return@withContext
-        }
-
+    private fun loadDictionary(language: String): Dictionary {
         // Prefer a language specific dictionary asset, fall back to the bundled English test dictionary.
         val assetName = "$DICT_ASSET_PATH/$language.json"
-        val dictionary = runCatching {
+        return runCatching {
             val rawData = appContext.assets.readText(assetName)
             val jsonData = Json.decodeFromString(wordDataSerializer, rawData)
             Dictionary(jsonData, jsonData.values.maxOrNull() ?: 255)
@@ -103,8 +97,15 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
                 DEFAULT_DICTIONARY
             }
         }
+    }
 
-        dictionaries.withLock { it[language] = dictionary }
+    private fun getDictionary(language: String): Dictionary {
+        return dictionaries.computeIfAbsent(language) { loadDictionary(it) }
+    }
+
+    override suspend fun preload(subtype: Subtype) = withContext(Dispatchers.IO) {
+        getDictionary(subtype.primaryLocale.language)
+        Unit
     }
 
     override suspend fun spell(
@@ -151,13 +152,14 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
         isPrivateSession: Boolean,
     ): List<SuggestionCandidate> = withContext(Dispatchers.IO) {
         val locale = subtype.primaryLocale
-        val composingWord = content.compositionText?.lowercase(locale) ?: ""
+        val rawCompositionText = content.compositionText?.toString() ?: ""
+        val composingWord = rawCompositionText.lowercase(locale)
 
         if (composingWord.isEmpty() || !composingWord.any { it.isLetter() }) {
             return@withContext emptyList()
         }
 
-        val dictionary = dictionaries.withLock { it[locale.language] } ?: DEFAULT_DICTIONARY
+        val dictionary = getDictionary(locale.language)
         if (dictionary.words.isEmpty()) {
             return@withContext emptyList()
         }
@@ -196,7 +198,7 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
             .take(maxCandidateCount)
             .map { (word, confidence) ->
                 WordSuggestionCandidate(
-                    text = adaptCase(word, content.compositionText ?: ""),
+                    text = adaptCase(word, rawCompositionText),
                     confidence = confidence,
                     // We deliberately never auto-commit: the user decides which candidate to pick. This avoids
                     // frustrating false-positive autocorrections with the small on-device dictionaries.
@@ -222,12 +224,13 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
     }
 
     override suspend fun getListOfWords(subtype: Subtype): List<String> {
-        return dictionaries.withLock { it[subtype.primaryLocale.language] }?.words?.keys?.toList() ?: emptyList()
+        return getDictionary(subtype.primaryLocale.language).words.keys.toList()
     }
 
     override suspend fun getFrequencyForWord(subtype: Subtype, word: String): Double {
-        val dictionary = dictionaries.withLock { it[subtype.primaryLocale.language] } ?: DEFAULT_DICTIONARY
-        return dictionary.words.getOrDefault(word.lowercase(subtype.primaryLocale), 0) / 255.0
+        val dictionary = getDictionary(subtype.primaryLocale.language)
+        val maxFreq = (dictionary.maxFrequency.takeIf { it > 0 } ?: 255).toDouble()
+        return dictionary.words.getOrDefault(word.lowercase(subtype.primaryLocale), 0) / maxFreq
     }
 
     override suspend fun destroy() {
@@ -236,7 +239,7 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
     }
 
     private fun isKnownWord(wordLowercase: String, locale: FlorisLocale): Boolean {
-        val dictionary = dictionaries.withLock { it[locale.language] } ?: DEFAULT_DICTIONARY
+        val dictionary = getDictionary(locale.language)
         if (dictionary.words.containsKey(wordLowercase)) {
             return true
         }
@@ -252,7 +255,7 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
         if (word.length < 2) {
             return emptyList()
         }
-        val dictionary = dictionaries.withLock { it[locale.language] } ?: DEFAULT_DICTIONARY
+        val dictionary = getDictionary(locale.language)
         if (dictionary.words.isEmpty()) {
             return emptyList()
         }
@@ -279,7 +282,7 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
     }
 
     private fun computeConfidence(correction: String, word: String, locale: FlorisLocale): Double {
-        val dictionary = dictionaries.withLock { it[locale.language] } ?: DEFAULT_DICTIONARY
+        val dictionary = getDictionary(locale.language)
         val distance = boundedLevenshteinDistance(word, correction, MAX_EDIT_DISTANCE_LONG) ?: MAX_EDIT_DISTANCE_LONG
         val base = computeBaseConfidence(dictionary.words.getOrDefault(correction, 0), dictionary)
         return (base * (1.0 - CONFIDENCE_DECAY_PER_DISTANCE * distance)).coerceIn(0.01, 1.0)
@@ -306,7 +309,7 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
         var previous = IntArray(b.length + 1) { if (it <= maxDistance) it else inf }
         var current = IntArray(b.length + 1)
         for (i in 1..a.length) {
-            java.util.Arrays.fill(current, inf)
+            current.fill(inf)
             current[0] = if (i <= maxDistance) i else inf
             val iStart = maxOf(1, i - maxDistance)
             val iEnd = minOf(b.length, i + maxDistance)
@@ -341,10 +344,9 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
     private fun adaptCase(suggestion: String, typed: String): String {
         return when {
             typed.isEmpty() -> suggestion
-            typed.length == 1 -> suggestion.replaceFirstChar { it.uppercaseChar() }
+            typed.all { !it.isLetter() || it.isUpperCase() } && typed.any { it.isLetter() } -> suggestion.uppercase()
             typed.first().isUpperCase() && typed.drop(1).none { it.isUpperCase() } ->
                 suggestion.replaceFirstChar { it.uppercaseChar() }
-            typed.all { !it.isLetter() || it.isUpperCase() } -> suggestion.uppercase()
             else -> suggestion
         }
     }

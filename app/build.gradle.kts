@@ -35,9 +35,7 @@ kotlin {
         freeCompilerArgs.set(listOf(
             "-opt-in=kotlin.contracts.ExperimentalContracts",
             "-jvm-default=enable",
-            "-Xwhen-guards",
-            "-Xexplicit-backing-fields",
-            "-Xcontext-parameters",
+            // Required: local type aliases (ImeFormFactor.kt) are still a pre-release feature in Kotlin 2.4.
             "-XXLanguage:+LocalTypeAliases",
         ))
     }

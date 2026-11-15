@@ -25,7 +25,7 @@ import dev.patrickgold.florisboard.ime.clipboard.provider.ClipboardItem
 import dev.patrickgold.florisboard.ime.clipboard.provider.ItemType
 import dev.patrickgold.florisboard.ime.core.Subtype
 import dev.patrickgold.florisboard.ime.media.emoji.EmojiSuggestionProvider
-// DEBUG-PROBE: import removed
+import dev.patrickgold.florisboard.ime.nlp.latin.LatinLanguageProvider
 import dev.patrickgold.florisboard.inferFlorisApplication
 import dev.patrickgold.florisboard.lib.util.NetworkUtils
 import dev.patrickgold.florisboard.subtypeManager
@@ -61,9 +61,8 @@ class NlpManager(context: Context) {
     private val clipboardSuggestionProvider = ClipboardSuggestionProvider(context)
     private val emojiSuggestionProvider = EmojiSuggestionProvider(context)
     private val providers = guardedByLock {
-        mapOf(
-            // DEBUG-PROBE: temporarily disabled to reveal compile errors in LatinLanguageProvider.kt
-            // "org.florisboard.nlp.providers.latin" to ProviderInstanceWrapper(dev.patrickgold.florisboard.ime.nlp.latin.LatinLanguageProvider(context)),
+        mapOf<String, ProviderInstanceWrapper>(
+            LatinLanguageProvider.ProviderId to ProviderInstanceWrapper(LatinLanguageProvider(context)),
             //HanShapeBasedLanguageProvider.ProviderId to ProviderInstanceWrapper(HanShapeBasedLanguageProvider(context)),
         )
     }
