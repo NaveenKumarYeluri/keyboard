@@ -19,11 +19,15 @@ package dev.patrickgold.florisboard.ime.nlp.latin
 import android.content.Context
 import dev.patrickgold.florisboard.appContext
 import dev.patrickgold.florisboard.ime.core.Subtype
+import dev.patrickgold.florisboard.ime.dictionary.DictionaryManager
 import dev.patrickgold.florisboard.ime.nlp.SpellingProvider
 import dev.patrickgold.florisboard.ime.nlp.SpellingResult
 import dev.patrickgold.florisboard.ime.nlp.SuggestionCandidate
 import dev.patrickgold.florisboard.ime.nlp.SuggestionProvider
+import dev.patrickgold.florisboard.ime.nlp.WordSuggestionCandidate
+import dev.patrickgold.florisboard.lib.FlorisLocale
 import dev.patrickgold.florisboard.lib.devtools.flogDebug
+import dev.patrickgold.florisboard.lib.lowercase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.builtins.MapSerializer
@@ -32,17 +36,41 @@ import kotlinx.serialization.json.Json
 import org.florisboard.lib.android.readText
 import org.florisboard.lib.kotlin.guardedByLock
 import org.k3lp.runtime.K3Content
+import kotlin.math.abs
 
+/**
+ * Latin script language provider which provides word suggestions, autocorrect candidates and spell checking
+ * based on an on-device frequency dictionary (see `ime/dict/*.json` assets) and the user dictionary
+ * databases managed by [DictionaryManager].
+ *
+ * All processing is done fully offline on the device.
+ */
 class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProvider {
     companion object {
         // Default user ID used for all subtypes, unless otherwise specified.
         // See `ime/core/Subtype.kt` Line 210 and 211 for the default usage
         const val ProviderId = "org.florisboard.nlp.providers.latin"
+
+        private const val LONG_WORD_THRESHOLD = 5
+        private const val MAX_EDIT_DISTANCE_SHORT = 1
+        private const val MAX_EDIT_DISTANCE_LONG = 2
+        private const val CONFIDENCE_DECAY_PER_DISTANCE = 0.25
+
+        private const val DICT_ASSET_PATH = "ime/dict"
+
+        private val DEFAULT_DICTIONARY = Dictionary(emptyMap(), 255)
     }
 
     private val appContext by context.appContext()
 
-    private val wordData = guardedByLock { mutableMapOf<String, Int>() }
+    private val dictionaryManager: DictionaryManager? by lazy {
+        runCatching { DictionaryManager.default() }.getOrNull()
+    }
+
+    private class Dictionary(val words: Map<String, Int>, val maxFrequency: Int)
+
+    // Frequency dictionaries, indexed by language code. Loaded lazily per language on preload.
+    private val dictionaries = guardedByLock { mutableMapOf<String, Dictionary>() }
     private val wordDataSerializer = MapSerializer(String.serializer(), Int.serializer())
 
     override val providerId = ProviderId
@@ -52,30 +80,31 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
     }
 
     override suspend fun preload(subtype: Subtype) = withContext(Dispatchers.IO) {
-        // Here we have the chance to preload dictionaries and prepare a neural network for a specific language.
-        // Is kept in sync with the active keyboard subtype of the user, however a new preload does not necessary mean
-        // the previous language is not needed anymore (e.g. if the user constantly switches between two subtypes)
+        val language = subtype.primaryLocale.language
+        val isLoaded = dictionaries.withLock { it.containsKey(language) }
+        if (isLoaded) {
+            return@withContext
+        }
 
-        // To read a file from the APK assets the following methods can be used:
-        // appContext.assets.open()
-        // appContext.assets.reader()
-        // appContext.assets.bufferedReader()
-        // appContext.assets.readText()
-        // To copy an APK file/dir to the file system cache (appContext.cacheDir), the following methods are available:
-        // appContext.assets.copy()
-        // appContext.assets.copyRecursively()
-
-        // The subtype we get here contains a lot of data, however we are only interested in subtype.primaryLocale and
-        // subtype.secondaryLocales.
-
-        wordData.withLock { wordData ->
-            if (wordData.isEmpty()) {
-                // Here we use readText() because the test dictionary is a json dictionary
-                val rawData = appContext.assets.readText("ime/dict/data.json")
-                val jsonData = Json.decodeFromString(wordDataSerializer, rawData)
-                wordData.putAll(jsonData)
+        // Prefer a language specific dictionary asset, fall back to the bundled English test dictionary.
+        val assetName = "$DICT_ASSET_PATH/$language.json"
+        val dictionary = runCatching {
+            val rawData = appContext.assets.readText(assetName)
+            val jsonData = Json.decodeFromString(wordDataSerializer, rawData)
+            Dictionary(jsonData, jsonData.values.maxOrNull() ?: 255)
+        }.getOrElse {
+            if (language == "en") {
+                runCatching {
+                    val rawData = appContext.assets.readText("$DICT_ASSET_PATH/data.json")
+                    val jsonData = Json.decodeFromString(wordDataSerializer, rawData)
+                    Dictionary(jsonData, jsonData.values.maxOrNull() ?: 255)
+                }.getOrDefault(DEFAULT_DICTIONARY)
+            } else {
+                DEFAULT_DICTIONARY
             }
         }
+
+        dictionaries.withLock { it[language] = dictionary }
     }
 
     override suspend fun spell(
@@ -87,14 +116,30 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
         allowPossiblyOffensive: Boolean,
         isPrivateSession: Boolean,
     ): SpellingResult {
-        return when (word.lowercase()) {
-            // Use typo for typing errors
-            "typo" -> SpellingResult.typo(arrayOf("typo1", "typo2", "typo3"))
+        val locale = subtype.primaryLocale
+        val wordLowercase = word.lowercase(locale)
+
+        // Words without any letters (numbers, symbols) are always considered valid.
+        if (wordLowercase.isEmpty() || !wordLowercase.any { it.isLetter() }) {
+            return SpellingResult.validWord()
+        }
+
+        val isKnownWord = isKnownWord(wordLowercase, locale)
+        if (isKnownWord) {
+            return SpellingResult.validWord()
+        }
+
+        val corrections = findCorrections(wordLowercase, locale, maxSuggestionCount)
+        return if (corrections.isNotEmpty()) {
             // Use grammar error if the algorithm can detect this. On Android 11 and lower grammar errors are visually
             // marked as typos due to a lack of support
-            "gerror" -> SpellingResult.grammarError(arrayOf("grammar1", "grammar2", "grammar3"))
-            // Use valid word for valid input
-            else -> SpellingResult.validWord()
+            SpellingResult.typo(corrections.toTypedArray(), isHighConfidenceResult = corrections.firstOrNull()?.let {
+                computeConfidence(it, wordLowercase, locale) > 0.8
+            } == true)
+        } else {
+            // The word is unknown and no close corrections exist: do not flag it as a typo to avoid underlining
+            // proper nouns and other novel words.
+            SpellingResult.validWord()
         }
     }
 
@@ -104,22 +149,62 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
         maxCandidateCount: Int,
         allowPossiblyOffensive: Boolean,
         isPrivateSession: Boolean,
-    ): List<SuggestionCandidate> {
-        return emptyList()
-        /*val word = content.composingText.ifBlank { "next" }
-        val suggestions = buildList {
-            for (n in 0 until maxCandidateCount) {
-                add(WordSuggestionCandidate(
-                    text = "$word$n",
-                    secondaryText = if (n % 2 == 1) "secondary" else null,
-                    confidence = 0.5,
-                    isEligibleForAutoCommit = false,//n == 0 && word.startsWith("auto"),
-                    // We set ourselves as the source provider so we can get notify events for our candidate
-                    sourceProvider = this@LatinLanguageProvider,
-                ))
+    ): List<SuggestionCandidate> = withContext(Dispatchers.IO) {
+        val locale = subtype.primaryLocale
+        val composingWord = content.composingText.toString().lowercase(locale)
+
+        if (composingWord.isEmpty() || !composingWord.any { it.isLetter() }) {
+            return@withContext emptyList()
+        }
+
+        val dictionary = dictionaries.withLock { it[locale.language] } ?: DEFAULT_DICTIONARY
+        if (dictionary.words.isEmpty()) {
+            return@withContext emptyList()
+        }
+
+        val typedWordIsKnown = isKnownWord(composingWord, locale)
+
+        // Ranked candidate text -> confidence map.
+        val candidates = mutableMapOf<String, Double>()
+
+        // 1. Close corrections, only relevant if the typed word is unknown so far.
+        if (!typedWordIsKnown) {
+            for (correction in findCorrections(composingWord, locale, maxCandidateCount)) {
+                candidates.getOrPut(correction) {
+                    computeConfidence(correction, composingWord, locale)
+                }
             }
         }
-        return suggestions*/
+
+        // 2. Prefix completions of the currently typed word.
+        for ((word, frequency) in dictionary.words) {
+            if (word.length > composingWord.length && word.startsWith(composingWord)) {
+                candidates.getOrPut(word) {
+                    computeBaseConfidence(frequency, dictionary)
+                }
+            }
+        }
+
+        // 3. User dictionary matches (own learned words take precedence over frequency dictionary entries).
+        for (userCandidate in queryUserDictionary(composingWord, locale)) {
+            val userWord = userCandidate.text.toString().lowercase(locale)
+            candidates[userWord] = maxOf(candidates.getOrDefault(userWord, 0.0), userCandidate.confidence)
+        }
+
+        candidates.entries
+            .sortedByDescending { it.value }
+            .take(maxCandidateCount)
+            .map { (word, confidence) ->
+                WordSuggestionCandidate(
+                    text = adaptCase(word, content.composingText.toString()),
+                    confidence = confidence,
+                    // We deliberately never auto-commit: the user decides which candidate to pick. This avoids
+                    // frustrating false-positive autocorrections with the small on-device dictionaries.
+                    isEligibleForAutoCommit = false,
+                    // We set ourselves as the source provider so we can get notify events for our candidate
+                    sourceProvider = this@LatinLanguageProvider,
+                )
+            }
     }
 
     override suspend fun notifySuggestionAccepted(subtype: Subtype, candidate: SuggestionCandidate) {
@@ -137,15 +222,130 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
     }
 
     override suspend fun getListOfWords(subtype: Subtype): List<String> {
-        return wordData.withLock { it.keys.toList() }
+        return dictionaries.withLock { it[subtype.primaryLocale.language] }?.words?.keys?.toList() ?: emptyList()
     }
 
     override suspend fun getFrequencyForWord(subtype: Subtype, word: String): Double {
-        return wordData.withLock { it.getOrDefault(word, 0) / 255.0 }
+        val dictionary = dictionaries.withLock { it[subtype.primaryLocale.language] } ?: DEFAULT_DICTIONARY
+        return dictionary.words.getOrDefault(word.lowercase(subtype.primaryLocale), 0) / 255.0
     }
 
     override suspend fun destroy() {
         // Here we have the chance to de-allocate memory and finish our work. However this might never be called if
         // the app process is killed (which will most likely always be the case).
+    }
+
+    private fun isKnownWord(wordLowercase: String, locale: FlorisLocale): Boolean {
+        val dictionary = dictionaries.withLock { it[locale.language] } ?: DEFAULT_DICTIONARY
+        if (dictionary.words.containsKey(wordLowercase)) {
+            return true
+        }
+        val userDictSpell = runCatching { dictionaryManager?.spell(wordLowercase, locale) }.getOrDefault(false)
+        return userDictSpell
+    }
+
+    private fun queryUserDictionary(wordLowercase: String, locale: FlorisLocale): List<SuggestionCandidate> {
+        return runCatching { dictionaryManager?.queryUserDictionary(wordLowercase, locale) }.getOrDefault(emptyList())
+    }
+
+    private fun findCorrections(word: String, locale: FlorisLocale, maxCount: Int): List<String> {
+        if (word.length < 2) {
+            return emptyList()
+        }
+        val dictionary = dictionaries.withLock { it[locale.language] } ?: DEFAULT_DICTIONARY
+        if (dictionary.words.isEmpty()) {
+            return emptyList()
+        }
+        val maxDistance = if (word.length <= LONG_WORD_THRESHOLD) MAX_EDIT_DISTANCE_SHORT else MAX_EDIT_DISTANCE_LONG
+
+        val corrections = mutableListOf<Pair<String, Int>>()
+        for ((candidate, _) in dictionary.words) {
+            if (candidate == word) {
+                continue
+            }
+            if (abs(candidate.length - word.length) > maxDistance) {
+                continue
+            }
+            val distance = boundedLevenshteinDistance(word, candidate, maxDistance)
+            if (distance != null) {
+                corrections.add(candidate to distance)
+            }
+        }
+
+        return corrections
+            .sortedWith(compareBy({ it.second }, { -(dictionary.words[it.first] ?: 0) }, { it.first.length }))
+            .take(maxCount)
+            .map { it.first }
+    }
+
+    private fun computeConfidence(correction: String, word: String, locale: FlorisLocale): Double {
+        val dictionary = dictionaries.withLock { it[locale.language] } ?: DEFAULT_DICTIONARY
+        val distance = boundedLevenshteinDistance(word, correction, MAX_EDIT_DISTANCE_LONG) ?: MAX_EDIT_DISTANCE_LONG
+        val base = computeBaseConfidence(dictionary.words.getOrDefault(correction, 0), dictionary)
+        return (base * (1.0 - CONFIDENCE_DECAY_PER_DISTANCE * distance)).coerceIn(0.01, 1.0)
+    }
+
+    private fun computeBaseConfidence(frequency: Int, dictionary: Dictionary): Double {
+        return if (dictionary.maxFrequency <= 0) {
+            0.5
+        } else {
+            (frequency.toDouble() / dictionary.maxFrequency).coerceIn(0.01, 1.0)
+        }
+    }
+
+    /**
+     * Computes the Levenshtein distance between [a] and [b], aborting early and returning null if the distance
+     * exceeds [maxDistance].
+     */
+    private fun boundedLevenshteinDistance(a: String, b: String, maxDistance: Int): Int? {
+        if (abs(a.length - b.length) > maxDistance) {
+            return null
+        }
+        val inf = maxDistance + 1
+
+        var previous = IntArray(b.length + 1) { if (it <= maxDistance) it else inf }
+        var current = IntArray(b.length + 1)
+        for (i in 1..a.length) {
+            java.util.Arrays.fill(current, inf)
+            current[0] = if (i <= maxDistance) i else inf
+            val iStart = maxOf(1, i - maxDistance)
+            val iEnd = minOf(b.length, i + maxDistance)
+            var rowMin = current[0]
+            for (j in iStart..iEnd) {
+                val substitutionCost = if (a[i - 1] == b[j - 1]) 0 else 1
+                val value = minOf(
+                    current[j - 1] + 1, // insertion
+                    previous[j - 1] + substitutionCost, // substitution
+                    previous[j] + 1, // deletion
+                ).coerceAtMost(inf)
+                current[j] = value
+                if (value < rowMin) {
+                    rowMin = value
+                }
+            }
+            // Early abort: the best possible distance in this row already exceeds the maximum.
+            if (rowMin > maxDistance) {
+                return null
+            }
+            val swap = previous
+            previous = current
+            current = swap
+        }
+        return previous[b.length].takeIf { it <= maxDistance }
+    }
+
+    /**
+     * Adapts the case of [suggestion] to match the case style of the [typed] word, e.g. "helo" -> "hello",
+     * "Helo" -> "Hello", "HELO" -> "HELLO".
+     */
+    private fun adaptCase(suggestion: String, typed: String): String {
+        return when {
+            typed.isEmpty() -> suggestion
+            typed.length == 1 -> suggestion.replaceFirstChar { it.uppercaseChar() }
+            typed.first().isUpperCase() && typed.drop(1).none { it.isUpperCase() } ->
+                suggestion.replaceFirstChar { it.uppercaseChar() }
+            typed.all { !it.isLetter() || it.isUpperCase() } -> suggestion.uppercase()
+            else -> suggestion
+        }
     }
 }
