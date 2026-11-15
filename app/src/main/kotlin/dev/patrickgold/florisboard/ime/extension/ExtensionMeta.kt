@@ -103,7 +103,3 @@ data class ExtensionMeta(
      */
     val license: String,
 ) {
-    fun getUpdateJsonPair(): String {
-        return "\"${id}\":\"${version}\""
-    }
-}

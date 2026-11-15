@@ -41,7 +41,6 @@ import dev.patrickgold.florisboard.app.devtools.AndroidLocalesScreen
 import dev.patrickgold.florisboard.app.devtools.AndroidSettingsScreen
 import dev.patrickgold.florisboard.app.devtools.DevtoolsScreen
 import dev.patrickgold.florisboard.app.devtools.ExportDebugLogScreen
-import dev.patrickgold.florisboard.app.ext.CheckUpdatesScreen
 import dev.patrickgold.florisboard.app.ext.ExtensionDetailScreen
 import dev.patrickgold.florisboard.app.ext.ExtensionEditScreen
 import dev.patrickgold.florisboard.app.ext.ExtensionImportScreen
@@ -235,10 +234,6 @@ object Routes {
         @Serializable
         @Deeplink("ext/import")
         data class Import(val type: ExtensionImportScreenType, val givenUriStr: String? = null)
-
-        @Serializable
-        @Deeplink("ext/check-updates")
-        object CheckUpdates
     }
 
     @Composable
@@ -357,9 +352,6 @@ object Routes {
                     listOf(payload.givenUriStr.toUri())
                 } else null
                 ExtensionImportScreen(payload.type, givenUriList)
-            }
-            composableWithDeepLink(Ext.CheckUpdates::class) {
-                CheckUpdatesScreen()
             }
         }
     }

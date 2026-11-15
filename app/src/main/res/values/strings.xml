@@ -872,9 +872,6 @@
     <string name="ext__validation__enter_percent_size">Please enter a percent size</string>
     <string name="ext__validation__enter_number_between_0_100">Please enter a positive number between 0 and 100</string>
     <string name="ext__validation__hint_value_above_50_percent">Any value above 50% will behave as if you set 50%, consider lowering your percent size</string>
-    <string name="ext__update_box__internet_permission_hint">Since this app does not have Internet permission, updates for installed extensions must be checked manually.</string>
-    <string name="ext__update_box__search_for_updates">Search for updates</string>
-    <string name="ext__check_updates__title">Check for updates</string>
 
     <!-- Action strings -->
     <string name="action__add">Add</string>
