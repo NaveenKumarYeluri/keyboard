@@ -244,11 +244,11 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
             return true
         }
         val userDictSpell = runCatching { dictionaryManager?.spell(wordLowercase, locale) }.getOrDefault(false)
-        return userDictSpell
+        return userDictSpell == true
     }
 
     private fun queryUserDictionary(wordLowercase: String, locale: FlorisLocale): List<SuggestionCandidate> {
-        return runCatching { dictionaryManager?.queryUserDictionary(wordLowercase, locale) }.getOrDefault(emptyList())
+        return runCatching { dictionaryManager?.queryUserDictionary(wordLowercase, locale) }.getOrNull().orEmpty()
     }
 
     private fun findCorrections(word: String, locale: FlorisLocale, maxCount: Int): List<String> {
