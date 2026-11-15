@@ -19,7 +19,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlinx.kover)
     alias(libs.plugins.kotest)
 }
 
@@ -46,10 +45,6 @@ tasks.withType<Test> {
         events = setOf(TestLogEvent.FAILED, TestLogEvent.PASSED, TestLogEvent.SKIPPED)
     }
     useJUnitPlatform()
-}
-
-kover {
-    useJacoco()
 }
 
 dependencies {

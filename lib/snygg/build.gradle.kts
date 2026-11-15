@@ -25,7 +25,6 @@ plugins {
     alias(libs.plugins.kotlin.plugin.compose)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.kotlinx.kover)
 }
 
 kotlin {
@@ -82,10 +81,6 @@ tasks.withType<Test> {
         events = setOf(TestLogEvent.FAILED, TestLogEvent.PASSED, TestLogEvent.SKIPPED)
     }
     useJUnitPlatform()
-}
-
-kover {
-    useJacoco()
 }
 
 tasks.register<JavaExec>("generateJsonSchema") {
