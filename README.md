@@ -71,8 +71,8 @@ Builds run on **GitHub Actions**; nothing needs to be installed locally.
 1. Push this repository to GitHub.
 2. The `Build APK` workflow (`.github/workflows/android.yml`) runs on every push to `main`
    and on `workflow_dispatch`, producing a signed release APK artifact
-   (`keyboard-release-apk`).
-3. Pushing a tag `v*` additionally creates a GitHub release with the APK attached.
+   (`keyboard-release-apk`). No GitHub releases are published — the APK is downloaded
+   directly from the workflow's artifacts page.
 
 ### Signing
 
