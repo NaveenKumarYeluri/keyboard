@@ -25,7 +25,6 @@ import androidx.compose.material.icons.filled.ColorLens
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.Extension
 import androidx.compose.material.icons.filled.LightMode
-import androidx.compose.material.icons.filled.Shop
 import androidx.compose.material.icons.filled.WbTwilight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItemDefaults
@@ -39,9 +38,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextOverflow
-import dev.patrickgold.florisboard.BuildConfig
 import dev.patrickgold.florisboard.R
 import dev.patrickgold.florisboard.app.FlorisPreferenceStore
 import dev.patrickgold.florisboard.app.LocalNavController
@@ -70,7 +67,6 @@ fun ThemeScreen() {
     val context = LocalContext.current
     val navController = LocalNavController.current
     val themeController = LocalThemeController.current
-    val uriHandler = LocalUriHandler.current
 
     val themeIndex by themeController.effectiveThemeIndex.collectAsState()
     val mode by prefs.theme.mode.collectAsState()
@@ -156,18 +152,10 @@ fun ThemeScreen() {
             }
 
             SegmentedListColumn {
-                val count = 3
-                SegmentedListItem(
-                    onClick = { uriHandler.openUri("https://${BuildConfig.FLADDONS_STORE_URL}/") },
-                    shapes = ListItemDefaults.segmentedShapes(0, count),
-                    verticalAlignment = Alignment.CenterVertically,
-                    leadingContent = { Icon(Icons.Default.Shop, null) },
-                    content = { Text("Need inspiration?") },
-                    supportingContent = { Text("Visit the FlorisBoard Addons Store, an official place for the community to share themes.") },
-                )
+                val count = 2
                 SegmentedListItem(
                     onClick = { navController.navigate(Routes.Ext.Import(ExtensionImportScreenType.EXT_THEME)) },
-                    shapes = ListItemDefaults.segmentedShapes(1, count),
+                    shapes = ListItemDefaults.segmentedShapes(0, count),
                     verticalAlignment = Alignment.CenterVertically,
                     leadingContent = { Icon(Icons.AutoMirrored.Filled.Input, null) },
                     content = { Text("Already have a theme downloaded?") },
@@ -175,7 +163,7 @@ fun ThemeScreen() {
                 )
                 SegmentedListItem(
                     onClick = { navController.navigate(Routes.Ext.Edit(null, ExtensionType.THEME)) },
-                    shapes = ListItemDefaults.segmentedShapes(2, count),
+                    shapes = ListItemDefaults.segmentedShapes(1, count),
                     verticalAlignment = Alignment.CenterVertically,
                     leadingContent = { Icon(Icons.Filled.Add, null) },
                     content = { Text("Feeling creative?") },
