@@ -77,6 +77,7 @@ configure<ApplicationExtension> {
         // variables; if they are not set, the config stays inert and the release build falls back to the
         // debug signing config below.
         create("personal") {
+            storeType = "PKCS12"
             val storeFilePath = System.getenv("FL_SIGNING_STORE_FILE") ?: return@create
             storeFile = file(storeFilePath)
             storePassword = System.getenv("FL_SIGNING_STORE_PASSWORD")
