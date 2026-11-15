@@ -34,14 +34,25 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
+      - name: Determine signing source
+        id: signing
+        run: |
+          if [ -n "$SIGNING_KEYSTORE_BASE64" ]; then
+            echo "use-secrets=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "use-secrets=false" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          SIGNING_KEYSTORE_BASE64: ${{ secrets.SIGNING_KEYSTORE_BASE64 }}
+
       - name: Decode signing keystore from secrets (if provided)
-        if: ${{ secrets.SIGNING_KEYSTORE_BASE64 != '' }}
+        if: ${{ steps.signing.outputs.use-secrets == 'true' }}
         run: |
           mkdir -p signing
           echo "${{ secrets.SIGNING_KEYSTORE_BASE64 }}" | base64 --decode > signing/app.keystore
 
       - name: Restore auto-generated signing keystore
-        if: ${{ secrets.SIGNING_KEYSTORE_BASE64 == '' }}
+        if: ${{ steps.signing.outputs.use-secrets != 'true' }}
         id: keystore-cache
         uses: actions/cache@v4
         with:
@@ -49,7 +60,7 @@ jobs:
           key: personal-signing-keystore-v1
 
       - name: Generate signing keystore (first run only)
-        if: ${{ secrets.SIGNING_KEYSTORE_BASE64 == '' && steps.keystore-cache.outputs.cache-hit != 'true' }}
+        if: ${{ steps.signing.outputs.use-secrets != 'true' && steps.keystore-cache.outputs.cache-hit != 'true' }}
         run: |
           mkdir -p signing
           keytool -genkeypair -v \
