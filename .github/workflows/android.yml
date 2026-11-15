@@ -71,7 +71,7 @@ jobs:
             -dname "CN=Personal Keyboard"
 
       - name: Build release APK
-        run: ./gradlew assembleRelease --stacktrace
+        run: ./gradlew assembleRelease --stacktrace --warning-mode=all
         env:
           # Absolute path: the Gradle signing config resolves relative paths against the
           # app module directory, not the repo root.
