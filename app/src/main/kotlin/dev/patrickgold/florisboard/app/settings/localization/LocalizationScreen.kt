@@ -36,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import dev.patrickgold.florisboard.R
+import dev.patrickgold.florisboard.app.FlorisPreferenceStore
 import dev.patrickgold.florisboard.app.LocalNavController
 import dev.patrickgold.florisboard.app.Routes
 import dev.patrickgold.florisboard.app.enumDisplayEntriesOf
@@ -70,6 +71,8 @@ fun LocalizationScreen() = FlorisScreen {
     val navController = LocalNavController.current
     val context = LocalContext.current
     val subtypeManager by context.subtypeManager()
+    val prefs by FlorisPreferenceStore
+    val displayLanguageNamesIn by prefs.localization.displayLanguageNamesIn.collectAsState()
     var chosenSubtypeToDelete: Subtype? by rememberSaveable(saver = SubtypeSaver) { mutableStateOf(null) }
 
     floatingActionButton {
@@ -91,7 +94,6 @@ fun LocalizationScreen() = FlorisScreen {
     }
 
     content {
-        val displayLanguageNamesIn by prefs.localization.displayLanguageNamesIn.collectAsState()
         ListPreference(
             prefs.localization.displayLanguageNamesIn,
             title = stringRes(R.string.settings__localization__display_language_names_in__label),
