@@ -114,6 +114,7 @@ fun LocalizationScreen() = FlorisScreen {
             } else {
                 for (subtype in subtypes) {
                     Preference(
+                        onClick = {},
                         title = when (displayLanguageNamesIn) {
                             DisplayLanguageNamesIn.SYSTEM_LOCALE -> subtype.primaryLocale.displayName()
                             DisplayLanguageNamesIn.NATIVE_LOCALE -> subtype.primaryLocale.displayName(subtype.primaryLocale)
