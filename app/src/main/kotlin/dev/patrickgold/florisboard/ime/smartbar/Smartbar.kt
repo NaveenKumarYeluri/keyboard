@@ -40,7 +40,6 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.UnfoldLess
 import androidx.compose.material.icons.filled.UnfoldMore
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -64,7 +63,6 @@ import dev.patrickgold.florisboard.ime.smartbar.quickaction.QuickActionButton
 import dev.patrickgold.florisboard.ime.smartbar.quickaction.QuickActionsRow
 import dev.patrickgold.florisboard.ime.smartbar.quickaction.ToggleOverflowPanelAction
 import dev.patrickgold.florisboard.ime.theme.FlorisImeUi
-import dev.patrickgold.florisboard.nlpManager
 import dev.patrickgold.jetpref.datastore.model.collectAsState
 import kotlinx.coroutines.launch
 import org.florisboard.lib.android.AndroidVersion
@@ -143,16 +141,14 @@ fun Smartbar() {
 @Composable
 private fun SmartbarMainRow(modifier: Modifier = Modifier) {
     val prefs by FlorisPreferenceStore
-    val context = LocalContext.current
     val imeController = LocalImeController.current
-    val nlpManager by context.nlpManager()
     val scope = rememberCoroutineScope()
 
     val imeState by imeController.activeState.collectAsState()
     val inlineSuggestions by NlpInlineAutofill.suggestions.collectAsState()
-    LaunchedEffect(inlineSuggestions) {
-        nlpManager.autoExpandCollapseSmartbarActions(null, inlineSuggestions)
-    }
+    // NOTE: Do not call nlpManager.autoExpandCollapseSmartbarActions from here with null candidates:
+    // it would force-expand the shared actions row whenever there are no inline suggestions,
+    // fighting the manual toggle button. Candidate-driven switching is handled in NlpManager.
     val shouldShowInlineSuggestionsUi = AndroidVersion.ATLEAST_API30_R && inlineSuggestions.isNotEmpty()
 
     val smartbarLayout by prefs.smartbar.layout.collectAsState()

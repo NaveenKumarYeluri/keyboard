@@ -47,7 +47,6 @@ import dev.patrickgold.jetpref.datastore.model.collectAsState
 import dev.patrickgold.jetpref.datastore.ui.ListPreference
 import dev.patrickgold.jetpref.datastore.ui.SwitchPreference
 import org.florisboard.lib.android.AndroidVersion
-import org.florisboard.lib.compose.FlorisErrorCard
 import org.florisboard.lib.compose.stringRes
 
 @Composable
@@ -82,17 +81,9 @@ fun TypingScreen() {
                 )
             }
 
-            // This card is temporary and is therefore not using a string resource (not so temporary as we thought...)
-            FlorisErrorCard(
-                modifier = Modifier.padding(top = 32.dp),
-                text = """
-                Suggestions (except system autofill) and spell checking are not available in this release.
-            """.trimIndent().replace('\n', ' '),
-            )
-
             SegmentedListColumn(title = stringRes(R.string.pref__suggestion__title)) {
                 val countOffset = if (AndroidVersion.ATLEAST_API30_R) 1 else 0
-                val count = 3 + countOffset
+                val count = 4 + countOffset
                 SwitchPreference(
                     prefs.suggestion.enabled,
                     shapes = ListItemDefaults.segmentedShapes(0, count),
@@ -100,8 +91,16 @@ fun TypingScreen() {
                     summary = stringRes(R.string.pref__suggestion__enabled__summary),
                 )
                 SwitchPreference(
-                    prefs.suggestion.blockPossiblyOffensive,
+                    prefs.suggestion.autoSpaceAfterSuggestionPick,
                     shapes = ListItemDefaults.segmentedShapes(1, count),
+                    icon = Icons.Default.SpaceBar,
+                    title = stringRes(R.string.pref__suggestion__auto_space_after_pick__label),
+                    summary = stringRes(R.string.pref__suggestion__auto_space_after_pick__summary),
+                    enabledIf = { prefs.suggestion.enabled isEqualTo true },
+                )
+                SwitchPreference(
+                    prefs.suggestion.blockPossiblyOffensive,
+                    shapes = ListItemDefaults.segmentedShapes(2, count),
                     title = stringRes(R.string.pref__suggestion__block_possibly_offensive__label),
                     summary = stringRes(R.string.pref__suggestion__block_possibly_offensive__summary),
                     enabledIf = { prefs.suggestion.enabled isEqualTo true },
@@ -109,14 +108,14 @@ fun TypingScreen() {
                 if (AndroidVersion.ATLEAST_API30_R) {
                     SwitchPreference(
                         prefs.suggestion.api30InlineSuggestionsEnabled,
-                        shapes = ListItemDefaults.segmentedShapes(2, count),
+                        shapes = ListItemDefaults.segmentedShapes(3, count),
                         title = stringRes(R.string.pref__suggestion__api30_inline_suggestions_enabled__label),
                         summary = stringRes(R.string.pref__suggestion__api30_inline_suggestions_enabled__summary),
                     )
                 }
                 ListPreference(
                     prefs.suggestion.incognitoMode,
-                    shapes = ListItemDefaults.segmentedShapes(2 + countOffset, count),
+                    shapes = ListItemDefaults.segmentedShapes(3 + countOffset, count),
                     icon = ImageVector.vectorResource(id = R.drawable.ic_incognito),
                     title = stringRes(R.string.pref__suggestion__incognito_mode__label),
                     entries = enumDisplayEntriesOf(IncognitoMode::class),

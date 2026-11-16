@@ -16,6 +16,7 @@
 
 package dev.patrickgold.florisboard.app.settings.localization
 
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -90,6 +91,7 @@ fun LocalizationScreen() = FlorisScreen {
     }
 
     content {
+        val displayLanguageNamesIn by prefs.localization.displayLanguageNamesIn.collectAsState()
         ListPreference(
             prefs.localization.displayLanguageNamesIn,
             title = stringRes(R.string.settings__localization__display_language_names_in__label),
@@ -99,13 +101,6 @@ fun LocalizationScreen() = FlorisScreen {
             prefs.localization.displayKeyboardLabelsInSubtypeLanguage,
             title = stringRes(R.string.settings__localization__display_keyboard_labels_in_subtype_language),
         )
-        Preference(
-            title = stringRes(R.string.settings__localization__language_pack_title),
-            summary = stringRes(R.string.settings__localization__language_pack_summary),
-            onClick = {
-                navController.navigate(Routes.Settings.LanguagePackManager(LanguagePackManagerScreenAction.MANAGE))
-            },
-        )
         PreferenceGroup(title = stringRes(R.string.settings__localization__group_subtypes__label)) {
             val subtypes by subtypeManager.subtypesFlow.collectAsState()
             if (subtypes.isEmpty()) {
@@ -114,39 +109,23 @@ fun LocalizationScreen() = FlorisScreen {
                     text = stringRes(R.string.settings__localization__subtype_no_subtypes_configured_warning),
                 )
             } else {
-                /*
-                val currencySets by keyboardManager.resources.currencySets.collectAsState()
-                val layouts by keyboardManager.resources.layouts.collectAsState()
-                val displayLanguageNamesIn by prefs.localization.displayLanguageNamesIn.collectAsState()
                 for (subtype in subtypes) {
-                    val cMeta = layouts[LayoutType.CHARACTERS]?.get(subtype.layoutMap.characters)
-                    val sMeta = layouts[LayoutType.SYMBOLS]?.get(subtype.layoutMap.symbols)
-                    val currMeta = currencySets[subtype.currencySet]
-                    val summary = stringRes(
-                        id = R.string.settings__localization__subtype_summary,
-                        "characters_name" to (cMeta?.label ?: "null"),
-                        "symbols_name" to (sMeta?.label ?: "null"),
-                        "currency_set_name" to (currMeta?.label ?: "null"),
-                    )
                     Preference(
                         title = when (displayLanguageNamesIn) {
                             DisplayLanguageNamesIn.SYSTEM_LOCALE -> subtype.primaryLocale.displayName()
                             DisplayLanguageNamesIn.NATIVE_LOCALE -> subtype.primaryLocale.displayName(subtype.primaryLocale)
                         },
-                        summary = summary,
+                        summary = subtype.primaryLocale.languageTag(),
                         modifier = Modifier.combinedClickable(
                             onClick = {
-                                navController.navigate(
-                                    Routes.Settings.SubtypeEdit(subtype.id)
-                                )
+                                navController.navigate(Routes.Settings.SubtypeEdit(subtype.id))
                             },
                             onLongClick = {
                                 chosenSubtypeToDelete = subtype
                             },
-                        )
+                        ),
                     )
                 }
-                 */
             }
         }
     }

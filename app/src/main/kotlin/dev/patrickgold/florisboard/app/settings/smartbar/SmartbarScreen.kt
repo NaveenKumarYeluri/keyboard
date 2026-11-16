@@ -18,7 +18,6 @@ package dev.patrickgold.florisboard.app.settings.smartbar
 
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import dev.patrickgold.florisboard.R
 import dev.patrickgold.florisboard.app.FlorisPreferenceStore
 import dev.patrickgold.florisboard.app.components.ScrollableScreenColumn
@@ -79,17 +78,12 @@ fun SmartbarScreen() {
                             prefs.smartbar.layout isEqualTo SmartbarLayout.SUGGESTIONS_ACTIONS_EXTENDED
                     },
                 )
-                // TODO: schedule to remove this preference in the future, but keep it for now so users
-                //  know why the setting is not available anymore. Also force enable it for UI display.
-                SideEffect {
-                    // prefs.smartbar.sharedActionsAutoExpandCollapse.set(true)
-                }
                 SwitchPreference(
                     prefs.smartbar.sharedActionsAutoExpandCollapse,
                     shapes = ListItemDefaults.segmentedShapes(2, count),
                     title = stringRes(R.string.pref__smartbar__shared_actions_auto_expand_collapse__label),
-                    summary = "[Since v0.4.1] Always enabled due to UX issues",
-                    enabledIf = { false },
+                    summary = stringRes(R.string.pref__smartbar__shared_actions_auto_expand_collapse__summary),
+                    enabledIf = { prefs.smartbar.enabled isEqualTo true },
                     visibleIf = { prefs.smartbar.layout isEqualTo SmartbarLayout.SUGGESTIONS_ACTIONS_SHARED },
                 )
                 ListPreference(

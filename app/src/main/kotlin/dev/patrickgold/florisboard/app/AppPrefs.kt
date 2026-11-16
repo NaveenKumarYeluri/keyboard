@@ -584,7 +584,6 @@ abstract class FlorisPreferenceModel : PreferenceModel() {
             key = "smartbar__shared_actions_expanded",
             default = false,
         )
-        @Deprecated("Always enabled due to UX issues")
         val sharedActionsAutoExpandCollapse = boolean(
             key = "smartbar__shared_actions_auto_expand_collapse",
             default = true,
@@ -628,6 +627,10 @@ abstract class FlorisPreferenceModel : PreferenceModel() {
         val enabled = boolean(
             key = "suggestion__enabled",
             default = false,
+        )
+        val autoSpaceAfterSuggestionPick = boolean(
+            key = "suggestion__auto_space_after_suggestion_pick",
+            default = true,
         )
         val displayMode = enum(
             key = "suggestion__display_mode",

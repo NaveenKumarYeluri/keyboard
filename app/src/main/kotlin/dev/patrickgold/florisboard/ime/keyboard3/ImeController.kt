@@ -573,6 +573,10 @@ class ImeController(
             val content = state.content
             val composition = content.composition
             val compositionText = content.compositionText
+            // Optionally commit a trailing space together with the picked word (like most keyboards do).
+            // Skipped when the character right after the cursor is already whitespace.
+            val autoSpace = prefs.suggestion.autoSpaceAfterSuggestionPick.get() &&
+                content.surroundingText.textAfter.firstOrNull()?.isWhitespace() != true
             return if (composition != null && compositionText != null && composition.min < content.selection.min) {
                 // Replace the currently composed word with the candidate text. This mirrors the logic of
                 // `emitText`, but removes the composed word from the tracked input context first.
@@ -599,10 +603,13 @@ class ImeController(
                 expectedContentQueue.push(state.content)
                 reevaluateInputShiftState()
                 state.editor.replaceText(range, newSurroundingText.textBefore, newSelection, newComposition)
+                if (autoSpace) {
+                    emitText(" ".asK3String())
+                }
                 true
             } else {
                 // No composition region present: simply commit the candidate text at the cursor position.
-                emitText(text.asK3String())
+                emitText(if (autoSpace) "${text} ".asK3String() else text.asK3String())
                 true
             }
         }
