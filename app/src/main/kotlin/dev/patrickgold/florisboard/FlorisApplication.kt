@@ -67,8 +67,11 @@ class FlorisApplication : Application() {
     companion object {
         init {
             try {
+                // The fl_native library is optional experimental scaffolding (see the removed lib/native
+                // module); failure to load must never crash the app, so catch Throwable to also swallow
+                // UnsatisfiedLinkError (an Error, not an Exception).
                 System.loadLibrary("fl_native")
-            } catch (_: Exception) {
+            } catch (_: Throwable) {
             }
         }
 

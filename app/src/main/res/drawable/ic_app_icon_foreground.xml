@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  Bold "K" letterform for the app icon. Drawn as filled shapes so it stays crisp and
+  heavy at launcher sizes; geometry is centered on the 108dp adaptive-icon canvas and
+  kept well inside the 66dp safe zone (24..84).
+-->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
+    <!-- Vertical stem -->
     <path
-        android:pathData="M42,32 L42,76"
-        android:strokeColor="#FFFFFFFF"
-        android:strokeWidth="9"
-        android:strokeLineCap="round"/>
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M36,31 h11 v46 h-11 z"/>
+    <!-- Upper arm: filled quad from the stem's right edge up to the top right -->
     <path
-        android:pathData="M67,32 L52,54 L67,76"
-        android:strokeColor="#FFFFFFFF"
-        android:strokeWidth="9"
-        android:strokeLineCap="round"
-        android:strokeLineJoin="round"/>
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M45,51 L64,31 L71.2,38.2 L52.2,58.2 Z"/>
+    <!-- Lower arm: filled quad from the junction down to the bottom right -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M45,57 L52.2,49.8 L71.2,69.8 L64,77 Z"/>
 </vector>
