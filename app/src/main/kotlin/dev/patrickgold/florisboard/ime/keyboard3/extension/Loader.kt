@@ -22,8 +22,8 @@ import dev.patrickgold.florisboard.ime.io.FlorisRef
 import dev.patrickgold.florisboard.ime.io.Storage
 import dev.patrickgold.florisboard.ime.io.readText
 import dev.patrickgold.florisboard.ime.keyboard3.ImeController
-import dev.patrickgold.florisboard.lib.FlorisLocale
 import dev.patrickgold.florisboard.lib.devtools.flogError
+import dev.patrickgold.florisboard.lib.devtools.flogWarning
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.k3lp.lib.meta.source.SourceFileRef
@@ -37,24 +37,84 @@ import org.k3lp.model.compileToModel
 
 private val SCOPE_FOUNDATION = K3Descriptor("fl", "ext", "org.florisboard.k3.foundation")
 
+/**
+ * Keyboard layout IDs shipped by the foundation extension, mapped to their asset path.
+ */
+private val FOUNDATION_KEYBOARD_LAYOUTS = mapOf(
+    "qwerty" to "keyboard/qwerty.xml",
+    "qwertz" to "keyboard/qwertz.xml",
+)
+
+private fun resolveLayoutId(subtype: Subtype): String {
+    return when (subtype.charactersLayout) {
+        in FOUNDATION_KEYBOARD_LAYOUTS -> subtype.charactersLayout
+        else -> if (subtype.primaryLocale.language == "de") "qwertz" else "qwerty"
+    }
+}
+
+private val TOUCH_LAYERS_REGEX = """<layers\b[^>]*formId="touch"[^>]*>""".toRegex()
+
+private fun touchLayerRegex(layerId: String): Regex {
+    return """<layer\b[^>]*\bid="${Regex.escape(layerId)}"[^>]*>.*?</layer>""".toRegex(RegexOption.DOT_MATCHES_ALL)
+}
+
+/**
+ * Extracts the XML block of a touch layer from a full keyboard layout file, or null if the layer
+ * does not exist in that file.
+ */
+private fun extractTouchLayer(xml: String, layerId: String): String? {
+    val touchStart = TOUCH_LAYERS_REGEX.find(xml)?.range?.first ?: return null
+    return touchLayerRegex(layerId).find(xml, touchStart)?.value
+}
+
+/**
+ * Replaces the XML block of a touch layer in the given keyboard layout with [newLayer]. Returns
+ * null if the layer does not exist in the base layout.
+ */
+private fun replaceTouchLayer(xml: String, layerId: String, newLayer: String): String? {
+    val touchStart = TOUCH_LAYERS_REGEX.find(xml)?.range?.first ?: return null
+    val match = touchLayerRegex(layerId).find(xml, touchStart) ?: return null
+    return xml.substring(0, match.range.first) + newLayer + xml.substring(match.range.last + 1)
+}
+
 // TODO this is just a placeholder testing code, must be replaced by proper logic & extension-aware logic
 @OptIn(WillRequireMigrationToRichErrors::class)
 suspend fun loadFoundationKeyboard(imeController: ImeController, storage: Storage, subtype: Subtype) {
     // The foundation extension currently only ships a small set of layouts. Use the per-subtype
     // characters layout selection if set, otherwise pick one matching the subtype's language.
-    val layoutPath = when (subtype.charactersLayout.ifBlank { "auto" }) {
-        "qwerty" -> "keyboard/qwerty.xml"
-        "qwertz" -> "keyboard/qwertz.xml"
-        else -> when (subtype.primaryLocale.language) {
-            "de" -> "keyboard/qwertz.xml"
-            else -> "keyboard/qwerty.xml"
+    val layoutId = resolveLayoutId(subtype)
+    val layoutPath = FOUNDATION_KEYBOARD_LAYOUTS.getValue(layoutId)
+    suspend fun loadAssetText(path: String): String = withContext(Dispatchers.IO) {
+        val ref = FlorisRef.assets("extensions/org.florisboard.k3.foundation/$path")
+        storage.readText(ref)
+    }
+
+    // The keyboard3 renderer uses a single layout file which contains the characters, symbols and
+    // numeric layers. A per-subtype layer override is applied by swapping the matching touch layer
+    // of the base layout with the one from the selected layout file.
+    var keyboardXml = loadAssetText(layoutPath)
+    val layerOverrides = listOf(
+        subtype.symbolsLayout to "symbol-1",
+        subtype.symbols2Layout to "symbol-2",
+        subtype.numericLayout to "numeric",
+    )
+    for ((overrideLayoutId, layerId) in layerOverrides) {
+        if (overrideLayoutId.isBlank() || overrideLayoutId == layoutId) {
+            continue
+        }
+        val overridePath = FOUNDATION_KEYBOARD_LAYOUTS[overrideLayoutId] ?: continue
+        val overrideXml = runCatching { loadAssetText(overridePath) }.getOrNull() ?: continue
+        val overrideLayer = extractTouchLayer(overrideXml, layerId)
+        val replacedXml = overrideLayer?.let { replaceTouchLayer(keyboardXml, layerId, it) }
+        if (replacedXml != null) {
+            keyboardXml = replacedXml
+        } else {
+            flogWarning { "Failed to override touch layer '$layerId' with layout '$overrideLayoutId'" }
         }
     }
+
     suspend fun loadAssetFile(path: String): TextSourceFile {
-        val xml = withContext(Dispatchers.IO) {
-            val ref = FlorisRef.assets("extensions/org.florisboard.k3.foundation/$path")
-            storage.readText(ref)
-        }
+        val xml = loadAssetText(path)
         val sourceFile = TextSourceFile(object : SourceFileRef {
             override fun toString(): String {
                 return "toString()"
@@ -70,7 +130,11 @@ suspend fun loadFoundationKeyboard(imeController: ImeController, storage: Storag
         displays = listOf("flex://org.florisboard.k3.foundation/displays-implied.xml"),
         keys = listOf("flex://org.florisboard.k3.foundation/keys-implied.xml"),
     )
-    val file = loadAssetFile(layoutPath)
+    val file = TextSourceFile(object : SourceFileRef {
+        override fun toString(): String {
+            return "toString()"
+        }
+    }, keyboardXml)
     val result = file.compileToModel(importResolver, impliedImports)
     for (report in result.reports) {
         flogError { report.cause?.stackTraceToString() ?: "" }

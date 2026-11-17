@@ -504,11 +504,5 @@
   "subtype-panel-list-item-text": {
     "text-max-lines": "1",
     "text-overflow": "ellipsis"
-  },
-  "key[output=\\ \\]": {
-    "background": "var(--surface)",
-    "foreground": "var(--on-surface-variant)",
-    "font-size": "12sp",
-    "text-overflow": "ellipsis"
   }
 }

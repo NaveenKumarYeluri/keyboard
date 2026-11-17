@@ -104,11 +104,17 @@ fun LocalizationScreen() = FlorisScreen {
                             DisplayLanguageNamesIn.SYSTEM_LOCALE -> subtype.primaryLocale.displayName()
                             DisplayLanguageNamesIn.NATIVE_LOCALE -> subtype.primaryLocale.displayName(subtype.primaryLocale)
                         },
-                        summary = if (subtype.id == activeSubtype.id) {
-                            "${subtype.primaryLocale.languageTag()} · ${stringRes(R.string.settings__localization__subtype_active_marker)}"
-                        } else {
-                            subtype.primaryLocale.languageTag()
-                        },
+                        summary = buildList {
+                            add(subtype.primaryLocale.languageTag())
+                            when (subtype.charactersLayout) {
+                                "qwerty" -> add("QWERTY")
+                                "qwertz" -> add("QWERTZ")
+                                else -> Unit
+                            }
+                            if (subtype.id == activeSubtype.id) {
+                                add(stringRes(R.string.settings__localization__subtype_active_marker))
+                            }
+                        }.joinToString(" · "),
                     )
                 }
             }
