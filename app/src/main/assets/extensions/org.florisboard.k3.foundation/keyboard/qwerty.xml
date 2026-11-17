@@ -53,12 +53,16 @@
         <key id="A-ring" output="Å" />
         <key id="A-charon" output="Ā" />
         <key id="B" output="B" />
-        <key id="C" output="C" longPressKeyIds="dollar pound yen euro cent"
-             longPressDefaultKeyId="dollar" />
-        <key id="D" output="D" longPressKeyIds="dollar pound yen euro cent"
-             longPressDefaultKeyId="dollar" />
+        <key id="C" output="C" longPressKeyIds="C-cedilla C-acute C-caron"
+             longPressDefaultKeyId="C-cedilla" />
+        <key id="C-cedilla" output="Ç" />
+        <key id="C-acute" output="Ć" />
+        <key id="C-caron" output="Č" />
+        <key id="D" output="D" longPressKeyIds="D-stroke"
+             longPressDefaultKeyId="D-stroke" />
+        <key id="D-stroke" output="Đ" />
         <key id="E" output="E"
-             longPressKeyIds="E-acute E-grave E-caret E-umlaut E-charon E-tilde"
+             longPressKeyIds="E-acute E-grave E-caret E-umlaut E-charon E-ring E-ogonek"
              longPressDefaultKeyId="E-acute" />
         <key id="E-umlaut" output="Ë" />
         <key id="E-grave" output="È" />
@@ -67,11 +71,11 @@
         <key id="E-tilde" output="Ẽ" />
         <key id="E-ring" output="Ė" />
         <key id="E-charon" output="Ē" />
-        <key id="F" output="F" longPressKeyIds="care-of percent permille"
-             longPressDefaultKeyId="percent" />
-        <key id="G" output="G" longPressKeyIds="amp" longPressDefaultKeyId="amp" />
+        <key id="E-ogonek" output="Ę" />
+        <key id="F" output="F" />
+        <key id="G" output="G" />
         <key id="H" output="H" />
-        <key id="I" output="I" longPressKeyIds="I-acute I-grave I-umlaut I-caret I-charon I-tilde"
+        <key id="I" output="I" longPressKeyIds="I-acute I-caret I-umlaut I-charon I-tilde I-grave"
              longPressDefaultKeyId="I-acute" />
         <key id="I-umlaut" output="Ï" />
         <key id="I-grave" output="Ì" />
@@ -81,11 +85,14 @@
         <key id="I-charon" output="Ī" />
         <key id="J" output="J" />
         <key id="K" output="K" />
-        <key id="L" output="L" />
+        <key id="L" output="L" longPressKeyIds="L-stroke" longPressDefaultKeyId="L-stroke" />
+        <key id="L-stroke" output="Ł" />
         <key id="M" output="M" />
-        <key id="N" output="N" longPressKeyIds="N-tilde" longPressDefaultKeyId="N-tilde" />
+        <key id="N" output="N" longPressKeyIds="N-tilde N-acute N-caron" longPressDefaultKeyId="N-tilde" />
         <key id="N-tilde" output="Ñ" />
-        <key id="O" output="O" longPressKeyIds="O-acute O-grave O-umlaut O-caret O-charon O-tilde"
+        <key id="N-acute" output="Ń" />
+        <key id="N-caron" output="Ň" />
+        <key id="O" output="O" longPressKeyIds="O-acute O-caret O-umlaut O-grave O-charon O-stroke O-tilde"
              longPressDefaultKeyId="O-acute" />
         <key id="O-umlaut" output="Ö" />
         <key id="O-grave" output="Ò" />
@@ -93,17 +100,18 @@
         <key id="O-caret" output="Ô" />
         <key id="O-tilde" output="Õ" />
         <key id="O-charon" output="Ō" />
+        <key id="O-stroke" output="Ø" />
+        <key id="OE-lig" output="Œ" />
         <key id="P" output="P" />
         <key id="Q" output="Q" />
         <key id="R" output="R" />
-        <key id="S" output="S" longPressDefaultKeyId="S-caron"
-             longPressKeyIds="S-caron S-acute hash" />
+        <key id="S" output="S" longPressDefaultKeyId="S-acute"
+             longPressKeyIds="S-acute S-caron" />
         <key id="S-caron" output="Š" />
-        <key id="S-sharp" output="ẞ" />
         <key id="S-acute" output="Ś" />
         <key id="T" output="T" />
-        <key id="U" output="U" longPressKeyIds="U-umlaut U-grave U-acute U-caret U-charon"
-             longPressDefaultKeyId="U-umlaut" />
+        <key id="U" output="U" longPressKeyIds="U-acute U-caret U-umlaut U-grave U-charon"
+             longPressDefaultKeyId="U-acute" />
         <key id="U-umlaut" output="Ü" />
         <key id="U-grave" output="Ù" />
         <key id="U-acute" output="Ú" />
@@ -114,21 +122,22 @@
         <key id="V" output="V" />
         <key id="W" output="W" />
         <key id="X" output="X" />
-        <key id="Y" output="Y" longPressKeyIds="Y-acute Y-grave Y-umlaut Y-caret Y-tilde Y-charon"
-             longPressDefaultKeyId="Y-acute" />
+        <key id="Y" output="Y" longPressKeyIds="Y-umlaut" longPressDefaultKeyId="Y-umlaut" />
         <key id="Y-umlaut" output="Ÿ" />
         <key id="Y-grave" output="Ỳ" />
         <key id="Y-acute" output="Ý" />
         <key id="Y-caret" output="Ŷ" />
         <key id="Y-tilde" output="Ỹ" />
         <key id="Y-charon" output="Ȳ" />
-        <key id="Z" output="Z" />
+        <key id="Z" output="Z" longPressKeyIds="Z-acute Z-caron Z-dot" longPressDefaultKeyId="Z-acute" />
+        <key id="Z-acute" output="Ź" />
+        <key id="Z-caron" output="Ž" />
+        <key id="Z-dot" output="Ż" />
 
         <!-- Lowercase keys -->
         <key id="a" output="a"
-             longPressKeyIds="a-grave a-acute a-caret a-umlaut a-tilde a-ring a-charon"
-             longPressDefaultKeyId="a-grave"
-             flickId="a-flicks" />
+             longPressKeyIds="a-grave a-acute a-caret a-umlaut a-ring a-tilde a-charon"
+             longPressDefaultKeyId="a-grave" />
         <key id="a-umlaut" output="ä" />
         <key id="a-grave" output="à" />
         <key id="a-acute" output="á" />
@@ -137,11 +146,15 @@
         <key id="a-ring" output="å" />
         <key id="a-charon" output="ā" />
         <key id="b" output="b" />
-        <key id="c" output="c" />
-        <key id="d" output="d" longPressKeyIds="dollar pound yen euro cent"
-             longPressDefaultKeyId="dollar" />
+        <key id="c" output="c" longPressKeyIds="c-cedilla c-acute c-caron"
+             longPressDefaultKeyId="c-cedilla" />
+        <key id="c-cedilla" output="ç" />
+        <key id="c-acute" output="ć" />
+        <key id="c-caron" output="č" />
+        <key id="d" output="d" longPressKeyIds="d-stroke" longPressDefaultKeyId="d-stroke" />
+        <key id="d-stroke" output="đ" />
         <key id="e" output="e"
-             longPressKeyIds="e-acute e-grave e-caret e-umlaut e-charon e-tilde"
+             longPressKeyIds="e-acute e-grave e-caret e-umlaut e-charon e-ring e-ogonek"
              longPressDefaultKeyId="e-acute" />
         <key id="e-umlaut" output="ë" />
         <key id="e-grave" output="è" />
@@ -150,11 +163,11 @@
         <key id="e-tilde" output="ẽ" />
         <key id="e-ring" output="ė" />
         <key id="e-charon" output="ē" />
-        <key id="f" output="f" longPressKeyIds="percent permille care-of"
-             longPressDefaultKeyId="percent" />
-        <key id="g" output="g" longPressKeyIds="amp" longPressDefaultKeyId="amp" />
+        <key id="e-ogonek" output="ę" />
+        <key id="f" output="f" />
+        <key id="g" output="g" />
         <key id="h" output="h" />
-        <key id="i" output="i" longPressKeyIds="i-acute i-grave i-umlaut i-caret i-charon i-tilde"
+        <key id="i" output="i" longPressKeyIds="i-acute i-caret i-umlaut i-charon i-tilde i-grave"
              longPressDefaultKeyId="i-acute" />
         <key id="i-umlaut" output="ï" />
         <key id="i-grave" output="ì" />
@@ -164,11 +177,14 @@
         <key id="i-charon" output="ī" />
         <key id="j" output="j" />
         <key id="k" output="k" />
-        <key id="l" output="l" />
+        <key id="l" output="l" longPressKeyIds="l-stroke" longPressDefaultKeyId="l-stroke" />
+        <key id="l-stroke" output="ł" />
         <key id="m" output="m" />
-        <key id="n" output="n" longPressKeyIds="n-tilde" longPressDefaultKeyId="n-tilde" />
+        <key id="n" output="n" longPressKeyIds="n-tilde n-acute n-caron" longPressDefaultKeyId="n-tilde" />
         <key id="n-tilde" output="ñ" />
-        <key id="o" output="o" longPressKeyIds="o-acute o-grave o-umlaut o-caret o-charon o-tilde"
+        <key id="n-acute" output="ń" />
+        <key id="n-caron" output="ň" />
+        <key id="o" output="o" longPressKeyIds="o-acute o-caret o-umlaut o-grave o-charon o-stroke o-tilde"
              longPressDefaultKeyId="o-acute" />
         <key id="o-umlaut" output="ö" />
         <key id="o-grave" output="ò" />
@@ -176,17 +192,19 @@
         <key id="o-caret" output="ô" />
         <key id="o-tilde" output="õ" />
         <key id="o-charon" output="ō" />
+        <key id="o-stroke" output="ø" />
+        <key id="oe-lig" output="œ" />
         <key id="p" output="p" />
         <key id="q" output="q" />
         <key id="r" output="r" />
-        <key id="s" output="s" longPressDefaultKeyId="s-caron"
-             longPressKeyIds="s-caron s-acute hash" />
+        <key id="s" output="s" longPressDefaultKeyId="s-acute"
+             longPressKeyIds="s-acute s-caron" />
         <key id="s-caron" output="š" />
         <key id="s-sharp" output="ß" />
         <key id="s-acute" output="ś" />
         <key id="t" output="t" />
-        <key id="u" output="u" longPressKeyIds="u-umlaut u-grave u-acute u-caret u-charon"
-             longPressDefaultKeyId="u-umlaut" />
+        <key id="u" output="u" longPressKeyIds="u-acute u-caret u-umlaut u-grave u-charon"
+             longPressDefaultKeyId="u-acute" />
         <key id="u-umlaut" output="ü" />
         <key id="u-grave" output="ù" />
         <key id="u-acute" output="ú" />
@@ -197,15 +215,17 @@
         <key id="v" output="v" />
         <key id="w" output="w" />
         <key id="x" output="x" />
-        <key id="y" output="y" longPressKeyIds="y-acute y-grave y-umlaut y-caret y-tilde y-charon"
-             longPressDefaultKeyId="y-acute" />
+        <key id="y" output="y" longPressKeyIds="y-umlaut" longPressDefaultKeyId="y-umlaut" />
         <key id="y-umlaut" output="ÿ" />
         <key id="y-grave" output="ỳ" />
         <key id="y-acute" output="ý" />
         <key id="y-caret" output="ŷ" />
         <key id="y-tilde" output="ỹ" />
         <key id="y-charon" output="ȳ" />
-        <key id="z" output="z" />
+        <key id="z" output="z" longPressKeyIds="z-acute z-caron z-dot" longPressDefaultKeyId="z-acute" />
+        <key id="z-acute" output="ź" />
+        <key id="z-caron" output="ž" />
+        <key id="z-dot" output="ż" />
         <!-- extra chars -->
         <key id="numero-sign" output="\u{2116}" />
         <key id="permille" output="\u{2030}" />
@@ -237,12 +257,6 @@
         <key id="8-numeric" width="3" output="8" />
         <key id="9-numeric" width="3" output="9" />
     </keys>
-
-    <flicks>
-        <flick id="a-flicks">
-            <flickSegment directions="ne s" keyId="b" />
-        </flick>
-    </flicks>
 
     <layers formId="iso">
         <layer modifiers="none">

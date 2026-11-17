@@ -452,9 +452,14 @@ class ImeController(
                 ImeActions.ShowInputMethodPicker -> FlorisImeService.showImePicker()
                 ImeActions.SwitchToPrevInputMethod -> FlorisImeService.switchToPrevInputMethod()
                 ImeActions.SwitchToNextInputMethod -> FlorisImeService.switchToNextInputMethod()
-                ImeActions.ShowSubtypePicker -> {} // TODO
-                ImeActions.SwitchToPrevSubtype -> {} // TODO
-                ImeActions.SwitchToNextSubtype -> {} // TODO
+                ImeActions.ShowSubtypePicker -> {
+                    state = state.copy(
+                        flags = state.flags
+                            .withSubtypeSelectionVisible(!state.flags.isSubtypeSelectionVisible),
+                    )
+                }
+                ImeActions.SwitchToPrevSubtype -> FlorisApplication.getHack().subtypeManager.value.switchToPrevSubtype()
+                ImeActions.SwitchToNextSubtype -> FlorisApplication.getHack().subtypeManager.value.switchToNextSubtype()
                 ImeActions.ToggleActionsEditor -> {
                     state = state.copy(
                         flags = state.flags

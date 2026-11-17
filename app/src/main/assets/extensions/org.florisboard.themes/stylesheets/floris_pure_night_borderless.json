@@ -22,7 +22,7 @@
     "--on-surface": "#eeeeee",
     "--on-surface-variant": "#ffffff73",
 
-    "--shape": "rounded-corner(8dp, 8dp, 8dp, 8dp)",
+    "--shape": "rounded-corner(6dp, 6dp, 6dp, 6dp)",
     "--shape-variant": "rounded-corner(12dp, 12dp, 12dp, 12dp)",
     "--shape-chip": "rounded-corner(50%, 50%, 50%, 50%)"
   },
