@@ -88,6 +88,7 @@ fun LocalizationScreen() = FlorisScreen {
         )
         PreferenceGroup(title = stringRes(R.string.settings__localization__group_subtypes__label)) {
             val subtypes by subtypeManager.subtypesFlow.collectAsState()
+            val activeSubtype by subtypeManager.activeSubtypeFlow.collectAsState()
             if (subtypes.isEmpty()) {
                 FlorisWarningCard(
                     modifier = Modifier.padding(all = 8.dp),
@@ -103,7 +104,11 @@ fun LocalizationScreen() = FlorisScreen {
                             DisplayLanguageNamesIn.SYSTEM_LOCALE -> subtype.primaryLocale.displayName()
                             DisplayLanguageNamesIn.NATIVE_LOCALE -> subtype.primaryLocale.displayName(subtype.primaryLocale)
                         },
-                        summary = subtype.primaryLocale.languageTag(),
+                        summary = if (subtype.id == activeSubtype.id) {
+                            "${subtype.primaryLocale.languageTag()} · ${stringRes(R.string.settings__localization__subtype_active_marker)}"
+                        } else {
+                            subtype.primaryLocale.languageTag()
+                        },
                     )
                 }
             }

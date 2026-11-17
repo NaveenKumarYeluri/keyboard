@@ -70,6 +70,10 @@ class NlpManager(context: Context) {
     private val providersForceSuggestionOn = mutableMapOf<String, Boolean>()
 
     private val internalSuggestionsGuard = Mutex()
+    // Last auto-computed smartbar expansion state. Repeated candidate evaluations with an
+    // unchanged state must not overwrite the pref, otherwise the manual expand/collapse
+    // toggle button gets overridden immediately after the user taps it.
+    private var lastAutoExpandedSmartbarActions: Boolean? = null
     private var internalSuggestions by Delegates.observable(SystemClock.uptimeMillis() to listOf<SuggestionCandidate>()) { _, _, _ ->
         scope.launch { assembleCandidates() }
     }
@@ -312,6 +316,10 @@ class NlpManager(context: Context) {
         }*/
         val isSelection = imeController.snapshotState().content.selection.isNotCollapsed()
         val isExpanded = list1.isNullOrEmpty() && list2.isNullOrEmpty() || isSelection
+        if (isExpanded == lastAutoExpandedSmartbarActions) {
+            return
+        }
+        lastAutoExpandedSmartbarActions = isExpanded
         scope.launch {
             prefs.smartbar.sharedActionsExpandWithAnimation.set(false)
             prefs.smartbar.sharedActionsExpanded.set(isExpanded)

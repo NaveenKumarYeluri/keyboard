@@ -118,6 +118,17 @@ fun SubtypeEditorScreen(id: Long?) = FlorisScreen {
             ) {
                 Text(text = stringRes(R.string.action__cancel))
             }
+            if (id != null) {
+                TextButton(
+                    onClick = {
+                        subtypeManager.switchToSubtypeById(id)
+                        navController.popBackStack()
+                    },
+                    modifier = Modifier.weight(1f),
+                ) {
+                    Text(text = stringRes(R.string.settings__localization__subtype_set_active))
+                }
+            }
             Button(
                 onClick = {
                     if (primaryLocale == SelectLocaleSentinel) {
