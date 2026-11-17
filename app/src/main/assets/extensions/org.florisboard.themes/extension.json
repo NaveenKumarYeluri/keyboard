@@ -5,45 +5,240 @@
     "version": "0.2.0",
     "title": "FlorisBoard default themes",
     "description": "Default themes (both day and night) for the keyboard UI",
-    "maintainers": [ "patrickgold <patrick@patrickgold.dev>", "lm41 <lm41@lm41.xyz>" ],
+    "maintainers": [
+      "patrickgold <patrick@patrickgold.dev>",
+      "lm41 <lm41@lm41.xyz>"
+    ],
     "license": "apache-2.0"
   },
   "themes": [
     {
       "id": "floris_day",
       "label": "Floris Day",
-      "authors": [ "patrickgold" ],
+      "authors": [
+        "patrickgold"
+      ],
       "isNight": false
     },
     {
       "id": "floris_day_borderless",
       "label": "Floris Day (Borderless)",
-      "authors": [ "patrickgold" ],
+      "authors": [
+        "patrickgold"
+      ],
       "isNight": false
     },
     {
       "id": "floris_night",
       "label": "Floris Night",
-      "authors": [ "patrickgold" ],
+      "authors": [
+        "patrickgold"
+      ],
       "isNight": true
     },
     {
       "id": "floris_night_borderless",
       "label": "Floris Night (Borderless)",
-      "authors": [ "patrickgold" ],
+      "authors": [
+        "patrickgold"
+      ],
       "isNight": true
     },
     {
       "id": "floris_pure_night",
       "label": "Floris Pure Night",
-      "authors": [ "serebit" ],
+      "authors": [
+        "serebit"
+      ],
       "isNight": true
     },
     {
       "id": "floris_pure_night_borderless",
       "label": "Floris Pure Night (Borderless)",
-      "authors": [ "serebit" ],
+      "authors": [
+        "serebit"
+      ],
       "isNight": true
+    },
+    {
+      "id": "chroma_winter",
+      "label": "Chroma Winter night",
+      "authors": [
+        "Chroma/Chrooma (gamelounge)",
+        "ported"
+      ],
+      "isNight": true
+    },
+    {
+      "id": "chroma_winter_borderless",
+      "label": "Chroma Winter night (Borderless)",
+      "authors": [
+        "Chroma/Chrooma (gamelounge)",
+        "ported"
+      ],
+      "isNight": true
+    },
+    {
+      "id": "chroma_classy",
+      "label": "Chroma Classy 50's",
+      "authors": [
+        "Chroma/Chrooma (gamelounge)",
+        "ported"
+      ],
+      "isNight": false
+    },
+    {
+      "id": "chroma_classy_borderless",
+      "label": "Chroma Classy 50's (Borderless)",
+      "authors": [
+        "Chroma/Chrooma (gamelounge)",
+        "ported"
+      ],
+      "isNight": false
+    },
+    {
+      "id": "chroma_fresh",
+      "label": "Chroma Fresh Lime",
+      "authors": [
+        "Chroma/Chrooma (gamelounge)",
+        "ported"
+      ],
+      "isNight": true
+    },
+    {
+      "id": "chroma_fresh_borderless",
+      "label": "Chroma Fresh Lime (Borderless)",
+      "authors": [
+        "Chroma/Chrooma (gamelounge)",
+        "ported"
+      ],
+      "isNight": true
+    },
+    {
+      "id": "chroma_magnet",
+      "label": "Chroma Magnet",
+      "authors": [
+        "Chroma/Chrooma (gamelounge)",
+        "ported"
+      ],
+      "isNight": true
+    },
+    {
+      "id": "chroma_magnet_borderless",
+      "label": "Chroma Magnet (Borderless)",
+      "authors": [
+        "Chroma/Chrooma (gamelounge)",
+        "ported"
+      ],
+      "isNight": true
+    },
+    {
+      "id": "chroma_corrosion",
+      "label": "Chroma Corrosion",
+      "authors": [
+        "Chroma/Chrooma (gamelounge)",
+        "ported"
+      ],
+      "isNight": true
+    },
+    {
+      "id": "chroma_corrosion_borderless",
+      "label": "Chroma Corrosion (Borderless)",
+      "authors": [
+        "Chroma/Chrooma (gamelounge)",
+        "ported"
+      ],
+      "isNight": true
+    },
+    {
+      "id": "chroma_giant_goldfish",
+      "label": "Chroma Giant Goldfish",
+      "authors": [
+        "Chroma/Chrooma (gamelounge)",
+        "ported"
+      ],
+      "isNight": false
+    },
+    {
+      "id": "chroma_giant_goldfish_borderless",
+      "label": "Chroma Giant Goldfish (Borderless)",
+      "authors": [
+        "Chroma/Chrooma (gamelounge)",
+        "ported"
+      ],
+      "isNight": false
+    },
+    {
+      "id": "chroma_lava",
+      "label": "Chroma Ice and Lava",
+      "authors": [
+        "Chroma/Chrooma (gamelounge)",
+        "ported"
+      ],
+      "isNight": true
+    },
+    {
+      "id": "chroma_lava_borderless",
+      "label": "Chroma Ice and Lava (Borderless)",
+      "authors": [
+        "Chroma/Chrooma (gamelounge)",
+        "ported"
+      ],
+      "isNight": true
+    },
+    {
+      "id": "chroma_sugar",
+      "label": "Chroma Sugar",
+      "authors": [
+        "Chroma/Chrooma (gamelounge)",
+        "ported"
+      ],
+      "isNight": false
+    },
+    {
+      "id": "chroma_sugar_borderless",
+      "label": "Chroma Sugar (Borderless)",
+      "authors": [
+        "Chroma/Chrooma (gamelounge)",
+        "ported"
+      ],
+      "isNight": false
+    },
+    {
+      "id": "chroma_terra",
+      "label": "Chroma Terra",
+      "authors": [
+        "Chroma/Chrooma (gamelounge)",
+        "ported"
+      ],
+      "isNight": true
+    },
+    {
+      "id": "chroma_terra_borderless",
+      "label": "Chroma Terra (Borderless)",
+      "authors": [
+        "Chroma/Chrooma (gamelounge)",
+        "ported"
+      ],
+      "isNight": true
+    },
+    {
+      "id": "chroma_transatlantic",
+      "label": "Chroma Transatlantic",
+      "authors": [
+        "Chroma/Chrooma (gamelounge)",
+        "ported"
+      ],
+      "isNight": false
+    },
+    {
+      "id": "chroma_transatlantic_borderless",
+      "label": "Chroma Transatlantic (Borderless)",
+      "authors": [
+        "Chroma/Chrooma (gamelounge)",
+        "ported"
+      ],
+      "isNight": false
     }
   ]
 }
