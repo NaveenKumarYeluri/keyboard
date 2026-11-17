@@ -140,7 +140,11 @@ class ImeController(
 
         // TODO proper stateful compilation
         scope.launch {
-            loadFoundationKeyboard(this@ImeController, storageController.activeStorage.value)
+            // Reload the keyboard layout whenever the active subtype changes, so the layout and
+            // spacebar language match the subtype selected in the settings.
+            FlorisApplication.getHack().subtypeManager.value.activeSubtypeFlow.collect { subtype ->
+                loadFoundationKeyboard(this@ImeController, storageController.activeStorage.value, subtype.primaryLocale)
+            }
         }
 
         // Trigger the suggestion pipeline whenever the IME state (and with it the editor content) changes.
