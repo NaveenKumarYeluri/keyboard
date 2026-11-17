@@ -23,6 +23,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -75,6 +77,7 @@ fun SubtypeEditorScreen(id: Long?) = FlorisScreen {
 
     val initialSubtype = remember { id?.let { subtypeManager.getSubtypeById(it) } }
     var primaryLocale by remember { mutableStateOf(initialSubtype?.primaryLocale ?: SelectLocaleSentinel) }
+    var charactersLayout by remember { mutableStateOf(initialSubtype?.charactersLayout ?: "") }
     var showSelectAsError by remember { mutableStateOf(false) }
     var errorDialogStrId by remember { mutableStateOf<Int?>(null) }
 
@@ -140,6 +143,7 @@ fun SubtypeEditorScreen(id: Long?) = FlorisScreen {
                         id = initialSubtype?.id ?: -1,
                         primaryLocale = primaryLocale,
                         secondaryLocales = emptyList(),
+                        charactersLayout = charactersLayout,
                     )
                     if (id == null) {
                         if (!subtypeManager.addSubtype(subtype)) {
@@ -184,6 +188,52 @@ fun SubtypeEditorScreen(id: Long?) = FlorisScreen {
                     navController.navigate(Routes.Settings.SelectLocale)
                 },
             )
+
+            Text(
+                text = stringRes(R.string.settings__localization__subtype_characters_layout),
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary,
+            )
+            var layoutMenuExpanded by remember { mutableStateOf(false) }
+            TextButton(
+                onClick = { layoutMenuExpanded = true },
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text(
+                    text = when (charactersLayout) {
+                        "qwerty" -> "QWERTY"
+                        "qwertz" -> "QWERTZ"
+                        else -> stringRes(R.string.settings__localization__subtype_layout_auto)
+                    },
+                )
+            }
+            DropdownMenu(
+                expanded = layoutMenuExpanded,
+                onDismissRequest = { layoutMenuExpanded = false },
+            ) {
+                DropdownMenuItem(
+                    text = { Text(text = stringRes(R.string.settings__localization__subtype_layout_auto)) },
+                    onClick = {
+                        charactersLayout = ""
+                        layoutMenuExpanded = false
+                    },
+                )
+                DropdownMenuItem(
+                    text = { Text(text = "QWERTY") },
+                    onClick = {
+                        charactersLayout = "qwerty"
+                        layoutMenuExpanded = false
+                    },
+                )
+                DropdownMenuItem(
+                    text = { Text(text = "QWERTZ") },
+                    onClick = {
+                        charactersLayout = "qwertz"
+                        layoutMenuExpanded = false
+                    },
+                )
+            }
         }
     }
 

@@ -17,6 +17,7 @@
 package dev.patrickgold.florisboard.ime.keyboard3.extension
 
 import android.net.Uri
+import dev.patrickgold.florisboard.ime.core.Subtype
 import dev.patrickgold.florisboard.ime.io.FlorisRef
 import dev.patrickgold.florisboard.ime.io.Storage
 import dev.patrickgold.florisboard.ime.io.readText
@@ -38,12 +39,16 @@ private val SCOPE_FOUNDATION = K3Descriptor("fl", "ext", "org.florisboard.k3.fou
 
 // TODO this is just a placeholder testing code, must be replaced by proper logic & extension-aware logic
 @OptIn(WillRequireMigrationToRichErrors::class)
-suspend fun loadFoundationKeyboard(imeController: ImeController, storage: Storage, primaryLocale: FlorisLocale) {
-    // The foundation extension currently only ships a small set of layouts. Choose the one matching
-    // the active subtype's language until proper per-subtype layout selection is implemented.
-    val layoutPath = when (primaryLocale.language) {
-        "de" -> "keyboard/qwertz.xml"
-        else -> "keyboard/qwerty.xml"
+suspend fun loadFoundationKeyboard(imeController: ImeController, storage: Storage, subtype: Subtype) {
+    // The foundation extension currently only ships a small set of layouts. Use the per-subtype
+    // characters layout selection if set, otherwise pick one matching the subtype's language.
+    val layoutPath = when (subtype.charactersLayout.ifBlank { "auto" }) {
+        "qwerty" -> "keyboard/qwerty.xml"
+        "qwertz" -> "keyboard/qwertz.xml"
+        else -> when (subtype.primaryLocale.language) {
+            "de" -> "keyboard/qwertz.xml"
+            else -> "keyboard/qwerty.xml"
+        }
     }
     suspend fun loadAssetFile(path: String): TextSourceFile {
         val xml = withContext(Dispatchers.IO) {

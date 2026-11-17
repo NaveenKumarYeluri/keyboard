@@ -85,7 +85,7 @@
         "Chroma/Chrooma (gamelounge)",
         "ported"
       ],
-      "isNight": false
+      "isNight": true
     },
     {
       "id": "chroma_classy_borderless",
@@ -94,7 +94,7 @@
         "Chroma/Chrooma (gamelounge)",
         "ported"
       ],
-      "isNight": false
+      "isNight": true
     },
     {
       "id": "chroma_fresh",
@@ -193,7 +193,7 @@
         "Chroma/Chrooma (gamelounge)",
         "ported"
       ],
-      "isNight": false
+      "isNight": true
     },
     {
       "id": "chroma_sugar_borderless",
@@ -202,7 +202,7 @@
         "Chroma/Chrooma (gamelounge)",
         "ported"
       ],
-      "isNight": false
+      "isNight": true
     },
     {
       "id": "chroma_terra",

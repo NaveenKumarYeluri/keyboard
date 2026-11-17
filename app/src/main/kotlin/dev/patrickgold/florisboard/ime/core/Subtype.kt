@@ -27,6 +27,8 @@ import kotlinx.serialization.Serializable
  * @property id The ID of this subtype.
  * @property primaryLocale The primary locale of this subtype.
  * @property secondaryLocales The secondary locales of this subtype. May be an empty list.
+ * @property charactersLayout The characters layout ID used by the keyboard3 renderer, e.g.
+ *   "qwerty" or "qwertz". Empty string means auto-detect based on the primary locale.
  * @property nlpProviders The NLP provider map to instantiate the correct provider for each category.
  */
 @Serializable
@@ -34,6 +36,7 @@ data class Subtype(
     val id: Long,
     val primaryLocale: FlorisLocale,
     val secondaryLocales: List<FlorisLocale>,
+    val charactersLayout: String = "",
     val nlpProviders: SubtypeNlpProviderMap = SubtypeNlpProviderMap(),
 ) {
     companion object {
@@ -44,6 +47,7 @@ data class Subtype(
             id = -1,
             primaryLocale = FlorisLocale.from("en", "US"),
             secondaryLocales = emptyList(),
+            charactersLayout = "",
             nlpProviders = SubtypeNlpProviderMap(),
         )
     }
@@ -69,6 +73,7 @@ data class Subtype(
     fun equalsExcludingId(other: Subtype): Boolean {
         if (other.primaryLocale != primaryLocale) return false
         if (other.secondaryLocales != secondaryLocales) return false
+        if (other.charactersLayout != charactersLayout) return false
         if (other.nlpProviders != nlpProviders) return false
 
         return true

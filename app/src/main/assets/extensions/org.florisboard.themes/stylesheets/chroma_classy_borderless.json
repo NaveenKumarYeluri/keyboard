@@ -6,21 +6,21 @@
     "--secondary": "#EAFDE6",
     "--secondary-variant": "#EAFDE6",
     "--background": "#697060",
-    "--background-variant": "#EB9C4E",
+    "--background-variant": "#d19352",
     "--surface": "#EB9C4E",
-    "--surface-variant": "#F2D680",
-    "--popup-surface": "#F2D680",
+    "--surface-variant": "#d19352",
+    "--popup-surface": "#d19352",
     "--focused-popup-surface": "#EAFDE6",
     "--drag-marker": "rgb(255,0,0)",
     "--spacer-color": "rgba(255, 255, 255, 0.25)",
     "--one-hand-background": "#697060",
     "--one-hand-foreground": "#FFFFFF",
     "--incognito-icon-color": "rgba(255, 255, 255, 0.07)",
-    "--on-primary": "#697060",
+    "--on-primary": "#101010",
     "--on-background": "#FFFFFF",
     "--on-background-disabled": "rgba(255, 255, 255, 0.4)",
-    "--on-surface": "#FFFFFF",
-    "--on-surface-variant": "#FFFFFF",
+    "--on-surface": "#101010",
+    "--on-surface-variant": "rgba(16, 16, 16, 0.7)",
     "--shape": "rounded-corner(6dp, 6dp, 6dp, 6dp)",
     "--shape-variant": "rounded-corner(12dp, 12dp, 12dp, 12dp)",
     "--shape-chip": "rounded-corner(50%, 50%, 50%, 50%)"
@@ -69,34 +69,6 @@
   "key:pressed": {
     "background": "var(--surface)",
     "foreground": "var(--on-surface)"
-  },
-  "key[code=10]": {
-    "background": "var(--primary)",
-    "foreground": "var(--on-surface)",
-    "margin": "0dp 6dp"
-  },
-  "key[code=10]:pressed": {
-    "background": "var(--primary-variant)",
-    "foreground": "var(--on-surface)"
-  },
-  "key[code=32]": {
-    "background": "var(--surface)",
-    "foreground": "var(--on-surface-variant)",
-    "font-size": "12sp",
-    "margin": "0dp 6dp",
-    "text-overflow": "ellipsis"
-  },
-  "key[code=-201,-202,-203]": {
-    "font-size": "18sp"
-  },
-  "key[code=-204,-205]": {
-    "font-size": "12sp"
-  },
-  "key[code=-205]": {
-    "text-max-lines": "2"
-  },
-  "key[code=-11][shiftstate=`caps_lock`]": {
-    "foreground": "var(--secondary)"
   },
   "key-hint": {
     "background": "transparent",
@@ -229,7 +201,7 @@
   },
   "smartbar-candidate-word": {
     "background": "transparent",
-    "foreground": "#FFFFFF",
+    "foreground": "var(--on-background)",
     "font-size": "14sp",
     "margin": "4dp",
     "padding": "8dp 0dp",
@@ -247,7 +219,7 @@
   },
   "smartbar-candidate-clip": {
     "background": "transparent",
-    "foreground": "#FFFFFF",
+    "foreground": "var(--on-background)",
     "font-size": "14sp",
     "margin": "4dp",
     "padding": "8dp 0dp",
@@ -491,5 +463,9 @@
   "subtype-panel-list-item-text": {
     "text-max-lines": "1",
     "text-overflow": "ellipsis"
+  },
+  "key[output=` `]": {
+    "foreground": "#101010",
+    "font-size": "12sp"
   }
 }

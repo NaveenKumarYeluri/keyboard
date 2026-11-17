@@ -6,21 +6,21 @@
     "--secondary": "#FDF5E8",
     "--secondary-variant": "#FDF5E8",
     "--background": "#404473",
-    "--background-variant": "#555480",
+    "--background-variant": "#66658d",
     "--surface": "#555480",
-    "--surface-variant": "#806F8F",
-    "--popup-surface": "#806F8F",
+    "--surface-variant": "#66658d",
+    "--popup-surface": "#66658d",
     "--focused-popup-surface": "#FDF5E8",
     "--drag-marker": "rgb(255,0,0)",
     "--spacer-color": "rgba(255, 255, 255, 0.25)",
     "--one-hand-background": "#404473",
     "--one-hand-foreground": "#FFFFFF",
     "--incognito-icon-color": "rgba(255, 255, 255, 0.07)",
-    "--on-primary": "#404473",
+    "--on-primary": "#101010",
     "--on-background": "#FFFFFF",
     "--on-background-disabled": "rgba(255, 255, 255, 0.4)",
     "--on-surface": "#FFFFFF",
-    "--on-surface-variant": "#FFFFFF",
+    "--on-surface-variant": "rgba(255, 255, 255, 0.7)",
     "--shape": "rounded-corner(6dp, 6dp, 6dp, 6dp)",
     "--shape-variant": "rounded-corner(12dp, 12dp, 12dp, 12dp)",
     "--shape-chip": "rounded-corner(50%, 50%, 50%, 50%)"
@@ -71,45 +71,18 @@
     "background": "var(--surface-variant)",
     "foreground": "var(--on-surface)"
   },
-  "key[code=10]": {
-    "background": "var(--primary)",
-    "foreground": "var(--on-surface)"
-  },
   "key[output=`@k3:action/enter`]": {
     "background": "var(--primary)",
-    "foreground": "var(--on-surface)"
-  },
-  "key[code=10]:pressed": {
-    "background": "var(--primary-variant)",
     "foreground": "var(--on-surface)"
   },
   "key[output=`@k3:action/enter`]:pressed": {
     "background": "var(--primary-variant)",
     "foreground": "var(--on-surface)"
   },
-  "key[code=32]": {
-    "background": "#B1A6B6",
-    "foreground": "#FFFFFF",
-    "font-size": "12sp",
-    "text-overflow": "ellipsis"
-  },
   "key[output=` `]": {
-    "background": "#B1A6B6",
-    "foreground": "#FFFFFF",
+    "foreground": "#101010",
     "font-size": "12sp",
-    "text-overflow": "ellipsis"
-  },
-  "key[code=-201,-202,-203]": {
-    "font-size": "18sp"
-  },
-  "key[code=-204,-205]": {
-    "font-size": "12sp"
-  },
-  "key[code=-205]": {
-    "text-max-lines": "2"
-  },
-  "key[code=-11][shiftstate=`caps_lock`]": {
-    "foreground": "var(--secondary)"
+    "background": "#B1A6B6"
   },
   "key-hint": {
     "background": "transparent",
@@ -237,7 +210,7 @@
   },
   "smartbar-candidate-word": {
     "background": "transparent",
-    "foreground": "#FFFFFF",
+    "foreground": "var(--on-background)",
     "font-size": "14sp",
     "margin": "4dp",
     "padding": "8dp 0dp",
@@ -255,7 +228,7 @@
   },
   "smartbar-candidate-clip": {
     "background": "transparent",
-    "foreground": "#FFFFFF",
+    "foreground": "var(--on-background)",
     "font-size": "14sp",
     "margin": "4dp",
     "padding": "8dp 0dp",

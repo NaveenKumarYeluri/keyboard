@@ -143,7 +143,7 @@ class ImeController(
             // Reload the keyboard layout whenever the active subtype changes, so the layout and
             // spacebar language match the subtype selected in the settings.
             FlorisApplication.getHack().subtypeManager.value.activeSubtypeFlow.collect { subtype ->
-                loadFoundationKeyboard(this@ImeController, storageController.activeStorage.value, subtype.primaryLocale)
+                loadFoundationKeyboard(this@ImeController, storageController.activeStorage.value, subtype)
             }
         }
 
@@ -459,7 +459,14 @@ class ImeController(
                     )
                 }
                 ImeActions.SwitchToPrevSubtype -> FlorisApplication.getHack().subtypeManager.value.switchToPrevSubtype()
-                ImeActions.SwitchToNextSubtype -> FlorisApplication.getHack().subtypeManager.value.switchToNextSubtype()
+                ImeActions.SwitchToNextSubtype -> {
+                    // Like the old FlorisBoard language key: tapping it opens the subtype
+                    // selection panel so the user can see and pick the target language.
+                    state = state.copy(
+                        flags = state.flags
+                            .withSubtypeSelectionVisible(!state.flags.isSubtypeSelectionVisible),
+                    )
+                }
                 ImeActions.ToggleActionsEditor -> {
                     state = state.copy(
                         flags = state.flags

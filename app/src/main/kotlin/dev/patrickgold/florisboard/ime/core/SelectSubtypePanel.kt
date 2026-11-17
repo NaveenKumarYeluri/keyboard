@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import dev.patrickgold.florisboard.R
+import dev.patrickgold.florisboard.ime.keyboard3.LocalImeController
 import dev.patrickgold.florisboard.ime.theme.FlorisImeUi
 import dev.patrickgold.florisboard.subtypeManager
 import org.florisboard.lib.compose.stringRes
@@ -45,6 +46,7 @@ import org.florisboard.lib.snygg.ui.SnyggText
 fun SelectSubtypePanel(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val subtypeManager by context.subtypeManager()
+    val imeController = LocalImeController.current
 
     val listState = rememberLazyListState()
     val subtypes by subtypeManager.subtypesFlow.collectAsState()
@@ -79,7 +81,11 @@ fun SelectSubtypePanel(modifier: Modifier = Modifier) {
                         elementName = FlorisImeUi.SubtypePanelListItem.elementName,
                         onClick = {
                             subtypeManager.switchToSubtypeById(it.id)
-                            // TODO keyboardManager.activeState.isSubtypeSelectionVisible = false
+                            imeController.updateStateBlocking {
+                                state = state.copy(
+                                    flags = state.flags.withSubtypeSelectionVisible(false),
+                                )
+                            }
                         },
                         leadingImageVector = when {
                             currentlySelected == it.id -> Icons.Default.RadioButtonChecked

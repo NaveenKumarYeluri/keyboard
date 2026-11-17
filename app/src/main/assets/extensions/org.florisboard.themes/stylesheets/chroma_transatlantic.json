@@ -6,21 +6,21 @@
     "--secondary": "#7B3A3B",
     "--secondary-variant": "#7B3A3B",
     "--background": "#B9D7D8",
-    "--background-variant": "#7B3A3B",
+    "--background-variant": "#884e4f",
     "--surface": "#7B3A3B",
-    "--surface-variant": "#1B140C",
-    "--popup-surface": "#1B140C",
+    "--surface-variant": "#884e4f",
+    "--popup-surface": "#884e4f",
     "--focused-popup-surface": "#7B3A3B",
     "--drag-marker": "rgb(255,0,0)",
-    "--spacer-color": "rgba(255, 255, 255, 0.25)",
+    "--spacer-color": "rgba(16, 16, 16, 0.25)",
     "--one-hand-background": "#B9D7D8",
-    "--one-hand-foreground": "#FFFFFF",
-    "--incognito-icon-color": "rgba(255, 255, 255, 0.07)",
+    "--one-hand-foreground": "#101010",
+    "--incognito-icon-color": "rgba(16, 16, 16, 0.07)",
     "--on-primary": "#FFFFFF",
-    "--on-background": "#FFFFFF",
-    "--on-background-disabled": "rgba(255, 255, 255, 0.4)",
+    "--on-background": "#101010",
+    "--on-background-disabled": "rgba(16, 16, 16, 0.4)",
     "--on-surface": "#FFFFFF",
-    "--on-surface-variant": "#FFFFFF",
+    "--on-surface-variant": "rgba(255, 255, 255, 0.7)",
     "--shape": "rounded-corner(6dp, 6dp, 6dp, 6dp)",
     "--shape-variant": "rounded-corner(12dp, 12dp, 12dp, 12dp)",
     "--shape-chip": "rounded-corner(50%, 50%, 50%, 50%)"
@@ -71,45 +71,18 @@
     "background": "var(--surface-variant)",
     "foreground": "var(--on-surface)"
   },
-  "key[code=10]": {
-    "background": "var(--primary)",
-    "foreground": "var(--on-surface)"
-  },
   "key[output=`@k3:action/enter`]": {
     "background": "var(--primary)",
-    "foreground": "var(--on-surface)"
-  },
-  "key[code=10]:pressed": {
-    "background": "var(--primary-variant)",
     "foreground": "var(--on-surface)"
   },
   "key[output=`@k3:action/enter`]:pressed": {
     "background": "var(--primary-variant)",
     "foreground": "var(--on-surface)"
   },
-  "key[code=32]": {
-    "background": "#493736",
-    "foreground": "#FFFFFF",
-    "font-size": "12sp",
-    "text-overflow": "ellipsis"
-  },
   "key[output=` `]": {
-    "background": "#493736",
     "foreground": "#FFFFFF",
     "font-size": "12sp",
-    "text-overflow": "ellipsis"
-  },
-  "key[code=-201,-202,-203]": {
-    "font-size": "18sp"
-  },
-  "key[code=-204,-205]": {
-    "font-size": "12sp"
-  },
-  "key[code=-205]": {
-    "text-max-lines": "2"
-  },
-  "key[code=-11][shiftstate=`caps_lock`]": {
-    "foreground": "var(--secondary)"
+    "background": "#493736"
   },
   "key-hint": {
     "background": "transparent",
@@ -237,7 +210,7 @@
   },
   "smartbar-candidate-word": {
     "background": "transparent",
-    "foreground": "#FFFFFF",
+    "foreground": "var(--on-background)",
     "font-size": "14sp",
     "margin": "4dp",
     "padding": "8dp 0dp",
@@ -255,7 +228,7 @@
   },
   "smartbar-candidate-clip": {
     "background": "transparent",
-    "foreground": "#FFFFFF",
+    "foreground": "var(--on-background)",
     "font-size": "14sp",
     "margin": "4dp",
     "padding": "8dp 0dp",
