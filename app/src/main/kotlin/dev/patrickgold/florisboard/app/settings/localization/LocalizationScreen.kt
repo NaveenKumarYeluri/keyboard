@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2025 The FlorisBoard Contributors
+ * Copyright (C) 2021-2026 The FlorisBoard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 
 package dev.patrickgold.florisboard.app.settings.localization
 
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -25,13 +24,8 @@ import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.Saver
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -39,29 +33,18 @@ import dev.patrickgold.florisboard.R
 import dev.patrickgold.florisboard.app.FlorisPreferenceStore
 import dev.patrickgold.florisboard.app.LocalNavController
 import dev.patrickgold.florisboard.app.Routes
+import dev.patrickgold.florisboard.app.components.FlorisScreen
 import dev.patrickgold.florisboard.app.enumDisplayEntriesOf
 import dev.patrickgold.florisboard.ime.core.DisplayLanguageNamesIn
 import dev.patrickgold.florisboard.ime.core.Subtype
-import dev.patrickgold.florisboard.app.components.FlorisScreen
 import dev.patrickgold.florisboard.subtypeManager
 import dev.patrickgold.jetpref.datastore.model.collectAsState
 import dev.patrickgold.jetpref.datastore.ui.ListPreference
 import dev.patrickgold.jetpref.datastore.ui.Preference
 import dev.patrickgold.jetpref.datastore.ui.PreferenceGroup
 import dev.patrickgold.jetpref.datastore.ui.SwitchPreference
-import dev.patrickgold.jetpref.material.ui.JetPrefAlertDialog
-import kotlinx.serialization.json.Json
 import org.florisboard.lib.compose.FlorisWarningCard
 import org.florisboard.lib.compose.stringRes
-
-internal val SubtypeSaver = Saver<MutableState<Subtype?>, String>(
-    save = {
-        Json.encodeToString<Subtype?>(it.value)
-    },
-    restore = {
-        mutableStateOf(Json.decodeFromString(it))
-    },
-)
 
 @Composable
 fun LocalizationScreen() = FlorisScreen {
@@ -74,7 +57,6 @@ fun LocalizationScreen() = FlorisScreen {
     val subtypeManager by context.subtypeManager()
     val prefs by FlorisPreferenceStore
     val displayLanguageNamesIn by prefs.localization.displayLanguageNamesIn.collectAsState()
-    var chosenSubtypeToDelete: Subtype? by rememberSaveable(saver = SubtypeSaver) { mutableStateOf(null) }
 
     floatingActionButton {
         ExtendedFloatingActionButton(
@@ -114,54 +96,17 @@ fun LocalizationScreen() = FlorisScreen {
             } else {
                 for (subtype in subtypes) {
                     Preference(
-                        onClick = {},
+                        onClick = {
+                            navController.navigate(Routes.Settings.SubtypeEdit(subtype.id))
+                        },
                         title = when (displayLanguageNamesIn) {
                             DisplayLanguageNamesIn.SYSTEM_LOCALE -> subtype.primaryLocale.displayName()
                             DisplayLanguageNamesIn.NATIVE_LOCALE -> subtype.primaryLocale.displayName(subtype.primaryLocale)
                         },
                         summary = subtype.primaryLocale.languageTag(),
-                        modifier = Modifier.combinedClickable(
-                            onClick = {
-                                navController.navigate(Routes.Settings.SubtypeEdit(subtype.id))
-                            },
-                            onLongClick = {
-                                chosenSubtypeToDelete = subtype
-                            },
-                        ),
                     )
                 }
             }
         }
-    }
-
-    DeleteSubtypeConfirmationDialog(
-        subtypeToDelete = chosenSubtypeToDelete,
-        onDismiss = {
-            chosenSubtypeToDelete = null
-        },
-        onConfirm = {
-            chosenSubtypeToDelete?.let { subtypeManager.removeSubtype(subtypeToRemove = it) }
-            chosenSubtypeToDelete = null
-        }
-    )
-
-}
-
-@Composable
-fun DeleteSubtypeConfirmationDialog(
-    subtypeToDelete: Subtype?,
-    onDismiss: () -> Unit,
-    onConfirm: () -> Unit,
-)   {
-    subtypeToDelete?.let {
-        JetPrefAlertDialog(
-            title = stringRes(R.string.settings__localization__subtype_delete_confirmation_title),
-            confirmLabel = stringRes(R.string.action__yes),
-            dismissLabel = stringRes(R.string.action__no),
-            onDismiss = onDismiss,
-            onConfirm = onConfirm,
-            ) {
-                Text(stringRes(R.string.settings__localization__subtype_delete_confirmation_warning))
-            }
     }
 }
