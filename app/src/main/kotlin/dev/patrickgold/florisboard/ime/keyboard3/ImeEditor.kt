@@ -21,6 +21,7 @@ import android.content.ContentUris
 import android.os.SystemClock
 import android.view.KeyCharacterMap
 import android.view.KeyEvent
+import android.view.inputmethod.CursorAnchorInfo
 import android.view.inputmethod.InputConnection
 import androidx.core.view.inputmethod.InputConnectionCompat
 import androidx.core.view.inputmethod.InputContentInfoCompat
@@ -80,7 +81,7 @@ open class ImeEditor(
      */
     fun getSelectionRange(): EditorSelection? {
         val ic = ic.get() ?: return null
-        val anchorInfo = runCatching { ic.getCursorAnchorInfo(0) }.getOrNull()
+        val anchorInfo: CursorAnchorInfo? = runCatching { ic.getCursorAnchorInfo(0) }.getOrNull()
         if (anchorInfo != null && anchorInfo.selectionStart >= 0 && anchorInfo.selectionEnd >= anchorInfo.selectionStart) {
             return EditorSelection(anchorInfo.selectionStart, anchorInfo.selectionEnd)
         }
