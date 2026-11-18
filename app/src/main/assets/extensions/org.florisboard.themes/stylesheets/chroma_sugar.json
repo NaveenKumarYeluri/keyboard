@@ -60,15 +60,15 @@
     "background": "var(--primary)"
   },
   "key": {
-    "background": "var(--surface)",
+    "background": "transparent",
     "foreground": "var(--on-surface)",
     "font-size": "22sp",
     "shape": "var(--shape)",
-    "shadow-elevation": "2dp",
+    "shadow-elevation": "0dp",
     "text-max-lines": "1"
   },
   "key:pressed": {
-    "background": "var(--surface-variant)",
+    "background": "rgba(16, 16, 16, 0.12)",
     "foreground": "var(--on-surface)"
   },
   "key[output=`@k3:action/enter`]": {
@@ -81,8 +81,7 @@
   },
   "key[output=` `]": {
     "foreground": "#101010",
-    "font-size": "12sp",
-    "background": "#FC9D9A"
+    "font-size": "12sp"
   },
   "key-hint": {
     "background": "transparent",

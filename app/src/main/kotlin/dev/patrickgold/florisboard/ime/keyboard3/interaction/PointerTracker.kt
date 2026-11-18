@@ -86,6 +86,7 @@ sealed interface TrackedPointer {
         override val downKey: TouchKey,
         val longPress: LongPress,
         val repeatJob: Job?,
+        val directLongPressActionEmitted: Boolean = false,
     ) : TrackedPointer
 }
 
@@ -188,7 +189,7 @@ class PointerTracker(
                 id = down.id,
                 down = down,
                 downKey = downKey,
-                longPress = if (downKey.isSuitableForPopup) {
+                longPress = if (downKey.isSuitableForPopup || downKey.directLongPressAction != null) {
                     val anchorBounds = downKey.bounds.let { bounds ->
                         // TODO this is only tested for PHONE_PORTRAIT, test+fix other form factors!
                         val w = 0.1f
@@ -212,7 +213,7 @@ class PointerTracker(
                         extendedBounds = Rect.Zero,
                         extendedKeys = downKey.extendedPopupKeys,
                         extendedFocusedIndex = 0,
-                        extendedJob = if (downKey.isSuitableForExtendedPopup) {
+                        extendedJob = if (downKey.isSuitableForExtendedPopup || downKey.directLongPressAction != null) {
                             launchExtendedLongPressJob(longPressTimeout)
                         } else null,
                     )
@@ -324,16 +325,18 @@ class PointerTracker(
         trackedOutputPointer.value?.takeIf { it.id == up.id }?.let { trackedPointer ->
             trackedPointer.longPress.extendedJob?.cancel()
             trackedPointer.repeatJob?.cancel()
-            imeController.updateState {
-                val output = when {
-                    trackedPointer.downKey == trackedMultiTapSeq.value?.touchKey -> null
-                    trackedPointer.longPress.shouldShowExtendedPopup() -> {
-                        trackedPointer.longPress.extendedKeys.getOrNull(trackedPointer.longPress.extendedFocusedIndex)
-                            ?.data?.output
+            if (!trackedPointer.directLongPressActionEmitted) {
+                imeController.updateState {
+                    val output = when {
+                        trackedPointer.downKey == trackedMultiTapSeq.value?.touchKey -> null
+                        trackedPointer.longPress.shouldShowExtendedPopup() -> {
+                            trackedPointer.longPress.extendedKeys.getOrNull(trackedPointer.longPress.extendedFocusedIndex)
+                                ?.data?.output
+                        }
+                        else -> trackedPointer.downKey.attrs.output
                     }
-                    else -> trackedPointer.downKey.attrs.output
+                    output?.let { emit(it) }
                 }
-                output?.let { emit(it) }
             }
             trackedPeekPointer.update { it?.copy(peekMustSwitchBack = true) }
             trackedOutputPointer.value = null
@@ -417,6 +420,15 @@ class PointerTracker(
             }
             val trackedPointer = trackedOutputPointer.value ?: return@mutateLocked
             val longPress = trackedPointer.longPress
+            val directAction = trackedPointer.downKey.directLongPressAction
+            if (directAction != null) {
+                imeController.updateState { emit(directAction) }
+                trackedOutputPointer.value = trackedPointer.copy(
+                    longPress = LongPress.None,
+                    directLongPressActionEmitted = true,
+                )
+                return@mutateLocked
+            }
             val anchorBounds = longPress.anchorBounds
             val extendedKeys = layoutExtendedLongPressKeys(longPress.extendedKeys, anchorBounds)
             val extendedBounds = anchorBounds.copy(

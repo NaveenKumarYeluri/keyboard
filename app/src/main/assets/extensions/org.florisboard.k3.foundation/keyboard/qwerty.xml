@@ -18,12 +18,12 @@
         <import base="cldr" path="45/keys-Zyyy-punctuation.xml" />
         <import base="cldr" path="45/keys-Zyyy-currency.xml" />
 
-        <key id="base" layerId="base" width="1.5" />
+        <key id="base" layerId="base" width="2" />
         <key id="base-to-shift" layerId="shift" width="1.5" />
         <key id="shift-to-base" layerId="base" width="1.5" />
         <key id="numeric" layerId="numeric" />
-        <key id="symbol-1" layerId="symbol-1" width="1.5" />
-        <key id="symbol-2" layerId="symbol-2" width="1.5" />
+        <key id="symbol-1" layerId="symbol-1" width="2" />
+        <key id="symbol-2" layerId="symbol-2" width="2" />
 
         <key id="bksp" output="@k3:action/backspace" stretch="true" />
         <key id="enter" output="@k3:action/enter" width="1.6" />
@@ -356,7 +356,6 @@
 
         <layer id="symbol-1">
             <row keys="1 2 3 4 5 6 7 8 9 0" />
-            <row keys="percent backslash pipe equal open-square close-square open-angle close-angle open-curly close-curly" />
             <row keys="at hash currency-1 underscore amp hyphen plus open-paren close-paren slash" />
             <row keys="symbol-2 asterisk double-quote apos colon semi-colon bang question bksp" />
             <row keys="base comma numeric space period enter" />

@@ -123,6 +123,7 @@ class TouchKey(
     val shouldOverrideDisplayWithMultiTapKeys: Boolean,
     val shouldHighlightPendingMultiTapKey: Boolean,
     val multiTapKeys: List<TouchMultiTapKey>,
+    val directLongPressAction: K3Descriptor?,
 ) {
     val isSuitableForPopup: Boolean
         get() = isSuitableForSimplePopup || isSuitableForExtendedPopup
@@ -312,6 +313,11 @@ private fun computeTouchKeyboard(
                             }
                         } ?: emptyList()
                     }
+                    val directLongPressAction: K3Descriptor? = when {
+                        isFnKey -> ImeActions.ShowSubtypePicker
+                        key.id.value == "space" -> ImeActions.ShowInputMethodPicker
+                        else -> null
+                    }
                     val multiTapKeys = when {
                         isFnKey -> emptyList() // no support for multi-tap on fn key
                         else -> key.multiTapKeyIds?.let { multiTapKeyIds ->
@@ -355,9 +361,12 @@ private fun computeTouchKeyboard(
                         isRepeatable = attrs.output?.isRepeatable() ?: false,
                         isSuitableForSpaceBarDisplayOverride = attrs.isSuitableForSpaceBarDisplayOverride(display),
                         isSuitableForSimplePopup = options.popupsEnabled && attrs.isSuitableForSimplePopup(),
-                        isSuitableForExtendedPopup = options.popupsEnabled && popups.isNotEmpty(),
-                        extendedPopupKeys = popups,
-                        longPressKeyHint = if (options.popupsEnabled && options.longPressKeyHintEnabled) {
+                        isSuitableForExtendedPopup = options.popupsEnabled &&
+                            (popups.isNotEmpty() || directLongPressAction != null),
+                        extendedPopupKeys = if (directLongPressAction != null) emptyList() else popups,
+                        longPressKeyHint = if (options.popupsEnabled && options.longPressKeyHintEnabled &&
+                            directLongPressAction == null
+                        ) {
                             popups.firstOrNull()?.display
                         } else null,
                         longPressKeyHintPlacement = options.longPressKeyHintPlacement,
@@ -365,6 +374,7 @@ private fun computeTouchKeyboard(
                             model.displays.byKeyId[key.id] == null && multiTapKeys.isNotEmpty(),
                         shouldHighlightPendingMultiTapKey = options.multiTapHighlightEnabled,
                         multiTapKeys = multiTapKeys,
+                        directLongPressAction = directLongPressAction,
                     )
                     touchKeys.add(touchKey)
                     currentX += keyWidthPx

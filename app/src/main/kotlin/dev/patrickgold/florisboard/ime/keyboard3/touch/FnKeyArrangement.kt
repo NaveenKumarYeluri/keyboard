@@ -41,7 +41,7 @@ data class FnKeyArrangement(
         val Default = FnKeyArrangement(
             simpleAction = FnKeyAction(ImeActions.SwitchToNextSubtype),
             longPressActions = listOf(
-                FnKeyAction(ImeActions.ShowInputMethodPicker),
+                FnKeyAction(ImeActions.ShowSubtypePicker),
             ),
         )
     }
