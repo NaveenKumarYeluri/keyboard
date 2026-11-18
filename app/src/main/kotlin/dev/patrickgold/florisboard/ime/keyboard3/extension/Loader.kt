@@ -52,6 +52,9 @@ private fun resolveLayoutId(subtype: Subtype): String {
     }
 }
 
+private val LONG_PRESS_ATTRIBUTES_REGEX =
+    """\s+longPress(?:KeyIds|DefaultKeyId)="[^"]*"""".toRegex()
+
 private val TOUCH_LAYERS_REGEX = """<layers\b[^>]*formId="touch"[^>]*>""".toRegex()
 
 private fun touchLayerRegex(layerId: String): Regex {
@@ -111,6 +114,12 @@ suspend fun loadFoundationKeyboard(imeController: ImeController, storage: Storag
         } else {
             flogWarning { "Failed to override touch layer '$layerId' with layout '$overrideLayoutId'" }
         }
+    }
+
+    // The "none" popup mapping disables all long-press popups and hints by stripping the
+    // corresponding attributes from every key definition.
+    if (subtype.popupMapping == "none") {
+        keyboardXml = keyboardXml.replace(LONG_PRESS_ATTRIBUTES_REGEX, "")
     }
 
     suspend fun loadAssetFile(path: String): TextSourceFile {

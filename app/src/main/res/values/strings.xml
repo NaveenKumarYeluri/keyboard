@@ -139,6 +139,14 @@
 <string name="settings__localization__subtype_layout_auto" comment="Layout dropdown option: pick layout automatically based on the subtype language">Auto (language based)</string>
 <string name="settings__localization__subtype_layout_inherit" comment="Layout dropdown option: reuse the characters layout of the subtype for this layer">From characters layout</string>
 <string name="settings__localization__subtype_popup_mapping_default" comment="Popup mapping dropdown option: use the long-press mapping shipped with the keyboard layout">Default (built-in)</string>
+<string name="settings__localization__subtype_popup_mapping_none" comment="Popup mapping dropdown option: disable all long-press popups and hints">None (disable long-press popups)</string>
+<string name="settings__localization__subtype_group_language" comment="Section title in subtype dialog for language related settings">Language</string>
+<string name="settings__localization__subtype_group_typing" comment="Section title in subtype dialog for typing and suggestion settings">Typing</string>
+<string name="settings__localization__subtype_group_layouts" comment="Section title in subtype dialog for keyboard layout settings">Keyboard layouts</string>
+<string name="settings__localization__subtype_secondary_locales" comment="Label for secondary languages in subtype dialog">Secondary languages</string>
+<string name="settings__localization__subtype_secondary_locales_none" comment="Shown when a subtype has no secondary languages">None</string>
+<string name="settings__localization__subtype_secondary_locales_add" comment="Button to add a secondary language to a subtype">Add language</string>
+<string name="settings__localization__subtype_secondary_locales_remove" comment="Content description of the button which removes a secondary language from a subtype">Remove language</string>
 <string name="settings__localization__subtype_nlp_none" comment="Suggestion engine dropdown option: no suggestion or spell checking provider">None</string>
 <string name="settings__localization__subtype_composer_default" comment="Composer dropdown option: use the default appender composer">Default (appender)</string>
 <string name="settings__localization__subtype_currency_set_auto" comment="Currency set dropdown option: pick the currency symbols automatically based on the subtype locale">Automatic (language based)</string>

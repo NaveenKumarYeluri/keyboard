@@ -16,21 +16,25 @@
 
 package dev.patrickgold.florisboard.app.settings.localization
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Button
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -40,6 +44,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -57,6 +62,8 @@ import dev.patrickgold.florisboard.lib.FlorisLocale
 import dev.patrickgold.florisboard.subtypeManager
 import dev.patrickgold.jetpref.datastore.model.collectAsState
 import dev.patrickgold.jetpref.material.ui.JetPrefAlertDialog
+import dev.patrickgold.jetpref.material.ui.JetPrefDropdown
+import dev.patrickgold.jetpref.material.ui.JetPrefDropdownMenuDefaults
 import org.florisboard.lib.compose.FlorisDropdownLikeButton
 import org.florisboard.lib.compose.stringRes
 
@@ -70,6 +77,15 @@ private val SelectLocaleSentinel = FlorisLocale.from("00", "00")
  * Empty string means "automatic"/"inherit" depending on the field.
  */
 private val KeyboardLayoutIds = listOf("qwerty", "qwertz")
+
+/**
+ * Tracks whether the currently open locale picker should update the primary locale or append a
+ * secondary locale to the subtype.
+ */
+private enum class LocaleSelectionTarget {
+    PRIMARY,
+    SECONDARY,
+}
 
 @Composable
 fun SubtypeEditorScreen(id: Long?) = FlorisScreen {
@@ -88,6 +104,7 @@ fun SubtypeEditorScreen(id: Long?) = FlorisScreen {
 
     val initialSubtype = remember { id?.let { subtypeManager.getSubtypeById(it) } }
     var primaryLocale by remember { mutableStateOf(initialSubtype?.primaryLocale ?: SelectLocaleSentinel) }
+    var secondaryLocales by remember { mutableStateOf(initialSubtype?.secondaryLocales ?: emptyList()) }
     var charactersLayout by remember { mutableStateOf(initialSubtype?.charactersLayout ?: "") }
     var popupMapping by remember { mutableStateOf(initialSubtype?.popupMapping ?: "") }
     var symbolsLayout by remember { mutableStateOf(initialSubtype?.symbolsLayout ?: "") }
@@ -102,18 +119,41 @@ fun SubtypeEditorScreen(id: Long?) = FlorisScreen {
     var suggestionProvider by remember {
         mutableStateOf(initialSubtype?.nlpProviders?.suggestion ?: LatinLanguageProvider.ProviderId)
     }
+    var localeSelectionTarget by remember { mutableStateOf(LocaleSelectionTarget.PRIMARY) }
     var showSelectAsError by remember { mutableStateOf(false) }
     var errorDialogStrId by remember { mutableStateOf<Int?>(null) }
 
-    // The primary language is picked on the SelectLocale screen, which returns its result through
-    // the saved state handle of this back stack entry.
+    // The primary/secondary language is picked on the SelectLocale screen, which returns its
+    // result through the saved state handle of this back stack entry.
     val selectLocaleScreenResult = navController.currentBackStackEntry
         ?.savedStateHandle
         ?.getStateFlow<String?>(SelectLocaleScreenResultLanguageTag, null)
         ?.collectAsState()
     LaunchedEffect(selectLocaleScreenResult?.value) {
         val languageTag = selectLocaleScreenResult?.value ?: return@LaunchedEffect
-        primaryLocale = FlorisLocale.fromTag(languageTag)
+        val locale = FlorisLocale.fromTag(languageTag)
+        when (localeSelectionTarget) {
+            LocaleSelectionTarget.PRIMARY -> {
+                primaryLocale = locale
+                secondaryLocales = secondaryLocales.filterNot { it == locale }
+                showSelectAsError = false
+            }
+            LocaleSelectionTarget.SECONDARY -> {
+                if (locale != primaryLocale && locale !in secondaryLocales) {
+                    secondaryLocales = secondaryLocales + locale
+                }
+            }
+        }
+        navController.currentBackStackEntry?.savedStateHandle?.set(
+            SelectLocaleScreenResultLanguageTag,
+            null,
+        )
+        localeSelectionTarget = LocaleSelectionTarget.PRIMARY
+    }
+
+    fun localeName(locale: FlorisLocale): String = when (displayLanguageNamesIn) {
+        DisplayLanguageNamesIn.SYSTEM_LOCALE -> locale.displayName()
+        DisplayLanguageNamesIn.NATIVE_LOCALE -> locale.displayName(locale)
     }
 
     actions {
@@ -166,7 +206,7 @@ fun SubtypeEditorScreen(id: Long?) = FlorisScreen {
                     val subtype = Subtype(
                         id = initialSubtype?.id ?: -1,
                         primaryLocale = primaryLocale,
-                        secondaryLocales = initialSubtype?.secondaryLocales ?: emptyList(),
+                        secondaryLocales = secondaryLocales,
                         charactersLayout = charactersLayout,
                         popupMapping = popupMapping,
                         symbolsLayout = symbolsLayout,
@@ -213,6 +253,7 @@ fun SubtypeEditorScreen(id: Long?) = FlorisScreen {
     }
     val popupMappingOptions = listOf(
         "" to stringRes(R.string.settings__localization__subtype_popup_mapping_default),
+        "none" to stringRes(R.string.settings__localization__subtype_popup_mapping_none),
     )
     val suggestionProviderOptions = listOf(
         LatinLanguageProvider.ProviderId to "Latin",
@@ -220,129 +261,179 @@ fun SubtypeEditorScreen(id: Long?) = FlorisScreen {
     )
     val composerOptions = listOf(
         "" to stringRes(R.string.settings__localization__subtype_composer_default),
+        "hangul-unicode" to "Hangul Unicode",
+        "kana-unicode" to "Kana Unicode",
     )
     val currencySetOptions = listOf(
         "" to stringRes(R.string.settings__localization__subtype_currency_set_auto),
+        "usd" to "US Dollar ($)",
+        "eur" to "Euro (\u20AC)",
+        "gbp" to "British Pound (\u00A3)",
+        "inr" to "Indian Rupee (\u20B9)",
+        "jpy" to "Japanese Yen (\u00A5)",
     )
 
     content {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(all = 16.dp),
+                .padding(horizontal = 8.dp),
         ) {
-            SubtypeProperty(stringRes(R.string.settings__localization__subtype_locale)) {
-                FlorisDropdownLikeButton(
-                    item = if (primaryLocale == SelectLocaleSentinel) {
-                        stringRes(R.string.settings__localization__subtype_select_placeholder)
-                    } else {
-                        when (displayLanguageNamesIn) {
-                            DisplayLanguageNamesIn.SYSTEM_LOCALE -> primaryLocale.displayName()
-                            DisplayLanguageNamesIn.NATIVE_LOCALE -> primaryLocale.displayName(primaryLocale)
-                        }
-                    },
-                    isError = showSelectAsError && primaryLocale == SelectLocaleSentinel,
-                    onClick = {
-                        navController.navigate(Routes.Settings.SelectLocale)
-                    },
-                )
-            }
-            SubtypeProperty(stringRes(R.string.settings__localization__subtype_popup_mapping)) {
+            SubtypeSection(title = stringRes(R.string.settings__localization__subtype_group_language)) {
+                Column {
+                    Text(
+                        text = stringRes(R.string.settings__localization__subtype_locale),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    FlorisDropdownLikeButton(
+                        modifier = Modifier.fillMaxWidth(),
+                        item = if (primaryLocale == SelectLocaleSentinel) {
+                            stringRes(R.string.settings__localization__subtype_select_placeholder)
+                        } else {
+                            localeName(primaryLocale)
+                        },
+                        isError = showSelectAsError && primaryLocale == SelectLocaleSentinel,
+                        appearance = JetPrefDropdownMenuDefaults.outlined(shape = ShapeDefaults.Small),
+                        onClick = {
+                            localeSelectionTarget = LocaleSelectionTarget.PRIMARY
+                            navController.navigate(Routes.Settings.SelectLocale)
+                        },
+                    )
+                }
                 SubtypeDropdown(
-                    value = popupMapping,
-                    options = popupMappingOptions,
-                    onValueChange = { popupMapping = it },
-                )
-            }
-            SubtypeProperty(stringRes(R.string.settings__localization__subtype_characters_layout)) {
-                SubtypeDropdown(
+                    title = stringRes(R.string.settings__localization__subtype_characters_layout),
                     value = charactersLayout,
                     options = charactersLayoutOptions,
                     onValueChange = { charactersLayout = it },
                 )
+                Column {
+                    Text(
+                        text = stringRes(R.string.settings__localization__subtype_secondary_locales),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    if (secondaryLocales.isEmpty()) {
+                        Text(
+                            modifier = Modifier.padding(vertical = 4.dp),
+                            text = stringRes(R.string.settings__localization__subtype_secondary_locales_none),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    } else {
+                        for (locale in secondaryLocales) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                Text(
+                                    modifier = Modifier.weight(1f),
+                                    text = localeName(locale),
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                )
+                                IconButton(onClick = {
+                                    secondaryLocales = secondaryLocales - locale
+                                }) {
+                                    Icon(
+                                        imageVector = Icons.Default.Close,
+                                        contentDescription = stringRes(
+                                            R.string.settings__localization__subtype_secondary_locales_remove,
+                                        ),
+                                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    )
+                                }
+                            }
+                        }
+                    }
+                    TextButton(onClick = {
+                        localeSelectionTarget = LocaleSelectionTarget.SECONDARY
+                        navController.navigate(Routes.Settings.SelectLocale)
+                    }) {
+                        Icon(
+                            modifier = Modifier.padding(end = 4.dp),
+                            imageVector = Icons.Default.Add,
+                            contentDescription = null,
+                        )
+                        Text(text = stringRes(R.string.settings__localization__subtype_secondary_locales_add))
+                    }
+                }
             }
 
-            SubtypeGroupSpacer()
-
-            SubtypeProperty(stringRes(R.string.settings__localization__subtype_suggestion_provider)) {
+            SubtypeSection(title = stringRes(R.string.settings__localization__subtype_group_typing)) {
                 SubtypeDropdown(
+                    title = stringRes(R.string.settings__localization__subtype_suggestion_provider),
                     value = suggestionProvider,
                     options = suggestionProviderOptions,
                     onValueChange = { suggestionProvider = it },
                 )
-            }
-
-            SubtypeGroupSpacer()
-
-            SubtypeProperty(stringRes(R.string.settings__localization__subtype_symbols_layout)) {
                 SubtypeDropdown(
-                    value = symbolsLayout,
-                    options = layerLayoutOptions,
-                    onValueChange = { symbolsLayout = it },
+                    title = stringRes(R.string.settings__localization__subtype_popup_mapping),
+                    value = popupMapping,
+                    options = popupMappingOptions,
+                    onValueChange = { popupMapping = it },
                 )
-            }
-            SubtypeProperty(stringRes(R.string.settings__localization__subtype_symbols2_layout)) {
                 SubtypeDropdown(
-                    value = symbols2Layout,
-                    options = layerLayoutOptions,
-                    onValueChange = { symbols2Layout = it },
-                )
-            }
-            SubtypeProperty(stringRes(R.string.settings__localization__subtype_composer)) {
-                SubtypeDropdown(
+                    title = stringRes(R.string.settings__localization__subtype_composer),
                     value = composer,
                     options = composerOptions,
                     onValueChange = { composer = it },
                 )
-            }
-            SubtypeProperty(stringRes(R.string.settings__localization__subtype_currency_set)) {
                 SubtypeDropdown(
+                    title = stringRes(R.string.settings__localization__subtype_currency_set),
                     value = currencySet,
                     options = currencySetOptions,
                     onValueChange = { currencySet = it },
                 )
             }
 
-            SubtypeGroupSpacer()
-
-            SubtypeProperty(stringRes(R.string.settings__localization__subtype_numeric_layout)) {
+            SubtypeSection(title = stringRes(R.string.settings__localization__subtype_group_layouts)) {
                 SubtypeDropdown(
+                    title = stringRes(R.string.settings__localization__subtype_symbols_layout),
+                    value = symbolsLayout,
+                    options = layerLayoutOptions,
+                    onValueChange = { symbolsLayout = it },
+                )
+                SubtypeDropdown(
+                    title = stringRes(R.string.settings__localization__subtype_symbols2_layout),
+                    value = symbols2Layout,
+                    options = layerLayoutOptions,
+                    onValueChange = { symbols2Layout = it },
+                )
+                SubtypeDropdown(
+                    title = stringRes(R.string.settings__localization__subtype_numeric_layout),
                     value = numericLayout,
                     options = layerLayoutOptions,
                     onValueChange = { numericLayout = it },
                 )
-            }
-            SubtypeProperty(stringRes(R.string.settings__localization__subtype_numeric_advanced_layout)) {
                 SubtypeDropdown(
+                    title = stringRes(R.string.settings__localization__subtype_numeric_advanced_layout),
                     value = numericAdvancedLayout,
                     options = layerLayoutOptions,
                     onValueChange = { numericAdvancedLayout = it },
                 )
-            }
-            SubtypeProperty(stringRes(R.string.settings__localization__subtype_numeric_row_layout)) {
                 SubtypeDropdown(
+                    title = stringRes(R.string.settings__localization__subtype_numeric_row_layout),
                     value = numericRowLayout,
                     options = layerLayoutOptions,
                     onValueChange = { numericRowLayout = it },
                 )
-            }
-
-            SubtypeGroupSpacer()
-
-            SubtypeProperty(stringRes(R.string.settings__localization__subtype_phone_layout)) {
                 SubtypeDropdown(
+                    title = stringRes(R.string.settings__localization__subtype_phone_layout),
                     value = phoneLayout,
                     options = layerLayoutOptions,
                     onValueChange = { phoneLayout = it },
                 )
-            }
-            SubtypeProperty(stringRes(R.string.settings__localization__subtype_phone2_layout)) {
                 SubtypeDropdown(
+                    title = stringRes(R.string.settings__localization__subtype_phone2_layout),
                     value = phone2Layout,
                     options = layerLayoutOptions,
                     onValueChange = { phone2Layout = it },
                 )
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 
@@ -360,61 +451,54 @@ fun SubtypeEditorScreen(id: Long?) = FlorisScreen {
 }
 
 @Composable
-private fun SubtypeProperty(title: String, content: @Composable () -> Unit) {
-    Column(modifier = Modifier.padding(vertical = 8.dp)) {
+private fun SubtypeSection(title: String, content: @Composable ColumnScope.() -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 8.dp, bottom = 8.dp),
+    ) {
         Text(
+            modifier = Modifier.padding(start = 4.dp, bottom = 6.dp),
             text = title,
             style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary,
         )
-        Spacer(modifier = Modifier.height(4.dp))
-        content()
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                contentColor = MaterialTheme.colorScheme.onSurface,
+            ),
+        ) {
+            Column(
+                modifier = Modifier.padding(all = 12.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+                content = content,
+            )
+        }
     }
 }
 
 @Composable
 private fun SubtypeDropdown(
+    title: String,
     value: String,
     options: List<Pair<String, String>>,
     onValueChange: (String) -> Unit,
 ) {
-    var expanded by remember { mutableStateOf(false) }
-    val label = options.firstOrNull { it.first == value }?.second ?: value
-    Box {
-        TextButton(
-            onClick = { expanded = true },
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Text(text = label)
-        }
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-        ) {
-            for ((optionValue, optionLabel) in options) {
-                DropdownMenuItem(
-                    text = {
-                        Text(
-                            text = optionLabel,
-                            fontWeight = if (optionValue == value) FontWeight.Bold else FontWeight.Normal,
-                        )
-                    },
-                    onClick = {
-                        onValueChange(optionValue)
-                        expanded = false
-                    },
-                )
-            }
-        }
+    val labels = remember(options) { options.map { it.second } }
+    val selectedIndex = remember(value, options) {
+        options.indexOfFirst { it.first == value }.coerceAtLeast(0)
     }
-}
-
-@Composable
-private fun SubtypeGroupSpacer() {
-    Spacer(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(16.dp),
+    JetPrefDropdown(
+        modifier = Modifier.fillMaxWidth(),
+        labelText = title,
+        options = labels,
+        selectedOptionIndex = selectedIndex,
+        onSelectOption = { index ->
+            options.getOrNull(index)?.let { onValueChange(it.first) }
+        },
+        appearance = JetPrefDropdownMenuDefaults.outlined(shape = ShapeDefaults.Small),
     )
 }
