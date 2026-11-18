@@ -81,7 +81,11 @@ open class ImeEditor(
      */
     fun getSelectionRange(): EditorSelection? {
         val ic = ic.get() ?: return null
-        val anchorInfo: CursorAnchorInfo? = runCatching { ic.getCursorAnchorInfo(0) }.getOrNull()
+        val anchorInfo: CursorAnchorInfo? = try {
+            ic.getCursorAnchorInfo(0)
+        } catch (_: Throwable) {
+            null
+        }
         if (anchorInfo != null && anchorInfo.selectionStart >= 0 && anchorInfo.selectionEnd >= anchorInfo.selectionStart) {
             return EditorSelection(anchorInfo.selectionStart, anchorInfo.selectionEnd)
         }
