@@ -55,6 +55,57 @@ private fun resolveLayoutId(subtype: Subtype): String {
 private val LONG_PRESS_ATTRIBUTES_REGEX =
     """\s+longPress(?:KeyIds|DefaultKeyId)="[^"]*"""".toRegex()
 
+/**
+ * Currency characters used by the `currency-1` .. `currency-6` keys of the foundation layouts.
+ * Slot 1 is the primary currency of the set and is shown on the first symbols layer, the other
+ * slots appear on the second symbols layer and in the long-press popup of the primary key.
+ */
+private val CURRENCY_SETS = mapOf(
+    "usd" to listOf("\u0024", "\u20AC", "\u00A3", "\u00A5", "\u20B9", "\u00A2"),
+    "eur" to listOf("\u20AC", "\u0024", "\u00A3", "\u00A5", "\u20B9", "\u00A2"),
+    "gbp" to listOf("\u00A3", "\u0024", "\u20AC", "\u00A5", "\u20B9", "\u00A2"),
+    "inr" to listOf("\u20B9", "\u0024", "\u20AC", "\u00A3", "\u00A5", "\u00A2"),
+    "jpy" to listOf("\u00A5", "\u0024", "\u20AC", "\u00A3", "\u20B9", "\u00A2"),
+)
+
+private val EURO_COUNTRIES = setOf(
+    "AT", "BE", "CY", "DE", "EE", "ES", "FI", "FR", "GR", "HR", "IE", "IT", "LT", "LU", "LV",
+    "MT", "NL", "PT", "SI", "SK",
+)
+
+/**
+ * Resolves the currency set to use. An explicit subtype selection always wins, otherwise a
+ * reasonable default is derived from the subtype's primary locale.
+ */
+private fun resolveCurrencySetId(subtype: Subtype): String {
+    val explicit = subtype.currencySet
+    if (CURRENCY_SETS.containsKey(explicit)) {
+        return explicit
+    }
+    val locale = subtype.primaryLocale
+    return when {
+        locale.language == "ja" || locale.country == "JP" -> "jpy"
+        locale.country == "IN" -> "inr"
+        locale.country == "GB" -> "gbp"
+        locale.country == "US" -> "usd"
+        locale.country in EURO_COUNTRIES -> "eur"
+        else -> "eur"
+    }
+}
+
+private fun applyCurrencySet(xml: String, subtype: Subtype): String {
+    val slots = CURRENCY_SETS[resolveCurrencySetId(subtype)] ?: return xml
+    var result = xml
+    for ((index, currency) in slots.withIndex()) {
+        val slotId = Regex.escape("currency-${index + 1}")
+        val slotRegex = Regex("""(<key\b[^>]*\bid="$slotId"[^>]*\boutput=")[^"]*(""")
+        result = result.replace(slotRegex) { match ->
+            match.groupValues[1] + currency + match.groupValues[2]
+        }
+    }
+    return result
+}
+
 private val TOUCH_LAYERS_REGEX = """<layers\b[^>]*formId="touch"[^>]*>""".toRegex()
 
 private fun touchLayerRegex(layerId: String): Regex {
@@ -115,6 +166,10 @@ suspend fun loadFoundationKeyboard(imeController: ImeController, storage: Storag
             flogWarning { "Failed to override touch layer '$layerId' with layout '$overrideLayoutId'" }
         }
     }
+
+    // Currency keys on the symbols layers follow the subtype's currency set (explicit choice or
+    // a locale-derived default), like FlorisBoard does with its currency slots.
+    keyboardXml = applyCurrencySet(keyboardXml, subtype)
 
     // The "none" popup mapping disables all long-press popups and hints by stripping the
     // corresponding attributes from every key definition.
