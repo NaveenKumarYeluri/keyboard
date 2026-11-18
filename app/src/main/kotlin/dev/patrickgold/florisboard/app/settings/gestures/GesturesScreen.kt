@@ -41,7 +41,7 @@ fun GesturesScreen() = FlorisScreen {
         FlorisInfoCard(
             modifier = Modifier.padding(8.dp),
             text = """
-                Glide typing is not available in this release.
+                Glide typing is not available in this release. Swipe left on Backspace to select text, then swipe right to reduce the selection before lifting your finger.
             """.trimIndent()
         )
 

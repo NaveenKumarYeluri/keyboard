@@ -37,11 +37,15 @@ import androidx.compose.ui.util.fastCoerceIn
 import androidx.compose.ui.util.fastFold
 import androidx.compose.ui.util.fastForEach
 import dev.patrickgold.florisboard.app.FlorisPreferenceStore
+import dev.patrickgold.florisboard.ime.keyboard3.ImeActions
 import dev.patrickgold.florisboard.ime.keyboard3.ImeController
+import dev.patrickgold.florisboard.ime.keyboard3.ImeEditor.EditorSelection
 import dev.patrickgold.florisboard.ime.keyboard3.LocalImeController
+import dev.patrickgold.florisboard.ime.keyboard3.OperationUnit
 import dev.patrickgold.florisboard.ime.keyboard3.touch.InputShiftState
 import dev.patrickgold.florisboard.ime.keyboard3.touch.TouchKey
 import dev.patrickgold.florisboard.ime.keyboard3.touch.TouchKeyboard
+import dev.patrickgold.florisboard.ime.text.gestures.SwipeAction
 import dev.patrickgold.jetpref.datastore.model.collectAsState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -60,6 +64,8 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import org.k3lp.model.K3Model
 import org.k3lp.model.layer.K3LayerId
+import kotlin.math.floor
+import kotlin.math.max
 import kotlin.math.pow
 import kotlin.time.Duration
 
@@ -87,6 +93,8 @@ sealed interface TrackedPointer {
         val longPress: LongPress,
         val repeatJob: Job?,
         val directLongPressActionEmitted: Boolean = false,
+        val repeatEmitted: Boolean = false,
+        val deleteSwipe: DeleteSwipe? = null,
     ) : TrackedPointer
 }
 
@@ -103,6 +111,40 @@ data class PeekLine(
     val end: Offset,
 )
 
+/**
+ * State for the Gboard-style swipe-to-delete gesture. Text is only selected while the finger
+ * moves; deletion is committed on lift, so reversing the swipe always restores the text.
+ */
+data class DeleteSwipe(
+    val start: Offset,
+    val action: SwipeAction,
+    val unitPx: Float,
+    val baseSelection: EditorSelection? = null,
+    val currentSelection: EditorSelection? = null,
+    val unitCount: Int = 0,
+    val active: Boolean = false,
+)
+
+private fun SwipeAction.supportsDeleteSwipe(): Boolean = when (this) {
+    SwipeAction.DELETE_CHARACTERS_PRECISELY,
+    SwipeAction.SELECT_CHARACTERS_PRECISELY,
+    SwipeAction.DELETE_WORDS_PRECISELY,
+    SwipeAction.SELECT_WORDS_PRECISELY -> true
+    else -> false
+}
+
+private fun SwipeAction.usesWordUnits(): Boolean = when (this) {
+    SwipeAction.DELETE_WORDS_PRECISELY,
+    SwipeAction.SELECT_WORDS_PRECISELY -> true
+    else -> false
+}
+
+private fun SwipeAction.commitsDeletion(): Boolean = when (this) {
+    SwipeAction.DELETE_CHARACTERS_PRECISELY,
+    SwipeAction.DELETE_WORDS_PRECISELY -> true
+    else -> false
+}
+
 private data class LastUpKey(
     val touchKey: TouchKey,
     val uptimeMillis: Long,
@@ -115,6 +157,8 @@ class PointerTracker(
     val interactionController: InteractionController,
     val showSimplePopups: Boolean,
     val peekDistanceSqMin: Float,
+    val deleteSwipeAction: SwipeAction,
+    val deleteSwipeUnitPx: Float,
 ) {
     private val mutationGuard = Mutex()
 
@@ -156,6 +200,9 @@ class PointerTracker(
         val doubleTapTimeout = timingOptions.doubleTapTimeout
 
         val peekLayerId = downKey.attrs.layerId
+        val isDeleteSwipeKey = downKey.attrs.output == ImeActions.Backspace &&
+            deleteSwipeAction.supportsDeleteSwipe() &&
+            !imeController.snapshotState().editor.info.isRawInputEditor
         if (peekLayerId != null) {
             // this is a peek key action
             trackedMultiTapSeq.value?.let { multiTapSeq ->
@@ -225,10 +272,20 @@ class PointerTracker(
                             imeController.updateState {
                                 downKey.attrs.output?.let { emit(it) }
                             }
+                            trackedOutputPointer.value?.takeIf { it.id == down.id }?.let { current ->
+                                trackedOutputPointer.value = current.copy(repeatEmitted = true)
+                            }
                             interactionController.performFeedback(InteractionKind.KeyRepeat)
                             delay(keyRepeatDelay)
                         }
                     }
+                } else null,
+                deleteSwipe = if (isDeleteSwipeKey) {
+                    DeleteSwipe(
+                        start = down.position,
+                        action = deleteSwipeAction,
+                        unitPx = deleteSwipeUnitPx,
+                    )
                 } else null,
             )
             trackedMultiTapSeq.value.let { multiTapSeq ->
@@ -284,6 +341,10 @@ class PointerTracker(
             }
         }
         trackedOutputPointer.value?.takeIf { it.id == move.id }?.let { trackedPointer ->
+            if (trackedPointer.deleteSwipe != null) {
+                updateDeleteSwipe(trackedPointer, move)
+                return@let
+            }
             val longPress = trackedPointer.longPress
             if (longPress.shouldShowExtendedPopup()) {
                 val position = move.position.normalized(size).let { position ->
@@ -300,6 +361,66 @@ class PointerTracker(
                         longPress = longPress.copy(extendedFocusedIndex = newFocusedIndex),
                     )
                 }
+            }
+        }
+    }
+
+    private suspend fun updateDeleteSwipe(
+        trackedPointer: TrackedPointer.Output,
+        move: PointerInputChange,
+    ) {
+        val swipe = trackedPointer.deleteSwipe ?: return
+        val distancePx = max(0f, swipe.start.x - move.position.x)
+        val unitCount = max(0, floor(distancePx / swipe.unitPx).toInt() - 1)
+        val editor = imeController.snapshotState().editor
+        val baseSelection = swipe.baseSelection ?: editor.getSelectionRange() ?: return
+        val unit = if (swipe.action.usesWordUnits()) OperationUnit.WORDS else OperationUnit.CHARACTERS
+        val targetSelection = editor.selectionBefore(unitCount, unit, baseSelection) ?: return
+
+        if (unitCount != swipe.unitCount) {
+            interactionController.performFeedback(InteractionKind.GestureSwipe)
+        }
+        imeController.updateState {
+            updateSelectionFromGesture(targetSelection)
+        }
+
+        var newPointer = trackedPointer.copy(
+            deleteSwipe = swipe.copy(
+                baseSelection = baseSelection,
+                currentSelection = targetSelection,
+                unitCount = unitCount,
+                active = swipe.active || unitCount > 0,
+            ),
+        )
+        if (unitCount > 0 && !swipe.active) {
+            newPointer.longPress.extendedJob?.cancel()
+            newPointer.repeatJob?.cancel()
+            newPointer = newPointer.copy(longPress = LongPress.None)
+        }
+        trackedOutputPointer.value = newPointer
+    }
+
+    private suspend fun finishDeleteSwipe(swipe: DeleteSwipe) {
+        if (swipe.unitCount > 0) {
+            val selection = swipe.currentSelection ?: swipe.baseSelection
+            if (selection != null) {
+                if (swipe.action.commitsDeletion()) {
+                    if (selection.end > selection.start) {
+                        imeController.updateState { deleteSelectionFromGesture(selection) }
+                    } else {
+                        imeController.updateState {
+                            updateSelectionFromGesture(EditorSelection(selection.start, selection.start))
+                        }
+                    }
+                } else {
+                    // SELECT_* modes intentionally leave the highlighted text selected.
+                    imeController.updateState { updateSelectionFromGesture(selection) }
+                }
+            }
+        } else {
+            // Swiped back to the origin: restore the original selection and delete nothing.
+            swipe.baseSelection?.let { base ->
+                imeController.updateState { updateSelectionFromGesture(base) }
             }
         }
     }
@@ -325,7 +446,10 @@ class PointerTracker(
         trackedOutputPointer.value?.takeIf { it.id == up.id }?.let { trackedPointer ->
             trackedPointer.longPress.extendedJob?.cancel()
             trackedPointer.repeatJob?.cancel()
-            if (!trackedPointer.directLongPressActionEmitted) {
+            val deleteSwipe = trackedPointer.deleteSwipe
+            if (deleteSwipe != null && deleteSwipe.active) {
+                finishDeleteSwipe(deleteSwipe)
+            } else if (!trackedPointer.directLongPressActionEmitted && !trackedPointer.repeatEmitted) {
                 imeController.updateState {
                     val output = when {
                         trackedPointer.downKey == trackedMultiTapSeq.value?.touchKey -> null
@@ -397,6 +521,12 @@ class PointerTracker(
         val trackedPointer = trackedOutputPointer.getAndUpdate { null } ?: return
         trackedPointer.longPress.extendedJob?.cancel()
         trackedPointer.repeatJob?.cancel()
+        val swipe = trackedPointer.deleteSwipe
+        if (swipe != null && swipe.active) {
+            swipe.baseSelection?.let { base ->
+                imeController.updateState { updateSelectionFromGesture(base) }
+            }
+        }
     }
 
     private suspend fun cancelMultiTap() {
@@ -458,11 +588,29 @@ fun rememberPointerTracker(
     val interactionController = LocalInteractionController.current
 
     val showSimplePopups by prefs.keyboard.popupEnabled.collectAsState()
+    val deleteSwipeAction by prefs.gestures.deleteKeySwipeLeft.collectAsState()
+    val swipeDistanceThreshold by prefs.gestures.swipeDistanceThreshold.collectAsState()
     // TODO make configurable
     val peekDistanceSqMin = with(density) { 30.dp.toPx().pow(2) }
+    val deleteSwipeUnitPx = with(density) {
+        (swipeDistanceThreshold.coerceAtLeast(4).dp.toPx() / 4f).fastCoerceAtLeast(1f)
+    }
 
-    val pointerTracker = remember(touchKeyboard, showSimplePopups) {
-        PointerTracker(touchKeyboard, imeController, interactionController, showSimplePopups, peekDistanceSqMin)
+    val pointerTracker = remember(
+        touchKeyboard,
+        showSimplePopups,
+        deleteSwipeAction,
+        deleteSwipeUnitPx,
+    ) {
+        PointerTracker(
+            touchKeyboard = touchKeyboard,
+            imeController = imeController,
+            interactionController = interactionController,
+            showSimplePopups = showSimplePopups,
+            peekDistanceSqMin = peekDistanceSqMin,
+            deleteSwipeAction = deleteSwipeAction,
+            deleteSwipeUnitPx = deleteSwipeUnitPx,
+        )
     }
 
     return pointerTracker

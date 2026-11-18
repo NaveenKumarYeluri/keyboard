@@ -392,6 +392,29 @@ class ImeController(
             expectedContentQueue.push(state.content)
         }
 
+        /**
+         * Applies a swipe-delete selection to both the native editor and the K3 state, so the
+         * Android text handles become visible and the pending deletion is tracked correctly.
+         */
+        fun updateSelectionFromGesture(selection: EditorSelection) {
+            val start = selection.start.coerceAtLeast(0)
+            val end = selection.end.coerceAtLeast(start)
+            val safeSelection = EditorSelection(start, end)
+            state.editor.setSelectionRange(safeSelection)
+            val newSelection = K3TextRange(start, end)
+            resetContent(newSelection, state.editor.getSurroundingText(50, 10))
+            expectedContentQueue.push(state.content)
+        }
+
+        /**
+         * Commits a swipe-delete selection and synchronizes the resulting collapsed cursor.
+         */
+        fun deleteSelectionFromGesture(selection: EditorSelection): Boolean {
+            val newSelection = state.editor.deleteSelection(selection) ?: return false
+            updateSelectionFromGesture(newSelection)
+            return true
+        }
+
         override fun emit(value: K3StringOrDescriptor) {
             val interceptor = emitInterceptor.load()
             if (interceptor != null) {

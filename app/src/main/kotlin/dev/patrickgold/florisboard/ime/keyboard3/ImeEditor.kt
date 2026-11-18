@@ -29,6 +29,8 @@ import dev.patrickgold.florisboard.ime.clipboard.provider.ClipboardFileStorage
 import dev.patrickgold.florisboard.ime.clipboard.provider.ClipboardItem
 import dev.patrickgold.florisboard.ime.editor.FlorisEditorInfo
 import dev.patrickgold.florisboard.ime.editor.ImeOptions
+import dev.patrickgold.florisboard.ime.nlp.BreakIterators
+import dev.patrickgold.florisboard.lib.FlorisLocale
 import org.k3lp.runtime.K3Editor
 import org.k3lp.runtime.K3SurroundingText
 import org.k3lp.runtime.K3TextRange
@@ -36,10 +38,18 @@ import java.lang.ref.WeakReference
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
+data class EditorSelection(val start: Int, val end: Int) {
+    init {
+        require(start >= 0 && end >= start)
+    }
+}
+
 open class ImeEditor(
     val ic: WeakReference<InputConnection>,
     val info: FlorisEditorInfo,
 ) : K3Editor {
+    private val breakIterators = BreakIterators()
+
     fun getSurroundingText(charsBefore: Int, charsAfter: Int): K3SurroundingText {
         val ic = ic.get() ?: return K3SurroundingText.Empty
         // TODO maybe use eet for getSurroundingText??
@@ -62,6 +72,79 @@ open class ImeEditor(
             textSelected = textSelected.toString(),
             textAfter = textAfterCursor.toString(),
         )
+    }
+
+    /**
+     * Returns the current selection in absolute editor coordinates. The cursor anchor API is used
+     * when available; the fallback derives the position from the text before the selection.
+     */
+    fun getSelectionRange(): EditorSelection? {
+        val ic = ic.get() ?: return null
+        val anchorInfo = runCatching { ic.getCursorAnchorInfo(0) }.getOrNull()
+        if (anchorInfo != null && anchorInfo.selectionStart >= 0 && anchorInfo.selectionEnd >= anchorInfo.selectionStart) {
+            return EditorSelection(anchorInfo.selectionStart, anchorInfo.selectionEnd)
+        }
+        val textBefore = ic.getTextBeforeCursor(SELECTION_LOOKBACK, 0)?.toString() ?: return null
+        val textSelected = ic.getSelectedText(0)?.toString() ?: ""
+        val start = textBefore.length
+        return EditorSelection(start, start + textSelected.length)
+    }
+
+    /**
+     * Sets the native selection so Android draws the usual text selector handles/highlight.
+     */
+    fun setSelectionRange(selection: EditorSelection) {
+        val ic = ic.get() ?: return
+        val start = selection.start.coerceAtLeast(0)
+        val end = selection.end.coerceAtLeast(start)
+        ic.beginBatchEdit()
+        ic.setSelection(start, end)
+        ic.endBatchEdit()
+    }
+
+    /**
+     * Expands [base] to the left by [count] characters or words, using the same Unicode-aware
+     * measurement as the rest of the editor. Reversing the swipe simply calls this again with a
+     * smaller count, which shrinks the selection without deleting any text.
+     */
+    fun selectionBefore(
+        count: Int,
+        unit: OperationUnit,
+        base: EditorSelection,
+    ): EditorSelection? {
+        if (count <= 0) return base
+        val ic = ic.get() ?: return null
+        val textBefore = ic.getTextBeforeCursor(SELECTION_LOOKBACK, 0)?.toString() ?: return null
+        val length = when (unit) {
+            OperationUnit.CHARACTERS -> breakIterators.measureLastUChars(
+                text = textBefore,
+                numUnicodeChars = count,
+                locale = FlorisLocale.default(),
+            )
+            OperationUnit.WORDS -> breakIterators.measureLastUWords(
+                text = textBefore,
+                numUnicodeWords = count,
+                locale = FlorisLocale.default(),
+            )
+        }
+        val start = (base.start - length).coerceAtLeast(0)
+        return EditorSelection(start, base.end.coerceAtLeast(base.start))
+    }
+
+    /**
+     * Deletes the given selection in one batch and leaves a collapsed cursor at its start.
+     */
+    fun deleteSelection(selection: EditorSelection): EditorSelection? {
+        if (selection.end <= selection.start) return selection
+        val ic = ic.get() ?: return null
+        val length = selection.end - selection.start
+        ic.beginBatchEdit()
+        ic.finishComposingText()
+        ic.setSelection(selection.end, selection.end)
+        ic.deleteSurroundingText(length, 0)
+        ic.setSelection(selection.start, selection.start)
+        ic.endBatchEdit()
+        return EditorSelection(selection.start, selection.start)
     }
 
     // TODO this function is very heavy => we need to optimize k3lp to provide:
@@ -212,6 +295,8 @@ open class ImeEditor(
     }
 
     companion object {
+        private const val SELECTION_LOOKBACK = 10000
+
         /**
          * The input connection update cursor flags.
          *
