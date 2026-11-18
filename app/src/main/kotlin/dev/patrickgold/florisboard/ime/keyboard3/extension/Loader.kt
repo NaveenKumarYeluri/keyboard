@@ -98,7 +98,7 @@ private fun applyCurrencySet(xml: String, subtype: Subtype): String {
     var result = xml
     for ((index, currency) in slots.withIndex()) {
         val slotId = Regex.escape("currency-${index + 1}")
-        val slotRegex = Regex("""(<key\b[^>]*\bid="$slotId"[^>]*\boutput=")[^"]*(""")
+        val slotRegex = Regex("""(<key\b[^>]*\bid="$slotId"[^>]*\boutput=")[^"]*(")""")
         result = result.replace(slotRegex) { match ->
             match.groupValues[1] + currency + match.groupValues[2]
         }
