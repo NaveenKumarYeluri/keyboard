@@ -1,5 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="app_name">Keyboard</string>
+    <string name="spell_checker_service_label">Keyboard spell checker</string>
 
     <string name="key_popup__threedots_alt" comment="Content description for the three-dots icon in a key popup">Three-dot icon. If visible, indicates that more letters can be used if longer pressed.</string>
 
@@ -519,6 +520,10 @@
     <string name="pref__spelling__title" comment="Preference group title">Spelling</string>
     <string name="pref__spelling__active_spellchecker__summary_disabled">Disabled system-wide. No red lines will appear in text fields for incorrect words. Tap to change.</string>
     <string name="pref__spelling__active_spellchecker__summary_none">No inline text spell checker service set. Tap to change.</string>
+    <string name="pref__spelling__active_spellchecker__label_ours">Keyboard spell checker</string>
+    <string name="pref__spelling__active_spellchecker__summary_ours">Active</string>
+    <string name="pref__spelling__active_spellchecker__label_other">Other spell checker</string>
+    <string name="pref__spelling__active_spellchecker__summary_other">Another spell checker is active. Tap to switch to Keyboard.</string>
     <string name="pref__spelling__language_mode__label" comment="Label of Language mode pref">Languages</string>
     <string name="pref__spelling__use_contacts__label" comment="Label of Use contact list pref">Use names from contacts</string>
     <string name="pref__spelling__use_contacts__summary" comment="Summary of Use contact list pref">Look up names from your contact list</string>

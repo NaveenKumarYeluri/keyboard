@@ -78,7 +78,7 @@ configure<LibraryExtension> {
 }
 
 dependencies {
-    implementation(projects.lib.kotlin)
+    implementation(project(":lib:kotlin"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.kotlinx.serialization.json)
 }

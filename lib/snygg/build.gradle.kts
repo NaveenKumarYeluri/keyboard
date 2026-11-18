@@ -47,7 +47,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.lib.kotlin)
+            implementation(project(":lib:kotlin"))
 
             api(libs.material.kolor)
 
@@ -64,7 +64,7 @@ kotlin {
         }
 
         androidMain.dependencies {
-            implementation(projects.lib.android)
+            implementation(project(":lib:android"))
 
             implementation(libs.androidx.core.ktx)
             implementation(libs.androidx.compose.ui.tooling.preview)

@@ -263,6 +263,7 @@ fun SubtypeEditorScreen(id: Long?) = FlorisScreen {
         }
     }
 
+    @Composable
     fun inheritOptions(choices: List<Pair<String, String>>): List<Pair<String, String>> {
         return buildList {
             add("" to stringRes(R.string.settings__localization__subtype_layout_inherit))

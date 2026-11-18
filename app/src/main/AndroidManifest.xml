@@ -53,7 +53,7 @@
         <!-- Spellchecker service -->
         <service
             android:name="dev.patrickgold.florisboard.FlorisSpellCheckerService"
-            android:label="@string/floris_app_name"
+            android:label="@string/spell_checker_service_label"
             android:permission="android.permission.BIND_TEXT_SERVICE"
             android:exported="true">
             <intent-filter>

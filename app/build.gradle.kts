@@ -178,10 +178,10 @@ dependencies {
     implementation(libs.patrickgold.jetpref.datastore.ui)
     implementation(libs.patrickgold.jetpref.material.ui)
 
-    implementation(projects.lib.android)
-    implementation(projects.lib.compose)
-    implementation(projects.lib.kotlin)
-    implementation(projects.lib.snygg)
+    implementation(project(":lib:android"))
+    implementation(project(":lib:compose"))
+    implementation(project(":lib:kotlin"))
+    implementation(project(":lib:snygg"))
 
     testImplementation(libs.kotest.assertions.core)
     testImplementation(libs.kotest.property)

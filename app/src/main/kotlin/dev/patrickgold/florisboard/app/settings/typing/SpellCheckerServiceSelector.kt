@@ -43,6 +43,15 @@ import org.florisboard.lib.compose.FlorisWarningCard
 import org.florisboard.lib.compose.observeAsState
 import org.florisboard.lib.compose.stringRes
 
+/**
+ * Old FlorisBoard spell checker packages. These are deliberately never shown by package name in
+ * the settings UI, as that package name is confusing inside this standalone keyboard build.
+ */
+private val LegacyFlorisboardSpellCheckerPackages = setOf(
+    "dev.patrickgold.florisboard",
+    "dev.patrickgold.florisboard.beta",
+)
+
 @Composable
 fun SpellCheckerServiceSelector(florisSpellCheckerEnabled: MutableState<Boolean>) {
     val context = LocalContext.current
@@ -60,6 +69,9 @@ fun SpellCheckerServiceSelector(florisSpellCheckerEnabled: MutableState<Boolean>
             ComponentName.unflattenFromString(systemSpellCheckerId!!)!!.packageName
         }.getOrDefault("null")
     }
+    val isOurSpellChecker = systemSpellCheckerPkgName == context.packageName
+    val isLegacyFlorisSpellChecker =
+        systemSpellCheckerPkgName in LegacyFlorisboardSpellCheckerPackages
     val openSystemSpellCheckerSettings = {
         val componentToLaunch = ComponentName(
             "com.android.settings",
@@ -70,9 +82,40 @@ fun SpellCheckerServiceSelector(florisSpellCheckerEnabled: MutableState<Boolean>
             it.component = componentToLaunch
         }
     }
-    florisSpellCheckerEnabled.value =
-        systemSpellCheckerEnabled == "1" &&
-        systemSpellCheckerPkgName == context.packageName
+    florisSpellCheckerEnabled.value = systemSpellCheckerEnabled == "1" && isOurSpellChecker
+
+    val otherSpellCheckerLabel =
+        stringRes(R.string.pref__spelling__active_spellchecker__label_other)
+    val spellCheckerLabel = when {
+        isOurSpellChecker ->
+            stringRes(R.string.pref__spelling__active_spellchecker__label_ours)
+        isLegacyFlorisSpellChecker -> otherSpellCheckerLabel
+        else -> runCatching {
+            val remoteAppInfo = context.packageManager.getApplicationInfo(
+                systemSpellCheckerPkgName, 0,
+            )
+            context.packageManager.getApplicationLabel(remoteAppInfo).toString()
+        }.getOrElse { otherSpellCheckerLabel }
+    }
+    val spellCheckerSecondaryText = when {
+        isOurSpellChecker ->
+            stringRes(R.string.pref__spelling__active_spellchecker__summary_ours)
+        isLegacyFlorisSpellChecker ->
+            stringRes(R.string.pref__spelling__active_spellchecker__summary_other)
+        else -> null
+    }
+    val spellCheckerIcon: Drawable? = when {
+        isOurSpellChecker -> runCatching {
+            context.packageManager.getApplicationIcon(context.applicationInfo)
+        }.getOrNull()
+        isLegacyFlorisSpellChecker -> null
+        else -> runCatching {
+            val remoteAppInfo = context.packageManager.getApplicationInfo(
+                systemSpellCheckerPkgName, 0,
+            )
+            context.packageManager.getApplicationIcon(remoteAppInfo)
+        }.getOrNull()
+    }
 
     Column(modifier = Modifier.padding(horizontal = 8.dp)) {
         if (systemSpellCheckerEnabled == "1") {
@@ -82,16 +125,6 @@ fun SpellCheckerServiceSelector(florisSpellCheckerEnabled: MutableState<Boolean>
                     onClick = openSystemSpellCheckerSettings,
                 )
             } else {
-                var spellCheckerIcon: Drawable?
-                var spellCheckerLabel = "Unknown"
-                try {
-                    val pm = context.packageManager
-                    val remoteAppInfo = pm.getApplicationInfo(systemSpellCheckerPkgName, 0)
-                    spellCheckerIcon = pm.getApplicationIcon(remoteAppInfo)
-                    spellCheckerLabel = pm.getApplicationLabel(remoteAppInfo).toString()
-                } catch (e: Exception) {
-                    spellCheckerIcon = null
-                }
                 FlorisSimpleCard(
                     icon = {
                         if (spellCheckerIcon != null) {
@@ -112,7 +145,7 @@ fun SpellCheckerServiceSelector(florisSpellCheckerEnabled: MutableState<Boolean>
                         }
                     },
                     text = spellCheckerLabel,
-                    secondaryText = systemSpellCheckerPkgName,
+                    secondaryText = spellCheckerSecondaryText,
                     contentPadding = PaddingValues(all = 8.dp),
                     onClick = openSystemSpellCheckerSettings,
                 )
