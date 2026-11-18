@@ -46,6 +46,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -105,26 +106,59 @@ fun SubtypeEditorScreen(id: Long?) = FlorisScreen {
     val subtypeManager by context.subtypeManager()
     val displayLanguageNamesIn by prefs.localization.displayLanguageNamesIn.collectAsState()
 
+    // All editable state is stored as saveable primitives because navigating to the locale picker
+    // disposes this composition. Without this the unsaved layout/language selections would be
+    // silently reset when the user comes back from selecting a language.
     val initialSubtype = remember { id?.let { subtypeManager.getSubtypeById(it) } }
-    var primaryLocale by remember { mutableStateOf(initialSubtype?.primaryLocale ?: SelectLocaleSentinel) }
-    var secondaryLocales by remember { mutableStateOf(initialSubtype?.secondaryLocales ?: emptyList()) }
-    var charactersLayout by remember { mutableStateOf(initialSubtype?.charactersLayout ?: "") }
-    var popupMapping by remember { mutableStateOf(initialSubtype?.popupMapping ?: "") }
-    var symbolsLayout by remember { mutableStateOf(initialSubtype?.symbolsLayout ?: "") }
-    var symbols2Layout by remember { mutableStateOf(initialSubtype?.symbols2Layout ?: "") }
-    var numericLayout by remember { mutableStateOf(initialSubtype?.numericLayout ?: "") }
-    var numericAdvancedLayout by remember { mutableStateOf(initialSubtype?.numericAdvancedLayout ?: "") }
-    var numericRowLayout by remember { mutableStateOf(initialSubtype?.numericRowLayout ?: "") }
-    var phoneLayout by remember { mutableStateOf(initialSubtype?.phoneLayout ?: "") }
-    var phone2Layout by remember { mutableStateOf(initialSubtype?.phone2Layout ?: "") }
-    var composer by remember { mutableStateOf(initialSubtype?.composer ?: "") }
-    var currencySet by remember { mutableStateOf(initialSubtype?.currencySet ?: "") }
-    var suggestionProvider by remember {
+    var primaryLanguageTag by rememberSaveable {
+        mutableStateOf((initialSubtype?.primaryLocale ?: SelectLocaleSentinel).languageTag())
+    }
+    var secondaryLanguageTags by rememberSaveable {
+        mutableStateOf(ArrayList(initialSubtype?.secondaryLocales?.map { it.languageTag() } ?: emptyList()))
+    }
+    var charactersLayout by rememberSaveable { mutableStateOf(initialSubtype?.charactersLayout ?: "") }
+    var popupMapping by rememberSaveable { mutableStateOf(initialSubtype?.popupMapping ?: "") }
+    var symbolsLayout by rememberSaveable { mutableStateOf(initialSubtype?.symbolsLayout ?: "") }
+    var symbols2Layout by rememberSaveable { mutableStateOf(initialSubtype?.symbols2Layout ?: "") }
+    var numericLayout by rememberSaveable { mutableStateOf(initialSubtype?.numericLayout ?: "") }
+    var numericAdvancedLayout by rememberSaveable {
+        mutableStateOf(initialSubtype?.numericAdvancedLayout ?: "")
+    }
+    var numericRowLayout by rememberSaveable { mutableStateOf(initialSubtype?.numericRowLayout ?: "") }
+    var phoneLayout by rememberSaveable { mutableStateOf(initialSubtype?.phoneLayout ?: "") }
+    var phone2Layout by rememberSaveable { mutableStateOf(initialSubtype?.phone2Layout ?: "") }
+    var composer by rememberSaveable { mutableStateOf(initialSubtype?.composer ?: "") }
+    var currencySet by rememberSaveable { mutableStateOf(initialSubtype?.currencySet ?: "") }
+    var suggestionProvider by rememberSaveable {
         mutableStateOf(initialSubtype?.nlpProviders?.suggestion ?: LatinLanguageProvider.ProviderId)
     }
-    var localeSelectionTarget by remember { mutableStateOf(LocaleSelectionTarget.PRIMARY) }
-    var showSelectAsError by remember { mutableStateOf(false) }
-    var errorDialogStrId by remember { mutableStateOf<Int?>(null) }
+    var localeSelectionTarget by rememberSaveable {
+        mutableStateOf(LocaleSelectionTarget.PRIMARY)
+    }
+    var showSelectAsError by rememberSaveable { mutableStateOf(false) }
+    var errorDialogStrId by rememberSaveable { mutableStateOf<Int?>(null) }
+
+    val primaryLocale = remember(primaryLanguageTag) { FlorisLocale.fromTag(primaryLanguageTag) }
+    val secondaryLocales = remember(secondaryLanguageTags) {
+        secondaryLanguageTags.map { FlorisLocale.fromTag(it) }
+    }
+
+    fun setPrimaryLocale(locale: FlorisLocale) {
+        primaryLanguageTag = locale.languageTag()
+        secondaryLanguageTags = ArrayList(secondaryLanguageTags.filterNot { it == locale.languageTag() })
+        showSelectAsError = false
+    }
+
+    fun addSecondaryLocale(locale: FlorisLocale) {
+        val languageTag = locale.languageTag()
+        if (languageTag != primaryLanguageTag && languageTag !in secondaryLanguageTags) {
+            secondaryLanguageTags = ArrayList(secondaryLanguageTags + languageTag)
+        }
+    }
+
+    fun removeSecondaryLocale(locale: FlorisLocale) {
+        secondaryLanguageTags = ArrayList(secondaryLanguageTags - locale.languageTag())
+    }
 
     // The primary/secondary language is picked on the SelectLocale screen, which returns its
     // result through the saved state handle of this back stack entry.
@@ -136,16 +170,8 @@ fun SubtypeEditorScreen(id: Long?) = FlorisScreen {
         val languageTag = selectLocaleScreenResult?.value ?: return@LaunchedEffect
         val locale = FlorisLocale.fromTag(languageTag)
         when (localeSelectionTarget) {
-            LocaleSelectionTarget.PRIMARY -> {
-                primaryLocale = locale
-                secondaryLocales = secondaryLocales.filterNot { it == locale }
-                showSelectAsError = false
-            }
-            LocaleSelectionTarget.SECONDARY -> {
-                if (locale != primaryLocale && locale !in secondaryLocales) {
-                    secondaryLocales = secondaryLocales + locale
-                }
-            }
+            LocaleSelectionTarget.PRIMARY -> setPrimaryLocale(locale)
+            LocaleSelectionTarget.SECONDARY -> addSecondaryLocale(locale)
         }
         navController.currentBackStackEntry?.savedStateHandle?.set(
             SelectLocaleScreenResultLanguageTag,
@@ -328,7 +354,7 @@ fun SubtypeEditorScreen(id: Long?) = FlorisScreen {
                                     color = MaterialTheme.colorScheme.onSurface,
                                 )
                                 IconButton(onClick = {
-                                    secondaryLocales = secondaryLocales - locale
+                                    removeSecondaryLocale(locale)
                                 }) {
                                     Icon(
                                         imageVector = Icons.Default.Close,
