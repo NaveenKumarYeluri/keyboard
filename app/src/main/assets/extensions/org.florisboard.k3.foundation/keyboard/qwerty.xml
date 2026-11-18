@@ -11,6 +11,7 @@
         <display keyId="base-numeric" display="${base_display}" />
         <display keyId="symbols-numeric" display="${symbol_1_display}" />
         <display keyId="space-numeric" display="@fl:icon/space_bar" />
+        <display keyId="ime-picker" display="@fl:icon/language_switch" />
     </displays>
 
     <keys>
@@ -28,6 +29,9 @@
         <key id="enter" output="@k3:action/enter" width="1.6" />
         <key id="space-no-stretch" output="\u{0020}" />
         <key id="bksp-no-stretch" output="@k3:action/backspace" />
+        <key id="ime-picker" output="@fl:action/show_input_method_picker" />
+        <key id="space" output="\u{0020}" stretch="true"
+             longPressKeyIds="ime-picker" longPressDefaultKeyId="ime-picker" />
 
         <!-- Numbers with Gboard-style symbol hints -->
         <key id="0" output="0" longPressKeyIds="close-paren" longPressDefaultKeyId="close-paren" />
