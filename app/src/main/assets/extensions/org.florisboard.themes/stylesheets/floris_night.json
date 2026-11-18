@@ -500,5 +500,14 @@
   "subtype-panel-list-item-text": {
     "text-max-lines": "1",
     "text-overflow": "ellipsis"
+  },
+  "key[targetlayer=`base`]": {
+    "font-size": "18sp"
+  },
+  "key[targetlayer=`symbol-1`]": {
+    "font-size": "18sp"
+  },
+  "key[targetlayer=`symbol-2`]": {
+    "font-size": "18sp"
   }
 }

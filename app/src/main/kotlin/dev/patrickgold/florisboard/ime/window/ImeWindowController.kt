@@ -18,6 +18,7 @@ package dev.patrickgold.florisboard.ime.window
 
 import android.content.res.Configuration
 import android.inputmethodservice.InputMethodService
+import androidx.compose.ui.unit.coerceIn
 import androidx.compose.ui.unit.height
 import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.min
@@ -114,23 +115,28 @@ class ImeWindowController(
             activeWindowConfig.value = windowConfig
         }
 
+        val fontAndHeightScales = combine(
+            prefs.keyboard.fontSizeMultiplierPortrait.asFlow(),
+            prefs.keyboard.fontSizeMultiplierLandscape.asFlow(),
+            prefs.keyboard.keyboardHeightMultiplierPortrait.asFlow(),
+            prefs.keyboard.keyboardHeightMultiplierLandscape.asFlow(),
+        ) { fontP, fontL, heightP, heightL -> intArrayOf(fontP, fontL, heightP, heightL) }
+
         val userPreferredOptions = combine(
             activeRootInsets,
             prefs.keyboard.keySpacingHorizontal.asFlow(),
             prefs.keyboard.keySpacingVertical.asFlow(),
-            prefs.keyboard.fontSizeMultiplierPortrait.asFlow(),
-            prefs.keyboard.fontSizeMultiplierLandscape.asFlow(),
-        ) { rootInsets, keySpacingFactorH, keySpacingFactorV, multiplierP, multiplierL ->
+            fontAndHeightScales,
+        ) { rootInsets, keySpacingFactorH, keySpacingFactorV, scales ->
             // TODO: this should adhere to form factor
             // TODO: font scale needs a rework anyways, change this in font scale rework PR!
             val rootBounds = rootInsets.boundsDp
+            val isPortrait = rootBounds.width <= rootBounds.height
             ImeWindowSpec.UserPreferredOptions(
                 keySpacingFactorH = keySpacingFactorH / 100f,
                 keySpacingFactorV = keySpacingFactorV / 100f,
-                fontScale = when {
-                    rootBounds.width <= rootBounds.height -> multiplierP / 100f
-                    else -> multiplierL / 100f
-                },
+                fontScale = (if (isPortrait) scales[0] else scales[1]) / 100f,
+                keyboardHeightScale = (if (isPortrait) scales[2] else scales[3]) / 100f,
             )
         }
 
@@ -265,7 +271,10 @@ class ImeWindowController(
         return when (windowConfig.mode) {
             ImeWindowMode.FIXED -> {
                 val constraints = ImeWindowConstraints.of(rootInsets, windowConfig.fixedMode)
+                val scaledHeight = (constraints.defaultProps.keyboardHeight * userPreferredOptions.keyboardHeightScale)
+                    .coerceIn(constraints.minKeyboardHeight, constraints.maxKeyboardHeight)
                 val props = (windowConfig.fixedProps[windowConfig.fixedMode] ?: constraints.defaultProps)
+                    .copy(keyboardHeight = scaledHeight)
                     .constrained(constraints)
                 ImeWindowSpec.Fixed(
                     fixedMode = windowConfig.fixedMode,
@@ -276,7 +285,10 @@ class ImeWindowController(
             }
             ImeWindowMode.FLOATING -> {
                 val constraints = ImeWindowConstraints.of(rootInsets, windowConfig.floatingMode)
+                val scaledHeight = (constraints.defaultProps.keyboardHeight * userPreferredOptions.keyboardHeightScale)
+                    .coerceIn(constraints.minKeyboardHeight, constraints.maxKeyboardHeight)
                 val props = (windowConfig.floatingProps[windowConfig.floatingMode] ?: constraints.defaultProps)
+                    .copy(keyboardHeight = scaledHeight)
                     .constrained(constraints)
                 ImeWindowSpec.Floating(
                     floatingMode = windowConfig.floatingMode,

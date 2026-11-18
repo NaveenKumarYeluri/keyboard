@@ -437,6 +437,14 @@ abstract class FlorisPreferenceModel : PreferenceModel() {
             key = "keyboard__font_size_multiplier_landscape",
             default = 100,
         )
+        val keyboardHeightMultiplierPortrait = int(
+            key = "keyboard__height_multiplier_portrait",
+            default = 100,
+        )
+        val keyboardHeightMultiplierLandscape = int(
+            key = "keyboard__height_multiplier_landscape",
+            default = 100,
+        )
         val landscapeInputUiMode = enum(
             key = "keyboard__landscape_input_ui_mode",
             default = LandscapeInputUiMode.DYNAMICALLY_SHOW,

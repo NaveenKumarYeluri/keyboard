@@ -446,6 +446,7 @@
     <string name="pref__keyboard__number_row__summary" comment="Preference summary">Show a number row above the character layout</string>
     <string name="pref__keyboard__space_bar_mode__label" comment="Preference title">Spacebar label</string>
     <string name="pref__keyboard__font_size_multiplier__label" comment="Preference title">Font size multiplier</string>
+    <string name="pref__keyboard__height_multiplier__label" comment="Preference title">Keyboard height</string>
     <string name="pref__keyboard__landscape_input_ui_mode__label" comment="Preference value">Landscape fullscreen input</string>
     <string name="pref__keyboard__key_spacing__label" comment="Preference title">Key spacing factor</string>
     <string name="pref__keyboard__group_keypress__label" comment="Preference group title">Key press</string>
