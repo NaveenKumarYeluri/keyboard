@@ -278,6 +278,10 @@
     <layers formId="touch" minDeviceWidth="1">
         <import path="flex://org.florisboard.k3.foundation/layers-touch.xml" />
 
+        <layer id="numrow">
+            <row keys="numrow-1 numrow-2 numrow-3 numrow-4 numrow-5 numrow-6 numrow-7 numrow-8 numrow-9 numrow-0" />
+        </layer>
+
         <layer id="base">
             <row keys="q w e r t z u i o p" />
             <row keys="a s d f g h j k l" />
