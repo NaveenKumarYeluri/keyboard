@@ -377,6 +377,8 @@ abstract class CrashUtility private constructor() {
             }
             val timestamp = System.currentTimeMillis()
             val stacktrace = Log.getStackTraceString(throwable)
+            // Flog is disabled in release builds, so always emit the real trace to logcat for diagnosis.
+            Log.e("FlorisBoardCrash", stacktrace)
             val ustFile = ustDir.subFile("$timestamp.$UNHANDLED_STACKTRACE_FILE_EXT")
             writeToFile(ustFile, stacktrace)
             val application = application.get()

@@ -19,6 +19,7 @@ package dev.patrickgold.florisboard.ime.core
 import android.content.Context
 import dev.patrickgold.florisboard.app.FlorisPreferenceStore
 import dev.patrickgold.florisboard.lib.devtools.flogDebug
+import dev.patrickgold.florisboard.lib.devtools.flogError
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -57,7 +58,9 @@ class SubtypeManager(context: Context) {
         prefs.localization.subtypes.asFlow().collectLatestIn(scope) { listRaw ->
             flogDebug { listRaw }
             val list = if (listRaw.isNotBlank()) {
-                SubtypeJsonConfig.decodeFromString<List<Subtype>>(listRaw)
+                runCatching { SubtypeJsonConfig.decodeFromString<List<Subtype>>(listRaw) }
+                    .onFailure { flogError { "Failed to decode saved subtype list, using defaults: $it" } }
+                    .getOrDefault(emptyList())
             } else {
                 emptyList()
             }

@@ -54,6 +54,9 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -99,6 +102,21 @@ class ImeController(
     private val emitInterceptor = AtomicReference<EmitInterceptor?>(null)
     private val nlpManager by lazy { FlorisApplication.getHack().nlpManager.value }
 
+    /**
+     * SubtypeManager reads the preference datastore when it is constructed, so it must only be
+     * created after [FlorisApplication.preferenceStoreLoaded] becomes true. Creating it eagerly
+     * here crashed Application.onCreate before the datastore was ready.
+     */
+    private val popupsEnabledFlow = FlorisApplication.getHack().preferenceStoreLoaded
+        .flatMapLatest { loaded ->
+            if (loaded) {
+                FlorisApplication.getHack().subtypeManager.value.activeSubtypeFlow
+                    .map { it.popupMapping != "none" }
+            } else {
+                flowOf(true)
+            }
+        }
+
     val activeTouchModelOptions = combine<Any, TouchModelOptions>(
         prefs.keyboard.numberRow.asFlow(),
         prefs.keyboard.fnKeyEnabled.asFlow(),
@@ -108,8 +126,7 @@ class ImeController(
         prefs.keyboard.multiTapHighlightEnabled.asFlow(),
         prefs.keyboard.flickKeyHintEnabled.asFlow(),
         prefs.keyboard.flickKeyHintPlacement.asFlow(),
-        FlorisApplication.getHack().subtypeManager.value.activeSubtypeFlow
-            .map { it.popupMapping != "none" },
+        popupsEnabledFlow,
     ) { values ->
         TouchModelOptions(
             showNumberRow = values[0] as Boolean,
@@ -145,22 +162,29 @@ class ImeController(
         // TODO proper stateful compilation
         scope.launch {
             // Reload the keyboard layout whenever the active subtype changes, so the layout and
-            // spacebar language match the subtype selected in the settings.
-            FlorisApplication.getHack().subtypeManager.value.activeSubtypeFlow.collect { subtype ->
-                loadFoundationKeyboard(this@ImeController, storageController.activeStorage.value, subtype)
-            }
+            // spacebar language match the subtype selected in the settings. Wait for the preference
+            // datastore before touching SubtypeManager.
+            FlorisApplication.getHack().preferenceStoreLoaded
+                .filter { it }
+                .flatMapLatest { FlorisApplication.getHack().subtypeManager.value.activeSubtypeFlow }
+                .collect { subtype ->
+                    loadFoundationKeyboard(this@ImeController, storageController.activeStorage.value, subtype)
+                }
         }
 
         // Trigger the suggestion pipeline whenever the IME state (and with it the editor content) changes.
         scope.launch {
-            activeState.collect { state ->
-                runCatching {
-                    nlpManager.suggest(
-                        subtype = FlorisApplication.getHack().subtypeManager.value.activeSubtype,
-                        content = state.content,
-                    )
-                }.onFailure { flogDebug { "Suggestion pipeline failed: $it" } }
-            }
+            FlorisApplication.getHack().preferenceStoreLoaded
+                .filter { it }
+                .flatMapLatest { activeState }
+                .collect { state ->
+                    runCatching {
+                        nlpManager.suggest(
+                            subtype = FlorisApplication.getHack().subtypeManager.value.activeSubtype,
+                            content = state.content,
+                        )
+                    }.onFailure { flogDebug { "Suggestion pipeline failed: $it" } }
+                }
         }
     }
 
