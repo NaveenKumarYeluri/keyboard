@@ -16,6 +16,7 @@
 
 package dev.patrickgold.florisboard.app.settings.localization
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -26,6 +27,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Button
@@ -35,6 +37,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ShapeDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -46,6 +49,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -64,7 +68,6 @@ import dev.patrickgold.jetpref.datastore.model.collectAsState
 import dev.patrickgold.jetpref.material.ui.JetPrefAlertDialog
 import dev.patrickgold.jetpref.material.ui.JetPrefDropdown
 import dev.patrickgold.jetpref.material.ui.JetPrefDropdownMenuDefaults
-import org.florisboard.lib.compose.FlorisDropdownLikeButton
 import org.florisboard.lib.compose.stringRes
 
 /**
@@ -280,28 +283,19 @@ fun SubtypeEditorScreen(id: Long?) = FlorisScreen {
                 .padding(horizontal = 8.dp),
         ) {
             SubtypeSection(title = stringRes(R.string.settings__localization__subtype_group_language)) {
-                Column {
-                    Text(
-                        text = stringRes(R.string.settings__localization__subtype_locale),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    FlorisDropdownLikeButton(
-                        modifier = Modifier.fillMaxWidth(),
-                        item = if (primaryLocale == SelectLocaleSentinel) {
-                            stringRes(R.string.settings__localization__subtype_select_placeholder)
-                        } else {
-                            localeName(primaryLocale)
-                        },
-                        isError = showSelectAsError && primaryLocale == SelectLocaleSentinel,
-                        appearance = JetPrefDropdownMenuDefaults.outlined(shape = ShapeDefaults.Small),
-                        onClick = {
-                            localeSelectionTarget = LocaleSelectionTarget.PRIMARY
-                            navController.navigate(Routes.Settings.SelectLocale)
-                        },
-                    )
-                }
+                SubtypeNavigationField(
+                    label = stringRes(R.string.settings__localization__subtype_locale),
+                    value = if (primaryLocale == SelectLocaleSentinel) {
+                        stringRes(R.string.settings__localization__subtype_select_placeholder)
+                    } else {
+                        localeName(primaryLocale)
+                    },
+                    isError = showSelectAsError && primaryLocale == SelectLocaleSentinel,
+                    onClick = {
+                        localeSelectionTarget = LocaleSelectionTarget.PRIMARY
+                        navController.navigate(Routes.Settings.SelectLocale)
+                    },
+                )
                 SubtypeDropdown(
                     title = stringRes(R.string.settings__localization__subtype_characters_layout),
                     value = charactersLayout,
@@ -475,6 +469,50 @@ private fun SubtypeSection(title: String, content: @Composable ColumnScope.() ->
                 modifier = Modifier.padding(all = 12.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp),
                 content = content,
+            )
+        }
+    }
+}
+
+@Composable
+private fun SubtypeNavigationField(
+    label: String,
+    value: String,
+    isError: Boolean = false,
+    onClick: () -> Unit,
+) {
+    Surface(
+        onClick = onClick,
+        modifier = Modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.small,
+        color = Color.Transparent,
+        border = BorderStroke(
+            width = 1.dp,
+            color = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outline,
+        ),
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = label,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Text(
+                    text = value,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+            }
+            Icon(
+                imageVector = Icons.Default.ArrowDropDown,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
     }
