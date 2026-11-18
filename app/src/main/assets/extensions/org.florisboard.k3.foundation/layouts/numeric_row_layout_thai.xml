@@ -1,0 +1,62 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="numeric_row_layout_thai" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-numeric_row_layout_thai-p2" output="¹" />
+    <key id="ov-numeric_row_layout_thai-r03" output="₁" />
+    <key id="ov-numeric_row_layout_thai-r14" output="⅐" />
+    <key id="ov-numeric_row_layout_thai-r25" output="⅛" />
+    <key id="ov-numeric_row_layout_thai-r36" output="⅑" />
+    <key id="ov-numeric_row_layout_thai-r47" output="⅒" />
+    <key id="ov-numeric_row_layout_thai-r58" output="⅟" />
+    <key id="ov-numeric_row_layout_thai-r69" output="½" />
+    <key id="ov-numeric_row_layout_thai-r710" output="⅓" />
+    <key id="ov-numeric_row_layout_thai-r811" output="¼" />
+    <key id="ov-numeric_row_layout_thai-r912" output="⅕" />
+    <key id="ov-numeric_row_layout_thai-r1013" output="⅙" />
+    <key id="ov-numeric_row_layout_thai-r001" output="๑" longPressKeyIds="ov-numeric_row_layout_thai-p2 ov-numeric_row_layout_thai-r03 ov-numeric_row_layout_thai-r14 ov-numeric_row_layout_thai-r25 ov-numeric_row_layout_thai-r36 ov-numeric_row_layout_thai-r47 ov-numeric_row_layout_thai-r58 ov-numeric_row_layout_thai-r69 ov-numeric_row_layout_thai-r710 ov-numeric_row_layout_thai-r811 ov-numeric_row_layout_thai-r912 ov-numeric_row_layout_thai-r1013" longPressDefaultKeyId="ov-numeric_row_layout_thai-p2" />
+    <key id="ov-numeric_row_layout_thai-p15" output="²" />
+    <key id="ov-numeric_row_layout_thai-r016" output="₂" />
+    <key id="ov-numeric_row_layout_thai-r117" output="⅔" />
+    <key id="ov-numeric_row_layout_thai-r218" output="⅖" />
+    <key id="ov-numeric_row_layout_thai-r0114" output="๒" longPressKeyIds="ov-numeric_row_layout_thai-p15 ov-numeric_row_layout_thai-r016 ov-numeric_row_layout_thai-r117 ov-numeric_row_layout_thai-r218" longPressDefaultKeyId="ov-numeric_row_layout_thai-p15" />
+    <key id="ov-numeric_row_layout_thai-p20" output="³" />
+    <key id="ov-numeric_row_layout_thai-r021" output="⅜" />
+    <key id="ov-numeric_row_layout_thai-r122" output="₃" />
+    <key id="ov-numeric_row_layout_thai-r223" output="¾" />
+    <key id="ov-numeric_row_layout_thai-r324" output="⅗" />
+    <key id="ov-numeric_row_layout_thai-r0219" output="๓" longPressKeyIds="ov-numeric_row_layout_thai-p20 ov-numeric_row_layout_thai-r021 ov-numeric_row_layout_thai-r122 ov-numeric_row_layout_thai-r223 ov-numeric_row_layout_thai-r324" longPressDefaultKeyId="ov-numeric_row_layout_thai-p20" />
+    <key id="ov-numeric_row_layout_thai-p26" output="⁴" />
+    <key id="ov-numeric_row_layout_thai-r027" output="₄" />
+    <key id="ov-numeric_row_layout_thai-r128" output="⅘" />
+    <key id="ov-numeric_row_layout_thai-r0325" output="๔" longPressKeyIds="ov-numeric_row_layout_thai-p26 ov-numeric_row_layout_thai-r027 ov-numeric_row_layout_thai-r128" longPressDefaultKeyId="ov-numeric_row_layout_thai-p26" />
+    <key id="ov-numeric_row_layout_thai-p30" output="⁵" />
+    <key id="ov-numeric_row_layout_thai-r031" output="₅" />
+    <key id="ov-numeric_row_layout_thai-r132" output="⅚" />
+    <key id="ov-numeric_row_layout_thai-r233" output="⅝" />
+    <key id="ov-numeric_row_layout_thai-r0429" output="๕" longPressKeyIds="ov-numeric_row_layout_thai-p30 ov-numeric_row_layout_thai-r031 ov-numeric_row_layout_thai-r132 ov-numeric_row_layout_thai-r233" longPressDefaultKeyId="ov-numeric_row_layout_thai-p30" />
+    <key id="ov-numeric_row_layout_thai-p35" output="⁶" />
+    <key id="ov-numeric_row_layout_thai-r036" output="₆" />
+    <key id="ov-numeric_row_layout_thai-r0534" output="๖" longPressKeyIds="ov-numeric_row_layout_thai-p35 ov-numeric_row_layout_thai-r036" longPressDefaultKeyId="ov-numeric_row_layout_thai-p35" />
+    <key id="ov-numeric_row_layout_thai-p38" output="⁷" />
+    <key id="ov-numeric_row_layout_thai-r039" output="₇" />
+    <key id="ov-numeric_row_layout_thai-r140" output="⅞" />
+    <key id="ov-numeric_row_layout_thai-r0637" output="๗" longPressKeyIds="ov-numeric_row_layout_thai-p38 ov-numeric_row_layout_thai-r039 ov-numeric_row_layout_thai-r140" longPressDefaultKeyId="ov-numeric_row_layout_thai-p38" />
+    <key id="ov-numeric_row_layout_thai-p42" output="⁸" />
+    <key id="ov-numeric_row_layout_thai-r043" output="₈" />
+    <key id="ov-numeric_row_layout_thai-r0741" output="๘" longPressKeyIds="ov-numeric_row_layout_thai-p42 ov-numeric_row_layout_thai-r043" longPressDefaultKeyId="ov-numeric_row_layout_thai-p42" />
+    <key id="ov-numeric_row_layout_thai-p45" output="⁹" />
+    <key id="ov-numeric_row_layout_thai-r046" output="₉" />
+    <key id="ov-numeric_row_layout_thai-r0844" output="๙" longPressKeyIds="ov-numeric_row_layout_thai-p45 ov-numeric_row_layout_thai-r046" longPressDefaultKeyId="ov-numeric_row_layout_thai-p45" />
+    <key id="ov-numeric_row_layout_thai-p48" output="⁰" />
+    <key id="ov-numeric_row_layout_thai-r049" output="∅" />
+    <key id="ov-numeric_row_layout_thai-r150" output="ⁿ" />
+    <key id="ov-numeric_row_layout_thai-r251" output="↉" />
+    <key id="ov-numeric_row_layout_thai-r352" output="₀" />
+    <key id="ov-numeric_row_layout_thai-r0947" output="๐" longPressKeyIds="ov-numeric_row_layout_thai-p48 ov-numeric_row_layout_thai-r049 ov-numeric_row_layout_thai-r150 ov-numeric_row_layout_thai-r251 ov-numeric_row_layout_thai-r352" longPressDefaultKeyId="ov-numeric_row_layout_thai-p48" />
+    </keys>
+    <layers formId="touch">
+        <layer id="numrow">
+        <row keys="ov-numeric_row_layout_thai-r001 ov-numeric_row_layout_thai-r0114 ov-numeric_row_layout_thai-r0219 ov-numeric_row_layout_thai-r0325 ov-numeric_row_layout_thai-r0429 ov-numeric_row_layout_thai-r0534 ov-numeric_row_layout_thai-r0637 ov-numeric_row_layout_thai-r0741 ov-numeric_row_layout_thai-r0844 ov-numeric_row_layout_thai-r0947" />
+        </layer>
+    </layers>
+</keyboard3>

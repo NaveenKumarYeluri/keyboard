@@ -1,0 +1,65 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="symbols_layout_ipa" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-symbols_layout_ipa-p2" output="ˌ" />
+    <key id="ov-symbols_layout_ipa-r001" output="ˈ" longPressKeyIds="ov-symbols_layout_ipa-p2" longPressDefaultKeyId="ov-symbols_layout_ipa-p2" />
+    <key id="ov-symbols_layout_ipa-p4" output="ˑ" />
+    <key id="ov-symbols_layout_ipa-r05" output="◌̆" />
+    <key id="ov-symbols_layout_ipa-r013" output="ː" longPressKeyIds="ov-symbols_layout_ipa-p4 ov-symbols_layout_ipa-r05" longPressDefaultKeyId="ov-symbols_layout_ipa-p4" />
+    <key id="ov-symbols_layout_ipa-p7" output="ꜛ" />
+    <key id="ov-symbols_layout_ipa-r026" output="↗︎" longPressKeyIds="ov-symbols_layout_ipa-p7" longPressDefaultKeyId="ov-symbols_layout_ipa-p7" />
+    <key id="ov-symbols_layout_ipa-p9" output="ꜜ" />
+    <key id="ov-symbols_layout_ipa-r038" output="↘︎" longPressKeyIds="ov-symbols_layout_ipa-p9" longPressDefaultKeyId="ov-symbols_layout_ipa-p9" />
+    <key id="ov-symbols_layout_ipa-p11" output="◌̏" />
+    <key id="ov-symbols_layout_ipa-r0410" output="˩" longPressKeyIds="ov-symbols_layout_ipa-p11" longPressDefaultKeyId="ov-symbols_layout_ipa-p11" />
+    <key id="ov-symbols_layout_ipa-p13" output="◌̀" />
+    <key id="ov-symbols_layout_ipa-r014" output="◌̌" />
+    <key id="ov-symbols_layout_ipa-r0512" output="˨" longPressKeyIds="ov-symbols_layout_ipa-p13 ov-symbols_layout_ipa-r014" longPressDefaultKeyId="ov-symbols_layout_ipa-p13" />
+    <key id="ov-symbols_layout_ipa-p16" output="◌̄" />
+    <key id="ov-symbols_layout_ipa-r0615" output="˧" longPressKeyIds="ov-symbols_layout_ipa-p16" longPressDefaultKeyId="ov-symbols_layout_ipa-p16" />
+    <key id="ov-symbols_layout_ipa-p18" output="◌́" />
+    <key id="ov-symbols_layout_ipa-r019" output="◌̂" />
+    <key id="ov-symbols_layout_ipa-r0717" output="˦" longPressKeyIds="ov-symbols_layout_ipa-p18 ov-symbols_layout_ipa-r019" longPressDefaultKeyId="ov-symbols_layout_ipa-p18" />
+    <key id="ov-symbols_layout_ipa-p21" output="◌̋" />
+    <key id="ov-symbols_layout_ipa-r0820" output="˥" longPressKeyIds="ov-symbols_layout_ipa-p21" longPressDefaultKeyId="ov-symbols_layout_ipa-p21" />
+    <key id="ov-symbols_layout_ipa-p23" output="‿" />
+    <key id="ov-symbols_layout_ipa-r0922" output="◌͡" longPressKeyIds="ov-symbols_layout_ipa-p23" longPressDefaultKeyId="ov-symbols_layout_ipa-p23" />
+    <key id="ov-symbols_layout_ipa-r1024" output="◌̈" />
+    <key id="ov-symbols_layout_ipa-p26" output="◌͗" />
+    <key id="ov-symbols_layout_ipa-r027" output="◌̜" />
+    <key id="ov-symbols_layout_ipa-r128" output="◌͑" />
+    <key id="ov-symbols_layout_ipa-r1125" output="◌̹" longPressKeyIds="ov-symbols_layout_ipa-p26 ov-symbols_layout_ipa-r027 ov-symbols_layout_ipa-r128" longPressDefaultKeyId="ov-symbols_layout_ipa-p26" />
+    <key id="ov-symbols_layout_ipa-p30" output="◌˗" />
+    <key id="ov-symbols_layout_ipa-r1229" output="◌̠" longPressKeyIds="ov-symbols_layout_ipa-p30" longPressDefaultKeyId="ov-symbols_layout_ipa-p30" />
+    <key id="ov-symbols_layout_ipa-p32" output="◌̴" />
+    <key id="ov-symbols_layout_ipa-r033" output="◌˞" />
+    <key id="ov-symbols_layout_ipa-r1331" output="◌̃" longPressKeyIds="ov-symbols_layout_ipa-p32 ov-symbols_layout_ipa-r033" longPressDefaultKeyId="ov-symbols_layout_ipa-p32" />
+    <key id="ov-symbols_layout_ipa-r035" output="(" />
+    <key id="ov-symbols_layout_ipa-r136" output="⸨" />
+    <key id="ov-symbols_layout_ipa-r237" output="⟦" />
+    <key id="ov-symbols_layout_ipa-r338" output="⟨" />
+    <key id="ov-symbols_layout_ipa-r439" output="⟪" />
+    <key id="ov-symbols_layout_ipa-r540" output="{" />
+    <key id="ov-symbols_layout_ipa-r1434" output="[" longPressKeyIds="ov-symbols_layout_ipa-r035 ov-symbols_layout_ipa-r136 ov-symbols_layout_ipa-r237 ov-symbols_layout_ipa-r338 ov-symbols_layout_ipa-r439 ov-symbols_layout_ipa-r540" longPressDefaultKeyId="ov-symbols_layout_ipa-r035" />
+    <key id="ov-symbols_layout_ipa-r042" output=")" />
+    <key id="ov-symbols_layout_ipa-r143" output="⸩" />
+    <key id="ov-symbols_layout_ipa-r244" output="⟧" />
+    <key id="ov-symbols_layout_ipa-r345" output="⟩" />
+    <key id="ov-symbols_layout_ipa-r446" output="⟫" />
+    <key id="ov-symbols_layout_ipa-r547" output="}" />
+    <key id="ov-symbols_layout_ipa-r1541" output="]" longPressKeyIds="ov-symbols_layout_ipa-r042 ov-symbols_layout_ipa-r143 ov-symbols_layout_ipa-r244 ov-symbols_layout_ipa-r345 ov-symbols_layout_ipa-r446 ov-symbols_layout_ipa-r547" longPressDefaultKeyId="ov-symbols_layout_ipa-r042" />
+    <key id="ov-symbols_layout_ipa-p49" output="\u{5C}" />
+    <key id="ov-symbols_layout_ipa-r050" output="⫽" />
+    <key id="ov-symbols_layout_ipa-r151" output="‖" />
+    <key id="ov-symbols_layout_ipa-r252" output="|" />
+    <key id="ov-symbols_layout_ipa-r1648" output="/" longPressKeyIds="ov-symbols_layout_ipa-p49 ov-symbols_layout_ipa-r050 ov-symbols_layout_ipa-r151 ov-symbols_layout_ipa-r252" longPressDefaultKeyId="ov-symbols_layout_ipa-p49" />
+    </keys>
+    <layers formId="touch">
+        <layer id="symbol-1">
+        <row keys="ov-symbols_layout_ipa-r001 ov-symbols_layout_ipa-r013 ov-symbols_layout_ipa-r026 ov-symbols_layout_ipa-r038 ov-symbols_layout_ipa-r0410 ov-symbols_layout_ipa-r0512 ov-symbols_layout_ipa-r0615 ov-symbols_layout_ipa-r0717 ov-symbols_layout_ipa-r0820 ov-symbols_layout_ipa-r0922" />
+        <row keys="ov-symbols_layout_ipa-r1024 ov-symbols_layout_ipa-r1125 ov-symbols_layout_ipa-r1229 ov-symbols_layout_ipa-r1331 ov-symbols_layout_ipa-r1434 ov-symbols_layout_ipa-r1541 ov-symbols_layout_ipa-r1648" />
+        <row keys="gap gap gap gap gap gap gap gap gap gap" />
+        <row keys="base comma numeric space period enter" />
+        </layer>
+    </layers>
+</keyboard3>

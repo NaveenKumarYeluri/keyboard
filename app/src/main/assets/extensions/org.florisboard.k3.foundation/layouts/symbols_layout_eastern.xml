@@ -1,0 +1,64 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="symbols_layout_eastern" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-symbols_layout_eastern-r001" output="@" />
+    <key id="ov-symbols_layout_eastern-p3" output="№" />
+    <key id="ov-symbols_layout_eastern-r012" output="#" longPressKeyIds="ov-symbols_layout_eastern-p3" longPressDefaultKeyId="ov-symbols_layout_eastern-p3" />
+    <key id="ov-symbols_layout_eastern-p5" output="%" />
+    <key id="ov-symbols_layout_eastern-r06" output="℅" />
+    <key id="ov-symbols_layout_eastern-r17" output="‰" />
+    <key id="ov-symbols_layout_eastern-r034" output="٪" longPressKeyIds="ov-symbols_layout_eastern-p5 ov-symbols_layout_eastern-r06 ov-symbols_layout_eastern-r17" longPressDefaultKeyId="ov-symbols_layout_eastern-p5" />
+    <key id="ov-symbols_layout_eastern-r048" output="&amp;" />
+    <key id="ov-symbols_layout_eastern-p10" output="_" />
+    <key id="ov-symbols_layout_eastern-r011" output="—" />
+    <key id="ov-symbols_layout_eastern-r112" output="–" />
+    <key id="ov-symbols_layout_eastern-r213" output="·" />
+    <key id="ov-symbols_layout_eastern-r059" output="-" longPressKeyIds="ov-symbols_layout_eastern-p10 ov-symbols_layout_eastern-r011 ov-symbols_layout_eastern-r112 ov-symbols_layout_eastern-r213" longPressDefaultKeyId="ov-symbols_layout_eastern-p10" />
+    <key id="ov-symbols_layout_eastern-p15" output="±" />
+    <key id="ov-symbols_layout_eastern-r0614" output="+" longPressKeyIds="ov-symbols_layout_eastern-p15" longPressDefaultKeyId="ov-symbols_layout_eastern-p15" />
+    <key id="ov-symbols_layout_eastern-p17" output="﴾" />
+    <key id="ov-symbols_layout_eastern-r018" output="[" />
+    <key id="ov-symbols_layout_eastern-r119" output="&lt;" />
+    <key id="ov-symbols_layout_eastern-r220" output="{" />
+    <key id="ov-symbols_layout_eastern-r0716" output="(" longPressKeyIds="ov-symbols_layout_eastern-p17 ov-symbols_layout_eastern-r018 ov-symbols_layout_eastern-r119 ov-symbols_layout_eastern-r220" longPressDefaultKeyId="ov-symbols_layout_eastern-p17" />
+    <key id="ov-symbols_layout_eastern-p22" output="﴿" />
+    <key id="ov-symbols_layout_eastern-r023" output="]" />
+    <key id="ov-symbols_layout_eastern-r124" output="&gt;" />
+    <key id="ov-symbols_layout_eastern-r225" output="}" />
+    <key id="ov-symbols_layout_eastern-r0821" output=")" longPressKeyIds="ov-symbols_layout_eastern-p22 ov-symbols_layout_eastern-r023 ov-symbols_layout_eastern-r124 ov-symbols_layout_eastern-r225" longPressDefaultKeyId="ov-symbols_layout_eastern-p22" />
+    <key id="ov-symbols_layout_eastern-r0926" output="/" />
+    <key id="ov-symbols_layout_eastern-p28" output="★" />
+    <key id="ov-symbols_layout_eastern-r029" output="٭" />
+    <key id="ov-symbols_layout_eastern-r1027" output="*" longPressKeyIds="ov-symbols_layout_eastern-p28 ov-symbols_layout_eastern-r029" longPressDefaultKeyId="ov-symbols_layout_eastern-p28" />
+    <key id="ov-symbols_layout_eastern-p31" output="”" />
+    <key id="ov-symbols_layout_eastern-r032" output="„" />
+    <key id="ov-symbols_layout_eastern-r133" output="“" />
+    <key id="ov-symbols_layout_eastern-r234" output="«" />
+    <key id="ov-symbols_layout_eastern-r335" output="»" />
+    <key id="ov-symbols_layout_eastern-r1130" output="\u{22}" longPressKeyIds="ov-symbols_layout_eastern-p31 ov-symbols_layout_eastern-r032 ov-symbols_layout_eastern-r133 ov-symbols_layout_eastern-r234 ov-symbols_layout_eastern-r335" longPressDefaultKeyId="ov-symbols_layout_eastern-p31" />
+    <key id="ov-symbols_layout_eastern-p37" output="’" />
+    <key id="ov-symbols_layout_eastern-r038" output="‚" />
+    <key id="ov-symbols_layout_eastern-r139" output="‘" />
+    <key id="ov-symbols_layout_eastern-r240" output="‹" />
+    <key id="ov-symbols_layout_eastern-r341" output="›" />
+    <key id="ov-symbols_layout_eastern-r1236" output="&#x27;" longPressKeyIds="ov-symbols_layout_eastern-p37 ov-symbols_layout_eastern-r038 ov-symbols_layout_eastern-r139 ov-symbols_layout_eastern-r240 ov-symbols_layout_eastern-r341" longPressDefaultKeyId="ov-symbols_layout_eastern-p37" />
+    <key id="ov-symbols_layout_eastern-p43" output="⋮" />
+    <key id="ov-symbols_layout_eastern-r1342" output=":" longPressKeyIds="ov-symbols_layout_eastern-p43" longPressDefaultKeyId="ov-symbols_layout_eastern-p43" />
+    <key id="ov-symbols_layout_eastern-p45" output=";" />
+    <key id="ov-symbols_layout_eastern-r1444" output="؛" longPressKeyIds="ov-symbols_layout_eastern-p45" longPressDefaultKeyId="ov-symbols_layout_eastern-p45" />
+    <key id="ov-symbols_layout_eastern-p47" output="¡" />
+    <key id="ov-symbols_layout_eastern-r1546" output="!" longPressKeyIds="ov-symbols_layout_eastern-p47" longPressDefaultKeyId="ov-symbols_layout_eastern-p47" />
+    <key id="ov-symbols_layout_eastern-p49" output="?" />
+    <key id="ov-symbols_layout_eastern-r050" output="¿" />
+    <key id="ov-symbols_layout_eastern-r151" output="‽" />
+    <key id="ov-symbols_layout_eastern-r1648" output="؟" longPressKeyIds="ov-symbols_layout_eastern-p49 ov-symbols_layout_eastern-r050 ov-symbols_layout_eastern-r151" longPressDefaultKeyId="ov-symbols_layout_eastern-p49" />
+    </keys>
+    <layers formId="touch">
+        <layer id="symbol-1">
+        <row keys="ov-symbols_layout_eastern-r001 ov-symbols_layout_eastern-r012 currency-1 ov-symbols_layout_eastern-r034 ov-symbols_layout_eastern-r048 ov-symbols_layout_eastern-r059 ov-symbols_layout_eastern-r0614 ov-symbols_layout_eastern-r0716 ov-symbols_layout_eastern-r0821 ov-symbols_layout_eastern-r0926" />
+        <row keys="ov-symbols_layout_eastern-r1027 ov-symbols_layout_eastern-r1130 ov-symbols_layout_eastern-r1236 ov-symbols_layout_eastern-r1342 ov-symbols_layout_eastern-r1444 ov-symbols_layout_eastern-r1546 ov-symbols_layout_eastern-r1648" />
+        <row keys="gap gap gap gap gap gap gap gap gap gap" />
+        <row keys="base comma numeric space period enter" />
+        </layer>
+    </layers>
+</keyboard3>

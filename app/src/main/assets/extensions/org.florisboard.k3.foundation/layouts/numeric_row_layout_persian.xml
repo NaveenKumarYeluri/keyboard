@@ -1,0 +1,72 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="numeric_row_layout_persian" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-numeric_row_layout_persian-p2" output="1" />
+    <key id="ov-numeric_row_layout_persian-r03" output="₁" />
+    <key id="ov-numeric_row_layout_persian-r14" output="⅐" />
+    <key id="ov-numeric_row_layout_persian-r25" output="⅛" />
+    <key id="ov-numeric_row_layout_persian-r36" output="⅑" />
+    <key id="ov-numeric_row_layout_persian-r47" output="⅒" />
+    <key id="ov-numeric_row_layout_persian-r58" output="⅟" />
+    <key id="ov-numeric_row_layout_persian-r69" output="¹" />
+    <key id="ov-numeric_row_layout_persian-r710" output="½" />
+    <key id="ov-numeric_row_layout_persian-r811" output="⅓" />
+    <key id="ov-numeric_row_layout_persian-r912" output="¼" />
+    <key id="ov-numeric_row_layout_persian-r1013" output="⅕" />
+    <key id="ov-numeric_row_layout_persian-r1114" output="⅙" />
+    <key id="ov-numeric_row_layout_persian-r001" output="۱" longPressKeyIds="ov-numeric_row_layout_persian-p2 ov-numeric_row_layout_persian-r03 ov-numeric_row_layout_persian-r14 ov-numeric_row_layout_persian-r25 ov-numeric_row_layout_persian-r36 ov-numeric_row_layout_persian-r47 ov-numeric_row_layout_persian-r58 ov-numeric_row_layout_persian-r69 ov-numeric_row_layout_persian-r710 ov-numeric_row_layout_persian-r811 ov-numeric_row_layout_persian-r912 ov-numeric_row_layout_persian-r1013 ov-numeric_row_layout_persian-r1114" longPressDefaultKeyId="ov-numeric_row_layout_persian-p2" />
+    <key id="ov-numeric_row_layout_persian-p16" output="2" />
+    <key id="ov-numeric_row_layout_persian-r017" output="₂" />
+    <key id="ov-numeric_row_layout_persian-r118" output="²" />
+    <key id="ov-numeric_row_layout_persian-r219" output="⅔" />
+    <key id="ov-numeric_row_layout_persian-r320" output="⅖" />
+    <key id="ov-numeric_row_layout_persian-r0115" output="۲" longPressKeyIds="ov-numeric_row_layout_persian-p16 ov-numeric_row_layout_persian-r017 ov-numeric_row_layout_persian-r118 ov-numeric_row_layout_persian-r219 ov-numeric_row_layout_persian-r320" longPressDefaultKeyId="ov-numeric_row_layout_persian-p16" />
+    <key id="ov-numeric_row_layout_persian-p22" output="3" />
+    <key id="ov-numeric_row_layout_persian-r023" output="¾" />
+    <key id="ov-numeric_row_layout_persian-r124" output="⅗" />
+    <key id="ov-numeric_row_layout_persian-r225" output="⅜" />
+    <key id="ov-numeric_row_layout_persian-r326" output="₃" />
+    <key id="ov-numeric_row_layout_persian-r427" output="³" />
+    <key id="ov-numeric_row_layout_persian-r0221" output="۳" longPressKeyIds="ov-numeric_row_layout_persian-p22 ov-numeric_row_layout_persian-r023 ov-numeric_row_layout_persian-r124 ov-numeric_row_layout_persian-r225 ov-numeric_row_layout_persian-r326 ov-numeric_row_layout_persian-r427" longPressDefaultKeyId="ov-numeric_row_layout_persian-p22" />
+    <key id="ov-numeric_row_layout_persian-p29" output="4" />
+    <key id="ov-numeric_row_layout_persian-r030" output="₄" />
+    <key id="ov-numeric_row_layout_persian-r131" output="⁴" />
+    <key id="ov-numeric_row_layout_persian-r232" output="⅘" />
+    <key id="ov-numeric_row_layout_persian-r0328" output="۴" longPressKeyIds="ov-numeric_row_layout_persian-p29 ov-numeric_row_layout_persian-r030 ov-numeric_row_layout_persian-r131 ov-numeric_row_layout_persian-r232" longPressDefaultKeyId="ov-numeric_row_layout_persian-p29" />
+    <key id="ov-numeric_row_layout_persian-p34" output="5" />
+    <key id="ov-numeric_row_layout_persian-r035" output="⅚" />
+    <key id="ov-numeric_row_layout_persian-r136" output="₅" />
+    <key id="ov-numeric_row_layout_persian-r237" output="⁵" />
+    <key id="ov-numeric_row_layout_persian-r338" output="⅝" />
+    <key id="ov-numeric_row_layout_persian-r0433" output="۵" longPressKeyIds="ov-numeric_row_layout_persian-p34 ov-numeric_row_layout_persian-r035 ov-numeric_row_layout_persian-r136 ov-numeric_row_layout_persian-r237 ov-numeric_row_layout_persian-r338" longPressDefaultKeyId="ov-numeric_row_layout_persian-p34" />
+    <key id="ov-numeric_row_layout_persian-p40" output="6" />
+    <key id="ov-numeric_row_layout_persian-r041" output="₆" />
+    <key id="ov-numeric_row_layout_persian-r142" output="⁶" />
+    <key id="ov-numeric_row_layout_persian-r0539" output="۶" longPressKeyIds="ov-numeric_row_layout_persian-p40 ov-numeric_row_layout_persian-r041 ov-numeric_row_layout_persian-r142" longPressDefaultKeyId="ov-numeric_row_layout_persian-p40" />
+    <key id="ov-numeric_row_layout_persian-p44" output="7" />
+    <key id="ov-numeric_row_layout_persian-r045" output="⅞" />
+    <key id="ov-numeric_row_layout_persian-r146" output="₇" />
+    <key id="ov-numeric_row_layout_persian-r247" output="⁷" />
+    <key id="ov-numeric_row_layout_persian-r0643" output="۷" longPressKeyIds="ov-numeric_row_layout_persian-p44 ov-numeric_row_layout_persian-r045 ov-numeric_row_layout_persian-r146 ov-numeric_row_layout_persian-r247" longPressDefaultKeyId="ov-numeric_row_layout_persian-p44" />
+    <key id="ov-numeric_row_layout_persian-p49" output="8" />
+    <key id="ov-numeric_row_layout_persian-r050" output="₈" />
+    <key id="ov-numeric_row_layout_persian-r151" output="⁸" />
+    <key id="ov-numeric_row_layout_persian-r0748" output="۸" longPressKeyIds="ov-numeric_row_layout_persian-p49 ov-numeric_row_layout_persian-r050 ov-numeric_row_layout_persian-r151" longPressDefaultKeyId="ov-numeric_row_layout_persian-p49" />
+    <key id="ov-numeric_row_layout_persian-p53" output="9" />
+    <key id="ov-numeric_row_layout_persian-r054" output="₉" />
+    <key id="ov-numeric_row_layout_persian-r155" output="⁹" />
+    <key id="ov-numeric_row_layout_persian-r0852" output="۹" longPressKeyIds="ov-numeric_row_layout_persian-p53 ov-numeric_row_layout_persian-r054 ov-numeric_row_layout_persian-r155" longPressDefaultKeyId="ov-numeric_row_layout_persian-p53" />
+    <key id="ov-numeric_row_layout_persian-p57" output="0" />
+    <key id="ov-numeric_row_layout_persian-r058" output="∅" />
+    <key id="ov-numeric_row_layout_persian-r159" output="ⁿ" />
+    <key id="ov-numeric_row_layout_persian-r260" output="⁰" />
+    <key id="ov-numeric_row_layout_persian-r361" output="↉" />
+    <key id="ov-numeric_row_layout_persian-r462" output="₀" />
+    <key id="ov-numeric_row_layout_persian-r0956" output="۰" longPressKeyIds="ov-numeric_row_layout_persian-p57 ov-numeric_row_layout_persian-r058 ov-numeric_row_layout_persian-r159 ov-numeric_row_layout_persian-r260 ov-numeric_row_layout_persian-r361 ov-numeric_row_layout_persian-r462" longPressDefaultKeyId="ov-numeric_row_layout_persian-p57" />
+    </keys>
+    <layers formId="touch">
+        <layer id="numrow">
+        <row keys="ov-numeric_row_layout_persian-r001 ov-numeric_row_layout_persian-r0115 ov-numeric_row_layout_persian-r0221 ov-numeric_row_layout_persian-r0328 ov-numeric_row_layout_persian-r0433 ov-numeric_row_layout_persian-r0539 ov-numeric_row_layout_persian-r0643 ov-numeric_row_layout_persian-r0748 ov-numeric_row_layout_persian-r0852 ov-numeric_row_layout_persian-r0956" />
+        </layer>
+    </layers>
+</keyboard3>

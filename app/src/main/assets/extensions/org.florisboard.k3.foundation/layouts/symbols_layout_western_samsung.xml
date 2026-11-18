@@ -1,0 +1,60 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="symbols_layout_western_samsung" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-symbols_layout_western_samsung-p2" output="±" />
+    <key id="ov-symbols_layout_western_samsung-r001" output="+" longPressKeyIds="ov-symbols_layout_western_samsung-p2" longPressDefaultKeyId="ov-symbols_layout_western_samsung-p2" />
+    <key id="ov-symbols_layout_western_samsung-r013" output="×" />
+    <key id="ov-symbols_layout_western_samsung-r024" output="÷" />
+    <key id="ov-symbols_layout_western_samsung-p6" output="≈" />
+    <key id="ov-symbols_layout_western_samsung-r07" output="≠" />
+    <key id="ov-symbols_layout_western_samsung-r18" output="≡" />
+    <key id="ov-symbols_layout_western_samsung-r035" output="=" longPressKeyIds="ov-symbols_layout_western_samsung-p6 ov-symbols_layout_western_samsung-r07 ov-symbols_layout_western_samsung-r18" longPressDefaultKeyId="ov-symbols_layout_western_samsung-p6" />
+    <key id="ov-symbols_layout_western_samsung-r049" output="/" />
+    <key id="ov-symbols_layout_western_samsung-r0510" output="_" />
+    <key id="ov-symbols_layout_western_samsung-r0611" output="&lt;" />
+    <key id="ov-symbols_layout_western_samsung-r0712" output="&gt;" />
+    <key id="ov-symbols_layout_western_samsung-p14" output="『" />
+    <key id="ov-symbols_layout_western_samsung-r015" output="「" />
+    <key id="ov-symbols_layout_western_samsung-r116" output="〔" />
+    <key id="ov-symbols_layout_western_samsung-r217" output="【" />
+    <key id="ov-symbols_layout_western_samsung-r0813" output="[" longPressKeyIds="ov-symbols_layout_western_samsung-p14 ov-symbols_layout_western_samsung-r015 ov-symbols_layout_western_samsung-r116 ov-symbols_layout_western_samsung-r217" longPressDefaultKeyId="ov-symbols_layout_western_samsung-p14" />
+    <key id="ov-symbols_layout_western_samsung-p19" output="』" />
+    <key id="ov-symbols_layout_western_samsung-r020" output="」" />
+    <key id="ov-symbols_layout_western_samsung-r121" output="〕" />
+    <key id="ov-symbols_layout_western_samsung-r222" output="】" />
+    <key id="ov-symbols_layout_western_samsung-r0918" output="]" longPressKeyIds="ov-symbols_layout_western_samsung-p19 ov-symbols_layout_western_samsung-r020 ov-symbols_layout_western_samsung-r121 ov-symbols_layout_western_samsung-r222" longPressDefaultKeyId="ov-symbols_layout_western_samsung-p19" />
+    <key id="ov-symbols_layout_western_samsung-p24" output="¡" />
+    <key id="ov-symbols_layout_western_samsung-r1023" output="!" longPressKeyIds="ov-symbols_layout_western_samsung-p24" longPressDefaultKeyId="ov-symbols_layout_western_samsung-p24" />
+    <key id="ov-symbols_layout_western_samsung-r1125" output="@" />
+    <key id="ov-symbols_layout_western_samsung-p27" output="№" />
+    <key id="ov-symbols_layout_western_samsung-r1226" output="#" longPressKeyIds="ov-symbols_layout_western_samsung-p27" longPressDefaultKeyId="ov-symbols_layout_western_samsung-p27" />
+    <key id="ov-symbols_layout_western_samsung-p29" output="٪" />
+    <key id="ov-symbols_layout_western_samsung-r030" output="‰" />
+    <key id="ov-symbols_layout_western_samsung-r1428" output="%" longPressKeyIds="ov-symbols_layout_western_samsung-p29 ov-symbols_layout_western_samsung-r030" longPressDefaultKeyId="ov-symbols_layout_western_samsung-p29" />
+    <key id="ov-symbols_layout_western_samsung-r1531" output="^" />
+    <key id="ov-symbols_layout_western_samsung-r1632" output="&amp;" />
+    <key id="ov-symbols_layout_western_samsung-r1733" output="*" />
+    <key id="ov-symbols_layout_western_samsung-r1834" output="(" />
+    <key id="ov-symbols_layout_western_samsung-r1935" output=")" />
+    <key id="ov-symbols_layout_western_samsung-p37" output="‐" />
+    <key id="ov-symbols_layout_western_samsung-r038" output="–" />
+    <key id="ov-symbols_layout_western_samsung-r139" output="—" />
+    <key id="ov-symbols_layout_western_samsung-r2036" output="-" longPressKeyIds="ov-symbols_layout_western_samsung-p37 ov-symbols_layout_western_samsung-r038 ov-symbols_layout_western_samsung-r139" longPressDefaultKeyId="ov-symbols_layout_western_samsung-p37" />
+    <key id="ov-symbols_layout_western_samsung-r2140" output="&#x27;" />
+    <key id="ov-symbols_layout_western_samsung-r2241" output="\u{22}" />
+    <key id="ov-symbols_layout_western_samsung-r2342" output=":" />
+    <key id="ov-symbols_layout_western_samsung-r2443" output=";" />
+    <key id="ov-symbols_layout_western_samsung-r2544" output="," />
+    <key id="ov-symbols_layout_western_samsung-p46" output="¿" />
+    <key id="ov-symbols_layout_western_samsung-r047" output="‽" />
+    <key id="ov-symbols_layout_western_samsung-r2645" output="?" longPressKeyIds="ov-symbols_layout_western_samsung-p46 ov-symbols_layout_western_samsung-r047" longPressDefaultKeyId="ov-symbols_layout_western_samsung-p46" />
+    </keys>
+    <layers formId="touch">
+        <layer id="symbol-1">
+        <row keys="ov-symbols_layout_western_samsung-r001 ov-symbols_layout_western_samsung-r013 ov-symbols_layout_western_samsung-r024 ov-symbols_layout_western_samsung-r035 ov-symbols_layout_western_samsung-r049 ov-symbols_layout_western_samsung-r0510 ov-symbols_layout_western_samsung-r0611 ov-symbols_layout_western_samsung-r0712 ov-symbols_layout_western_samsung-r0813 ov-symbols_layout_western_samsung-r0918" />
+        <row keys="ov-symbols_layout_western_samsung-r1023 ov-symbols_layout_western_samsung-r1125 ov-symbols_layout_western_samsung-r1226 currency-1 ov-symbols_layout_western_samsung-r1428 ov-symbols_layout_western_samsung-r1531 ov-symbols_layout_western_samsung-r1632 ov-symbols_layout_western_samsung-r1733 ov-symbols_layout_western_samsung-r1834 ov-symbols_layout_western_samsung-r1935" />
+        <row keys="ov-symbols_layout_western_samsung-r2036 ov-symbols_layout_western_samsung-r2140 ov-symbols_layout_western_samsung-r2241 ov-symbols_layout_western_samsung-r2342 ov-symbols_layout_western_samsung-r2443 ov-symbols_layout_western_samsung-r2544 ov-symbols_layout_western_samsung-r2645" />
+        <row keys="base comma numeric space period enter" />
+        </layer>
+    </layers>
+</keyboard3>

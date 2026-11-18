@@ -127,9 +127,49 @@ private fun extractTouchLayer(xml: String, layerId: String): String? {
  */
 private fun replaceTouchLayer(xml: String, layerId: String, newLayer: String): String? {
     val touchStart = TOUCH_LAYERS_REGEX.find(xml)?.range?.first ?: return null
-    val match = touchLayerRegex(layerId).find(xml, touchStart) ?: return null
+    val touchEnd = xml.indexOf("</layers>", touchStart)
+    if (touchEnd < 0) return null
+    val match = touchLayerRegex(layerId).find(xml, touchStart)
+        ?.takeIf { it.range.first < touchEnd }
+    if (match == null) {
+        // numpad, telpad and telpad2 are provided by an imported layer file, so they are not
+        // present in the base XML. Adding a local layer with the same ID overrides the import.
+        return xml.substring(0, touchEnd) + newLayer + "\n    " + xml.substring(touchEnd)
+    }
     return xml.substring(0, match.range.first) + newLayer + xml.substring(match.range.last + 1)
 }
+
+private val KEYS_SECTION_REGEX = """<keys\b[^>]*>(.*?)</keys>""".toRegex(RegexOption.DOT_MATCHES_ALL)
+private val KEY_ELEMENT_REGEX = """<key\b[^>]*/>""".toRegex()
+private val KEY_ID_REGEX = """<key\b[^>]*\bid="([^"]+)"""".toRegex()
+
+/**
+ * Copies key definitions from a generated layout override into the base layout. The override files
+ * only declare the keys used by their single layer, so they can be merged into any base layout.
+ */
+private fun mergeOverrideKeys(baseXml: String, overrideXml: String): String {
+    val overrideKeysBody = KEYS_SECTION_REGEX.find(overrideXml)?.groupValues?.get(1) ?: return baseXml
+    val existingIds = KEY_ID_REGEX.findAll(baseXml).map { it.groupValues[1] }.toSet()
+    val newKeys = KEY_ELEMENT_REGEX.findAll(overrideKeysBody)
+        .map { it.value }
+        .filter { definition ->
+            val id = KEY_ID_REGEX.find(definition)?.groupValues[1] ?: return@filter false
+            id !in existingIds
+        }
+        .toList()
+    if (newKeys.isEmpty()) return baseXml
+    return baseXml.replaceFirst("</keys>", newKeys.joinToString("\n") + "\n</keys>")
+}
+
+/**
+ * Per-subtype layer override. [filePrefix] maps to the generated asset name
+ * `layouts/<filePrefix>_layout_<id>.xml`.
+ */
+private data class LayerOverride(
+    val layoutId: String,
+    val layerId: String,
+    val filePrefix: String,
+)
 
 // TODO this is just a placeholder testing code, must be replaced by proper logic & extension-aware logic
 @OptIn(WillRequireMigrationToRichErrors::class)
@@ -143,27 +183,34 @@ suspend fun loadFoundationKeyboard(imeController: ImeController, storage: Storag
         storage.readText(ref)
     }
 
-    // The keyboard3 renderer uses a single layout file which contains the characters, symbols and
-    // numeric layers. A per-subtype layer override is applied by swapping the matching touch layer
-    // of the base layout with the one from the selected layout file.
+    // The keyboard3 renderer uses a single layout file which contains all touch layers. A
+    // per-subtype layer override swaps the matching layer with one generated from FlorisBoard's
+    // classic layout assets. Generated key definitions are merged into the base layout as well.
     var keyboardXml = loadAssetText(layoutPath)
     val layerOverrides = listOf(
-        subtype.symbolsLayout to "symbol-1",
-        subtype.symbols2Layout to "symbol-2",
-        subtype.numericLayout to "numeric",
+        LayerOverride(subtype.symbolsLayout, "symbol-1", "symbols"),
+        LayerOverride(subtype.symbols2Layout, "symbol-2", "symbols2"),
+        LayerOverride(subtype.numericLayout, "numpad", "numeric"),
+        LayerOverride(subtype.numericAdvancedLayout, "numeric", "numeric_advanced"),
+        LayerOverride(subtype.numericRowLayout, "numrow", "numeric_row"),
+        LayerOverride(subtype.phoneLayout, "telpad", "phone"),
+        LayerOverride(subtype.phone2Layout, "telpad2", "phone2"),
     )
-    for ((overrideLayoutId, layerId) in layerOverrides) {
-        if (overrideLayoutId.isBlank() || overrideLayoutId == layoutId) {
+    for (override in layerOverrides) {
+        if (override.layoutId.isBlank()) continue
+        val overridePath = "layouts/${override.filePrefix}_layout_${override.layoutId}.xml"
+        val overrideXml = runCatching { loadAssetText(overridePath) }.getOrNull() ?: continue
+        val overrideLayer = extractTouchLayer(overrideXml, override.layerId)
+        if (overrideLayer == null) {
+            flogWarning { "Failed to find touch layer '${override.layerId}' in '$overridePath'" }
             continue
         }
-        val overridePath = FOUNDATION_KEYBOARD_LAYOUTS[overrideLayoutId] ?: continue
-        val overrideXml = runCatching { loadAssetText(overridePath) }.getOrNull() ?: continue
-        val overrideLayer = extractTouchLayer(overrideXml, layerId)
-        val replacedXml = overrideLayer?.let { replaceTouchLayer(keyboardXml, layerId, it) }
+        keyboardXml = mergeOverrideKeys(keyboardXml, overrideXml)
+        val replacedXml = replaceTouchLayer(keyboardXml, override.layerId, overrideLayer)
         if (replacedXml != null) {
             keyboardXml = replacedXml
         } else {
-            flogWarning { "Failed to override touch layer '$layerId' with layout '$overrideLayoutId'" }
+            flogWarning { "Failed to override touch layer '${override.layerId}' with '${override.layoutId}'" }
         }
     }
 

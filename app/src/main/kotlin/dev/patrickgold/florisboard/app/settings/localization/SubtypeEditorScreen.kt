@@ -77,12 +77,6 @@ import org.florisboard.lib.compose.stringRes
 private val SelectLocaleSentinel = FlorisLocale.from("00", "00")
 
 /**
- * All keyboard layout IDs which are currently shipped by the foundation keyboard extension.
- * Empty string means "automatic"/"inherit" depending on the field.
- */
-private val KeyboardLayoutIds = listOf("qwerty", "qwertz")
-
-/**
  * Tracks whether the currently open locale picker should update the primary locale or append a
  * secondary locale to the subtype.
  */
@@ -269,17 +263,24 @@ fun SubtypeEditorScreen(id: Long?) = FlorisScreen {
         }
     }
 
-    val charactersLayoutOptions = listOf(
-        "" to stringRes(R.string.settings__localization__subtype_layout_auto),
-        "qwerty" to "QWERTY",
-        "qwertz" to "QWERTZ",
-    )
-    val layerLayoutOptions = buildList {
-        add("" to stringRes(R.string.settings__localization__subtype_layout_inherit))
-        for (layoutId in KeyboardLayoutIds) {
-            add(layoutId to layoutId.uppercase())
+    fun inheritOptions(choices: List<Pair<String, String>>): List<Pair<String, String>> {
+        return buildList {
+            add("" to stringRes(R.string.settings__localization__subtype_layout_inherit))
+            addAll(choices)
         }
     }
+
+    val charactersLayoutOptions = buildList {
+        add("" to stringRes(R.string.settings__localization__subtype_layout_auto))
+        addAll(LayoutCatalog.characters)
+    }
+    val symbolsLayoutOptions = inheritOptions(LayoutCatalog.symbols)
+    val symbols2LayoutOptions = inheritOptions(LayoutCatalog.symbols2)
+    val numericLayoutOptions = inheritOptions(LayoutCatalog.numeric)
+    val numericAdvancedLayoutOptions = inheritOptions(LayoutCatalog.numericAdvanced)
+    val numericRowLayoutOptions = inheritOptions(LayoutCatalog.numericRow)
+    val phoneLayoutOptions = inheritOptions(LayoutCatalog.phone)
+    val phone2LayoutOptions = inheritOptions(LayoutCatalog.phone2)
     val popupMappingOptions = listOf(
         "" to stringRes(R.string.settings__localization__subtype_popup_mapping_default),
         "none" to stringRes(R.string.settings__localization__subtype_popup_mapping_none),
@@ -298,7 +299,7 @@ fun SubtypeEditorScreen(id: Long?) = FlorisScreen {
         "usd" to "US Dollar ($)",
         "eur" to "Euro (\u20AC)",
         "gbp" to "British Pound (\u00A3)",
-        "inr" to "Indian Rupee (\u20B9)",
+        "inr" to "Indian rupee (\u20B9)",
         "jpy" to "Japanese Yen (\u00A5)",
     )
 
@@ -412,43 +413,43 @@ fun SubtypeEditorScreen(id: Long?) = FlorisScreen {
                 SubtypeDropdown(
                     title = stringRes(R.string.settings__localization__subtype_symbols_layout),
                     value = symbolsLayout,
-                    options = layerLayoutOptions,
+                    options = symbolsLayoutOptions,
                     onValueChange = { symbolsLayout = it },
                 )
                 SubtypeDropdown(
                     title = stringRes(R.string.settings__localization__subtype_symbols2_layout),
                     value = symbols2Layout,
-                    options = layerLayoutOptions,
+                    options = symbols2LayoutOptions,
                     onValueChange = { symbols2Layout = it },
                 )
                 SubtypeDropdown(
                     title = stringRes(R.string.settings__localization__subtype_numeric_layout),
                     value = numericLayout,
-                    options = layerLayoutOptions,
+                    options = numericLayoutOptions,
                     onValueChange = { numericLayout = it },
                 )
                 SubtypeDropdown(
                     title = stringRes(R.string.settings__localization__subtype_numeric_advanced_layout),
                     value = numericAdvancedLayout,
-                    options = layerLayoutOptions,
+                    options = numericAdvancedLayoutOptions,
                     onValueChange = { numericAdvancedLayout = it },
                 )
                 SubtypeDropdown(
                     title = stringRes(R.string.settings__localization__subtype_numeric_row_layout),
                     value = numericRowLayout,
-                    options = layerLayoutOptions,
+                    options = numericRowLayoutOptions,
                     onValueChange = { numericRowLayout = it },
                 )
                 SubtypeDropdown(
                     title = stringRes(R.string.settings__localization__subtype_phone_layout),
                     value = phoneLayout,
-                    options = layerLayoutOptions,
+                    options = phoneLayoutOptions,
                     onValueChange = { phoneLayout = it },
                 )
                 SubtypeDropdown(
                     title = stringRes(R.string.settings__localization__subtype_phone2_layout),
                     value = phone2Layout,
-                    options = layerLayoutOptions,
+                    options = phone2LayoutOptions,
                     onValueChange = { phone2Layout = it },
                 )
             }

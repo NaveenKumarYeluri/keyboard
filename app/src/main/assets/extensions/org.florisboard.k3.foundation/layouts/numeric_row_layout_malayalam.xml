@@ -1,0 +1,72 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="numeric_row_layout_malayalam" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-numeric_row_layout_malayalam-p2" output="1" />
+    <key id="ov-numeric_row_layout_malayalam-r03" output="₁" />
+    <key id="ov-numeric_row_layout_malayalam-r14" output="⅐" />
+    <key id="ov-numeric_row_layout_malayalam-r25" output="⅛" />
+    <key id="ov-numeric_row_layout_malayalam-r36" output="⅑" />
+    <key id="ov-numeric_row_layout_malayalam-r47" output="⅒" />
+    <key id="ov-numeric_row_layout_malayalam-r58" output="⅟" />
+    <key id="ov-numeric_row_layout_malayalam-r69" output="¹" />
+    <key id="ov-numeric_row_layout_malayalam-r710" output="½" />
+    <key id="ov-numeric_row_layout_malayalam-r811" output="⅓" />
+    <key id="ov-numeric_row_layout_malayalam-r912" output="¼" />
+    <key id="ov-numeric_row_layout_malayalam-r1013" output="⅕" />
+    <key id="ov-numeric_row_layout_malayalam-r1114" output="⅙" />
+    <key id="ov-numeric_row_layout_malayalam-r001" output="൧" longPressKeyIds="ov-numeric_row_layout_malayalam-p2 ov-numeric_row_layout_malayalam-r03 ov-numeric_row_layout_malayalam-r14 ov-numeric_row_layout_malayalam-r25 ov-numeric_row_layout_malayalam-r36 ov-numeric_row_layout_malayalam-r47 ov-numeric_row_layout_malayalam-r58 ov-numeric_row_layout_malayalam-r69 ov-numeric_row_layout_malayalam-r710 ov-numeric_row_layout_malayalam-r811 ov-numeric_row_layout_malayalam-r912 ov-numeric_row_layout_malayalam-r1013 ov-numeric_row_layout_malayalam-r1114" longPressDefaultKeyId="ov-numeric_row_layout_malayalam-p2" />
+    <key id="ov-numeric_row_layout_malayalam-p16" output="2" />
+    <key id="ov-numeric_row_layout_malayalam-r017" output="₂" />
+    <key id="ov-numeric_row_layout_malayalam-r118" output="²" />
+    <key id="ov-numeric_row_layout_malayalam-r219" output="⅔" />
+    <key id="ov-numeric_row_layout_malayalam-r320" output="⅖" />
+    <key id="ov-numeric_row_layout_malayalam-r0115" output="൨" longPressKeyIds="ov-numeric_row_layout_malayalam-p16 ov-numeric_row_layout_malayalam-r017 ov-numeric_row_layout_malayalam-r118 ov-numeric_row_layout_malayalam-r219 ov-numeric_row_layout_malayalam-r320" longPressDefaultKeyId="ov-numeric_row_layout_malayalam-p16" />
+    <key id="ov-numeric_row_layout_malayalam-p22" output="3" />
+    <key id="ov-numeric_row_layout_malayalam-r023" output="¾" />
+    <key id="ov-numeric_row_layout_malayalam-r124" output="⅗" />
+    <key id="ov-numeric_row_layout_malayalam-r225" output="⅜" />
+    <key id="ov-numeric_row_layout_malayalam-r326" output="₃" />
+    <key id="ov-numeric_row_layout_malayalam-r427" output="³" />
+    <key id="ov-numeric_row_layout_malayalam-r0221" output="൩" longPressKeyIds="ov-numeric_row_layout_malayalam-p22 ov-numeric_row_layout_malayalam-r023 ov-numeric_row_layout_malayalam-r124 ov-numeric_row_layout_malayalam-r225 ov-numeric_row_layout_malayalam-r326 ov-numeric_row_layout_malayalam-r427" longPressDefaultKeyId="ov-numeric_row_layout_malayalam-p22" />
+    <key id="ov-numeric_row_layout_malayalam-p29" output="4" />
+    <key id="ov-numeric_row_layout_malayalam-r030" output="₄" />
+    <key id="ov-numeric_row_layout_malayalam-r131" output="⁴" />
+    <key id="ov-numeric_row_layout_malayalam-r232" output="⅘" />
+    <key id="ov-numeric_row_layout_malayalam-r0328" output="൪" longPressKeyIds="ov-numeric_row_layout_malayalam-p29 ov-numeric_row_layout_malayalam-r030 ov-numeric_row_layout_malayalam-r131 ov-numeric_row_layout_malayalam-r232" longPressDefaultKeyId="ov-numeric_row_layout_malayalam-p29" />
+    <key id="ov-numeric_row_layout_malayalam-p34" output="5" />
+    <key id="ov-numeric_row_layout_malayalam-r035" output="⅚" />
+    <key id="ov-numeric_row_layout_malayalam-r136" output="₅" />
+    <key id="ov-numeric_row_layout_malayalam-r237" output="⁵" />
+    <key id="ov-numeric_row_layout_malayalam-r338" output="⅝" />
+    <key id="ov-numeric_row_layout_malayalam-r0433" output="൫" longPressKeyIds="ov-numeric_row_layout_malayalam-p34 ov-numeric_row_layout_malayalam-r035 ov-numeric_row_layout_malayalam-r136 ov-numeric_row_layout_malayalam-r237 ov-numeric_row_layout_malayalam-r338" longPressDefaultKeyId="ov-numeric_row_layout_malayalam-p34" />
+    <key id="ov-numeric_row_layout_malayalam-p40" output="6" />
+    <key id="ov-numeric_row_layout_malayalam-r041" output="₆" />
+    <key id="ov-numeric_row_layout_malayalam-r142" output="⁶" />
+    <key id="ov-numeric_row_layout_malayalam-r0539" output="൬" longPressKeyIds="ov-numeric_row_layout_malayalam-p40 ov-numeric_row_layout_malayalam-r041 ov-numeric_row_layout_malayalam-r142" longPressDefaultKeyId="ov-numeric_row_layout_malayalam-p40" />
+    <key id="ov-numeric_row_layout_malayalam-p44" output="7" />
+    <key id="ov-numeric_row_layout_malayalam-r045" output="⅞" />
+    <key id="ov-numeric_row_layout_malayalam-r146" output="₇" />
+    <key id="ov-numeric_row_layout_malayalam-r247" output="⁷" />
+    <key id="ov-numeric_row_layout_malayalam-r0643" output="൭" longPressKeyIds="ov-numeric_row_layout_malayalam-p44 ov-numeric_row_layout_malayalam-r045 ov-numeric_row_layout_malayalam-r146 ov-numeric_row_layout_malayalam-r247" longPressDefaultKeyId="ov-numeric_row_layout_malayalam-p44" />
+    <key id="ov-numeric_row_layout_malayalam-p49" output="8" />
+    <key id="ov-numeric_row_layout_malayalam-r050" output="₈" />
+    <key id="ov-numeric_row_layout_malayalam-r151" output="⁸" />
+    <key id="ov-numeric_row_layout_malayalam-r0748" output="൮" longPressKeyIds="ov-numeric_row_layout_malayalam-p49 ov-numeric_row_layout_malayalam-r050 ov-numeric_row_layout_malayalam-r151" longPressDefaultKeyId="ov-numeric_row_layout_malayalam-p49" />
+    <key id="ov-numeric_row_layout_malayalam-p53" output="9" />
+    <key id="ov-numeric_row_layout_malayalam-r054" output="₉" />
+    <key id="ov-numeric_row_layout_malayalam-r155" output="⁹" />
+    <key id="ov-numeric_row_layout_malayalam-r0852" output="൯" longPressKeyIds="ov-numeric_row_layout_malayalam-p53 ov-numeric_row_layout_malayalam-r054 ov-numeric_row_layout_malayalam-r155" longPressDefaultKeyId="ov-numeric_row_layout_malayalam-p53" />
+    <key id="ov-numeric_row_layout_malayalam-p57" output="0" />
+    <key id="ov-numeric_row_layout_malayalam-r058" output="∅" />
+    <key id="ov-numeric_row_layout_malayalam-r159" output="ⁿ" />
+    <key id="ov-numeric_row_layout_malayalam-r260" output="⁰" />
+    <key id="ov-numeric_row_layout_malayalam-r361" output="↉" />
+    <key id="ov-numeric_row_layout_malayalam-r462" output="₀" />
+    <key id="ov-numeric_row_layout_malayalam-r0956" output="൦" longPressKeyIds="ov-numeric_row_layout_malayalam-p57 ov-numeric_row_layout_malayalam-r058 ov-numeric_row_layout_malayalam-r159 ov-numeric_row_layout_malayalam-r260 ov-numeric_row_layout_malayalam-r361 ov-numeric_row_layout_malayalam-r462" longPressDefaultKeyId="ov-numeric_row_layout_malayalam-p57" />
+    </keys>
+    <layers formId="touch">
+        <layer id="numrow">
+        <row keys="ov-numeric_row_layout_malayalam-r001 ov-numeric_row_layout_malayalam-r0115 ov-numeric_row_layout_malayalam-r0221 ov-numeric_row_layout_malayalam-r0328 ov-numeric_row_layout_malayalam-r0433 ov-numeric_row_layout_malayalam-r0539 ov-numeric_row_layout_malayalam-r0643 ov-numeric_row_layout_malayalam-r0748 ov-numeric_row_layout_malayalam-r0852 ov-numeric_row_layout_malayalam-r0956" />
+        </layer>
+    </layers>
+</keyboard3>

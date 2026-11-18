@@ -1,0 +1,62 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="symbols_layout_armenian" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-symbols_layout_armenian-r001" output="@" />
+    <key id="ov-symbols_layout_armenian-p3" output="№" />
+    <key id="ov-symbols_layout_armenian-r012" output="#" longPressKeyIds="ov-symbols_layout_armenian-p3" longPressDefaultKeyId="ov-symbols_layout_armenian-p3" />
+    <key id="ov-symbols_layout_armenian-p5" output="‰" />
+    <key id="ov-symbols_layout_armenian-r06" output="℅" />
+    <key id="ov-symbols_layout_armenian-r034" output="%" longPressKeyIds="ov-symbols_layout_armenian-p5 ov-symbols_layout_armenian-r06" longPressDefaultKeyId="ov-symbols_layout_armenian-p5" />
+    <key id="ov-symbols_layout_armenian-r047" output="&amp;" />
+    <key id="ov-symbols_layout_armenian-p9" output="_" />
+    <key id="ov-symbols_layout_armenian-r010" output="—" />
+    <key id="ov-symbols_layout_armenian-r111" output="–" />
+    <key id="ov-symbols_layout_armenian-r212" output="·" />
+    <key id="ov-symbols_layout_armenian-r058" output="-" longPressKeyIds="ov-symbols_layout_armenian-p9 ov-symbols_layout_armenian-r010 ov-symbols_layout_armenian-r111 ov-symbols_layout_armenian-r212" longPressDefaultKeyId="ov-symbols_layout_armenian-p9" />
+    <key id="ov-symbols_layout_armenian-p14" output="±" />
+    <key id="ov-symbols_layout_armenian-r0613" output="+" longPressKeyIds="ov-symbols_layout_armenian-p14" longPressDefaultKeyId="ov-symbols_layout_armenian-p14" />
+    <key id="ov-symbols_layout_armenian-p16" output="&lt;" />
+    <key id="ov-symbols_layout_armenian-r017" output="[" />
+    <key id="ov-symbols_layout_armenian-r118" output="{" />
+    <key id="ov-symbols_layout_armenian-r0715" output="(" longPressKeyIds="ov-symbols_layout_armenian-p16 ov-symbols_layout_armenian-r017 ov-symbols_layout_armenian-r118" longPressDefaultKeyId="ov-symbols_layout_armenian-p16" />
+    <key id="ov-symbols_layout_armenian-p20" output="&gt;" />
+    <key id="ov-symbols_layout_armenian-r021" output="]" />
+    <key id="ov-symbols_layout_armenian-r122" output="}" />
+    <key id="ov-symbols_layout_armenian-r0819" output=")" longPressKeyIds="ov-symbols_layout_armenian-p20 ov-symbols_layout_armenian-r021 ov-symbols_layout_armenian-r122" longPressDefaultKeyId="ov-symbols_layout_armenian-p20" />
+    <key id="ov-symbols_layout_armenian-r0923" output="/" />
+    <key id="ov-symbols_layout_armenian-p25" output="†" />
+    <key id="ov-symbols_layout_armenian-r026" output="★" />
+    <key id="ov-symbols_layout_armenian-r127" output="‡" />
+    <key id="ov-symbols_layout_armenian-r1024" output="*" longPressKeyIds="ov-symbols_layout_armenian-p25 ov-symbols_layout_armenian-r026 ov-symbols_layout_armenian-r127" longPressDefaultKeyId="ov-symbols_layout_armenian-p25" />
+    <key id="ov-symbols_layout_armenian-p29" output="\u{22}" />
+    <key id="ov-symbols_layout_armenian-r030" output="”" />
+    <key id="ov-symbols_layout_armenian-r131" output="„" />
+    <key id="ov-symbols_layout_armenian-r232" output="“" />
+    <key id="ov-symbols_layout_armenian-r333" output="‹" />
+    <key id="ov-symbols_layout_armenian-r1128" output="«" longPressKeyIds="ov-symbols_layout_armenian-p29 ov-symbols_layout_armenian-r030 ov-symbols_layout_armenian-r131 ov-symbols_layout_armenian-r232 ov-symbols_layout_armenian-r333" longPressDefaultKeyId="ov-symbols_layout_armenian-p29" />
+    <key id="ov-symbols_layout_armenian-p35" output="&#x27;" />
+    <key id="ov-symbols_layout_armenian-r036" output="’" />
+    <key id="ov-symbols_layout_armenian-r137" output="‚" />
+    <key id="ov-symbols_layout_armenian-r238" output="‘" />
+    <key id="ov-symbols_layout_armenian-r339" output="›" />
+    <key id="ov-symbols_layout_armenian-r1234" output="»" longPressKeyIds="ov-symbols_layout_armenian-p35 ov-symbols_layout_armenian-r036 ov-symbols_layout_armenian-r137 ov-symbols_layout_armenian-r238 ov-symbols_layout_armenian-r339" longPressDefaultKeyId="ov-symbols_layout_armenian-p35" />
+    <key id="ov-symbols_layout_armenian-p41" output=":" />
+    <key id="ov-symbols_layout_armenian-r1340" output="՝" longPressKeyIds="ov-symbols_layout_armenian-p41" longPressDefaultKeyId="ov-symbols_layout_armenian-p41" />
+    <key id="ov-symbols_layout_armenian-r1442" output="." />
+    <key id="ov-symbols_layout_armenian-p44" output="!" />
+    <key id="ov-symbols_layout_armenian-r1543" output="՜" longPressKeyIds="ov-symbols_layout_armenian-p44" longPressDefaultKeyId="ov-symbols_layout_armenian-p44" />
+    <key id="ov-symbols_layout_armenian-p46" output="?" />
+    <key id="ov-symbols_layout_armenian-r047" output="¿" />
+    <key id="ov-symbols_layout_armenian-r148" output="‽" />
+    <key id="ov-symbols_layout_armenian-r1645" output="՞" longPressKeyIds="ov-symbols_layout_armenian-p46 ov-symbols_layout_armenian-r047 ov-symbols_layout_armenian-r148" longPressDefaultKeyId="ov-symbols_layout_armenian-p46" />
+    <key id="ov-symbols_layout_armenian-r1749" output="՛" />
+    </keys>
+    <layers formId="touch">
+        <layer id="symbol-1">
+        <row keys="ov-symbols_layout_armenian-r001 ov-symbols_layout_armenian-r012 currency-1 ov-symbols_layout_armenian-r034 ov-symbols_layout_armenian-r047 ov-symbols_layout_armenian-r058 ov-symbols_layout_armenian-r0613 ov-symbols_layout_armenian-r0715 ov-symbols_layout_armenian-r0819 ov-symbols_layout_armenian-r0923" />
+        <row keys="ov-symbols_layout_armenian-r1024 ov-symbols_layout_armenian-r1128 ov-symbols_layout_armenian-r1234 ov-symbols_layout_armenian-r1340 ov-symbols_layout_armenian-r1442 ov-symbols_layout_armenian-r1543 ov-symbols_layout_armenian-r1645 ov-symbols_layout_armenian-r1749" />
+        <row keys="gap gap gap gap gap gap gap gap gap gap" />
+        <row keys="base comma numeric space period enter" />
+        </layer>
+    </layers>
+</keyboard3>

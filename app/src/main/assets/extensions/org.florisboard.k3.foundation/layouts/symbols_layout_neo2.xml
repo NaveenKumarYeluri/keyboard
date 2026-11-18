@@ -1,0 +1,43 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="symbols_layout_neo2" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-symbols_layout_neo2-r001" output="…" />
+    <key id="ov-symbols_layout_neo2-r012" output="_" />
+    <key id="ov-symbols_layout_neo2-r023" output="[" />
+    <key id="ov-symbols_layout_neo2-r034" output="]" />
+    <key id="ov-symbols_layout_neo2-r045" output="^" />
+    <key id="ov-symbols_layout_neo2-r056" output="!" />
+    <key id="ov-symbols_layout_neo2-r067" output="&lt;" />
+    <key id="ov-symbols_layout_neo2-r078" output="&gt;" />
+    <key id="ov-symbols_layout_neo2-r089" output="=" />
+    <key id="ov-symbols_layout_neo2-r0910" output="&amp;" />
+    <key id="ov-symbols_layout_neo2-r01011" output="ſ" />
+    <key id="ov-symbols_layout_neo2-r1012" output="\u{5C}" />
+    <key id="ov-symbols_layout_neo2-r1113" output="/" />
+    <key id="ov-symbols_layout_neo2-r1214" output="{" />
+    <key id="ov-symbols_layout_neo2-r1315" output="}" />
+    <key id="ov-symbols_layout_neo2-r1416" output="*" />
+    <key id="ov-symbols_layout_neo2-r1517" output="?" />
+    <key id="ov-symbols_layout_neo2-r1618" output="(" />
+    <key id="ov-symbols_layout_neo2-r1719" output=")" />
+    <key id="ov-symbols_layout_neo2-r1820" output="-" />
+    <key id="ov-symbols_layout_neo2-r1921" output=":" />
+    <key id="ov-symbols_layout_neo2-r11022" output="@" />
+    <key id="ov-symbols_layout_neo2-r2023" output="#" />
+    <key id="ov-symbols_layout_neo2-r2124" output="$" />
+    <key id="ov-symbols_layout_neo2-r2225" output="|" />
+    <key id="ov-symbols_layout_neo2-r2326" output="~" />
+    <key id="ov-symbols_layout_neo2-r2427" output="`" />
+    <key id="ov-symbols_layout_neo2-r2528" output="+" />
+    <key id="ov-symbols_layout_neo2-r2629" output="%" />
+    <key id="ov-symbols_layout_neo2-r2730" output=";" />
+    </keys>
+    <layers formId="touch">
+        <layer id="symbol-1">
+        <row keys="ov-symbols_layout_neo2-r001 ov-symbols_layout_neo2-r012 ov-symbols_layout_neo2-r023 ov-symbols_layout_neo2-r034 ov-symbols_layout_neo2-r045 ov-symbols_layout_neo2-r056 ov-symbols_layout_neo2-r067 ov-symbols_layout_neo2-r078 ov-symbols_layout_neo2-r089 ov-symbols_layout_neo2-r0910 ov-symbols_layout_neo2-r01011" />
+        <row keys="ov-symbols_layout_neo2-r1012 ov-symbols_layout_neo2-r1113 ov-symbols_layout_neo2-r1214 ov-symbols_layout_neo2-r1315 ov-symbols_layout_neo2-r1416 ov-symbols_layout_neo2-r1517 ov-symbols_layout_neo2-r1618 ov-symbols_layout_neo2-r1719 ov-symbols_layout_neo2-r1820 ov-symbols_layout_neo2-r1921 ov-symbols_layout_neo2-r11022" />
+        <row keys="ov-symbols_layout_neo2-r2023 ov-symbols_layout_neo2-r2124 ov-symbols_layout_neo2-r2225 ov-symbols_layout_neo2-r2326 ov-symbols_layout_neo2-r2427 ov-symbols_layout_neo2-r2528 ov-symbols_layout_neo2-r2629 ov-symbols_layout_neo2-r2730" />
+        <row keys="base comma numeric space period enter" />
+        </layer>
+    </layers>
+</keyboard3>

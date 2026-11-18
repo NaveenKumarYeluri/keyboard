@@ -1,0 +1,76 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="symbols2_layout_ipa" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-symbols2_layout_ipa-p2" output="◌̍" />
+    <key id="ov-symbols2_layout_ipa-r001" output="◌̩" longPressKeyIds="ov-symbols2_layout_ipa-p2" longPressDefaultKeyId="ov-symbols2_layout_ipa-p2" />
+    <key id="ov-symbols2_layout_ipa-p4" output="◌̑" />
+    <key id="ov-symbols2_layout_ipa-r013" output="◌̯" longPressKeyIds="ov-symbols2_layout_ipa-p4" longPressDefaultKeyId="ov-symbols2_layout_ipa-p4" />
+    <key id="ov-symbols2_layout_ipa-r025" output="◌̚" />
+    <key id="ov-symbols2_layout_ipa-p7" output="◌̊" />
+    <key id="ov-symbols2_layout_ipa-r036" output="◌̥" longPressKeyIds="ov-symbols2_layout_ipa-p7" longPressDefaultKeyId="ov-symbols2_layout_ipa-p7" />
+    <key id="ov-symbols2_layout_ipa-r048" output="◌̼" />
+    <key id="ov-symbols2_layout_ipa-r059" output="◌̻" />
+    <key id="ov-symbols2_layout_ipa-r0610" output="◌̤" />
+    <key id="ov-symbols2_layout_ipa-p12" output="◌˔" />
+    <key id="ov-symbols2_layout_ipa-r013" output="◌̞" />
+    <key id="ov-symbols2_layout_ipa-r114" output="◌˕" />
+    <key id="ov-symbols2_layout_ipa-r215" output="◌̘" />
+    <key id="ov-symbols2_layout_ipa-r316" output="◌̙" />
+    <key id="ov-symbols2_layout_ipa-r0711" output="◌̝" longPressKeyIds="ov-symbols2_layout_ipa-p12 ov-symbols2_layout_ipa-r013 ov-symbols2_layout_ipa-r114 ov-symbols2_layout_ipa-r215 ov-symbols2_layout_ipa-r316" longPressDefaultKeyId="ov-symbols2_layout_ipa-p12" />
+    <key id="ov-symbols2_layout_ipa-r0817" output="◌̬" />
+    <key id="ov-symbols2_layout_ipa-r0918" output="◌̽" />
+    <key id="ov-symbols2_layout_ipa-r01019" output="◌̺" />
+    <key id="ov-symbols2_layout_ipa-r1020" output="◌̰" />
+    <key id="ov-symbols2_layout_ipa-p22" output="◌͆" />
+    <key id="ov-symbols2_layout_ipa-r1121" output="◌̪" longPressKeyIds="ov-symbols2_layout_ipa-p22" longPressDefaultKeyId="ov-symbols2_layout_ipa-p22" />
+    <key id="ov-symbols2_layout_ipa-r1223" output="◌̺" />
+    <key id="ov-symbols2_layout_ipa-p25" output="◌˖" />
+    <key id="ov-symbols2_layout_ipa-r1324" output="◌̟" longPressKeyIds="ov-symbols2_layout_ipa-p25" longPressDefaultKeyId="ov-symbols2_layout_ipa-p25" />
+    <key id="ov-symbols2_layout_ipa-r1426" output="@" />
+    <key id="ov-symbols2_layout_ipa-p28" output="№" />
+    <key id="ov-symbols2_layout_ipa-r1527" output="#" longPressKeyIds="ov-symbols2_layout_ipa-p28" longPressDefaultKeyId="ov-symbols2_layout_ipa-p28" />
+    <key id="ov-symbols2_layout_ipa-p30" output="‰" />
+    <key id="ov-symbols2_layout_ipa-r031" output="℅" />
+    <key id="ov-symbols2_layout_ipa-r1729" output="%" longPressKeyIds="ov-symbols2_layout_ipa-p30 ov-symbols2_layout_ipa-r031" longPressDefaultKeyId="ov-symbols2_layout_ipa-p30" />
+    <key id="ov-symbols2_layout_ipa-r1832" output="&amp;" />
+    <key id="ov-symbols2_layout_ipa-p34" output="_" />
+    <key id="ov-symbols2_layout_ipa-r035" output="—" />
+    <key id="ov-symbols2_layout_ipa-r136" output="–" />
+    <key id="ov-symbols2_layout_ipa-r237" output="·" />
+    <key id="ov-symbols2_layout_ipa-r1933" output="-" longPressKeyIds="ov-symbols2_layout_ipa-p34 ov-symbols2_layout_ipa-r035 ov-symbols2_layout_ipa-r136 ov-symbols2_layout_ipa-r237" longPressDefaultKeyId="ov-symbols2_layout_ipa-p34" />
+    <key id="ov-symbols2_layout_ipa-p39" output="±" />
+    <key id="ov-symbols2_layout_ipa-r11038" output="+" longPressKeyIds="ov-symbols2_layout_ipa-p39" longPressDefaultKeyId="ov-symbols2_layout_ipa-p39" />
+    <key id="ov-symbols2_layout_ipa-p41" output="ʘ" />
+    <key id="ov-symbols2_layout_ipa-r042" output="ǂ" />
+    <key id="ov-symbols2_layout_ipa-r2040" output="*" longPressKeyIds="ov-symbols2_layout_ipa-p41 ov-symbols2_layout_ipa-r042" longPressDefaultKeyId="ov-symbols2_layout_ipa-p41" />
+    <key id="ov-symbols2_layout_ipa-p44" output="”" />
+    <key id="ov-symbols2_layout_ipa-r045" output="„" />
+    <key id="ov-symbols2_layout_ipa-r146" output="“" />
+    <key id="ov-symbols2_layout_ipa-r247" output="«" />
+    <key id="ov-symbols2_layout_ipa-r348" output="»" />
+    <key id="ov-symbols2_layout_ipa-r2143" output="\u{22}" longPressKeyIds="ov-symbols2_layout_ipa-p44 ov-symbols2_layout_ipa-r045 ov-symbols2_layout_ipa-r146 ov-symbols2_layout_ipa-r247 ov-symbols2_layout_ipa-r348" longPressDefaultKeyId="ov-symbols2_layout_ipa-p44" />
+    <key id="ov-symbols2_layout_ipa-p50" output="ʼ" />
+    <key id="ov-symbols2_layout_ipa-r051" output="‚" />
+    <key id="ov-symbols2_layout_ipa-r152" output="‘" />
+    <key id="ov-symbols2_layout_ipa-r253" output="’" />
+    <key id="ov-symbols2_layout_ipa-r354" output="‹" />
+    <key id="ov-symbols2_layout_ipa-r455" output="›" />
+    <key id="ov-symbols2_layout_ipa-r2249" output="&#x27;" longPressKeyIds="ov-symbols2_layout_ipa-p50 ov-symbols2_layout_ipa-r051 ov-symbols2_layout_ipa-r152 ov-symbols2_layout_ipa-r253 ov-symbols2_layout_ipa-r354 ov-symbols2_layout_ipa-r455" longPressDefaultKeyId="ov-symbols2_layout_ipa-p50" />
+    <key id="ov-symbols2_layout_ipa-p57" output="⋮" />
+    <key id="ov-symbols2_layout_ipa-r2356" output=":" longPressKeyIds="ov-symbols2_layout_ipa-p57" longPressDefaultKeyId="ov-symbols2_layout_ipa-p57" />
+    <key id="ov-symbols2_layout_ipa-r2458" output=";" />
+    <key id="ov-symbols2_layout_ipa-p60" output="¡" />
+    <key id="ov-symbols2_layout_ipa-r2559" output="!" longPressKeyIds="ov-symbols2_layout_ipa-p60" longPressDefaultKeyId="ov-symbols2_layout_ipa-p60" />
+    <key id="ov-symbols2_layout_ipa-p62" output="¿" />
+    <key id="ov-symbols2_layout_ipa-r063" output="‽" />
+    <key id="ov-symbols2_layout_ipa-r2661" output="?" longPressKeyIds="ov-symbols2_layout_ipa-p62 ov-symbols2_layout_ipa-r063" longPressDefaultKeyId="ov-symbols2_layout_ipa-p62" />
+    </keys>
+    <layers formId="touch">
+        <layer id="symbol-2">
+        <row keys="ov-symbols2_layout_ipa-r001 ov-symbols2_layout_ipa-r013 ov-symbols2_layout_ipa-r025 ov-symbols2_layout_ipa-r036 ov-symbols2_layout_ipa-r048 ov-symbols2_layout_ipa-r059 ov-symbols2_layout_ipa-r0610 ov-symbols2_layout_ipa-r0711 ov-symbols2_layout_ipa-r0817 ov-symbols2_layout_ipa-r0918 ov-symbols2_layout_ipa-r01019" />
+        <row keys="ov-symbols2_layout_ipa-r1020 ov-symbols2_layout_ipa-r1121 ov-symbols2_layout_ipa-r1223 ov-symbols2_layout_ipa-r1324 ov-symbols2_layout_ipa-r1426 ov-symbols2_layout_ipa-r1527 currency-1 ov-symbols2_layout_ipa-r1729 ov-symbols2_layout_ipa-r1832 ov-symbols2_layout_ipa-r1933 ov-symbols2_layout_ipa-r11038" />
+        <row keys="ov-symbols2_layout_ipa-r2040 ov-symbols2_layout_ipa-r2143 ov-symbols2_layout_ipa-r2249 ov-symbols2_layout_ipa-r2356 ov-symbols2_layout_ipa-r2458 ov-symbols2_layout_ipa-r2559 ov-symbols2_layout_ipa-r2661" />
+        <row keys="base open-angle numeric space close-angle enter" />
+        </layer>
+    </layers>
+</keyboard3>

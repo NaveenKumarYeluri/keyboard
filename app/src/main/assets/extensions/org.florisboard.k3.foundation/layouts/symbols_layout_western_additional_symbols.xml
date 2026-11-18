@@ -1,0 +1,70 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="symbols_layout_western_additional_symbols" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-symbols_layout_western_additional_symbols-p2" output="‰" />
+    <key id="ov-symbols_layout_western_additional_symbols-r03" output="℅" />
+    <key id="ov-symbols_layout_western_additional_symbols-r001" output="%" longPressKeyIds="ov-symbols_layout_western_additional_symbols-p2 ov-symbols_layout_western_additional_symbols-r03" longPressDefaultKeyId="ov-symbols_layout_western_additional_symbols-p2" />
+    <key id="ov-symbols_layout_western_additional_symbols-r014" output="\u{5C}" />
+    <key id="ov-symbols_layout_western_additional_symbols-r025" output="|" />
+    <key id="ov-symbols_layout_western_additional_symbols-r036" output="=" />
+    <key id="ov-symbols_layout_western_additional_symbols-r047" output="[" />
+    <key id="ov-symbols_layout_western_additional_symbols-r058" output="]" />
+    <key id="ov-symbols_layout_western_additional_symbols-r069" output="&lt;" />
+    <key id="ov-symbols_layout_western_additional_symbols-r0710" output="&gt;" />
+    <key id="ov-symbols_layout_western_additional_symbols-r0811" output="{" />
+    <key id="ov-symbols_layout_western_additional_symbols-r0912" output="}" />
+    <key id="ov-symbols_layout_western_additional_symbols-r1013" output="@" />
+    <key id="ov-symbols_layout_western_additional_symbols-p15" output="№" />
+    <key id="ov-symbols_layout_western_additional_symbols-r1114" output="#" longPressKeyIds="ov-symbols_layout_western_additional_symbols-p15" longPressDefaultKeyId="ov-symbols_layout_western_additional_symbols-p15" />
+    <key id="ov-symbols_layout_western_additional_symbols-r1316" output="_" />
+    <key id="ov-symbols_layout_western_additional_symbols-r1417" output="&amp;" />
+    <key id="ov-symbols_layout_western_additional_symbols-p19" output="_" />
+    <key id="ov-symbols_layout_western_additional_symbols-r020" output="—" />
+    <key id="ov-symbols_layout_western_additional_symbols-r121" output="–" />
+    <key id="ov-symbols_layout_western_additional_symbols-r222" output="·" />
+    <key id="ov-symbols_layout_western_additional_symbols-r1518" output="-" longPressKeyIds="ov-symbols_layout_western_additional_symbols-p19 ov-symbols_layout_western_additional_symbols-r020 ov-symbols_layout_western_additional_symbols-r121 ov-symbols_layout_western_additional_symbols-r222" longPressDefaultKeyId="ov-symbols_layout_western_additional_symbols-p19" />
+    <key id="ov-symbols_layout_western_additional_symbols-p24" output="±" />
+    <key id="ov-symbols_layout_western_additional_symbols-r1623" output="+" longPressKeyIds="ov-symbols_layout_western_additional_symbols-p24" longPressDefaultKeyId="ov-symbols_layout_western_additional_symbols-p24" />
+    <key id="ov-symbols_layout_western_additional_symbols-p26" output="&lt;" />
+    <key id="ov-symbols_layout_western_additional_symbols-r027" output="[" />
+    <key id="ov-symbols_layout_western_additional_symbols-r128" output="{" />
+    <key id="ov-symbols_layout_western_additional_symbols-r1725" output="(" longPressKeyIds="ov-symbols_layout_western_additional_symbols-p26 ov-symbols_layout_western_additional_symbols-r027 ov-symbols_layout_western_additional_symbols-r128" longPressDefaultKeyId="ov-symbols_layout_western_additional_symbols-p26" />
+    <key id="ov-symbols_layout_western_additional_symbols-p30" output="&gt;" />
+    <key id="ov-symbols_layout_western_additional_symbols-r031" output="]" />
+    <key id="ov-symbols_layout_western_additional_symbols-r132" output="}" />
+    <key id="ov-symbols_layout_western_additional_symbols-r1829" output=")" longPressKeyIds="ov-symbols_layout_western_additional_symbols-p30 ov-symbols_layout_western_additional_symbols-r031 ov-symbols_layout_western_additional_symbols-r132" longPressDefaultKeyId="ov-symbols_layout_western_additional_symbols-p30" />
+    <key id="ov-symbols_layout_western_additional_symbols-r1933" output="/" />
+    <key id="ov-symbols_layout_western_additional_symbols-p35" output="†" />
+    <key id="ov-symbols_layout_western_additional_symbols-r036" output="★" />
+    <key id="ov-symbols_layout_western_additional_symbols-r137" output="‡" />
+    <key id="ov-symbols_layout_western_additional_symbols-r2034" output="*" longPressKeyIds="ov-symbols_layout_western_additional_symbols-p35 ov-symbols_layout_western_additional_symbols-r036 ov-symbols_layout_western_additional_symbols-r137" longPressDefaultKeyId="ov-symbols_layout_western_additional_symbols-p35" />
+    <key id="ov-symbols_layout_western_additional_symbols-p39" output="”" />
+    <key id="ov-symbols_layout_western_additional_symbols-r040" output="„" />
+    <key id="ov-symbols_layout_western_additional_symbols-r141" output="“" />
+    <key id="ov-symbols_layout_western_additional_symbols-r242" output="«" />
+    <key id="ov-symbols_layout_western_additional_symbols-r343" output="»" />
+    <key id="ov-symbols_layout_western_additional_symbols-r2138" output="\u{22}" longPressKeyIds="ov-symbols_layout_western_additional_symbols-p39 ov-symbols_layout_western_additional_symbols-r040 ov-symbols_layout_western_additional_symbols-r141 ov-symbols_layout_western_additional_symbols-r242 ov-symbols_layout_western_additional_symbols-r343" longPressDefaultKeyId="ov-symbols_layout_western_additional_symbols-p39" />
+    <key id="ov-symbols_layout_western_additional_symbols-p45" output="’" />
+    <key id="ov-symbols_layout_western_additional_symbols-r046" output="‚" />
+    <key id="ov-symbols_layout_western_additional_symbols-r147" output="‘" />
+    <key id="ov-symbols_layout_western_additional_symbols-r248" output="‹" />
+    <key id="ov-symbols_layout_western_additional_symbols-r349" output="›" />
+    <key id="ov-symbols_layout_western_additional_symbols-r2244" output="&#x27;" longPressKeyIds="ov-symbols_layout_western_additional_symbols-p45 ov-symbols_layout_western_additional_symbols-r046 ov-symbols_layout_western_additional_symbols-r147 ov-symbols_layout_western_additional_symbols-r248 ov-symbols_layout_western_additional_symbols-r349" longPressDefaultKeyId="ov-symbols_layout_western_additional_symbols-p45" />
+    <key id="ov-symbols_layout_western_additional_symbols-p51" output="⋮" />
+    <key id="ov-symbols_layout_western_additional_symbols-r2350" output=":" longPressKeyIds="ov-symbols_layout_western_additional_symbols-p51" longPressDefaultKeyId="ov-symbols_layout_western_additional_symbols-p51" />
+    <key id="ov-symbols_layout_western_additional_symbols-r2452" output=";" />
+    <key id="ov-symbols_layout_western_additional_symbols-p54" output="¡" />
+    <key id="ov-symbols_layout_western_additional_symbols-r2553" output="!" longPressKeyIds="ov-symbols_layout_western_additional_symbols-p54" longPressDefaultKeyId="ov-symbols_layout_western_additional_symbols-p54" />
+    <key id="ov-symbols_layout_western_additional_symbols-p56" output="¿" />
+    <key id="ov-symbols_layout_western_additional_symbols-r057" output="‽" />
+    <key id="ov-symbols_layout_western_additional_symbols-r2655" output="?" longPressKeyIds="ov-symbols_layout_western_additional_symbols-p56 ov-symbols_layout_western_additional_symbols-r057" longPressDefaultKeyId="ov-symbols_layout_western_additional_symbols-p56" />
+    </keys>
+    <layers formId="touch">
+        <layer id="symbol-1">
+        <row keys="ov-symbols_layout_western_additional_symbols-r001 ov-symbols_layout_western_additional_symbols-r014 ov-symbols_layout_western_additional_symbols-r025 ov-symbols_layout_western_additional_symbols-r036 ov-symbols_layout_western_additional_symbols-r047 ov-symbols_layout_western_additional_symbols-r058 ov-symbols_layout_western_additional_symbols-r069 ov-symbols_layout_western_additional_symbols-r0710 ov-symbols_layout_western_additional_symbols-r0811 ov-symbols_layout_western_additional_symbols-r0912" />
+        <row keys="ov-symbols_layout_western_additional_symbols-r1013 ov-symbols_layout_western_additional_symbols-r1114 currency-1 ov-symbols_layout_western_additional_symbols-r1316 ov-symbols_layout_western_additional_symbols-r1417 ov-symbols_layout_western_additional_symbols-r1518 ov-symbols_layout_western_additional_symbols-r1623 ov-symbols_layout_western_additional_symbols-r1725 ov-symbols_layout_western_additional_symbols-r1829 ov-symbols_layout_western_additional_symbols-r1933" />
+        <row keys="ov-symbols_layout_western_additional_symbols-r2034 ov-symbols_layout_western_additional_symbols-r2138 ov-symbols_layout_western_additional_symbols-r2244 ov-symbols_layout_western_additional_symbols-r2350 ov-symbols_layout_western_additional_symbols-r2452 ov-symbols_layout_western_additional_symbols-r2553 ov-symbols_layout_western_additional_symbols-r2655" />
+        <row keys="base comma numeric space period enter" />
+        </layer>
+    </layers>
+</keyboard3>

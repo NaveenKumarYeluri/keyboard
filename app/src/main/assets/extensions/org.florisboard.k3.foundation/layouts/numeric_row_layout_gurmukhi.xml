@@ -1,0 +1,72 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="numeric_row_layout_gurmukhi" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-numeric_row_layout_gurmukhi-p2" output="1" />
+    <key id="ov-numeric_row_layout_gurmukhi-r03" output="₁" />
+    <key id="ov-numeric_row_layout_gurmukhi-r14" output="⅐" />
+    <key id="ov-numeric_row_layout_gurmukhi-r25" output="⅛" />
+    <key id="ov-numeric_row_layout_gurmukhi-r36" output="⅑" />
+    <key id="ov-numeric_row_layout_gurmukhi-r47" output="⅒" />
+    <key id="ov-numeric_row_layout_gurmukhi-r58" output="⅟" />
+    <key id="ov-numeric_row_layout_gurmukhi-r69" output="¹" />
+    <key id="ov-numeric_row_layout_gurmukhi-r710" output="½" />
+    <key id="ov-numeric_row_layout_gurmukhi-r811" output="⅓" />
+    <key id="ov-numeric_row_layout_gurmukhi-r912" output="¼" />
+    <key id="ov-numeric_row_layout_gurmukhi-r1013" output="⅕" />
+    <key id="ov-numeric_row_layout_gurmukhi-r1114" output="⅙" />
+    <key id="ov-numeric_row_layout_gurmukhi-r001" output="੧" longPressKeyIds="ov-numeric_row_layout_gurmukhi-p2 ov-numeric_row_layout_gurmukhi-r03 ov-numeric_row_layout_gurmukhi-r14 ov-numeric_row_layout_gurmukhi-r25 ov-numeric_row_layout_gurmukhi-r36 ov-numeric_row_layout_gurmukhi-r47 ov-numeric_row_layout_gurmukhi-r58 ov-numeric_row_layout_gurmukhi-r69 ov-numeric_row_layout_gurmukhi-r710 ov-numeric_row_layout_gurmukhi-r811 ov-numeric_row_layout_gurmukhi-r912 ov-numeric_row_layout_gurmukhi-r1013 ov-numeric_row_layout_gurmukhi-r1114" longPressDefaultKeyId="ov-numeric_row_layout_gurmukhi-p2" />
+    <key id="ov-numeric_row_layout_gurmukhi-p16" output="2" />
+    <key id="ov-numeric_row_layout_gurmukhi-r017" output="₂" />
+    <key id="ov-numeric_row_layout_gurmukhi-r118" output="²" />
+    <key id="ov-numeric_row_layout_gurmukhi-r219" output="⅔" />
+    <key id="ov-numeric_row_layout_gurmukhi-r320" output="⅖" />
+    <key id="ov-numeric_row_layout_gurmukhi-r0115" output="੨" longPressKeyIds="ov-numeric_row_layout_gurmukhi-p16 ov-numeric_row_layout_gurmukhi-r017 ov-numeric_row_layout_gurmukhi-r118 ov-numeric_row_layout_gurmukhi-r219 ov-numeric_row_layout_gurmukhi-r320" longPressDefaultKeyId="ov-numeric_row_layout_gurmukhi-p16" />
+    <key id="ov-numeric_row_layout_gurmukhi-p22" output="3" />
+    <key id="ov-numeric_row_layout_gurmukhi-r023" output="¾" />
+    <key id="ov-numeric_row_layout_gurmukhi-r124" output="⅗" />
+    <key id="ov-numeric_row_layout_gurmukhi-r225" output="⅜" />
+    <key id="ov-numeric_row_layout_gurmukhi-r326" output="₃" />
+    <key id="ov-numeric_row_layout_gurmukhi-r427" output="³" />
+    <key id="ov-numeric_row_layout_gurmukhi-r0221" output="੩" longPressKeyIds="ov-numeric_row_layout_gurmukhi-p22 ov-numeric_row_layout_gurmukhi-r023 ov-numeric_row_layout_gurmukhi-r124 ov-numeric_row_layout_gurmukhi-r225 ov-numeric_row_layout_gurmukhi-r326 ov-numeric_row_layout_gurmukhi-r427" longPressDefaultKeyId="ov-numeric_row_layout_gurmukhi-p22" />
+    <key id="ov-numeric_row_layout_gurmukhi-p29" output="4" />
+    <key id="ov-numeric_row_layout_gurmukhi-r030" output="₄" />
+    <key id="ov-numeric_row_layout_gurmukhi-r131" output="⁴" />
+    <key id="ov-numeric_row_layout_gurmukhi-r232" output="⅘" />
+    <key id="ov-numeric_row_layout_gurmukhi-r0328" output="੪" longPressKeyIds="ov-numeric_row_layout_gurmukhi-p29 ov-numeric_row_layout_gurmukhi-r030 ov-numeric_row_layout_gurmukhi-r131 ov-numeric_row_layout_gurmukhi-r232" longPressDefaultKeyId="ov-numeric_row_layout_gurmukhi-p29" />
+    <key id="ov-numeric_row_layout_gurmukhi-p34" output="5" />
+    <key id="ov-numeric_row_layout_gurmukhi-r035" output="⅚" />
+    <key id="ov-numeric_row_layout_gurmukhi-r136" output="₅" />
+    <key id="ov-numeric_row_layout_gurmukhi-r237" output="⁵" />
+    <key id="ov-numeric_row_layout_gurmukhi-r338" output="⅝" />
+    <key id="ov-numeric_row_layout_gurmukhi-r0433" output="੫" longPressKeyIds="ov-numeric_row_layout_gurmukhi-p34 ov-numeric_row_layout_gurmukhi-r035 ov-numeric_row_layout_gurmukhi-r136 ov-numeric_row_layout_gurmukhi-r237 ov-numeric_row_layout_gurmukhi-r338" longPressDefaultKeyId="ov-numeric_row_layout_gurmukhi-p34" />
+    <key id="ov-numeric_row_layout_gurmukhi-p40" output="6" />
+    <key id="ov-numeric_row_layout_gurmukhi-r041" output="₆" />
+    <key id="ov-numeric_row_layout_gurmukhi-r142" output="⁶" />
+    <key id="ov-numeric_row_layout_gurmukhi-r0539" output="੬" longPressKeyIds="ov-numeric_row_layout_gurmukhi-p40 ov-numeric_row_layout_gurmukhi-r041 ov-numeric_row_layout_gurmukhi-r142" longPressDefaultKeyId="ov-numeric_row_layout_gurmukhi-p40" />
+    <key id="ov-numeric_row_layout_gurmukhi-p44" output="7" />
+    <key id="ov-numeric_row_layout_gurmukhi-r045" output="⅞" />
+    <key id="ov-numeric_row_layout_gurmukhi-r146" output="₇" />
+    <key id="ov-numeric_row_layout_gurmukhi-r247" output="⁷" />
+    <key id="ov-numeric_row_layout_gurmukhi-r0643" output="੭" longPressKeyIds="ov-numeric_row_layout_gurmukhi-p44 ov-numeric_row_layout_gurmukhi-r045 ov-numeric_row_layout_gurmukhi-r146 ov-numeric_row_layout_gurmukhi-r247" longPressDefaultKeyId="ov-numeric_row_layout_gurmukhi-p44" />
+    <key id="ov-numeric_row_layout_gurmukhi-p49" output="8" />
+    <key id="ov-numeric_row_layout_gurmukhi-r050" output="₈" />
+    <key id="ov-numeric_row_layout_gurmukhi-r151" output="⁸" />
+    <key id="ov-numeric_row_layout_gurmukhi-r0748" output="੮" longPressKeyIds="ov-numeric_row_layout_gurmukhi-p49 ov-numeric_row_layout_gurmukhi-r050 ov-numeric_row_layout_gurmukhi-r151" longPressDefaultKeyId="ov-numeric_row_layout_gurmukhi-p49" />
+    <key id="ov-numeric_row_layout_gurmukhi-p53" output="9" />
+    <key id="ov-numeric_row_layout_gurmukhi-r054" output="₉" />
+    <key id="ov-numeric_row_layout_gurmukhi-r155" output="⁹" />
+    <key id="ov-numeric_row_layout_gurmukhi-r0852" output="੯" longPressKeyIds="ov-numeric_row_layout_gurmukhi-p53 ov-numeric_row_layout_gurmukhi-r054 ov-numeric_row_layout_gurmukhi-r155" longPressDefaultKeyId="ov-numeric_row_layout_gurmukhi-p53" />
+    <key id="ov-numeric_row_layout_gurmukhi-p57" output="0" />
+    <key id="ov-numeric_row_layout_gurmukhi-r058" output="∅" />
+    <key id="ov-numeric_row_layout_gurmukhi-r159" output="ⁿ" />
+    <key id="ov-numeric_row_layout_gurmukhi-r260" output="⁰" />
+    <key id="ov-numeric_row_layout_gurmukhi-r361" output="↉" />
+    <key id="ov-numeric_row_layout_gurmukhi-r462" output="₀" />
+    <key id="ov-numeric_row_layout_gurmukhi-r0956" output="੦" longPressKeyIds="ov-numeric_row_layout_gurmukhi-p57 ov-numeric_row_layout_gurmukhi-r058 ov-numeric_row_layout_gurmukhi-r159 ov-numeric_row_layout_gurmukhi-r260 ov-numeric_row_layout_gurmukhi-r361 ov-numeric_row_layout_gurmukhi-r462" longPressDefaultKeyId="ov-numeric_row_layout_gurmukhi-p57" />
+    </keys>
+    <layers formId="touch">
+        <layer id="numrow">
+        <row keys="ov-numeric_row_layout_gurmukhi-r001 ov-numeric_row_layout_gurmukhi-r0115 ov-numeric_row_layout_gurmukhi-r0221 ov-numeric_row_layout_gurmukhi-r0328 ov-numeric_row_layout_gurmukhi-r0433 ov-numeric_row_layout_gurmukhi-r0539 ov-numeric_row_layout_gurmukhi-r0643 ov-numeric_row_layout_gurmukhi-r0748 ov-numeric_row_layout_gurmukhi-r0852 ov-numeric_row_layout_gurmukhi-r0956" />
+        </layer>
+    </layers>
+</keyboard3>

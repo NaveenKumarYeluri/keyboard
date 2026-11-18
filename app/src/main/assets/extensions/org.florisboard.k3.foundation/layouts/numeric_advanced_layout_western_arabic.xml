@@ -1,0 +1,42 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="numeric_advanced_layout_western_arabic" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-numeric_advanced_layout_western_arabic-r02" output="-" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r13" output="*" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r24" output="/" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r001" output="+" stretch="true" longPressKeyIds="ov-numeric_advanced_layout_western_arabic-r02 ov-numeric_advanced_layout_western_arabic-r13 ov-numeric_advanced_layout_western_arabic-r24" longPressDefaultKeyId="ov-numeric_advanced_layout_western_arabic-r02" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r015" output="1" stretch="true" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r026" output="2" stretch="true" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r037" output="3" stretch="true" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r048" output="%" stretch="true" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r010" output="[" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r111" output="{" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r109" output="(" stretch="true" longPressKeyIds="ov-numeric_advanced_layout_western_arabic-r010 ov-numeric_advanced_layout_western_arabic-r111" longPressDefaultKeyId="ov-numeric_advanced_layout_western_arabic-r010" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r1112" output="4" stretch="true" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r1213" output="5" stretch="true" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r1314" output="6" stretch="true" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r1415" output="\u{0020}" stretch="true" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r017" output="]" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r118" output="}" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r2016" output=")" stretch="true" longPressKeyIds="ov-numeric_advanced_layout_western_arabic-r017 ov-numeric_advanced_layout_western_arabic-r118" longPressDefaultKeyId="ov-numeric_advanced_layout_western_arabic-r017" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r2119" output="7" stretch="true" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r2220" output="8" stretch="true" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r2321" output="9" stretch="true" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r2422" output="@k3:action/backspace" stretch="true" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r3023" layerId="base" stretch="true" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r3124" output="," stretch="true" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r3225" layerId="symbol-1" stretch="true" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r3326" output="0" stretch="true" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r3427" output="=" stretch="true" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r3528" output="." stretch="true" />
+    <key id="ov-numeric_advanced_layout_western_arabic-r3629" output="@k3:action/enter" stretch="true" />
+    </keys>
+    <layers formId="touch">
+        <layer id="numeric">
+        <row keys="ov-numeric_advanced_layout_western_arabic-r001 ov-numeric_advanced_layout_western_arabic-r015 ov-numeric_advanced_layout_western_arabic-r026 ov-numeric_advanced_layout_western_arabic-r037 ov-numeric_advanced_layout_western_arabic-r048" />
+        <row keys="ov-numeric_advanced_layout_western_arabic-r109 ov-numeric_advanced_layout_western_arabic-r1112 ov-numeric_advanced_layout_western_arabic-r1213 ov-numeric_advanced_layout_western_arabic-r1314 ov-numeric_advanced_layout_western_arabic-r1415" />
+        <row keys="ov-numeric_advanced_layout_western_arabic-r2016 ov-numeric_advanced_layout_western_arabic-r2119 ov-numeric_advanced_layout_western_arabic-r2220 ov-numeric_advanced_layout_western_arabic-r2321 ov-numeric_advanced_layout_western_arabic-r2422" />
+        <row keys="ov-numeric_advanced_layout_western_arabic-r3023 ov-numeric_advanced_layout_western_arabic-r3124 ov-numeric_advanced_layout_western_arabic-r3225 ov-numeric_advanced_layout_western_arabic-r3326 ov-numeric_advanced_layout_western_arabic-r3427 ov-numeric_advanced_layout_western_arabic-r3528 ov-numeric_advanced_layout_western_arabic-r3629" />
+        </layer>
+    </layers>
+</keyboard3>

@@ -1,0 +1,72 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="numeric_row_layout_bengali" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-numeric_row_layout_bengali-p2" output="1" />
+    <key id="ov-numeric_row_layout_bengali-r03" output="₁" />
+    <key id="ov-numeric_row_layout_bengali-r14" output="⅐" />
+    <key id="ov-numeric_row_layout_bengali-r25" output="⅛" />
+    <key id="ov-numeric_row_layout_bengali-r36" output="⅑" />
+    <key id="ov-numeric_row_layout_bengali-r47" output="⅒" />
+    <key id="ov-numeric_row_layout_bengali-r58" output="⅟" />
+    <key id="ov-numeric_row_layout_bengali-r69" output="¹" />
+    <key id="ov-numeric_row_layout_bengali-r710" output="½" />
+    <key id="ov-numeric_row_layout_bengali-r811" output="⅓" />
+    <key id="ov-numeric_row_layout_bengali-r912" output="¼" />
+    <key id="ov-numeric_row_layout_bengali-r1013" output="⅕" />
+    <key id="ov-numeric_row_layout_bengali-r1114" output="⅙" />
+    <key id="ov-numeric_row_layout_bengali-r001" output="১" longPressKeyIds="ov-numeric_row_layout_bengali-p2 ov-numeric_row_layout_bengali-r03 ov-numeric_row_layout_bengali-r14 ov-numeric_row_layout_bengali-r25 ov-numeric_row_layout_bengali-r36 ov-numeric_row_layout_bengali-r47 ov-numeric_row_layout_bengali-r58 ov-numeric_row_layout_bengali-r69 ov-numeric_row_layout_bengali-r710 ov-numeric_row_layout_bengali-r811 ov-numeric_row_layout_bengali-r912 ov-numeric_row_layout_bengali-r1013 ov-numeric_row_layout_bengali-r1114" longPressDefaultKeyId="ov-numeric_row_layout_bengali-p2" />
+    <key id="ov-numeric_row_layout_bengali-p16" output="2" />
+    <key id="ov-numeric_row_layout_bengali-r017" output="₂" />
+    <key id="ov-numeric_row_layout_bengali-r118" output="²" />
+    <key id="ov-numeric_row_layout_bengali-r219" output="⅔" />
+    <key id="ov-numeric_row_layout_bengali-r320" output="⅖" />
+    <key id="ov-numeric_row_layout_bengali-r0115" output="২" longPressKeyIds="ov-numeric_row_layout_bengali-p16 ov-numeric_row_layout_bengali-r017 ov-numeric_row_layout_bengali-r118 ov-numeric_row_layout_bengali-r219 ov-numeric_row_layout_bengali-r320" longPressDefaultKeyId="ov-numeric_row_layout_bengali-p16" />
+    <key id="ov-numeric_row_layout_bengali-p22" output="3" />
+    <key id="ov-numeric_row_layout_bengali-r023" output="¾" />
+    <key id="ov-numeric_row_layout_bengali-r124" output="⅗" />
+    <key id="ov-numeric_row_layout_bengali-r225" output="⅜" />
+    <key id="ov-numeric_row_layout_bengali-r326" output="₃" />
+    <key id="ov-numeric_row_layout_bengali-r427" output="³" />
+    <key id="ov-numeric_row_layout_bengali-r0221" output="৩" longPressKeyIds="ov-numeric_row_layout_bengali-p22 ov-numeric_row_layout_bengali-r023 ov-numeric_row_layout_bengali-r124 ov-numeric_row_layout_bengali-r225 ov-numeric_row_layout_bengali-r326 ov-numeric_row_layout_bengali-r427" longPressDefaultKeyId="ov-numeric_row_layout_bengali-p22" />
+    <key id="ov-numeric_row_layout_bengali-p29" output="4" />
+    <key id="ov-numeric_row_layout_bengali-r030" output="₄" />
+    <key id="ov-numeric_row_layout_bengali-r131" output="⁴" />
+    <key id="ov-numeric_row_layout_bengali-r232" output="⅘" />
+    <key id="ov-numeric_row_layout_bengali-r0328" output="৪" longPressKeyIds="ov-numeric_row_layout_bengali-p29 ov-numeric_row_layout_bengali-r030 ov-numeric_row_layout_bengali-r131 ov-numeric_row_layout_bengali-r232" longPressDefaultKeyId="ov-numeric_row_layout_bengali-p29" />
+    <key id="ov-numeric_row_layout_bengali-p34" output="5" />
+    <key id="ov-numeric_row_layout_bengali-r035" output="⅚" />
+    <key id="ov-numeric_row_layout_bengali-r136" output="₅" />
+    <key id="ov-numeric_row_layout_bengali-r237" output="⁵" />
+    <key id="ov-numeric_row_layout_bengali-r338" output="⅝" />
+    <key id="ov-numeric_row_layout_bengali-r0433" output="৫" longPressKeyIds="ov-numeric_row_layout_bengali-p34 ov-numeric_row_layout_bengali-r035 ov-numeric_row_layout_bengali-r136 ov-numeric_row_layout_bengali-r237 ov-numeric_row_layout_bengali-r338" longPressDefaultKeyId="ov-numeric_row_layout_bengali-p34" />
+    <key id="ov-numeric_row_layout_bengali-p40" output="6" />
+    <key id="ov-numeric_row_layout_bengali-r041" output="₆" />
+    <key id="ov-numeric_row_layout_bengali-r142" output="⁶" />
+    <key id="ov-numeric_row_layout_bengali-r0539" output="৬" longPressKeyIds="ov-numeric_row_layout_bengali-p40 ov-numeric_row_layout_bengali-r041 ov-numeric_row_layout_bengali-r142" longPressDefaultKeyId="ov-numeric_row_layout_bengali-p40" />
+    <key id="ov-numeric_row_layout_bengali-p44" output="7" />
+    <key id="ov-numeric_row_layout_bengali-r045" output="⅞" />
+    <key id="ov-numeric_row_layout_bengali-r146" output="₇" />
+    <key id="ov-numeric_row_layout_bengali-r247" output="⁷" />
+    <key id="ov-numeric_row_layout_bengali-r0643" output="৭" longPressKeyIds="ov-numeric_row_layout_bengali-p44 ov-numeric_row_layout_bengali-r045 ov-numeric_row_layout_bengali-r146 ov-numeric_row_layout_bengali-r247" longPressDefaultKeyId="ov-numeric_row_layout_bengali-p44" />
+    <key id="ov-numeric_row_layout_bengali-p49" output="8" />
+    <key id="ov-numeric_row_layout_bengali-r050" output="₈" />
+    <key id="ov-numeric_row_layout_bengali-r151" output="⁸" />
+    <key id="ov-numeric_row_layout_bengali-r0748" output="৮" longPressKeyIds="ov-numeric_row_layout_bengali-p49 ov-numeric_row_layout_bengali-r050 ov-numeric_row_layout_bengali-r151" longPressDefaultKeyId="ov-numeric_row_layout_bengali-p49" />
+    <key id="ov-numeric_row_layout_bengali-p53" output="9" />
+    <key id="ov-numeric_row_layout_bengali-r054" output="₉" />
+    <key id="ov-numeric_row_layout_bengali-r155" output="⁹" />
+    <key id="ov-numeric_row_layout_bengali-r0852" output="৯" longPressKeyIds="ov-numeric_row_layout_bengali-p53 ov-numeric_row_layout_bengali-r054 ov-numeric_row_layout_bengali-r155" longPressDefaultKeyId="ov-numeric_row_layout_bengali-p53" />
+    <key id="ov-numeric_row_layout_bengali-p57" output="0" />
+    <key id="ov-numeric_row_layout_bengali-r058" output="∅" />
+    <key id="ov-numeric_row_layout_bengali-r159" output="ⁿ" />
+    <key id="ov-numeric_row_layout_bengali-r260" output="⁰" />
+    <key id="ov-numeric_row_layout_bengali-r361" output="↉" />
+    <key id="ov-numeric_row_layout_bengali-r462" output="₀" />
+    <key id="ov-numeric_row_layout_bengali-r0956" output="০" longPressKeyIds="ov-numeric_row_layout_bengali-p57 ov-numeric_row_layout_bengali-r058 ov-numeric_row_layout_bengali-r159 ov-numeric_row_layout_bengali-r260 ov-numeric_row_layout_bengali-r361 ov-numeric_row_layout_bengali-r462" longPressDefaultKeyId="ov-numeric_row_layout_bengali-p57" />
+    </keys>
+    <layers formId="touch">
+        <layer id="numrow">
+        <row keys="ov-numeric_row_layout_bengali-r001 ov-numeric_row_layout_bengali-r0115 ov-numeric_row_layout_bengali-r0221 ov-numeric_row_layout_bengali-r0328 ov-numeric_row_layout_bengali-r0433 ov-numeric_row_layout_bengali-r0539 ov-numeric_row_layout_bengali-r0643 ov-numeric_row_layout_bengali-r0748 ov-numeric_row_layout_bengali-r0852 ov-numeric_row_layout_bengali-r0956" />
+        </layer>
+    </layers>
+</keyboard3>

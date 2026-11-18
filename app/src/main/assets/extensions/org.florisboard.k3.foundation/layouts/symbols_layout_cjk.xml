@@ -1,0 +1,39 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="symbols_layout_cjk" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-symbols_layout_cjk-r001" output="" />
+    <key id="ov-symbols_layout_cjk-r012" output="" />
+    <key id="ov-symbols_layout_cjk-r033" output="" />
+    <key id="ov-symbols_layout_cjk-r044" output="" />
+    <key id="ov-symbols_layout_cjk-r055" output="" />
+    <key id="ov-symbols_layout_cjk-r066" output="" />
+    <key id="ov-symbols_layout_cjk-r077" output="" />
+    <key id="ov-symbols_layout_cjk-r088" output="" />
+    <key id="ov-symbols_layout_cjk-r099" output="" />
+    <key id="ov-symbols_layout_cjk-r1010" output="" />
+    <key id="ov-symbols_layout_cjk-p12" output="”" />
+    <key id="ov-symbols_layout_cjk-r013" output="„" />
+    <key id="ov-symbols_layout_cjk-r114" output="“" />
+    <key id="ov-symbols_layout_cjk-r215" output="«" />
+    <key id="ov-symbols_layout_cjk-r316" output="»" />
+    <key id="ov-symbols_layout_cjk-r1111" output="\u{22}" longPressKeyIds="ov-symbols_layout_cjk-p12 ov-symbols_layout_cjk-r013 ov-symbols_layout_cjk-r114 ov-symbols_layout_cjk-r215 ov-symbols_layout_cjk-r316" longPressDefaultKeyId="ov-symbols_layout_cjk-p12" />
+    <key id="ov-symbols_layout_cjk-p18" output="’" />
+    <key id="ov-symbols_layout_cjk-r019" output="‚" />
+    <key id="ov-symbols_layout_cjk-r120" output="‘" />
+    <key id="ov-symbols_layout_cjk-r221" output="‹" />
+    <key id="ov-symbols_layout_cjk-r322" output="›" />
+    <key id="ov-symbols_layout_cjk-r1217" output="&#x27;" longPressKeyIds="ov-symbols_layout_cjk-p18 ov-symbols_layout_cjk-r019 ov-symbols_layout_cjk-r120 ov-symbols_layout_cjk-r221 ov-symbols_layout_cjk-r322" longPressDefaultKeyId="ov-symbols_layout_cjk-p18" />
+    <key id="ov-symbols_layout_cjk-r1323" output="" />
+    <key id="ov-symbols_layout_cjk-r1424" output="" />
+    <key id="ov-symbols_layout_cjk-r1525" output="" />
+    <key id="ov-symbols_layout_cjk-r1626" output="" />
+    </keys>
+    <layers formId="touch">
+        <layer id="symbol-1">
+        <row keys="ov-symbols_layout_cjk-r001 ov-symbols_layout_cjk-r012 currency-1 ov-symbols_layout_cjk-r033 ov-symbols_layout_cjk-r044 ov-symbols_layout_cjk-r055 ov-symbols_layout_cjk-r066 ov-symbols_layout_cjk-r077 ov-symbols_layout_cjk-r088 ov-symbols_layout_cjk-r099" />
+        <row keys="ov-symbols_layout_cjk-r1010 ov-symbols_layout_cjk-r1111 ov-symbols_layout_cjk-r1217 ov-symbols_layout_cjk-r1323 ov-symbols_layout_cjk-r1424 ov-symbols_layout_cjk-r1525 ov-symbols_layout_cjk-r1626" />
+        <row keys="gap gap gap gap gap gap gap gap gap gap" />
+        <row keys="base comma numeric space period enter" />
+        </layer>
+    </layers>
+</keyboard3>

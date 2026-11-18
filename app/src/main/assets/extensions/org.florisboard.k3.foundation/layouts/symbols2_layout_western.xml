@@ -1,0 +1,59 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="symbols2_layout_western" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-symbols2_layout_western-r001" output="~" />
+    <key id="ov-symbols2_layout_western-r012" output="`" />
+    <key id="ov-symbols2_layout_western-r023" output="|" />
+    <key id="ov-symbols2_layout_western-p5" output="♪" />
+    <key id="ov-symbols2_layout_western-r06" output="♣" />
+    <key id="ov-symbols2_layout_western-r17" output="♠" />
+    <key id="ov-symbols2_layout_western-r28" output="♥" />
+    <key id="ov-symbols2_layout_western-r39" output="♦" />
+    <key id="ov-symbols2_layout_western-r034" output="•" longPressKeyIds="ov-symbols2_layout_western-p5 ov-symbols2_layout_western-r06 ov-symbols2_layout_western-r17 ov-symbols2_layout_western-r28 ov-symbols2_layout_western-r39" longPressDefaultKeyId="ov-symbols2_layout_western-p5" />
+    <key id="ov-symbols2_layout_western-r0410" output="√" />
+    <key id="ov-symbols2_layout_western-p12" output="Π" />
+    <key id="ov-symbols2_layout_western-r013" output="ω" />
+    <key id="ov-symbols2_layout_western-r114" output="α" />
+    <key id="ov-symbols2_layout_western-r215" output="β" />
+    <key id="ov-symbols2_layout_western-r316" output="Ω" />
+    <key id="ov-symbols2_layout_western-r417" output="μ" />
+    <key id="ov-symbols2_layout_western-r0511" output="π" longPressKeyIds="ov-symbols2_layout_western-p12 ov-symbols2_layout_western-r013 ov-symbols2_layout_western-r114 ov-symbols2_layout_western-r215 ov-symbols2_layout_western-r316 ov-symbols2_layout_western-r417" longPressDefaultKeyId="ov-symbols2_layout_western-p12" />
+    <key id="ov-symbols2_layout_western-r0618" output="÷" />
+    <key id="ov-symbols2_layout_western-r0719" output="×" />
+    <key id="ov-symbols2_layout_western-p21" output="§" />
+    <key id="ov-symbols2_layout_western-r0820" output="¶" longPressKeyIds="ov-symbols2_layout_western-p21" longPressDefaultKeyId="ov-symbols2_layout_western-p21" />
+    <key id="ov-symbols2_layout_western-r0922" output="∆" />
+    <key id="ov-symbols2_layout_western-p24" output="↑" />
+    <key id="ov-symbols2_layout_western-r025" output="←" />
+    <key id="ov-symbols2_layout_western-r126" output="↓" />
+    <key id="ov-symbols2_layout_western-r227" output="→" />
+    <key id="ov-symbols2_layout_western-r1423" output="^" longPressKeyIds="ov-symbols2_layout_western-p24 ov-symbols2_layout_western-r025 ov-symbols2_layout_western-r126 ov-symbols2_layout_western-r227" longPressDefaultKeyId="ov-symbols2_layout_western-p24" />
+    <key id="ov-symbols2_layout_western-p29" output="′" />
+    <key id="ov-symbols2_layout_western-r030" output="″" />
+    <key id="ov-symbols2_layout_western-r1528" output="°" longPressKeyIds="ov-symbols2_layout_western-p29 ov-symbols2_layout_western-r030" longPressDefaultKeyId="ov-symbols2_layout_western-p29" />
+    <key id="ov-symbols2_layout_western-p32" output="≠" />
+    <key id="ov-symbols2_layout_western-r033" output="∞" />
+    <key id="ov-symbols2_layout_western-r134" output="≈" />
+    <key id="ov-symbols2_layout_western-r1631" output="=" longPressKeyIds="ov-symbols2_layout_western-p32 ov-symbols2_layout_western-r033 ov-symbols2_layout_western-r134" longPressDefaultKeyId="ov-symbols2_layout_western-p32" />
+    <key id="ov-symbols2_layout_western-p36" output="(" />
+    <key id="ov-symbols2_layout_western-r1735" output="{" longPressKeyIds="ov-symbols2_layout_western-p36" longPressDefaultKeyId="ov-symbols2_layout_western-p36" />
+    <key id="ov-symbols2_layout_western-p38" output=")" />
+    <key id="ov-symbols2_layout_western-r1837" output="}" longPressKeyIds="ov-symbols2_layout_western-p38" longPressDefaultKeyId="ov-symbols2_layout_western-p38" />
+    <key id="ov-symbols2_layout_western-r1939" output="\u{5C}" />
+    <key id="ov-symbols2_layout_western-r2040" output="_" />
+    <key id="ov-symbols2_layout_western-r2141" output="©" />
+    <key id="ov-symbols2_layout_western-r2242" output="®" />
+    <key id="ov-symbols2_layout_western-r2343" output="™" />
+    <key id="ov-symbols2_layout_western-r2444" output="✓" />
+    <key id="ov-symbols2_layout_western-r2545" output="[" />
+    <key id="ov-symbols2_layout_western-r2646" output="]" />
+    </keys>
+    <layers formId="touch">
+        <layer id="symbol-2">
+        <row keys="ov-symbols2_layout_western-r001 ov-symbols2_layout_western-r012 ov-symbols2_layout_western-r023 ov-symbols2_layout_western-r034 ov-symbols2_layout_western-r0410 ov-symbols2_layout_western-r0511 ov-symbols2_layout_western-r0618 ov-symbols2_layout_western-r0719 ov-symbols2_layout_western-r0820 ov-symbols2_layout_western-r0922" />
+        <row keys="currency-5 currency-4 currency-3 currency-2 ov-symbols2_layout_western-r1423 ov-symbols2_layout_western-r1528 ov-symbols2_layout_western-r1631 ov-symbols2_layout_western-r1735 ov-symbols2_layout_western-r1837 ov-symbols2_layout_western-r1939" />
+        <row keys="ov-symbols2_layout_western-r2040 ov-symbols2_layout_western-r2141 ov-symbols2_layout_western-r2242 ov-symbols2_layout_western-r2343 ov-symbols2_layout_western-r2444 ov-symbols2_layout_western-r2545 ov-symbols2_layout_western-r2646" />
+        <row keys="base open-angle numeric space close-angle enter" />
+        </layer>
+    </layers>
+</keyboard3>

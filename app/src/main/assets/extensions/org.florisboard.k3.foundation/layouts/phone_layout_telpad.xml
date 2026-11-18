@@ -1,0 +1,30 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="phone_layout_telpad" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-phone_layout_telpad-r001" output="1" stretch="true" />
+    <key id="ov-phone_layout_telpad-r012" output="2" stretch="true" />
+    <key id="ov-phone_layout_telpad-r023" output="3" stretch="true" />
+    <key id="ov-phone_layout_telpad-r034" output="-" stretch="true" />
+    <key id="ov-phone_layout_telpad-r105" output="4" stretch="true" />
+    <key id="ov-phone_layout_telpad-r116" output="5" stretch="true" />
+    <key id="ov-phone_layout_telpad-r127" output="6" stretch="true" />
+    <key id="ov-phone_layout_telpad-r138" output="\u{0020}" stretch="true" />
+    <key id="ov-phone_layout_telpad-r209" output="7" stretch="true" />
+    <key id="ov-phone_layout_telpad-r2110" output="8" stretch="true" />
+    <key id="ov-phone_layout_telpad-r2211" output="9" stretch="true" />
+    <key id="ov-phone_layout_telpad-r2312" output="@k3:action/backspace" stretch="true" />
+    <key id="ov-phone_layout_telpad-r3013" layerId="telpad2" stretch="true" />
+    <key id="ov-phone_layout_telpad-p15" output="+" />
+    <key id="ov-phone_layout_telpad-r3114" output="0" stretch="true" longPressKeyIds="ov-phone_layout_telpad-p15" longPressDefaultKeyId="ov-phone_layout_telpad-p15" />
+    <key id="ov-phone_layout_telpad-r3216" output="." stretch="true" />
+    <key id="ov-phone_layout_telpad-r3317" output="@k3:action/enter" stretch="true" />
+    </keys>
+    <layers formId="touch">
+        <layer id="telpad">
+        <row keys="ov-phone_layout_telpad-r001 ov-phone_layout_telpad-r012 ov-phone_layout_telpad-r023 ov-phone_layout_telpad-r034" />
+        <row keys="ov-phone_layout_telpad-r105 ov-phone_layout_telpad-r116 ov-phone_layout_telpad-r127 ov-phone_layout_telpad-r138" />
+        <row keys="ov-phone_layout_telpad-r209 ov-phone_layout_telpad-r2110 ov-phone_layout_telpad-r2211 ov-phone_layout_telpad-r2312" />
+        <row keys="ov-phone_layout_telpad-r3013 ov-phone_layout_telpad-r3114 ov-phone_layout_telpad-r3216 ov-phone_layout_telpad-r3317" />
+        </layer>
+    </layers>
+</keyboard3>

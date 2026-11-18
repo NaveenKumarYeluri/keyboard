@@ -1,0 +1,20 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="numeric_row_layout_czech" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-numeric_row_layout_czech-r001" output="" />
+    <key id="ov-numeric_row_layout_czech-r012" output="" />
+    <key id="ov-numeric_row_layout_czech-r023" output="" />
+    <key id="ov-numeric_row_layout_czech-r034" output="" />
+    <key id="ov-numeric_row_layout_czech-r045" output="" />
+    <key id="ov-numeric_row_layout_czech-r056" output="" />
+    <key id="ov-numeric_row_layout_czech-r067" output="" />
+    <key id="ov-numeric_row_layout_czech-r078" output="" />
+    <key id="ov-numeric_row_layout_czech-r089" output="" />
+    <key id="ov-numeric_row_layout_czech-r0910" output="" />
+    </keys>
+    <layers formId="touch">
+        <layer id="numrow">
+        <row keys="ov-numeric_row_layout_czech-r001 ov-numeric_row_layout_czech-r012 ov-numeric_row_layout_czech-r023 ov-numeric_row_layout_czech-r034 ov-numeric_row_layout_czech-r045 ov-numeric_row_layout_czech-r056 ov-numeric_row_layout_czech-r067 ov-numeric_row_layout_czech-r078 ov-numeric_row_layout_czech-r089 ov-numeric_row_layout_czech-r0910" />
+        </layer>
+    </layers>
+</keyboard3>

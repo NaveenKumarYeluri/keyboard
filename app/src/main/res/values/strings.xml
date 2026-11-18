@@ -148,7 +148,7 @@
 <string name="settings__localization__subtype_secondary_locales_add" comment="Button to add a secondary language to a subtype">Add language</string>
 <string name="settings__localization__subtype_secondary_locales_remove" comment="Content description of the button which removes a secondary language from a subtype">Remove language</string>
 <string name="settings__localization__subtype_nlp_none" comment="Suggestion engine dropdown option: no suggestion or spell checking provider">None</string>
-<string name="settings__localization__subtype_composer_default" comment="Composer dropdown option: use the default appender composer">Default (appender)</string>
+<string name="settings__localization__subtype_composer_default" comment="Composer dropdown option: use the default appender composer">Appender</string>
 <string name="settings__localization__subtype_currency_set_auto" comment="Currency set dropdown option: pick the currency symbols automatically based on the subtype locale">Automatic (language based)</string>
     <string name="settings__localization__subtype_suggestion_provider" comment="Label for suggestion provider dropdown in subtype dialog">Suggestion engine</string>
     <string name="settings__localization__subtype_symbols_layout" comment="Label for layout dropdown in subtype dialog">Symbols primary layout</string>

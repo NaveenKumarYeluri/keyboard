@@ -1,0 +1,30 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="numeric_layout_western_arabic_pc" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-numeric_layout_western_arabic_pc-r001" output="7" stretch="true" />
+    <key id="ov-numeric_layout_western_arabic_pc-r012" output="8" stretch="true" />
+    <key id="ov-numeric_layout_western_arabic_pc-r023" output="9" stretch="true" />
+    <key id="ov-numeric_layout_western_arabic_pc-r034" output="-" stretch="true" />
+    <key id="ov-numeric_layout_western_arabic_pc-r105" output="4" stretch="true" />
+    <key id="ov-numeric_layout_western_arabic_pc-r116" output="5" stretch="true" />
+    <key id="ov-numeric_layout_western_arabic_pc-r127" output="6" stretch="true" />
+    <key id="ov-numeric_layout_western_arabic_pc-r138" output="\u{0020}" stretch="true" />
+    <key id="ov-numeric_layout_western_arabic_pc-r209" output="1" stretch="true" />
+    <key id="ov-numeric_layout_western_arabic_pc-r2110" output="2" stretch="true" />
+    <key id="ov-numeric_layout_western_arabic_pc-r2211" output="3" stretch="true" />
+    <key id="ov-numeric_layout_western_arabic_pc-r2312" output="@k3:action/backspace" stretch="true" />
+    <key id="ov-numeric_layout_western_arabic_pc-r3013" output="," stretch="true" />
+    <key id="ov-numeric_layout_western_arabic_pc-p15" output="+" />
+    <key id="ov-numeric_layout_western_arabic_pc-r3114" output="0" stretch="true" longPressKeyIds="ov-numeric_layout_western_arabic_pc-p15" longPressDefaultKeyId="ov-numeric_layout_western_arabic_pc-p15" />
+    <key id="ov-numeric_layout_western_arabic_pc-r3216" output="." stretch="true" />
+    <key id="ov-numeric_layout_western_arabic_pc-r3317" output="@k3:action/enter" stretch="true" />
+    </keys>
+    <layers formId="touch">
+        <layer id="numpad">
+        <row keys="ov-numeric_layout_western_arabic_pc-r001 ov-numeric_layout_western_arabic_pc-r012 ov-numeric_layout_western_arabic_pc-r023 ov-numeric_layout_western_arabic_pc-r034" />
+        <row keys="ov-numeric_layout_western_arabic_pc-r105 ov-numeric_layout_western_arabic_pc-r116 ov-numeric_layout_western_arabic_pc-r127 ov-numeric_layout_western_arabic_pc-r138" />
+        <row keys="ov-numeric_layout_western_arabic_pc-r209 ov-numeric_layout_western_arabic_pc-r2110 ov-numeric_layout_western_arabic_pc-r2211 ov-numeric_layout_western_arabic_pc-r2312" />
+        <row keys="ov-numeric_layout_western_arabic_pc-r3013 ov-numeric_layout_western_arabic_pc-r3114 ov-numeric_layout_western_arabic_pc-r3216 ov-numeric_layout_western_arabic_pc-r3317" />
+        </layer>
+    </layers>
+</keyboard3>

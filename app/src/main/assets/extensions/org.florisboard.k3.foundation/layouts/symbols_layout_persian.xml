@@ -1,0 +1,64 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="symbols_layout_persian" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-symbols_layout_persian-r001" output="@" />
+    <key id="ov-symbols_layout_persian-p3" output="№" />
+    <key id="ov-symbols_layout_persian-r012" output="#" longPressKeyIds="ov-symbols_layout_persian-p3" longPressDefaultKeyId="ov-symbols_layout_persian-p3" />
+    <key id="ov-symbols_layout_persian-p5" output="%" />
+    <key id="ov-symbols_layout_persian-r06" output="℅" />
+    <key id="ov-symbols_layout_persian-r17" output="‰" />
+    <key id="ov-symbols_layout_persian-r034" output="٪" longPressKeyIds="ov-symbols_layout_persian-p5 ov-symbols_layout_persian-r06 ov-symbols_layout_persian-r17" longPressDefaultKeyId="ov-symbols_layout_persian-p5" />
+    <key id="ov-symbols_layout_persian-r048" output="&amp;" />
+    <key id="ov-symbols_layout_persian-p10" output="_" />
+    <key id="ov-symbols_layout_persian-r011" output="—" />
+    <key id="ov-symbols_layout_persian-r112" output="–" />
+    <key id="ov-symbols_layout_persian-r213" output="·" />
+    <key id="ov-symbols_layout_persian-r059" output="-" longPressKeyIds="ov-symbols_layout_persian-p10 ov-symbols_layout_persian-r011 ov-symbols_layout_persian-r112 ov-symbols_layout_persian-r213" longPressDefaultKeyId="ov-symbols_layout_persian-p10" />
+    <key id="ov-symbols_layout_persian-p15" output="±" />
+    <key id="ov-symbols_layout_persian-r0614" output="+" longPressKeyIds="ov-symbols_layout_persian-p15" longPressDefaultKeyId="ov-symbols_layout_persian-p15" />
+    <key id="ov-symbols_layout_persian-p17" output="﴾" />
+    <key id="ov-symbols_layout_persian-r018" output="[" />
+    <key id="ov-symbols_layout_persian-r119" output="&lt;" />
+    <key id="ov-symbols_layout_persian-r220" output="{" />
+    <key id="ov-symbols_layout_persian-r0716" output="(" longPressKeyIds="ov-symbols_layout_persian-p17 ov-symbols_layout_persian-r018 ov-symbols_layout_persian-r119 ov-symbols_layout_persian-r220" longPressDefaultKeyId="ov-symbols_layout_persian-p17" />
+    <key id="ov-symbols_layout_persian-p22" output="﴿" />
+    <key id="ov-symbols_layout_persian-r023" output="]" />
+    <key id="ov-symbols_layout_persian-r124" output="&gt;" />
+    <key id="ov-symbols_layout_persian-r225" output="}" />
+    <key id="ov-symbols_layout_persian-r0821" output=")" longPressKeyIds="ov-symbols_layout_persian-p22 ov-symbols_layout_persian-r023 ov-symbols_layout_persian-r124 ov-symbols_layout_persian-r225" longPressDefaultKeyId="ov-symbols_layout_persian-p22" />
+    <key id="ov-symbols_layout_persian-p27" output="٬" />
+    <key id="ov-symbols_layout_persian-r028" output="*" />
+    <key id="ov-symbols_layout_persian-r129" output="\u{22}" />
+    <key id="ov-symbols_layout_persian-r230" output="&#x27;" />
+    <key id="ov-symbols_layout_persian-r0926" output="٫" longPressKeyIds="ov-symbols_layout_persian-p27 ov-symbols_layout_persian-r028 ov-symbols_layout_persian-r129 ov-symbols_layout_persian-r230" longPressDefaultKeyId="ov-symbols_layout_persian-p27" />
+    <key id="ov-symbols_layout_persian-r1031" output="/" />
+    <key id="ov-symbols_layout_persian-p33" output="‹" />
+    <key id="ov-symbols_layout_persian-r034" output="&lt;" />
+    <key id="ov-symbols_layout_persian-r135" output="≤" />
+    <key id="ov-symbols_layout_persian-r236" output="⟨" />
+    <key id="ov-symbols_layout_persian-r1132" output="«" longPressKeyIds="ov-symbols_layout_persian-p33 ov-symbols_layout_persian-r034 ov-symbols_layout_persian-r135 ov-symbols_layout_persian-r236" longPressDefaultKeyId="ov-symbols_layout_persian-p33" />
+    <key id="ov-symbols_layout_persian-p38" output="›" />
+    <key id="ov-symbols_layout_persian-r039" output="⟩" />
+    <key id="ov-symbols_layout_persian-r140" output="≥" />
+    <key id="ov-symbols_layout_persian-r241" output="&gt;" />
+    <key id="ov-symbols_layout_persian-r1237" output="»" longPressKeyIds="ov-symbols_layout_persian-p38 ov-symbols_layout_persian-r039 ov-symbols_layout_persian-r140 ov-symbols_layout_persian-r241" longPressDefaultKeyId="ov-symbols_layout_persian-p38" />
+    <key id="ov-symbols_layout_persian-p43" output="⋮" />
+    <key id="ov-symbols_layout_persian-r1342" output=":" longPressKeyIds="ov-symbols_layout_persian-p43" longPressDefaultKeyId="ov-symbols_layout_persian-p43" />
+    <key id="ov-symbols_layout_persian-p45" output=";" />
+    <key id="ov-symbols_layout_persian-r1444" output="؛" longPressKeyIds="ov-symbols_layout_persian-p45" longPressDefaultKeyId="ov-symbols_layout_persian-p45" />
+    <key id="ov-symbols_layout_persian-p47" output="¡" />
+    <key id="ov-symbols_layout_persian-r1546" output="!" longPressKeyIds="ov-symbols_layout_persian-p47" longPressDefaultKeyId="ov-symbols_layout_persian-p47" />
+    <key id="ov-symbols_layout_persian-p49" output="?" />
+    <key id="ov-symbols_layout_persian-r050" output="¿" />
+    <key id="ov-symbols_layout_persian-r151" output="‽" />
+    <key id="ov-symbols_layout_persian-r1648" output="؟" longPressKeyIds="ov-symbols_layout_persian-p49 ov-symbols_layout_persian-r050 ov-symbols_layout_persian-r151" longPressDefaultKeyId="ov-symbols_layout_persian-p49" />
+    </keys>
+    <layers formId="touch">
+        <layer id="symbol-1">
+        <row keys="ov-symbols_layout_persian-r001 ov-symbols_layout_persian-r012 currency-1 ov-symbols_layout_persian-r034 ov-symbols_layout_persian-r048 ov-symbols_layout_persian-r059 ov-symbols_layout_persian-r0614 ov-symbols_layout_persian-r0716 ov-symbols_layout_persian-r0821 ov-symbols_layout_persian-r0926" />
+        <row keys="ov-symbols_layout_persian-r1031 ov-symbols_layout_persian-r1132 ov-symbols_layout_persian-r1237 ov-symbols_layout_persian-r1342 ov-symbols_layout_persian-r1444 ov-symbols_layout_persian-r1546 ov-symbols_layout_persian-r1648" />
+        <row keys="gap gap gap gap gap gap gap gap gap gap" />
+        <row keys="base comma numeric space period enter" />
+        </layer>
+    </layers>
+</keyboard3>

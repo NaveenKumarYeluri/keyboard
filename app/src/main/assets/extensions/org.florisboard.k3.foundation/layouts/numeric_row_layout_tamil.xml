@@ -1,0 +1,72 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="numeric_row_layout_tamil" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-numeric_row_layout_tamil-p2" output="1" />
+    <key id="ov-numeric_row_layout_tamil-r03" output="₁" />
+    <key id="ov-numeric_row_layout_tamil-r14" output="⅐" />
+    <key id="ov-numeric_row_layout_tamil-r25" output="⅛" />
+    <key id="ov-numeric_row_layout_tamil-r36" output="⅑" />
+    <key id="ov-numeric_row_layout_tamil-r47" output="⅒" />
+    <key id="ov-numeric_row_layout_tamil-r58" output="⅟" />
+    <key id="ov-numeric_row_layout_tamil-r69" output="¹" />
+    <key id="ov-numeric_row_layout_tamil-r710" output="½" />
+    <key id="ov-numeric_row_layout_tamil-r811" output="⅓" />
+    <key id="ov-numeric_row_layout_tamil-r912" output="¼" />
+    <key id="ov-numeric_row_layout_tamil-r1013" output="⅕" />
+    <key id="ov-numeric_row_layout_tamil-r1114" output="⅙" />
+    <key id="ov-numeric_row_layout_tamil-r001" output="௧" longPressKeyIds="ov-numeric_row_layout_tamil-p2 ov-numeric_row_layout_tamil-r03 ov-numeric_row_layout_tamil-r14 ov-numeric_row_layout_tamil-r25 ov-numeric_row_layout_tamil-r36 ov-numeric_row_layout_tamil-r47 ov-numeric_row_layout_tamil-r58 ov-numeric_row_layout_tamil-r69 ov-numeric_row_layout_tamil-r710 ov-numeric_row_layout_tamil-r811 ov-numeric_row_layout_tamil-r912 ov-numeric_row_layout_tamil-r1013 ov-numeric_row_layout_tamil-r1114" longPressDefaultKeyId="ov-numeric_row_layout_tamil-p2" />
+    <key id="ov-numeric_row_layout_tamil-p16" output="2" />
+    <key id="ov-numeric_row_layout_tamil-r017" output="₂" />
+    <key id="ov-numeric_row_layout_tamil-r118" output="²" />
+    <key id="ov-numeric_row_layout_tamil-r219" output="⅔" />
+    <key id="ov-numeric_row_layout_tamil-r320" output="⅖" />
+    <key id="ov-numeric_row_layout_tamil-r0115" output="௨" longPressKeyIds="ov-numeric_row_layout_tamil-p16 ov-numeric_row_layout_tamil-r017 ov-numeric_row_layout_tamil-r118 ov-numeric_row_layout_tamil-r219 ov-numeric_row_layout_tamil-r320" longPressDefaultKeyId="ov-numeric_row_layout_tamil-p16" />
+    <key id="ov-numeric_row_layout_tamil-p22" output="3" />
+    <key id="ov-numeric_row_layout_tamil-r023" output="¾" />
+    <key id="ov-numeric_row_layout_tamil-r124" output="⅗" />
+    <key id="ov-numeric_row_layout_tamil-r225" output="⅜" />
+    <key id="ov-numeric_row_layout_tamil-r326" output="₃" />
+    <key id="ov-numeric_row_layout_tamil-r427" output="³" />
+    <key id="ov-numeric_row_layout_tamil-r0221" output="௩" longPressKeyIds="ov-numeric_row_layout_tamil-p22 ov-numeric_row_layout_tamil-r023 ov-numeric_row_layout_tamil-r124 ov-numeric_row_layout_tamil-r225 ov-numeric_row_layout_tamil-r326 ov-numeric_row_layout_tamil-r427" longPressDefaultKeyId="ov-numeric_row_layout_tamil-p22" />
+    <key id="ov-numeric_row_layout_tamil-p29" output="4" />
+    <key id="ov-numeric_row_layout_tamil-r030" output="₄" />
+    <key id="ov-numeric_row_layout_tamil-r131" output="⁴" />
+    <key id="ov-numeric_row_layout_tamil-r232" output="⅘" />
+    <key id="ov-numeric_row_layout_tamil-r0328" output="௪" longPressKeyIds="ov-numeric_row_layout_tamil-p29 ov-numeric_row_layout_tamil-r030 ov-numeric_row_layout_tamil-r131 ov-numeric_row_layout_tamil-r232" longPressDefaultKeyId="ov-numeric_row_layout_tamil-p29" />
+    <key id="ov-numeric_row_layout_tamil-p34" output="5" />
+    <key id="ov-numeric_row_layout_tamil-r035" output="⅚" />
+    <key id="ov-numeric_row_layout_tamil-r136" output="₅" />
+    <key id="ov-numeric_row_layout_tamil-r237" output="⁵" />
+    <key id="ov-numeric_row_layout_tamil-r338" output="⅝" />
+    <key id="ov-numeric_row_layout_tamil-r0433" output="௫" longPressKeyIds="ov-numeric_row_layout_tamil-p34 ov-numeric_row_layout_tamil-r035 ov-numeric_row_layout_tamil-r136 ov-numeric_row_layout_tamil-r237 ov-numeric_row_layout_tamil-r338" longPressDefaultKeyId="ov-numeric_row_layout_tamil-p34" />
+    <key id="ov-numeric_row_layout_tamil-p40" output="6" />
+    <key id="ov-numeric_row_layout_tamil-r041" output="₆" />
+    <key id="ov-numeric_row_layout_tamil-r142" output="⁶" />
+    <key id="ov-numeric_row_layout_tamil-r0539" output="௬" longPressKeyIds="ov-numeric_row_layout_tamil-p40 ov-numeric_row_layout_tamil-r041 ov-numeric_row_layout_tamil-r142" longPressDefaultKeyId="ov-numeric_row_layout_tamil-p40" />
+    <key id="ov-numeric_row_layout_tamil-p44" output="7" />
+    <key id="ov-numeric_row_layout_tamil-r045" output="⅞" />
+    <key id="ov-numeric_row_layout_tamil-r146" output="₇" />
+    <key id="ov-numeric_row_layout_tamil-r247" output="⁷" />
+    <key id="ov-numeric_row_layout_tamil-r0643" output="௭" longPressKeyIds="ov-numeric_row_layout_tamil-p44 ov-numeric_row_layout_tamil-r045 ov-numeric_row_layout_tamil-r146 ov-numeric_row_layout_tamil-r247" longPressDefaultKeyId="ov-numeric_row_layout_tamil-p44" />
+    <key id="ov-numeric_row_layout_tamil-p49" output="8" />
+    <key id="ov-numeric_row_layout_tamil-r050" output="₈" />
+    <key id="ov-numeric_row_layout_tamil-r151" output="⁸" />
+    <key id="ov-numeric_row_layout_tamil-r0748" output="௮" longPressKeyIds="ov-numeric_row_layout_tamil-p49 ov-numeric_row_layout_tamil-r050 ov-numeric_row_layout_tamil-r151" longPressDefaultKeyId="ov-numeric_row_layout_tamil-p49" />
+    <key id="ov-numeric_row_layout_tamil-p53" output="9" />
+    <key id="ov-numeric_row_layout_tamil-r054" output="₉" />
+    <key id="ov-numeric_row_layout_tamil-r155" output="⁹" />
+    <key id="ov-numeric_row_layout_tamil-r0852" output="௯" longPressKeyIds="ov-numeric_row_layout_tamil-p53 ov-numeric_row_layout_tamil-r054 ov-numeric_row_layout_tamil-r155" longPressDefaultKeyId="ov-numeric_row_layout_tamil-p53" />
+    <key id="ov-numeric_row_layout_tamil-p57" output="0" />
+    <key id="ov-numeric_row_layout_tamil-r058" output="∅" />
+    <key id="ov-numeric_row_layout_tamil-r159" output="ⁿ" />
+    <key id="ov-numeric_row_layout_tamil-r260" output="⁰" />
+    <key id="ov-numeric_row_layout_tamil-r361" output="↉" />
+    <key id="ov-numeric_row_layout_tamil-r462" output="₀" />
+    <key id="ov-numeric_row_layout_tamil-r0956" output="௦" longPressKeyIds="ov-numeric_row_layout_tamil-p57 ov-numeric_row_layout_tamil-r058 ov-numeric_row_layout_tamil-r159 ov-numeric_row_layout_tamil-r260 ov-numeric_row_layout_tamil-r361 ov-numeric_row_layout_tamil-r462" longPressDefaultKeyId="ov-numeric_row_layout_tamil-p57" />
+    </keys>
+    <layers formId="touch">
+        <layer id="numrow">
+        <row keys="ov-numeric_row_layout_tamil-r001 ov-numeric_row_layout_tamil-r0115 ov-numeric_row_layout_tamil-r0221 ov-numeric_row_layout_tamil-r0328 ov-numeric_row_layout_tamil-r0433 ov-numeric_row_layout_tamil-r0539 ov-numeric_row_layout_tamil-r0643 ov-numeric_row_layout_tamil-r0748 ov-numeric_row_layout_tamil-r0852 ov-numeric_row_layout_tamil-r0956" />
+        </layer>
+    </layers>
+</keyboard3>

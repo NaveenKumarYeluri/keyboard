@@ -1,0 +1,68 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="numeric_row_layout_cjk" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-numeric_row_layout_cjk-p2" output="1" />
+    <key id="ov-numeric_row_layout_cjk-r03" output="壱" />
+    <key id="ov-numeric_row_layout_cjk-r14" output="壹" />
+    <key id="ov-numeric_row_layout_cjk-r25" output="弌" />
+    <key id="ov-numeric_row_layout_cjk-r36" output="１" />
+    <key id="ov-numeric_row_layout_cjk-r001" output="一" longPressKeyIds="ov-numeric_row_layout_cjk-p2 ov-numeric_row_layout_cjk-r03 ov-numeric_row_layout_cjk-r14 ov-numeric_row_layout_cjk-r25 ov-numeric_row_layout_cjk-r36" longPressDefaultKeyId="ov-numeric_row_layout_cjk-p2" />
+    <key id="ov-numeric_row_layout_cjk-p8" output="2" />
+    <key id="ov-numeric_row_layout_cjk-r09" output="弐" />
+    <key id="ov-numeric_row_layout_cjk-r110" output="貳" />
+    <key id="ov-numeric_row_layout_cjk-r211" output="貮" />
+    <key id="ov-numeric_row_layout_cjk-r312" output="２" />
+    <key id="ov-numeric_row_layout_cjk-r017" output="二" longPressKeyIds="ov-numeric_row_layout_cjk-p8 ov-numeric_row_layout_cjk-r09 ov-numeric_row_layout_cjk-r110 ov-numeric_row_layout_cjk-r211 ov-numeric_row_layout_cjk-r312" longPressDefaultKeyId="ov-numeric_row_layout_cjk-p8" />
+    <key id="ov-numeric_row_layout_cjk-p14" output="3" />
+    <key id="ov-numeric_row_layout_cjk-r015" output="参" />
+    <key id="ov-numeric_row_layout_cjk-r116" output="參" />
+    <key id="ov-numeric_row_layout_cjk-r217" output="弎" />
+    <key id="ov-numeric_row_layout_cjk-r318" output="３" />
+    <key id="ov-numeric_row_layout_cjk-r0213" output="三" longPressKeyIds="ov-numeric_row_layout_cjk-p14 ov-numeric_row_layout_cjk-r015 ov-numeric_row_layout_cjk-r116 ov-numeric_row_layout_cjk-r217 ov-numeric_row_layout_cjk-r318" longPressDefaultKeyId="ov-numeric_row_layout_cjk-p14" />
+    <key id="ov-numeric_row_layout_cjk-p20" output="4" />
+    <key id="ov-numeric_row_layout_cjk-r021" output="肆" />
+    <key id="ov-numeric_row_layout_cjk-r122" output="䦉" />
+    <key id="ov-numeric_row_layout_cjk-r223" output="亖" />
+    <key id="ov-numeric_row_layout_cjk-r324" output="４" />
+    <key id="ov-numeric_row_layout_cjk-r0319" output="四" longPressKeyIds="ov-numeric_row_layout_cjk-p20 ov-numeric_row_layout_cjk-r021 ov-numeric_row_layout_cjk-r122 ov-numeric_row_layout_cjk-r223 ov-numeric_row_layout_cjk-r324" longPressDefaultKeyId="ov-numeric_row_layout_cjk-p20" />
+    <key id="ov-numeric_row_layout_cjk-p26" output="5" />
+    <key id="ov-numeric_row_layout_cjk-r027" output="伍" />
+    <key id="ov-numeric_row_layout_cjk-r128" output="５" />
+    <key id="ov-numeric_row_layout_cjk-r0425" output="五" longPressKeyIds="ov-numeric_row_layout_cjk-p26 ov-numeric_row_layout_cjk-r027 ov-numeric_row_layout_cjk-r128" longPressDefaultKeyId="ov-numeric_row_layout_cjk-p26" />
+    <key id="ov-numeric_row_layout_cjk-p30" output="6" />
+    <key id="ov-numeric_row_layout_cjk-r031" output="陸" />
+    <key id="ov-numeric_row_layout_cjk-r132" output="６" />
+    <key id="ov-numeric_row_layout_cjk-r0529" output="六" longPressKeyIds="ov-numeric_row_layout_cjk-p30 ov-numeric_row_layout_cjk-r031 ov-numeric_row_layout_cjk-r132" longPressDefaultKeyId="ov-numeric_row_layout_cjk-p30" />
+    <key id="ov-numeric_row_layout_cjk-p34" output="7" />
+    <key id="ov-numeric_row_layout_cjk-r035" output="漆" />
+    <key id="ov-numeric_row_layout_cjk-r136" output="柒" />
+    <key id="ov-numeric_row_layout_cjk-r237" output="７" />
+    <key id="ov-numeric_row_layout_cjk-r0633" output="七" longPressKeyIds="ov-numeric_row_layout_cjk-p34 ov-numeric_row_layout_cjk-r035 ov-numeric_row_layout_cjk-r136 ov-numeric_row_layout_cjk-r237" longPressDefaultKeyId="ov-numeric_row_layout_cjk-p34" />
+    <key id="ov-numeric_row_layout_cjk-p39" output="8" />
+    <key id="ov-numeric_row_layout_cjk-r040" output="捌" />
+    <key id="ov-numeric_row_layout_cjk-r141" output="８" />
+    <key id="ov-numeric_row_layout_cjk-r0738" output="八" longPressKeyIds="ov-numeric_row_layout_cjk-p39 ov-numeric_row_layout_cjk-r040 ov-numeric_row_layout_cjk-r141" longPressDefaultKeyId="ov-numeric_row_layout_cjk-p39" />
+    <key id="ov-numeric_row_layout_cjk-p43" output="9" />
+    <key id="ov-numeric_row_layout_cjk-r044" output="玖" />
+    <key id="ov-numeric_row_layout_cjk-r145" output="９" />
+    <key id="ov-numeric_row_layout_cjk-r0842" output="九" longPressKeyIds="ov-numeric_row_layout_cjk-p43 ov-numeric_row_layout_cjk-r044 ov-numeric_row_layout_cjk-r145" longPressDefaultKeyId="ov-numeric_row_layout_cjk-p43" />
+    <key id="ov-numeric_row_layout_cjk-p47" output="0" />
+    <key id="ov-numeric_row_layout_cjk-r048" output="〇" />
+    <key id="ov-numeric_row_layout_cjk-r149" output="０" />
+    <key id="ov-numeric_row_layout_cjk-r0946" output="零" longPressKeyIds="ov-numeric_row_layout_cjk-p47 ov-numeric_row_layout_cjk-r048 ov-numeric_row_layout_cjk-r149" longPressDefaultKeyId="ov-numeric_row_layout_cjk-p47" />
+    <key id="ov-numeric_row_layout_cjk-p51" output="拾" />
+    <key id="ov-numeric_row_layout_cjk-r052" output="什" />
+    <key id="ov-numeric_row_layout_cjk-r01050" output="十" longPressKeyIds="ov-numeric_row_layout_cjk-p51 ov-numeric_row_layout_cjk-r052" longPressDefaultKeyId="ov-numeric_row_layout_cjk-p51" />
+    <key id="ov-numeric_row_layout_cjk-p54" output="佰" />
+    <key id="ov-numeric_row_layout_cjk-r055" output="陌" />
+    <key id="ov-numeric_row_layout_cjk-r01153" output="百" longPressKeyIds="ov-numeric_row_layout_cjk-p54 ov-numeric_row_layout_cjk-r055" longPressDefaultKeyId="ov-numeric_row_layout_cjk-p54" />
+    <key id="ov-numeric_row_layout_cjk-p57" output="仟" />
+    <key id="ov-numeric_row_layout_cjk-r058" output="阡" />
+    <key id="ov-numeric_row_layout_cjk-r01256" output="千" longPressKeyIds="ov-numeric_row_layout_cjk-p57 ov-numeric_row_layout_cjk-r058" longPressDefaultKeyId="ov-numeric_row_layout_cjk-p57" />
+    </keys>
+    <layers formId="touch">
+        <layer id="numrow">
+        <row keys="ov-numeric_row_layout_cjk-r001 ov-numeric_row_layout_cjk-r017 ov-numeric_row_layout_cjk-r0213 ov-numeric_row_layout_cjk-r0319 ov-numeric_row_layout_cjk-r0425 ov-numeric_row_layout_cjk-r0529 ov-numeric_row_layout_cjk-r0633 ov-numeric_row_layout_cjk-r0738 ov-numeric_row_layout_cjk-r0842 ov-numeric_row_layout_cjk-r0946 ov-numeric_row_layout_cjk-r01050 ov-numeric_row_layout_cjk-r01153 ov-numeric_row_layout_cjk-r01256" />
+        </layer>
+    </layers>
+</keyboard3>

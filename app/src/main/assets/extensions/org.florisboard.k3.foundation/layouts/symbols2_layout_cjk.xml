@@ -1,0 +1,49 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="symbols2_layout_cjk" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-symbols2_layout_cjk-r001" output="" />
+    <key id="ov-symbols2_layout_cjk-r012" output="" />
+    <key id="ov-symbols2_layout_cjk-r023" output="" />
+    <key id="ov-symbols2_layout_cjk-r034" output="" />
+    <key id="ov-symbols2_layout_cjk-p6" output="✓" />
+    <key id="ov-symbols2_layout_cjk-r045" output="√" longPressKeyIds="ov-symbols2_layout_cjk-p6" longPressDefaultKeyId="ov-symbols2_layout_cjk-p6" />
+    <key id="ov-symbols2_layout_cjk-p8" output="Π" />
+    <key id="ov-symbols2_layout_cjk-r09" output="ω" />
+    <key id="ov-symbols2_layout_cjk-r110" output="α" />
+    <key id="ov-symbols2_layout_cjk-r211" output="β" />
+    <key id="ov-symbols2_layout_cjk-r312" output="Ω" />
+    <key id="ov-symbols2_layout_cjk-r413" output="μ" />
+    <key id="ov-symbols2_layout_cjk-r057" output="π" longPressKeyIds="ov-symbols2_layout_cjk-p8 ov-symbols2_layout_cjk-r09 ov-symbols2_layout_cjk-r110 ov-symbols2_layout_cjk-r211 ov-symbols2_layout_cjk-r312 ov-symbols2_layout_cjk-r413" longPressDefaultKeyId="ov-symbols2_layout_cjk-p8" />
+    <key id="ov-symbols2_layout_cjk-r0614" output="÷" />
+    <key id="ov-symbols2_layout_cjk-r0715" output="×" />
+    <key id="ov-symbols2_layout_cjk-r0816" output="¶" />
+    <key id="ov-symbols2_layout_cjk-r0917" output="∆" />
+    <key id="ov-symbols2_layout_cjk-p19" output="↑" />
+    <key id="ov-symbols2_layout_cjk-r020" output="←" />
+    <key id="ov-symbols2_layout_cjk-r121" output="↓" />
+    <key id="ov-symbols2_layout_cjk-r222" output="→" />
+    <key id="ov-symbols2_layout_cjk-r1418" output="^" longPressKeyIds="ov-symbols2_layout_cjk-p19 ov-symbols2_layout_cjk-r020 ov-symbols2_layout_cjk-r121 ov-symbols2_layout_cjk-r222" longPressDefaultKeyId="ov-symbols2_layout_cjk-p19" />
+    <key id="ov-symbols2_layout_cjk-p24" output="′" />
+    <key id="ov-symbols2_layout_cjk-r025" output="″" />
+    <key id="ov-symbols2_layout_cjk-r1523" output="°" longPressKeyIds="ov-symbols2_layout_cjk-p24 ov-symbols2_layout_cjk-r025" longPressDefaultKeyId="ov-symbols2_layout_cjk-p24" />
+    <key id="ov-symbols2_layout_cjk-r1626" output="" />
+    <key id="ov-symbols2_layout_cjk-r1727" output="" />
+    <key id="ov-symbols2_layout_cjk-r1828" output="" />
+    <key id="ov-symbols2_layout_cjk-r1929" output="" />
+    <key id="ov-symbols2_layout_cjk-r2030" output="〄" />
+    <key id="ov-symbols2_layout_cjk-r2131" output="々" />
+    <key id="ov-symbols2_layout_cjk-r2232" output="〆" />
+    <key id="ov-symbols2_layout_cjk-r2333" output="〇" />
+    <key id="ov-symbols2_layout_cjk-r2434" output="" />
+    <key id="ov-symbols2_layout_cjk-r2535" output="" />
+    <key id="ov-symbols2_layout_cjk-r2636" output="" />
+    </keys>
+    <layers formId="touch">
+        <layer id="symbol-2">
+        <row keys="ov-symbols2_layout_cjk-r001 ov-symbols2_layout_cjk-r012 ov-symbols2_layout_cjk-r023 ov-symbols2_layout_cjk-r034 ov-symbols2_layout_cjk-r045 ov-symbols2_layout_cjk-r057 ov-symbols2_layout_cjk-r0614 ov-symbols2_layout_cjk-r0715 ov-symbols2_layout_cjk-r0816 ov-symbols2_layout_cjk-r0917" />
+        <row keys="currency-5 currency-4 currency-3 currency-2 ov-symbols2_layout_cjk-r1418 ov-symbols2_layout_cjk-r1523 ov-symbols2_layout_cjk-r1626 ov-symbols2_layout_cjk-r1727 ov-symbols2_layout_cjk-r1828 ov-symbols2_layout_cjk-r1929" />
+        <row keys="ov-symbols2_layout_cjk-r2030 ov-symbols2_layout_cjk-r2131 ov-symbols2_layout_cjk-r2232 ov-symbols2_layout_cjk-r2333 ov-symbols2_layout_cjk-r2434 ov-symbols2_layout_cjk-r2535 ov-symbols2_layout_cjk-r2636" />
+        <row keys="base open-angle numeric space close-angle enter" />
+        </layer>
+    </layers>
+</keyboard3>

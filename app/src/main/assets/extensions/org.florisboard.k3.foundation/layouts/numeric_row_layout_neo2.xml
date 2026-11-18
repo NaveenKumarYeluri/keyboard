@@ -1,0 +1,40 @@
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="en">
+    <info author="FlorisBoard contributors" name="numeric_row_layout_neo2" layout="custom" indicator="FB" />
+    <keys>
+    <key id="ov-numeric_row_layout_neo2-r02" output="°" />
+    <key id="ov-numeric_row_layout_neo2-r13" output="¹" />
+    <key id="ov-numeric_row_layout_neo2-r001" output="1" longPressKeyIds="ov-numeric_row_layout_neo2-r02 ov-numeric_row_layout_neo2-r13" longPressDefaultKeyId="ov-numeric_row_layout_neo2-r02" />
+    <key id="ov-numeric_row_layout_neo2-r05" output="§" />
+    <key id="ov-numeric_row_layout_neo2-r16" output="²" />
+    <key id="ov-numeric_row_layout_neo2-r014" output="2" longPressKeyIds="ov-numeric_row_layout_neo2-r05 ov-numeric_row_layout_neo2-r16" longPressDefaultKeyId="ov-numeric_row_layout_neo2-r05" />
+    <key id="ov-numeric_row_layout_neo2-r08" output="ℓ" />
+    <key id="ov-numeric_row_layout_neo2-r19" output="³" />
+    <key id="ov-numeric_row_layout_neo2-r027" output="3" longPressKeyIds="ov-numeric_row_layout_neo2-r08 ov-numeric_row_layout_neo2-r19" longPressDefaultKeyId="ov-numeric_row_layout_neo2-r08" />
+    <key id="ov-numeric_row_layout_neo2-r011" output="»" />
+    <key id="ov-numeric_row_layout_neo2-r112" output="›" />
+    <key id="ov-numeric_row_layout_neo2-r0310" output="4" longPressKeyIds="ov-numeric_row_layout_neo2-r011 ov-numeric_row_layout_neo2-r112" longPressDefaultKeyId="ov-numeric_row_layout_neo2-r011" />
+    <key id="ov-numeric_row_layout_neo2-r014" output="«" />
+    <key id="ov-numeric_row_layout_neo2-r115" output="‹" />
+    <key id="ov-numeric_row_layout_neo2-r0413" output="5" longPressKeyIds="ov-numeric_row_layout_neo2-r014 ov-numeric_row_layout_neo2-r115" longPressDefaultKeyId="ov-numeric_row_layout_neo2-r014" />
+    <key id="ov-numeric_row_layout_neo2-r017" output="$" />
+    <key id="ov-numeric_row_layout_neo2-r118" output="¢" />
+    <key id="ov-numeric_row_layout_neo2-r0516" output="6" longPressKeyIds="ov-numeric_row_layout_neo2-r017 ov-numeric_row_layout_neo2-r118" longPressDefaultKeyId="ov-numeric_row_layout_neo2-r017" />
+    <key id="ov-numeric_row_layout_neo2-r0619" output="7" longPressKeyIds="currency-1 currency-2 currency-3 currency-4 currency-5 currency-6" longPressDefaultKeyId="currency-1" />
+    <key id="ov-numeric_row_layout_neo2-r021" output="„" />
+    <key id="ov-numeric_row_layout_neo2-r122" output="‚" />
+    <key id="ov-numeric_row_layout_neo2-r0720" output="8" longPressKeyIds="ov-numeric_row_layout_neo2-r021 ov-numeric_row_layout_neo2-r122" longPressDefaultKeyId="ov-numeric_row_layout_neo2-r021" />
+    <key id="ov-numeric_row_layout_neo2-r024" output="“" />
+    <key id="ov-numeric_row_layout_neo2-r125" output="‘" />
+    <key id="ov-numeric_row_layout_neo2-r0823" output="9" longPressKeyIds="ov-numeric_row_layout_neo2-r024 ov-numeric_row_layout_neo2-r125" longPressDefaultKeyId="ov-numeric_row_layout_neo2-r024" />
+    <key id="ov-numeric_row_layout_neo2-r027" output="”" />
+    <key id="ov-numeric_row_layout_neo2-r128" output="’" />
+    <key id="ov-numeric_row_layout_neo2-r0926" output="0" longPressKeyIds="ov-numeric_row_layout_neo2-r027 ov-numeric_row_layout_neo2-r128" longPressDefaultKeyId="ov-numeric_row_layout_neo2-r027" />
+    <key id="ov-numeric_row_layout_neo2-r030" output="—" />
+    <key id="ov-numeric_row_layout_neo2-r01029" output="-" longPressKeyIds="ov-numeric_row_layout_neo2-r030" longPressDefaultKeyId="ov-numeric_row_layout_neo2-r030" />
+    </keys>
+    <layers formId="touch">
+        <layer id="numrow">
+        <row keys="ov-numeric_row_layout_neo2-r001 ov-numeric_row_layout_neo2-r014 ov-numeric_row_layout_neo2-r027 ov-numeric_row_layout_neo2-r0310 ov-numeric_row_layout_neo2-r0413 ov-numeric_row_layout_neo2-r0516 ov-numeric_row_layout_neo2-r0619 ov-numeric_row_layout_neo2-r0720 ov-numeric_row_layout_neo2-r0823 ov-numeric_row_layout_neo2-r0926 ov-numeric_row_layout_neo2-r01029" />
+        </layer>
+    </layers>
+</keyboard3>
