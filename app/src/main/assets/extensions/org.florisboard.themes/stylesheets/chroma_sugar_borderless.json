@@ -60,15 +60,29 @@
     "background": "var(--primary)"
   },
   "key": {
-    "background": "transparent",
-    "foreground": "#101010",
+    "background": "var(--surface)",
+    "foreground": "var(--on-surface)",
     "font-size": "22sp",
     "shape": "var(--shape)",
+    "shadow-elevation": "2dp",
     "text-max-lines": "1"
   },
   "key:pressed": {
-    "background": "var(--surface)",
-    "foreground": "#101010"
+    "background": "var(--surface-variant)",
+    "foreground": "var(--on-surface)"
+  },
+  "key[output=`@k3:action/enter`]": {
+    "background": "var(--primary)",
+    "foreground": "var(--on-surface)"
+  },
+  "key[output=`@k3:action/enter`]:pressed": {
+    "background": "var(--primary-variant)",
+    "foreground": "var(--on-surface)"
+  },
+  "key[output=` `]": {
+    "foreground": "#101010",
+    "font-size": "12sp",
+    "background": "#FC9D9A"
   },
   "key-hint": {
     "background": "transparent",

@@ -215,6 +215,47 @@
         <key id="care-of" output="\u{2105}" />
         <key id="acute" output="´" />
 
+        <!-- Symbols matching FlorisBoard's Western (Additional symbols) and symbols2 layers -->
+        <key id="percent" output="%" longPressKeyIds="permille care-of" />
+        <key id="equal" output="=" longPressKeyIds="not-equal infinity approximately" />
+        <key id="not-equal" output="\u{2260}" />
+        <key id="infinity" output="\u{221E}" />
+        <key id="approximately" output="\u{2248}" />
+        <key id="caret" output="^" longPressKeyIds="arrow-up arrow-left arrow-down arrow-right" />
+        <key id="arrow-up" output="\u{2191}" />
+        <key id="arrow-left" output="\u{2190}" />
+        <key id="arrow-down" output="\u{2193}" />
+        <key id="arrow-right" output="\u{2192}" />
+        <key id="degree" output="°" longPressKeyIds="prime double-prime" />
+        <key id="prime" output="\u{2032}" />
+        <key id="double-prime" output="\u{2033}" />
+        <key id="open-curly" output="{" longPressKeyIds="open-paren" />
+        <key id="close-curly" output="}" longPressKeyIds="close-paren" />
+        <key id="bullet" output="\u{2022}"
+             longPressKeyIds="music-note club-suit spade-suit heart-suit diamond-suit" />
+        <key id="music-note" output="\u{266A}" />
+        <key id="club-suit" output="\u{2663}" />
+        <key id="spade-suit" output="\u{2660}" />
+        <key id="heart-suit" output="\u{2665}" />
+        <key id="diamond-suit" output="\u{2666}" />
+        <key id="root" output="\u{221A}" />
+        <key id="pi" output="π"
+             longPressKeyIds="capital-pi omega alpha beta capital-omega mu" />
+        <key id="capital-pi" output="\u{03A0}" />
+        <key id="omega" output="\u{03C9}" />
+        <key id="alpha" output="\u{03B1}" />
+        <key id="beta" output="\u{03B2}" />
+        <key id="capital-omega" output="\u{03A9}" />
+        <key id="mu" output="\u{03BC}" />
+        <key id="divide" output="÷" />
+        <key id="multiply" output="×" />
+        <key id="paragraph" output="¶" longPressKeyIds="section-sign" />
+        <key id="section-sign" output="\u{00A7}" />
+        <key id="delta" output="\u{2206}" />
+        <key id="copyright" output="\u{00A9}" />
+        <key id="registered" output="\u{00AE}" />
+        <key id="trademark" output="\u{2122}" />
+        <key id="checkmark" output="\u{2713}" />
 
         <!-- numeric layout keys -->
         <key id="plus-numeric" output="+" width="1.8" longPressKeyIds="hyphen asterisk slash" />
@@ -298,15 +339,16 @@
 
         <layer id="symbol-1">
             <row keys="1 2 3 4 5 6 7 8 9 0" />
-            <row keys="at hash currency-1 percent amp hyphen plus open-paren close-paren slash" />
+            <row keys="percent backslash pipe equal open-square close-square open-angle close-angle open-curly close-curly" />
+            <row keys="at hash currency-1 underscore amp hyphen plus open-paren close-paren slash" />
             <row keys="symbol-2 asterisk double-quote apos colon semi-colon bang question bksp" />
             <row keys="base comma numeric space period enter" />
         </layer>
 
         <layer id="symbol-2">
-            <row keys="tilde grave pipe gap gap gap gap gap gap gap" />
-            <row keys="currency-2 currency-3 currency-4 currency-5 caret degree equal open-curly close-curly backslash" />
-            <row keys="symbol-1 underscore gap gap gap gap open-square close-square bksp" />
+            <row keys="tilde grave pipe bullet root pi divide multiply paragraph delta" />
+            <row keys="currency-5 currency-4 currency-3 currency-2 caret degree equal open-curly close-curly backslash" />
+            <row keys="symbol-1 underscore copyright registered trademark checkmark open-square close-square bksp" />
             <row keys="base open-angle numeric space close-angle enter" />
         </layer>
 
