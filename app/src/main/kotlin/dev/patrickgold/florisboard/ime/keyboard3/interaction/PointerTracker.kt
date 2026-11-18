@@ -37,9 +37,9 @@ import androidx.compose.ui.util.fastCoerceIn
 import androidx.compose.ui.util.fastFold
 import androidx.compose.ui.util.fastForEach
 import dev.patrickgold.florisboard.app.FlorisPreferenceStore
+import dev.patrickgold.florisboard.ime.keyboard3.EditorSelection
 import dev.patrickgold.florisboard.ime.keyboard3.ImeActions
 import dev.patrickgold.florisboard.ime.keyboard3.ImeController
-import dev.patrickgold.florisboard.ime.keyboard3.ImeEditor.EditorSelection
 import dev.patrickgold.florisboard.ime.keyboard3.LocalImeController
 import dev.patrickgold.florisboard.ime.keyboard3.OperationUnit
 import dev.patrickgold.florisboard.ime.keyboard3.touch.InputShiftState

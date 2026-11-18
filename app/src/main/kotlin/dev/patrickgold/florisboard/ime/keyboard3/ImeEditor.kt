@@ -21,7 +21,6 @@ import android.content.ContentUris
 import android.os.SystemClock
 import android.view.KeyCharacterMap
 import android.view.KeyEvent
-import android.view.inputmethod.CursorAnchorInfo
 import android.view.inputmethod.InputConnection
 import androidx.core.view.inputmethod.InputConnectionCompat
 import androidx.core.view.inputmethod.InputContentInfoCompat
@@ -76,19 +75,12 @@ open class ImeEditor(
     }
 
     /**
-     * Returns the current selection in absolute editor coordinates. The cursor anchor API is used
-     * when available; the fallback derives the position from the text before the selection.
+     * Returns the current selection in absolute editor coordinates. The position is derived from
+     * the text before the selection, which works across editors and does not depend on the cursor
+     * anchor callback being delivered.
      */
     fun getSelectionRange(): EditorSelection? {
         val ic = ic.get() ?: return null
-        val anchorInfo: CursorAnchorInfo? = try {
-            ic.getCursorAnchorInfo(0)
-        } catch (_: Throwable) {
-            null
-        }
-        if (anchorInfo != null && anchorInfo.selectionStart >= 0 && anchorInfo.selectionEnd >= anchorInfo.selectionStart) {
-            return EditorSelection(anchorInfo.selectionStart, anchorInfo.selectionEnd)
-        }
         val textBefore = ic.getTextBeforeCursor(SELECTION_LOOKBACK, 0)?.toString() ?: return null
         val textSelected = ic.getSelectedText(0)?.toString() ?: ""
         val start = textBefore.length
