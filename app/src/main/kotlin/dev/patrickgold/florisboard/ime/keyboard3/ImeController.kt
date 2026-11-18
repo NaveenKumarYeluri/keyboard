@@ -54,6 +54,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -107,6 +108,8 @@ class ImeController(
         prefs.keyboard.multiTapHighlightEnabled.asFlow(),
         prefs.keyboard.flickKeyHintEnabled.asFlow(),
         prefs.keyboard.flickKeyHintPlacement.asFlow(),
+        FlorisApplication.getHack().subtypeManager.value.activeSubtypeFlow
+            .map { it.popupMapping != "none" },
     ) { values ->
         TouchModelOptions(
             showNumberRow = values[0] as Boolean,
@@ -117,6 +120,7 @@ class ImeController(
             multiTapHighlightEnabled = values[5] as Boolean,
             flickKeyHintEnabled = values[6] as Boolean,
             flickKeyHintPlacement = values[7] as FlickKeyHintPlacement,
+            popupsEnabled = values[8] as Boolean,
         )
     }.stateIn(scope, SharingStarted.Eagerly, TouchModelOptions.Default)
 

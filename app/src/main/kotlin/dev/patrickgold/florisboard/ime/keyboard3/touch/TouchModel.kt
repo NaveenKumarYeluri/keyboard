@@ -354,10 +354,12 @@ private fun computeTouchKeyboard(
                         },
                         isRepeatable = attrs.output?.isRepeatable() ?: false,
                         isSuitableForSpaceBarDisplayOverride = attrs.isSuitableForSpaceBarDisplayOverride(display),
-                        isSuitableForSimplePopup = attrs.isSuitableForSimplePopup(),
-                        isSuitableForExtendedPopup = popups.isNotEmpty(),
+                        isSuitableForSimplePopup = options.popupsEnabled && attrs.isSuitableForSimplePopup(),
+                        isSuitableForExtendedPopup = options.popupsEnabled && popups.isNotEmpty(),
                         extendedPopupKeys = popups,
-                        longPressKeyHint = if (options.longPressKeyHintEnabled) popups.firstOrNull()?.display else null,
+                        longPressKeyHint = if (options.popupsEnabled && options.longPressKeyHintEnabled) {
+                            popups.firstOrNull()?.display
+                        } else null,
                         longPressKeyHintPlacement = options.longPressKeyHintPlacement,
                         shouldOverrideDisplayWithMultiTapKeys =
                             model.displays.byKeyId[key.id] == null && multiTapKeys.isNotEmpty(),

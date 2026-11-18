@@ -28,6 +28,11 @@ data class TouchModelOptions(
     val multiTapHighlightEnabled: Boolean,
     val flickKeyHintEnabled: Boolean,
     val flickKeyHintPlacement: FlickKeyHintPlacement,
+    /**
+     * Whether any popup (simple magnifier or extended long-press list) may be shown for keys.
+     * The subtype popup mapping "none" turns this off completely.
+     */
+    val popupsEnabled: Boolean = true,
 ) {
     companion object {
         val Default = TouchModelOptions(
@@ -39,6 +44,7 @@ data class TouchModelOptions(
             multiTapHighlightEnabled = true,
             flickKeyHintEnabled = false,
             flickKeyHintPlacement = FlickKeyHintPlacement.CARDINAL,
+            popupsEnabled = true,
         )
     }
 }
