@@ -6,10 +6,10 @@
     "--secondary": "#EAFDE6",
     "--secondary-variant": "#EAFDE6",
     "--background": "#1A676C",
-    "--background-variant": "#4a8842",
+    "--background-variant": "#85b57f",
     "--surface": "#519548",
-    "--surface-variant": "#4a8842",
-    "--popup-surface": "#4a8842",
+    "--surface-variant": "#85b57f",
+    "--popup-surface": "#85b57f",
     "--focused-popup-surface": "#EAFDE6",
     "--drag-marker": "rgb(255,0,0)",
     "--spacer-color": "rgba(255, 255, 255, 0.25)",
@@ -61,18 +61,18 @@
   },
   "key": {
     "background": "transparent",
-    "foreground": "var(--on-surface)",
+    "foreground": "#FFFFFF",
     "font-size": "22sp",
     "shape": "var(--shape)",
     "text-max-lines": "1"
   },
   "key:pressed": {
     "background": "var(--surface)",
-    "foreground": "var(--on-surface)"
+    "foreground": "#101010"
   },
   "key-hint": {
     "background": "transparent",
-    "foreground": "var(--on-surface-variant)",
+    "foreground": "rgba(255, 255, 255, 0.7)",
     "font-size": "12sp",
     "font-family": "monospace",
     "padding": "1dp",
@@ -80,14 +80,14 @@
   },
   "key-popup-box": {
     "background": "var(--popup-surface)",
-    "foreground": "var(--on-surface)",
+    "foreground": "#101010",
     "font-size": "22sp",
     "shape": "var(--shape)",
     "shadow-elevation": "2dp"
   },
   "key-popup-element:focus": {
     "background": "var(--focused-popup-surface)",
-    "foreground": "var(--on-surface)",
+    "foreground": "#101010",
     "shape": "var(--shape)"
   },
   "key-popup-element[code=-255]": {
@@ -396,17 +396,17 @@
   },
   "media-emoji-key": {
     "background": "transparent",
-    "foreground": "var(--on-background)",
+    "foreground": "#FFFFFF",
     "font-size": "22sp",
     "shape": "var(--shape)"
   },
   "media-emoji-key:pressed": {
     "background": "var(--surface)",
-    "foreground": "var(--on-surface)"
+    "foreground": "#101010"
   },
   "media-emoji-key-popup-box": {
     "background": "var(--popup-surface)",
-    "foreground": "var(--on-surface)",
+    "foreground": "#101010",
     "font-size": "22sp",
     "shape": "var(--shape)",
     "shadow-elevation": "2dp"
@@ -465,7 +465,7 @@
     "text-overflow": "ellipsis"
   },
   "key[output=` `]": {
-    "foreground": "#101010",
+    "foreground": "#FFFFFF",
     "font-size": "12sp"
   }
 }

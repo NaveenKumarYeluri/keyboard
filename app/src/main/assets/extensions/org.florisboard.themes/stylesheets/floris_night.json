@@ -95,7 +95,7 @@
   },
   "key[output=` `]": {
     "background": "var(--surface)",
-    "foreground": "var(--on-surface-variant)",
+    "foreground": "var(--on-surface)",
     "font-size": "12sp",
     "text-overflow": "ellipsis"
   },

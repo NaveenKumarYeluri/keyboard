@@ -494,7 +494,7 @@
   },
   "key[output=` `]": {
     "background": "var(--surface)",
-    "foreground": "var(--on-surface-variant)",
+    "foreground": "var(--on-surface)",
     "font-size": "12sp",
     "margin": "0dp 6dp",
     "text-overflow": "ellipsis"

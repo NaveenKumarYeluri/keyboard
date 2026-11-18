@@ -6,10 +6,10 @@
     "--secondary": "#FDF5E8",
     "--secondary-variant": "#FDF5E8",
     "--background": "#404473",
-    "--background-variant": "#66658d",
+    "--background-variant": "#69698f",
     "--surface": "#555480",
-    "--surface-variant": "#66658d",
-    "--popup-surface": "#66658d",
+    "--surface-variant": "#69698f",
+    "--popup-surface": "#69698f",
     "--focused-popup-surface": "#FDF5E8",
     "--drag-marker": "rgb(255,0,0)",
     "--spacer-color": "rgba(255, 255, 255, 0.25)",
@@ -61,18 +61,18 @@
   },
   "key": {
     "background": "transparent",
-    "foreground": "var(--on-surface)",
+    "foreground": "#FFFFFF",
     "font-size": "22sp",
     "shape": "var(--shape)",
     "text-max-lines": "1"
   },
   "key:pressed": {
     "background": "var(--surface)",
-    "foreground": "var(--on-surface)"
+    "foreground": "#FFFFFF"
   },
   "key-hint": {
     "background": "transparent",
-    "foreground": "var(--on-surface-variant)",
+    "foreground": "rgba(255, 255, 255, 0.7)",
     "font-size": "12sp",
     "font-family": "monospace",
     "padding": "1dp",
@@ -80,14 +80,14 @@
   },
   "key-popup-box": {
     "background": "var(--popup-surface)",
-    "foreground": "var(--on-surface)",
+    "foreground": "#FFFFFF",
     "font-size": "22sp",
     "shape": "var(--shape)",
     "shadow-elevation": "2dp"
   },
   "key-popup-element:focus": {
     "background": "var(--focused-popup-surface)",
-    "foreground": "var(--on-surface)",
+    "foreground": "#101010",
     "shape": "var(--shape)"
   },
   "key-popup-element[code=-255]": {
@@ -396,17 +396,17 @@
   },
   "media-emoji-key": {
     "background": "transparent",
-    "foreground": "var(--on-background)",
+    "foreground": "#FFFFFF",
     "font-size": "22sp",
     "shape": "var(--shape)"
   },
   "media-emoji-key:pressed": {
     "background": "var(--surface)",
-    "foreground": "var(--on-surface)"
+    "foreground": "#FFFFFF"
   },
   "media-emoji-key-popup-box": {
     "background": "var(--popup-surface)",
-    "foreground": "var(--on-surface)",
+    "foreground": "#FFFFFF",
     "font-size": "22sp",
     "shape": "var(--shape)",
     "shadow-elevation": "2dp"
