@@ -753,10 +753,10 @@ fun rememberPointerTracker(
         (swipeDistanceThreshold.coerceAtLeast(4).dp.toPx() / 4f).fastCoerceAtLeast(1f)
     }
     val spaceBarSwipeUnitPx = with(density) {
-        (swipeDistanceThreshold.coerceAtLeast(4).dp.toPx() / 2f).fastCoerceAtLeast(1f)
+        swipeDistanceThreshold.coerceAtLeast(4).dp.toPx().fastCoerceAtLeast(1f)
     }
     val spaceBarSwipeThresholdPx = with(density) {
-        swipeDistanceThreshold.coerceAtLeast(4).dp.toPx().fastCoerceAtLeast(1f)
+        (swipeDistanceThreshold.coerceAtLeast(4).dp.toPx() * 1.5f).fastCoerceAtLeast(1f)
     }
 
     val pointerTracker = remember(
