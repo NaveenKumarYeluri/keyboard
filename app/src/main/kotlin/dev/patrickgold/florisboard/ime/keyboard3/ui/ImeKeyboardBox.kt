@@ -40,6 +40,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.fastRoundToInt
 import dev.patrickgold.florisboard.app.FlorisPreferenceStore
 import dev.patrickgold.florisboard.ime.core.DisplayLanguageNamesIn
@@ -263,6 +264,20 @@ private fun ImeKeyboardKeyBox(
     val display = displayOverride ?: touchKey.display
     val output = touchKey.attrs.output
     val layerId = touchKey.attrs.layerId
+    // Layer-switch labels (ABC / ?123 / =\<) are short strings, so unlike single-letter keys they
+    // do not get scaled down by scaleToFitHorizontally on wide devices. Cap them in code as well
+    // as in the themes so they can never appear larger than regular key labels. Multi-line labels
+    // such as the numeric key are left alone.
+    val layerLabelFontSize = remember(display, layerId) {
+        if (layerId != null && display is K3String && display.toText().let {
+                it.isNotEmpty() && it.length <= 4 && !it.contains('\n')
+            }
+        ) {
+            12.sp
+        } else {
+            null
+        }
+    }
     val attributes: SnyggQueryAttributes = remember(output, layerId, inputShiftState) {
         buildMap {
             if (output != null) {
@@ -296,10 +311,11 @@ private fun ImeKeyboardKeyBox(
                             Modifier.background(Color.Red) // TODO customizable
                         } else Modifier,
                         display = multiTapKey.display,
+                        fontSize = layerLabelFontSize,
                     )
                 }
             } else {
-                Display3(display)
+                Display3(display, fontSize = layerLabelFontSize)
             }
         }
         if (touchKey.longPressKeyHint != null) {

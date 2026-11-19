@@ -286,7 +286,7 @@ class ImeController(
                 deletePrecisely(count, OperationUnit.CHARACTERS)
             }
             SwipeAction.DELETE_WORD -> updateState {
-                deletePrecisely(1, OperationUnit.WORDS)
+                deletePrecisely(count, OperationUnit.WORDS)
             }
             SwipeAction.DELETE_WORDS_PRECISELY -> updateState {
                 deletePrecisely(count, OperationUnit.WORDS)

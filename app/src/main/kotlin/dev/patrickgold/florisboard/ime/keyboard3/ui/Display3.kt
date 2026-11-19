@@ -19,6 +19,7 @@ package dev.patrickgold.florisboard.ime.keyboard3.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.TextUnit
 import org.florisboard.lib.snygg.SnyggQueryAttributes
 import org.florisboard.lib.snygg.ui.SnyggText
 import org.k3lp.lib.text.K3Descriptor
@@ -31,6 +32,7 @@ fun Display3(
     modifier: Modifier = Modifier,
     elementName: String? = null,
     attributes: SnyggQueryAttributes = emptyMap(),
+    fontSize: TextUnit? = null,
 ) {
     when (display) {
         is K3String -> {
@@ -40,6 +42,7 @@ fun Display3(
                 modifier = modifier,
                 elementName = elementName,
                 attributes = attributes,
+                fontSize = fontSize,
             )
         }
         is K3Descriptor -> {

@@ -452,9 +452,11 @@ class PointerTracker(
         val dy = move.position.y - swipe.start.y
         val absX = abs(dx)
         val absY = abs(dy)
-        if (absX < swipe.thresholdPx && absY < swipe.thresholdPx) return
+        // Once a direction is known, keep it even if the finger comes back towards the origin;
+        // this lets long swipes count down again instead of abruptly changing direction.
+        if (swipe.direction == null && absX < swipe.thresholdPx && absY < swipe.thresholdPx) return
 
-        val direction = when {
+        val direction = swipe.direction ?: when {
             absX >= absY -> if (dx < 0f) SpaceBarSwipeDirection.LEFT else SpaceBarSwipeDirection.RIGHT
             dy < 0f -> SpaceBarSwipeDirection.UP
             // Downward spacebar swipes are intentionally ignored.
@@ -465,6 +467,8 @@ class PointerTracker(
             SpaceBarSwipeDirection.RIGHT -> prefs.gestures.spaceBarSwipeRight.get()
             SpaceBarSwipeDirection.UP -> prefs.gestures.spaceBarSwipeUp.get()
         }
+        val distancePx = if (direction == SpaceBarSwipeDirection.UP) absY else absX
+        val unitCount = max(0, floor(distancePx / swipe.unitPx).toInt())
         val isCursorMovement =
             direction == SpaceBarSwipeDirection.LEFT && action == SwipeAction.MOVE_CURSOR_LEFT ||
                 direction == SpaceBarSwipeDirection.RIGHT && action == SwipeAction.MOVE_CURSOR_RIGHT
@@ -472,9 +476,9 @@ class PointerTracker(
         var newSwipe = swipe.copy(
             direction = direction,
             active = swipe.active || isActive,
+            unitCount = unitCount,
         )
         if (isCursorMovement) {
-            val unitCount = max(0, floor(absX / swipe.unitPx).toInt())
             val delta = unitCount - swipe.executedCount
             if (delta > 0) {
                 imeController.executeSwipeAction(action, delta)
@@ -502,6 +506,9 @@ class PointerTracker(
      * Finishes a spacebar swipe and returns whether the normal space output must be suppressed.
      */
     private suspend fun finishSpaceBarSwipe(swipe: SpaceBarSwipe): Boolean {
+        // All non-cursor actions are applied here with the total travelled unit count, so a long
+        // swipe deletes/selects/inserts many units instead of just one.
+        val count = max(1, swipe.unitCount)
         return when (swipe.direction) {
             SpaceBarSwipeDirection.LEFT -> {
                 val action = prefs.gestures.spaceBarSwipeLeft.get()
@@ -509,7 +516,7 @@ class PointerTracker(
                     SwipeAction.NO_ACTION -> false
                     SwipeAction.MOVE_CURSOR_LEFT -> true
                     else -> {
-                        imeController.executeSwipeAction(action)
+                        imeController.executeSwipeAction(action, count)
                         true
                     }
                 }
@@ -520,13 +527,13 @@ class PointerTracker(
                     SwipeAction.NO_ACTION -> false
                     SwipeAction.MOVE_CURSOR_RIGHT -> true
                     else -> {
-                        imeController.executeSwipeAction(action)
+                        imeController.executeSwipeAction(action, count)
                         true
                     }
                 }
             }
             SpaceBarSwipeDirection.UP -> {
-                imeController.executeSwipeAction(prefs.gestures.spaceBarSwipeUp.get())
+                imeController.executeSwipeAction(prefs.gestures.spaceBarSwipeUp.get(), count)
                 true
             }
             null -> false
@@ -576,7 +583,17 @@ class PointerTracker(
             trackedPeekPointer.value = null
             lastUpKeyState = LastUpKey(trackedPointer.downKey, up.uptimeMillis)
         }
-        trackedOutputPointer.value?.takeIf { it.id == up.id }?.let { trackedPointer ->
+        trackedOutputPointer.value?.takeIf { it.id == up.id }?.let { pointerAtUp ->
+            // On fast swipes the final coordinates often arrive only with the UP event. Feed them
+            // into the gesture calculation first, otherwise the last part of the travel is lost.
+            if (!up.pressed) {
+                if (pointerAtUp.deleteSwipe != null) {
+                    updateDeleteSwipe(pointerAtUp, up)
+                } else if (pointerAtUp.spaceBarSwipe != null) {
+                    updateSpaceBarSwipe(pointerAtUp, up)
+                }
+            }
+            val trackedPointer = trackedOutputPointer.value?.takeIf { it.id == up.id } ?: pointerAtUp
             trackedPointer.longPress.extendedJob?.cancel()
             trackedPointer.repeatJob?.cancel()
             val deleteSwipe = trackedPointer.deleteSwipe
@@ -749,15 +766,14 @@ fun rememberPointerTracker(
     val swipeDistanceThreshold by prefs.gestures.swipeDistanceThreshold.collectAsState()
     // TODO make configurable
     val peekDistanceSqMin = with(density) { 30.dp.toPx().pow(2) }
-    val deleteSwipeUnitPx = with(density) {
-        (swipeDistanceThreshold.coerceAtLeast(4).dp.toPx() / 4f).fastCoerceAtLeast(1f)
-    }
-    val spaceBarSwipeUnitPx = with(density) {
+    val baseSwipeUnitPx = with(density) {
         swipeDistanceThreshold.coerceAtLeast(4).dp.toPx().fastCoerceAtLeast(1f)
     }
-    val spaceBarSwipeThresholdPx = with(density) {
-        (swipeDistanceThreshold.coerceAtLeast(4).dp.toPx() * 1.5f).fastCoerceAtLeast(1f)
-    }
+    // Fine-grained units let a single continuous swipe cover many characters/words instead of
+    // capping out after one or two. The recognition threshold stays unchanged.
+    val deleteSwipeUnitPx = (baseSwipeUnitPx / 8f).fastCoerceAtLeast(1f)
+    val spaceBarSwipeUnitPx = (baseSwipeUnitPx / 2f).fastCoerceAtLeast(1f)
+    val spaceBarSwipeThresholdPx = (baseSwipeUnitPx * 1.5f).fastCoerceAtLeast(1f)
 
     val pointerTracker = remember(
         touchKeyboard,
