@@ -315,7 +315,6 @@ private fun computeTouchKeyboard(
                     }
                     val directLongPressAction: K3Descriptor? = when {
                         isFnKey -> ImeActions.ShowSubtypePicker
-                        key.id.value == "space" -> ImeActions.ShowInputMethodPicker
                         else -> null
                     }
                     val multiTapKeys = when {

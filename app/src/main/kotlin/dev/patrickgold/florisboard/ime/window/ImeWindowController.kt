@@ -18,6 +18,7 @@ package dev.patrickgold.florisboard.ime.window
 
 import android.content.res.Configuration
 import android.inputmethodservice.InputMethodService
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.coerceIn
 import androidx.compose.ui.unit.height
 import androidx.compose.ui.unit.max
@@ -103,6 +104,12 @@ class ImeWindowController(
         field = MutableStateFlow(false)
 
     private val updateConfigMutex = Mutex()
+
+    /**
+     * Guards against scheduling multiple height scale persistence updates for the same mode while
+     * a previous update is still in flight.
+     */
+    private val pendingHeightScalePersist = mutableSetOf<String>()
 
     init {
         combine(
@@ -271,11 +278,18 @@ class ImeWindowController(
         return when (windowConfig.mode) {
             ImeWindowMode.FIXED -> {
                 val constraints = ImeWindowConstraints.of(rootInsets, windowConfig.fixedMode)
-                val scaledHeight = (constraints.defaultProps.keyboardHeight * userPreferredOptions.keyboardHeightScale)
-                    .coerceIn(constraints.minKeyboardHeight, constraints.maxKeyboardHeight)
-                val props = (windowConfig.fixedProps[windowConfig.fixedMode] ?: constraints.defaultProps)
-                    .copy(keyboardHeight = scaledHeight)
+                val modeKey = "fixed:${windowConfig.fixedMode.name}"
+                val storedProps = windowConfig.fixedProps[windowConfig.fixedMode]
+                val baseProps = storedProps ?: constraints.defaultProps
+                val resolution = resolveKeyboardHeight(
+                    modeKey, storedProps?.keyboardHeight, constraints, userPreferredOptions, windowConfig,
+                )
+                val props = baseProps
+                    .copy(keyboardHeight = resolution.height)
                     .constrained(constraints)
+                if (resolution.shouldPersistScale) {
+                    persistFixedProps(windowConfig.fixedMode, props, modeKey, userPreferredOptions.keyboardHeightScale)
+                }
                 ImeWindowSpec.Fixed(
                     fixedMode = windowConfig.fixedMode,
                     props = props,
@@ -285,11 +299,20 @@ class ImeWindowController(
             }
             ImeWindowMode.FLOATING -> {
                 val constraints = ImeWindowConstraints.of(rootInsets, windowConfig.floatingMode)
-                val scaledHeight = (constraints.defaultProps.keyboardHeight * userPreferredOptions.keyboardHeightScale)
-                    .coerceIn(constraints.minKeyboardHeight, constraints.maxKeyboardHeight)
-                val props = (windowConfig.floatingProps[windowConfig.floatingMode] ?: constraints.defaultProps)
-                    .copy(keyboardHeight = scaledHeight)
+                val modeKey = "floating:${windowConfig.floatingMode.name}"
+                val storedProps = windowConfig.floatingProps[windowConfig.floatingMode]
+                val baseProps = storedProps ?: constraints.defaultProps
+                val resolution = resolveKeyboardHeight(
+                    modeKey, storedProps?.keyboardHeight, constraints, userPreferredOptions, windowConfig,
+                )
+                val props = baseProps
+                    .copy(keyboardHeight = resolution.height)
                     .constrained(constraints)
+                if (resolution.shouldPersistScale) {
+                    persistFloatingProps(
+                        windowConfig.floatingMode, props, modeKey, userPreferredOptions.keyboardHeightScale,
+                    )
+                }
                 ImeWindowSpec.Floating(
                     floatingMode = windowConfig.floatingMode,
                     props = props,
@@ -297,6 +320,84 @@ class ImeWindowController(
                     constraints = constraints,
                 )
             }
+        }
+    }
+
+    private data class HeightResolution(
+        val height: Dp,
+        val shouldPersistScale: Boolean,
+    )
+
+    /**
+     * Resolves the keyboard height for the given mode. A height which was manually resized by the
+     * user is preserved, unless the height multiplier from the settings changed or no stored props
+     * exist yet.
+     */
+    private fun resolveKeyboardHeight(
+        modeKey: String,
+        storedHeight: Dp?,
+        constraints: ImeWindowConstraints,
+        userPreferredOptions: ImeWindowSpec.UserPreferredOptions,
+        windowConfig: ImeWindowConfig,
+    ): HeightResolution {
+        val scale = userPreferredOptions.keyboardHeightScale
+        val persistedScale = windowConfig.heightScaleByMode[modeKey]
+        val shouldApplyScale = storedHeight == null || persistedScale == null || persistedScale != scale
+        val height = if (storedHeight == null || persistedScale == null || persistedScale != scale) {
+            (constraints.defaultProps.keyboardHeight * scale)
+                .coerceIn(constraints.minKeyboardHeight, constraints.maxKeyboardHeight)
+        } else {
+            storedHeight.coerceIn(constraints.minKeyboardHeight, constraints.maxKeyboardHeight)
+        }
+        return HeightResolution(
+            height = height,
+            shouldPersistScale = shouldApplyScale && persistedScale != scale,
+        )
+    }
+
+    /**
+     * Persists the height scale together with the computed props. The in-memory config is updated
+     * synchronously as well, so the next recompute already sees the new stored height.
+     */
+    private fun persistFixedProps(
+        fixedMode: ImeWindowMode.Fixed,
+        props: ImeWindowProps.Fixed,
+        modeKey: String,
+        scale: Float,
+    ) {
+        if (!pendingHeightScalePersist.add(modeKey)) return
+        try {
+            val transform: (ImeWindowConfig) -> ImeWindowConfig = { config ->
+                config.copy(
+                    fixedProps = config.fixedProps.plus(fixedMode to props),
+                    heightScaleByMode = config.heightScaleByMode.plus(modeKey to scale),
+                )
+            }
+            activeWindowConfig.value = transform(activeWindowConfig.value)
+            updateWindowConfig(transform)
+        } finally {
+            pendingHeightScalePersist.remove(modeKey)
+        }
+    }
+
+    private fun persistFloatingProps(
+        floatingMode: ImeWindowMode.Floating,
+        props: ImeWindowProps.Floating,
+        modeKey: String,
+        scale: Float,
+    ) {
+        if (!pendingHeightScalePersist.add(modeKey)) return
+        try {
+            val transform: (ImeWindowConfig) -> ImeWindowConfig = { config ->
+                config.copy(
+                    floatingProps = config.floatingProps.plus(floatingMode to props),
+                    heightScaleByMode = config.heightScaleByMode.plus(modeKey to scale),
+                )
+            }
+            activeWindowConfig.value = transform(activeWindowConfig.value)
+            updateWindowConfig(transform)
+        } finally {
+            pendingHeightScalePersist.remove(modeKey)
         }
     }
 

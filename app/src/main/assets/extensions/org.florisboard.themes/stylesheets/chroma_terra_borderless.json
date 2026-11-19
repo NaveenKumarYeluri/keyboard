@@ -469,12 +469,12 @@
     "font-size": "12sp"
   },
   "key[targetlayer=`base`]": {
-    "font-size": "18sp"
+    "font-size": "12sp"
   },
   "key[targetlayer=`symbol-1`]": {
-    "font-size": "18sp"
+    "font-size": "12sp"
   },
   "key[targetlayer=`symbol-2`]": {
-    "font-size": "18sp"
+    "font-size": "12sp"
   }
 }

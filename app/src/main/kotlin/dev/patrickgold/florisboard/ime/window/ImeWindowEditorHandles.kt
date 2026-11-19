@@ -19,8 +19,8 @@ package dev.patrickgold.florisboard.ime.window
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectDragGestures
-import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -50,6 +50,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpOffset
@@ -427,35 +428,57 @@ private fun Modifier.imeWindowEditorHandle(
 ): Modifier = this.composed {
     val rowCount by FlorisImeSizing.rowCountAsState()
     val smartbarRowCount by FlorisImeSizing.smartbarRowCountAsState()
-    Modifier
-        .pointerInput(Unit) {
-            detectTapGestures {
-                onTap()
+    val onTapState by rememberUpdatedState(onTap)
+    val onBeginGestureState by rememberUpdatedState(onBeginGesture)
+    val onGestureState by rememberUpdatedState(onGesture)
+    val onEndGestureState by rememberUpdatedState(onEndGesture)
+    val onCancelGestureState by rememberUpdatedState(onCancelGesture)
+    Modifier.pointerInput(Unit) {
+        awaitEachGesture {
+            val down = awaitFirstDown(requireUnconsumed = false)
+            var accumulatedOffset = Offset.Zero
+            var initialSpec: ImeWindowSpec? = null
+            var currentSpec: ImeWindowSpec? = null
+            var gestureFinished = false
+            try {
+                while (true) {
+                    val event = awaitPointerEvent()
+                    val change = event.changes.firstOrNull { it.id == down.id }
+                    if (change == null || !change.pressed) {
+                        // Pointer went up or the gesture was cancelled by the system.
+                        if (currentSpec != null) {
+                            if (change == null || change.isConsumed) {
+                                onCancelGestureState()
+                            } else {
+                                onEndGestureState(currentSpec)
+                            }
+                        } else if (change != null && !change.isConsumed) {
+                            onTapState()
+                        }
+                        gestureFinished = true
+                        return@awaitEachGesture
+                    }
+                    accumulatedOffset += change.positionChange()
+                    if (currentSpec == null) {
+                        if (accumulatedOffset.getDistance() > viewConfiguration.touchSlop) {
+                            change.consume()
+                            initialSpec = onBeginGestureState()
+                            currentSpec = onGestureState(
+                                initialSpec, accumulatedOffset.toDp(), rowCount, smartbarRowCount,
+                            )
+                        }
+                    } else {
+                        change.consume()
+                        currentSpec = onGestureState(
+                            initialSpec!!, accumulatedOffset.toDp(), rowCount, smartbarRowCount,
+                        )
+                    }
+                }
+            } finally {
+                if (!gestureFinished && currentSpec != null) {
+                    onCancelGestureState()
+                }
             }
         }
-        .pointerInput(Unit) {
-            // TODO evaluate if using (current - initial position) results in less rounding errors
-            //  drawback: we need the coords via onGloballyPositioned
-            var accumulatedOffset = Offset.Zero
-            var initialSpec = ImeWindowSpec.Fallback
-            var currentSpec = ImeWindowSpec.Fallback
-            detectDragGestures(
-                onDragStart = {
-                    accumulatedOffset = Offset.Zero
-                    initialSpec = onBeginGesture()
-                    currentSpec = initialSpec
-                },
-                onDrag = { change, dragAmount ->
-                    change.consume()
-                    accumulatedOffset += dragAmount
-                    currentSpec = onGesture(initialSpec, accumulatedOffset.toDp(), rowCount, smartbarRowCount)
-                },
-                onDragEnd = {
-                    onEndGesture(currentSpec)
-                },
-                onDragCancel = {
-                    onCancelGesture()
-                },
-            )
-        }
+    }
 }

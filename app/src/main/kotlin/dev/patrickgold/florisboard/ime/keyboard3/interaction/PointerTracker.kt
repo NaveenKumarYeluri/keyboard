@@ -62,8 +62,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import org.k3lp.lib.text.asK3String
 import org.k3lp.model.K3Model
 import org.k3lp.model.layer.K3LayerId
+import kotlin.math.abs
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.pow
@@ -95,6 +97,7 @@ sealed interface TrackedPointer {
         val directLongPressActionEmitted: Boolean = false,
         val repeatEmitted: Boolean = false,
         val deleteSwipe: DeleteSwipe? = null,
+        val spaceBarSwipe: SpaceBarSwipe? = null,
     ) : TrackedPointer
 }
 
@@ -125,6 +128,26 @@ data class DeleteSwipe(
     val active: Boolean = false,
 )
 
+enum class SpaceBarSwipeDirection {
+    LEFT,
+    RIGHT,
+    UP,
+}
+
+/**
+ * State for a spacebar swipe. Cursor movements are applied incrementally while the finger moves,
+ * while all other configured actions are deferred until the finger is lifted.
+ */
+data class SpaceBarSwipe(
+    val start: Offset,
+    val unitPx: Float,
+    val thresholdPx: Float,
+    val direction: SpaceBarSwipeDirection? = null,
+    val unitCount: Int = 0,
+    val executedCount: Int = 0,
+    val active: Boolean = false,
+)
+
 private fun SwipeAction.supportsDeleteSwipe(): Boolean = when (this) {
     SwipeAction.DELETE_CHARACTERS_PRECISELY,
     SwipeAction.SELECT_CHARACTERS_PRECISELY,
@@ -150,6 +173,10 @@ private data class LastUpKey(
     val uptimeMillis: Long,
 )
 
+private val ASCII_SPACE = " ".asK3String()
+
+private fun TouchKey.isSpaceKey(): Boolean = attrs.output == ASCII_SPACE
+
 // TODO the sync of this class is a bit messy
 class PointerTracker(
     val touchKeyboard: TouchKeyboard,
@@ -159,7 +186,10 @@ class PointerTracker(
     val peekDistanceSqMin: Float,
     val deleteSwipeAction: SwipeAction,
     val deleteSwipeUnitPx: Float,
+    val spaceBarSwipeUnitPx: Float,
+    val spaceBarSwipeThresholdPx: Float,
 ) {
+    private val prefs by FlorisPreferenceStore
     private val mutationGuard = Mutex()
 
     val trackedPeekPointer: StateFlow<TrackedPointer.Peek?>
@@ -203,6 +233,7 @@ class PointerTracker(
         val isDeleteSwipeKey = downKey.attrs.output == ImeActions.Backspace &&
             deleteSwipeAction.supportsDeleteSwipe() &&
             !imeController.snapshotState().editor.info.isRawInputEditor
+        val isSpaceBarKey = downKey.isSpaceKey()
         if (peekLayerId != null) {
             // this is a peek key action
             trackedMultiTapSeq.value?.let { multiTapSeq ->
@@ -236,7 +267,7 @@ class PointerTracker(
                 id = down.id,
                 down = down,
                 downKey = downKey,
-                longPress = if (downKey.isSuitableForPopup || downKey.directLongPressAction != null) {
+                longPress = if (downKey.isSuitableForPopup || downKey.directLongPressAction != null || isSpaceBarKey) {
                     val anchorBounds = downKey.bounds.let { bounds ->
                         // TODO this is only tested for PHONE_PORTRAIT, test+fix other form factors!
                         val w = 0.1f
@@ -260,7 +291,7 @@ class PointerTracker(
                         extendedBounds = Rect.Zero,
                         extendedKeys = downKey.extendedPopupKeys,
                         extendedFocusedIndex = 0,
-                        extendedJob = if (downKey.isSuitableForExtendedPopup || downKey.directLongPressAction != null) {
+                        extendedJob = if (downKey.isSuitableForExtendedPopup || downKey.directLongPressAction != null || isSpaceBarKey) {
                             launchExtendedLongPressJob(longPressTimeout)
                         } else null,
                     )
@@ -285,6 +316,13 @@ class PointerTracker(
                         start = down.position,
                         action = deleteSwipeAction,
                         unitPx = deleteSwipeUnitPx,
+                    )
+                } else null,
+                spaceBarSwipe = if (isSpaceBarKey) {
+                    SpaceBarSwipe(
+                        start = down.position,
+                        unitPx = spaceBarSwipeUnitPx,
+                        thresholdPx = spaceBarSwipeThresholdPx,
                     )
                 } else null,
             )
@@ -345,6 +383,10 @@ class PointerTracker(
                 updateDeleteSwipe(trackedPointer, move)
                 return@let
             }
+            if (trackedPointer.spaceBarSwipe != null) {
+                updateSpaceBarSwipe(trackedPointer, move)
+                return@let
+            }
             val longPress = trackedPointer.longPress
             if (longPress.shouldShowExtendedPopup()) {
                 val position = move.position.normalized(size).let { position ->
@@ -400,6 +442,97 @@ class PointerTracker(
         trackedOutputPointer.value = newPointer
     }
 
+    private suspend fun updateSpaceBarSwipe(
+        trackedPointer: TrackedPointer.Output,
+        move: PointerInputChange,
+    ) {
+        if (trackedPointer.directLongPressActionEmitted || trackedPointer.repeatEmitted) return
+        val swipe = trackedPointer.spaceBarSwipe ?: return
+        val dx = move.position.x - swipe.start.x
+        val dy = move.position.y - swipe.start.y
+        val absX = abs(dx)
+        val absY = abs(dy)
+        if (absX < swipe.thresholdPx && absY < swipe.thresholdPx) return
+
+        val direction = when {
+            absX >= absY -> if (dx < 0f) SpaceBarSwipeDirection.LEFT else SpaceBarSwipeDirection.RIGHT
+            dy < 0f -> SpaceBarSwipeDirection.UP
+            // Downward spacebar swipes are intentionally ignored.
+            else -> return
+        }
+        val action = when (direction) {
+            SpaceBarSwipeDirection.LEFT -> prefs.gestures.spaceBarSwipeLeft.get()
+            SpaceBarSwipeDirection.RIGHT -> prefs.gestures.spaceBarSwipeRight.get()
+            SpaceBarSwipeDirection.UP -> prefs.gestures.spaceBarSwipeUp.get()
+        }
+        val isCursorMovement =
+            direction == SpaceBarSwipeDirection.LEFT && action == SwipeAction.MOVE_CURSOR_LEFT ||
+                direction == SpaceBarSwipeDirection.RIGHT && action == SwipeAction.MOVE_CURSOR_RIGHT
+        val isActive = direction == SpaceBarSwipeDirection.UP || action != SwipeAction.NO_ACTION
+        var newSwipe = swipe.copy(
+            direction = direction,
+            active = swipe.active || isActive,
+        )
+        if (isCursorMovement) {
+            val unitCount = max(0, floor(absX / swipe.unitPx).toInt())
+            val delta = unitCount - swipe.executedCount
+            if (delta > 0) {
+                imeController.executeSwipeAction(action, delta)
+            } else if (delta < 0) {
+                val reverseAction = if (action == SwipeAction.MOVE_CURSOR_LEFT) {
+                    SwipeAction.MOVE_CURSOR_RIGHT
+                } else {
+                    SwipeAction.MOVE_CURSOR_LEFT
+                }
+                imeController.executeSwipeAction(reverseAction, -delta)
+            }
+            newSwipe = newSwipe.copy(unitCount = unitCount, executedCount = unitCount)
+        }
+        // Once a swipe is recognized, neither the long-press nor the repeat action may fire anymore.
+        trackedPointer.longPress.extendedJob?.cancel()
+        trackedPointer.repeatJob?.cancel()
+        trackedOutputPointer.value = trackedPointer.copy(
+            longPress = LongPress.None,
+            repeatJob = null,
+            spaceBarSwipe = newSwipe,
+        )
+    }
+
+    /**
+     * Finishes a spacebar swipe and returns whether the normal space output must be suppressed.
+     */
+    private suspend fun finishSpaceBarSwipe(swipe: SpaceBarSwipe): Boolean {
+        return when (swipe.direction) {
+            SpaceBarSwipeDirection.LEFT -> {
+                val action = prefs.gestures.spaceBarSwipeLeft.get()
+                when (action) {
+                    SwipeAction.NO_ACTION -> false
+                    SwipeAction.MOVE_CURSOR_LEFT -> true
+                    else -> {
+                        imeController.executeSwipeAction(action)
+                        true
+                    }
+                }
+            }
+            SpaceBarSwipeDirection.RIGHT -> {
+                val action = prefs.gestures.spaceBarSwipeRight.get()
+                when (action) {
+                    SwipeAction.NO_ACTION -> false
+                    SwipeAction.MOVE_CURSOR_RIGHT -> true
+                    else -> {
+                        imeController.executeSwipeAction(action)
+                        true
+                    }
+                }
+            }
+            SpaceBarSwipeDirection.UP -> {
+                imeController.executeSwipeAction(prefs.gestures.spaceBarSwipeUp.get())
+                true
+            }
+            null -> false
+        }
+    }
+
     private suspend fun finishDeleteSwipe(swipe: DeleteSwipe) {
         if (swipe.unitCount > 0) {
             val selection = swipe.currentSelection ?: swipe.baseSelection
@@ -447,8 +580,18 @@ class PointerTracker(
             trackedPointer.longPress.extendedJob?.cancel()
             trackedPointer.repeatJob?.cancel()
             val deleteSwipe = trackedPointer.deleteSwipe
+            val spaceBarSwipe = trackedPointer.spaceBarSwipe
             if (deleteSwipe != null && deleteSwipe.active) {
                 finishDeleteSwipe(deleteSwipe)
+            } else if (spaceBarSwipe != null && spaceBarSwipe.direction != null) {
+                if (!trackedPointer.directLongPressActionEmitted && !trackedPointer.repeatEmitted) {
+                    val suppressSpace = finishSpaceBarSwipe(spaceBarSwipe)
+                    if (!suppressSpace) {
+                        imeController.updateState {
+                            trackedPointer.downKey.attrs.output?.let { emit(it) }
+                        }
+                    }
+                }
             } else if (!trackedPointer.directLongPressActionEmitted && !trackedPointer.repeatEmitted) {
                 imeController.updateState {
                     val output = when {
@@ -550,6 +693,20 @@ class PointerTracker(
             }
             val trackedPointer = trackedOutputPointer.value ?: return@mutateLocked
             val longPress = trackedPointer.longPress
+            if (trackedPointer.downKey.isSpaceKey()) {
+                val action = prefs.gestures.spaceBarLongPress.get()
+                if (action == SwipeAction.NO_ACTION || action == SwipeAction.INSERT_SPACE) {
+                    // Keep the normal space output on lift, just make sure no popup lingers.
+                    trackedOutputPointer.value = trackedPointer.copy(longPress = LongPress.None)
+                } else {
+                    imeController.executeSwipeAction(action)
+                    trackedOutputPointer.value = trackedPointer.copy(
+                        longPress = LongPress.None,
+                        directLongPressActionEmitted = true,
+                    )
+                }
+                return@mutateLocked
+            }
             val directAction = trackedPointer.downKey.directLongPressAction
             if (directAction != null) {
                 imeController.updateState { emit(directAction) }
@@ -595,12 +752,20 @@ fun rememberPointerTracker(
     val deleteSwipeUnitPx = with(density) {
         (swipeDistanceThreshold.coerceAtLeast(4).dp.toPx() / 4f).fastCoerceAtLeast(1f)
     }
+    val spaceBarSwipeUnitPx = with(density) {
+        (swipeDistanceThreshold.coerceAtLeast(4).dp.toPx() / 2f).fastCoerceAtLeast(1f)
+    }
+    val spaceBarSwipeThresholdPx = with(density) {
+        swipeDistanceThreshold.coerceAtLeast(4).dp.toPx().fastCoerceAtLeast(1f)
+    }
 
     val pointerTracker = remember(
         touchKeyboard,
         showSimplePopups,
         deleteSwipeAction,
         deleteSwipeUnitPx,
+        spaceBarSwipeUnitPx,
+        spaceBarSwipeThresholdPx,
     ) {
         PointerTracker(
             touchKeyboard = touchKeyboard,
@@ -610,6 +775,8 @@ fun rememberPointerTracker(
             peekDistanceSqMin = peekDistanceSqMin,
             deleteSwipeAction = deleteSwipeAction,
             deleteSwipeUnitPx = deleteSwipeUnitPx,
+            spaceBarSwipeUnitPx = spaceBarSwipeUnitPx,
+            spaceBarSwipeThresholdPx = spaceBarSwipeThresholdPx,
         )
     }
 

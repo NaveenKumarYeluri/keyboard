@@ -332,7 +332,10 @@ sealed class ImeWindowConstraints(rootInsets: ImeInsets.Root) {
                     keyboardHeight = defKeyboardHeight,
                     keyboardWidth = defKeyboardWidth,
                     offsetLeft = 60.dp.coerceAtMost(rootBounds.width - defKeyboardWidth),
-                    offsetBottom = 60.dp.coerceAtMost(rootBounds.height - defKeyboardHeight),
+                    // Keep the default position above the dock-to-fixed threshold, otherwise the
+                    // first move gesture immediately docks the keyboard back to fixed mode.
+                    offsetBottom = (dockToFixedHeight + 40.dp)
+                        .coerceAtMost(rootBounds.height - defKeyboardHeight),
                 )
             }
         }

@@ -30,8 +30,7 @@
         <key id="space-no-stretch" output="\u{0020}" />
         <key id="bksp-no-stretch" output="@k3:action/backspace" />
         <key id="ime-picker" output="@fl:action/show_input_method_picker" />
-        <key id="space" output="\u{0020}" stretch="true"
-             longPressKeyIds="ime-picker" longPressDefaultKeyId="ime-picker" />
+        <key id="space" output="\u{0020}" stretch="true" />
 
         <!-- Numbers with Gboard-style symbol hints -->
         <key id="0" output="0" longPressKeyIds="close-paren" longPressDefaultKeyId="close-paren" />

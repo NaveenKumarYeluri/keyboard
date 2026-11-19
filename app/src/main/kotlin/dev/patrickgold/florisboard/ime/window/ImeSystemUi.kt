@@ -157,7 +157,10 @@ fun ImeSystemUiFloating() {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight(),
+                .wrapContentHeight()
+                .imeWindowMoveHandle(windowController, onTap = {
+                    windowController.editor.toggleEnabled()
+                }),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -264,9 +267,6 @@ private fun RowScope.NavigationPill() {
         modifier = Modifier
             .width(IntrinsicSize.Max)
             .wrapContentHeight()
-            .imeWindowMoveHandle(windowController, onTap = {
-                windowController.editor.toggleEnabled()
-            })
             .padding(vertical = 20.dp)
             .align(Alignment.CenterVertically),
     ) {

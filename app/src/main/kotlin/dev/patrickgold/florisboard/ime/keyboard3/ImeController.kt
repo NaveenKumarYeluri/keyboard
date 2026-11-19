@@ -45,6 +45,7 @@ import dev.patrickgold.florisboard.ime.media.emoji.EmojiSuggestionType
 import dev.patrickgold.florisboard.ime.nlp.BreakIterators
 import dev.patrickgold.florisboard.ime.nlp.ClipboardSuggestionCandidate
 import dev.patrickgold.florisboard.ime.nlp.SuggestionCandidate
+import dev.patrickgold.florisboard.ime.text.gestures.SwipeAction
 import dev.patrickgold.florisboard.ime.text.key.KeyVariation
 import dev.patrickgold.florisboard.lib.FlorisLocale
 import dev.patrickgold.florisboard.lib.devtools.flogDebug
@@ -266,6 +267,76 @@ class ImeController(
 
     fun snapshotState(): ImeState = activeState.value
 
+    /**
+     * Executes a general [SwipeAction] triggered by a gesture, such as a spacebar swipe or long-press.
+     *
+     * @param action The action to execute.
+     * @param count How many units (characters, words, cursor steps) the action should apply.
+     */
+    suspend fun executeSwipeAction(action: SwipeAction, count: Int = 1) {
+        if (count <= 0) return
+        when (action) {
+            SwipeAction.NO_ACTION -> Unit
+            SwipeAction.CYCLE_TO_PREVIOUS_KEYBOARD_MODE -> updateState { cycleImeUiMode(-1) }
+            SwipeAction.CYCLE_TO_NEXT_KEYBOARD_MODE -> updateState { cycleImeUiMode(1) }
+            SwipeAction.DELETE_CHARACTER -> updateState {
+                repeat(count) { emitBackspace() }
+            }
+            SwipeAction.DELETE_CHARACTERS_PRECISELY -> updateState {
+                deletePrecisely(count, OperationUnit.CHARACTERS)
+            }
+            SwipeAction.DELETE_WORD -> updateState {
+                deletePrecisely(1, OperationUnit.WORDS)
+            }
+            SwipeAction.DELETE_WORDS_PRECISELY -> updateState {
+                deletePrecisely(count, OperationUnit.WORDS)
+            }
+            SwipeAction.HIDE_KEYBOARD -> FlorisImeService.hideUi()
+            SwipeAction.INSERT_SPACE -> updateState {
+                repeat(count) { emitText(SPACE_SEQ) }
+            }
+            SwipeAction.MOVE_CURSOR_UP -> moveCursor(KeyEvent.KEYCODE_DPAD_UP, count)
+            SwipeAction.MOVE_CURSOR_DOWN -> moveCursor(KeyEvent.KEYCODE_DPAD_DOWN, count)
+            SwipeAction.MOVE_CURSOR_LEFT -> moveCursor(KeyEvent.KEYCODE_DPAD_LEFT, count)
+            SwipeAction.MOVE_CURSOR_RIGHT -> moveCursor(KeyEvent.KEYCODE_DPAD_RIGHT, count)
+            SwipeAction.MOVE_CURSOR_START_OF_LINE -> moveCursor(KeyEvent.KEYCODE_MOVE_HOME)
+            SwipeAction.MOVE_CURSOR_END_OF_LINE -> moveCursor(KeyEvent.KEYCODE_MOVE_END)
+            SwipeAction.MOVE_CURSOR_START_OF_PAGE -> moveCursor(KeyEvent.KEYCODE_MOVE_HOME, ctrl = true)
+            SwipeAction.MOVE_CURSOR_END_OF_PAGE -> moveCursor(KeyEvent.KEYCODE_MOVE_END, ctrl = true)
+            SwipeAction.REDO -> updateState { state.editor.performRedo() }
+            SwipeAction.SELECT_CHARACTERS_PRECISELY -> updateState {
+                selectPrecisely(count, OperationUnit.CHARACTERS)
+            }
+            SwipeAction.SELECT_WORDS_PRECISELY -> updateState {
+                selectPrecisely(count, OperationUnit.WORDS)
+            }
+            SwipeAction.SHIFT -> updateState { cycleInputShiftState(false) }
+            SwipeAction.SHOW_INPUT_METHOD_PICKER -> FlorisImeService.showImePicker()
+            SwipeAction.SHOW_SUBTYPE_PICKER -> updateState { emit(ImeActions.ShowSubtypePicker) }
+            SwipeAction.SWITCH_TO_PREV_SUBTYPE -> FlorisApplication.getHack().subtypeManager.value.switchToPrevSubtype()
+            SwipeAction.SWITCH_TO_NEXT_SUBTYPE -> FlorisApplication.getHack().subtypeManager.value.switchToNextSubtype()
+            SwipeAction.SWITCH_TO_CLIPBOARD_CONTEXT -> updateState { setImeUiMode(ImeUiMode.CLIPBOARD) }
+            SwipeAction.SWITCH_TO_MEDIA_CONTEXT -> updateState { setImeUiMode(ImeUiMode.MEDIA) }
+            SwipeAction.SWITCH_TO_PREV_KEYBOARD -> FlorisImeService.switchToPrevInputMethod()
+            SwipeAction.TOGGLE_COMPACT_LAYOUT -> FlorisImeService.windowControllerOrNull()?.actions?.toggleCompactLayout()
+            SwipeAction.TOGGLE_SMARTBAR_VISIBILITY -> prefs.smartbar.enabled.set(!prefs.smartbar.enabled.get())
+            SwipeAction.UNDO -> updateState { state.editor.performUndo() }
+        }
+    }
+
+    private suspend fun moveCursor(keyCode: Int, count: Int = 1, ctrl: Boolean = false) {
+        val metaState = if (ctrl) {
+            KeyEvent.META_CTRL_ON or KeyEvent.META_CTRL_LEFT_ON
+        } else {
+            0
+        }
+        updateState {
+            repeat(count) {
+                state.editor.sendDownUpKeyEvent(keyCode, metaState)
+            }
+        }
+    }
+
     // TODO evaluate if we can move to a clean coroutine-based approach in FlorisBoard
     //  for now this helper can be used to update the state from non-suspending contexts
     inline fun updateStateBlocking(crossinline function: UpdateImeStateScope.() -> Unit) {
@@ -413,6 +484,44 @@ class ImeController(
             val newSelection = state.editor.deleteSelection(selection) ?: return false
             updateSelectionFromGesture(newSelection)
             return true
+        }
+
+        /**
+         * Deletes [count] units before the cursor, or the current selection if there is one.
+         */
+        fun deletePrecisely(count: Int, unit: OperationUnit) {
+            if (count <= 0) return
+            val editor = state.editor
+            val selection = editor.getSelectionRange() ?: return
+            if (selection.end > selection.start) {
+                deleteSelectionFromGesture(selection)
+                return
+            }
+            val target = editor.selectionBefore(count, unit, selection) ?: return
+            if (target.end > target.start) {
+                deleteSelectionFromGesture(target)
+            }
+        }
+
+        /**
+         * Extends the current selection by [count] units to the left.
+         */
+        fun selectPrecisely(count: Int, unit: OperationUnit) {
+            if (count <= 0) return
+            val editor = state.editor
+            val selection = editor.getSelectionRange() ?: return
+            val target = editor.selectionBefore(count, unit, selection) ?: return
+            updateSelectionFromGesture(target)
+        }
+
+        fun setImeUiMode(mode: ImeUiMode) {
+            state = state.copy(flags = state.flags.withImeUiMode(mode))
+        }
+
+        fun cycleImeUiMode(delta: Int) {
+            val values = ImeUiMode.entries
+            val newMode = values[Math.floorMod(state.flags.imeUiMode.ordinal + delta, values.size)]
+            setImeUiMode(newMode)
         }
 
         override fun emit(value: K3StringOrDescriptor) {

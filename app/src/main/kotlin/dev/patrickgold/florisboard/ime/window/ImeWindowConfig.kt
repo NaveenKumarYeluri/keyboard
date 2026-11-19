@@ -46,6 +46,12 @@ data class ImeWindowConfig(
     val fixedProps: Map<ImeWindowMode.Fixed, ImeWindowProps.Fixed> = emptyMap(),
     val floatingMode: ImeWindowMode.Floating = ImeWindowMode.Floating.NORMAL,
     val floatingProps: Map<ImeWindowMode.Floating, ImeWindowProps.Floating> = emptyMap(),
+    /**
+     * Tracks the keyboard height scale last applied to the stored props per mode. This allows a
+     * height which was manually resized by the user to survive restarts, while still re-applying
+     * the scale when the user changes the height multiplier in the settings.
+     */
+    val heightScaleByMode: Map<String, Float> = emptyMap(),
 ) {
     /**
      * Helper for serializing [ImeWindowConfigByType] to prefs.
