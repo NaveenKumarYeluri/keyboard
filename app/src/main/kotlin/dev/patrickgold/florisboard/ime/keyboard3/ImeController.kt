@@ -104,6 +104,19 @@ class ImeController(
     private val nlpManager by lazy { FlorisApplication.getHack().nlpManager.value }
 
     /**
+     * The active K3 layout ID. Telugu phonetic mode needs a raw Latin buffer because K3 transforms
+     * cannot convert trailing consonants reliably.
+     */
+    @Volatile
+    private var activeLayoutId = ""
+
+    @Volatile
+    private var phoneticLatin = ""
+
+    @Volatile
+    private var phoneticOutput = ""
+
+    /**
      * SubtypeManager reads the preference datastore when it is constructed, so it must only be
      * created after [FlorisApplication.preferenceStoreLoaded] becomes true. Creating it eagerly
      * here crashed Application.onCreate before the datastore was ready.
@@ -182,7 +195,7 @@ class ImeController(
                     runCatching {
                         nlpManager.suggest(
                             subtype = FlorisApplication.getHack().subtypeManager.value.activeSubtype,
-                            content = state.content,
+                            content = contentForSuggestions(state),
                         )
                     }.onFailure { flogDebug { "Suggestion pipeline failed: $it" } }
                 }
@@ -263,6 +276,42 @@ class ImeController(
 
     fun setEmitInterceptor(interceptor: EmitInterceptor?) {
         emitInterceptor.store(interceptor)
+    }
+
+    /**
+     * Called by the layout loader before the new model is switched in. Clears any in-progress
+     * phonetic word so its buffer cannot leak into a different layout.
+     */
+    fun setActiveLayoutId(layoutId: String) {
+        activeLayoutId = layoutId
+        clearPhoneticBuffer()
+    }
+
+    private fun clearPhoneticBuffer() {
+        phoneticLatin = ""
+        phoneticOutput = ""
+    }
+
+    /**
+     * While typing in Telugu phonetic mode the editor contains the transliterated Telugu text, but
+     * suggestions match better against the raw Latin word the user actually typed. Feed that raw
+     * word to the NLP pipeline without changing the editor state.
+     */
+    private fun contentForSuggestions(source: ImeState): K3Content {
+        if (activeLayoutId != "telugu-phonetic" || phoneticLatin.isEmpty()) {
+            return source.content
+        }
+        val raw = phoneticLatin
+        return source.content.copy(
+            selection = K3TextRange(raw.length),
+            composition = null,
+            surroundingText = source.content.surroundingText.copy(
+                textBefore = raw,
+                textSelected = "",
+                textAfter = "",
+            ),
+            inputContext = raw.asK3String(),
+        )
     }
 
     fun snapshotState(): ImeState = activeState.value
@@ -541,7 +590,39 @@ class ImeController(
             super.emit(value)
         }
 
+        private val isTeluguPhonetic: Boolean
+            get() = activeLayoutId == "telugu-phonetic"
+
+        /**
+         * Replaces the Telugu output for the current raw Latin buffer. All editor writes still go
+         * through the K3 base implementation, so input context, selection and composition stay in
+         * sync with the editor.
+         */
+        private fun replacePhoneticOutput(newOutput: String) {
+            val oldOutput = phoneticOutput
+            var remaining = oldOutput.codePointCount(0, oldOutput.length)
+            while (remaining > 0) {
+                super.emitBackspace()
+                remaining--
+            }
+            if (newOutput.isNotEmpty()) {
+                super.emitText(newOutput.asK3String())
+            }
+        }
+
         override fun emitText(value: K3String) {
+            val text = value.toText()
+            if (isTeluguPhonetic && text.length == 1 && text[0].let { it in 'a'..'z' || it in 'A'..'Z' }) {
+                val raw = phoneticLatin + text.lowercase()
+                val output = TeluguPhoneticTransliterator.transliterate(raw)
+                replacePhoneticOutput(output)
+                phoneticLatin = raw
+                phoneticOutput = output
+                expectedContentQueue.push(state.content.selection)
+                reevaluateInputShiftState()
+                return
+            }
+            clearPhoneticBuffer()
             super.emitText(value)
             expectedContentQueue.push(state.content.selection)
             reevaluateInputShiftState()
@@ -659,6 +740,16 @@ class ImeController(
         }
 
         override fun emitBackspace() {
+            if (isTeluguPhonetic && phoneticLatin.isNotEmpty()) {
+                val raw = phoneticLatin.dropLast(1)
+                val output = TeluguPhoneticTransliterator.transliterate(raw)
+                replacePhoneticOutput(output)
+                phoneticLatin = raw
+                phoneticOutput = output
+                expectedContentQueue.push(state.content.selection)
+                return
+            }
+            clearPhoneticBuffer()
             super.emitBackspace()
             expectedContentQueue.push(state.content.selection)
         }
@@ -752,6 +843,7 @@ class ImeController(
         }
 
         fun emitCompletion(candidate: SuggestionCandidate): Boolean {
+            clearPhoneticBuffer()
             val text = candidate.text.toString()
             if (text.isEmpty() || state.editor.info.isRawInputEditor) return false
             val content = state.content
@@ -860,11 +952,13 @@ class ImeController(
         }
 
         override fun resetContent(newSelection: K3TextRange, newSurrounding: K3SurroundingText) {
+            clearPhoneticBuffer()
             super.resetContent(newSelection, newSurrounding)
             reevaluateInputShiftState()
         }
 
         override fun resetContent() {
+            clearPhoneticBuffer()
             super.resetContent()
             reevaluateInputShiftState()
         }

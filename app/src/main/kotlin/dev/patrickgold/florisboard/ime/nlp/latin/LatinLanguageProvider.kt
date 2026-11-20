@@ -73,6 +73,10 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
     private val dictionaries = ConcurrentHashMap<String, Dictionary>()
     private val wordDataSerializer = MapSerializer(String.serializer(), Int.serializer())
 
+    // Romanized aliases for the Telugu phonetic layout: raw Latin word -> canonical Telugu word.
+    private val aliasDictionaries = ConcurrentHashMap<String, Map<String, String>>()
+    private val aliasDataSerializer = MapSerializer(String.serializer(), String.serializer())
+
     override val providerId = ProviderId
 
     override suspend fun create() {
@@ -103,8 +107,21 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
         return dictionaries.computeIfAbsent(language) { loadDictionary(it) }
     }
 
+    private fun loadAliases(language: String): Map<String, String> {
+        return runCatching {
+            val rawData = appContext.assets.readText("$DICT_ASSET_PATH/${language}_aliases.json")
+            Json.decodeFromString(aliasDataSerializer, rawData)
+        }.getOrDefault(emptyMap())
+    }
+
+    private fun getAliases(language: String): Map<String, String> {
+        return aliasDictionaries.computeIfAbsent(language) { loadAliases(it) }
+    }
+
     override suspend fun preload(subtype: Subtype) = withContext(Dispatchers.IO) {
-        getDictionary(subtype.primaryLocale.language)
+        val language = subtype.primaryLocale.language
+        getDictionary(language)
+        getAliases(language)
         Unit
     }
 
@@ -193,7 +210,26 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
             }
         }
 
-        // 3. User dictionary matches (own learned words take precedence over frequency dictionary entries).
+        // 3. Romanized aliases used by the Telugu phonetic layout. The editor shows transliterated
+        // Telugu, but the suggestion query is the raw Latin word the user typed.
+        val aliases = getAliases(locale.language)
+        if (aliases.isNotEmpty() && composingWord.all { it in 'a'..'z' || it == '\'' }) {
+            aliases[composingWord]?.let { word ->
+                val frequency = dictionary.words[word] ?: 255
+                candidates[word] = maxOf(
+                    candidates.getOrDefault(word, 0.0),
+                    maxOf(computeBaseConfidence(frequency, dictionary), 0.99),
+                )
+            }
+            for ((alias, word) in aliases) {
+                if (alias.length > composingWord.length && alias.startsWith(composingWord)) {
+                    val frequency = dictionary.words[word] ?: 128
+                    candidates.getOrPut(word) { computeBaseConfidence(frequency, dictionary) }
+                }
+            }
+        }
+
+        // 4. User dictionary matches (own learned words take precedence over frequency dictionary entries).
         for (userCandidate in queryUserDictionary(composingWord, locale)) {
             val userWord = userCandidate.text.toString().lowercase(locale)
             candidates[userWord] = maxOf(candidates.getOrDefault(userWord, 0.0), userCandidate.confidence)

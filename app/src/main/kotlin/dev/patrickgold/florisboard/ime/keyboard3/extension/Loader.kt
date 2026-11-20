@@ -260,6 +260,7 @@ suspend fun loadFoundationKeyboard(imeController: ImeController, storage: Storag
     when (result) {
         is K3CompileResult.Success -> {
             imeController.updateState {
+                imeController.setActiveLayoutId(layoutId)
                 switchModel(result.model)
             }
         }
