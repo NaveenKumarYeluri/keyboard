@@ -257,11 +257,14 @@ suspend fun loadFoundationKeyboard(imeController: ImeController, storage: Storag
         flogError { "K3 layout '$layoutId' report [${report.level}]: ${report.message}" }
         report.cause?.let { cause -> flogError { cause.stackTraceToString() } }
     }
-    if (result is K3CompileResult.Success) {
-        imeController.updateState {
-            switchModel(result.model)
+    when (result) {
+        is K3CompileResult.Success -> {
+            imeController.updateState {
+                switchModel(result.model)
+            }
         }
-    } else {
-        flogError { "Failed to compile K3 layout '$layoutId': ${result.error.stackTraceToString()}" }
+        is K3CompileResult.Failure -> {
+            flogError { "Failed to compile K3 layout '$layoutId': ${result.error.stackTraceToString()}" }
+        }
     }
 }
