@@ -152,7 +152,13 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
         isPrivateSession: Boolean,
     ): List<SuggestionCandidate> = withContext(Dispatchers.IO) {
         val locale = subtype.primaryLocale
-        val rawCompositionText = content.compositionText?.toString() ?: ""
+        // Some editors disable composing (browser search fields, launcher search, etc.), so the
+        // K3 composition is empty even though the user is typing a word. Derive the current word
+        // from the surrounding text in that case so suggestions keep working in those apps.
+        val compositionFromK3 = content.compositionText?.toString().orEmpty()
+        val rawCompositionText = compositionFromK3.ifEmpty {
+            content.surroundingText.textBefore.toString().takeLastWhile { it.isLetterOrDigit() || it == '\'' }
+        }
         val composingWord = rawCompositionText.lowercase(locale)
 
         if (composingWord.isEmpty() || !composingWord.any { it.isLetter() }) {

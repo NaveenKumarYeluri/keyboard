@@ -21,6 +21,8 @@ import android.content.ContentUris
 import android.os.SystemClock
 import android.view.KeyCharacterMap
 import android.view.KeyEvent
+import android.view.inputmethod.ExtractedText
+import android.view.inputmethod.ExtractedTextRequest
 import android.view.inputmethod.InputConnection
 import androidx.core.view.inputmethod.InputConnectionCompat
 import androidx.core.view.inputmethod.InputContentInfoCompat
@@ -52,25 +54,33 @@ open class ImeEditor(
 
     fun getSurroundingText(charsBefore: Int, charsAfter: Int): K3SurroundingText {
         val ic = ic.get() ?: return K3SurroundingText.Empty
-        // TODO maybe use eet for getSurroundingText??
-//        val eet = ic.getExtractedText(
-//            ExtractedTextRequest().apply {
-//                token = -1
-//                flags = 0
-//                hintMaxLines = 10
-//                hintMaxChars = 10000
-//            },
-//            0,
-//        )
-//        eet.
-        val textBeforeCursor = ic.getTextBeforeCursor(charsBefore, 0) ?: return K3SurroundingText.Empty
-        val textAfterCursor = ic.getTextAfterCursor(charsAfter, 0) ?: return K3SurroundingText.Empty
-        val textSelected = ic.getSelectedText(0) ?: ""
-        //val surroundingText = TextUtils.concat(textBeforeCursor, textSelected, textAfterCursor)
+        val textBeforeCursor = ic.getTextBeforeCursor(charsBefore, 0)?.toString()
+        val textAfterCursor = ic.getTextAfterCursor(charsAfter, 0)?.toString()
+        val textSelected = ic.getSelectedText(0)?.toString().orEmpty()
+        if (textBeforeCursor != null && textAfterCursor != null &&
+            (textBeforeCursor.isNotEmpty() || textAfterCursor.isNotEmpty() || textSelected.isNotEmpty())
+        ) {
+            return K3SurroundingText(textBeforeCursor, textSelected, textAfterCursor)
+        }
+        // Browsers and launcher search fields often do not implement getTextBeforeCursor properly.
+        // Fall back to ExtractedText so suggestions still receive the current word.
+        val request = ExtractedTextRequest().apply {
+            hintMaxLines = 10
+            hintMaxChars = 10000
+        }
+        val extracted: ExtractedText = ic.getExtractedText(request, 0) ?: return K3SurroundingText.Empty
+        val all = extracted.text?.toString().orEmpty()
+        val startOffset = extracted.startOffset.coerceIn(0, all.length)
+        val selectionStart = (extracted.selectionStart - startOffset).coerceIn(0, all.length)
+        val selectionEnd = (extracted.selectionEnd - startOffset).coerceIn(selectionStart, all.length)
         return K3SurroundingText(
-            textBefore = textBeforeCursor.toString(),
-            textSelected = textSelected.toString(),
-            textAfter = textAfterCursor.toString(),
+            textBefore = all.substring(0, selectionStart).takeLast(charsBefore),
+            textSelected = if (textSelected.isNotEmpty()) {
+                textSelected
+            } else {
+                all.substring(selectionStart, selectionEnd)
+            },
+            textAfter = all.substring(selectionEnd).take(charsAfter),
         )
     }
 

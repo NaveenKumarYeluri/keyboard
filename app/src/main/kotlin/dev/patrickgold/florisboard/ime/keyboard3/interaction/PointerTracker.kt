@@ -812,7 +812,7 @@ fun rememberPointerTracker(
     // Fine-grained units let a single continuous swipe cover many characters/words instead of
     // capping out after one or two. The recognition threshold stays unchanged.
     val deleteSwipeUnitPx = (baseSwipeUnitPx / 8f).fastCoerceAtLeast(1f)
-    val spaceBarSwipeUnitPx = (baseSwipeUnitPx / 2f).fastCoerceAtLeast(1f)
+    val spaceBarSwipeUnitPx = (baseSwipeUnitPx / 8f).fastCoerceAtLeast(1f)
     val spaceBarSwipeThresholdPx = (baseSwipeUnitPx * 1.5f).fastCoerceAtLeast(1f)
     val gestureSlopPx = (baseSwipeUnitPx * 0.5f).fastCoerceAtLeast(4f)
 
