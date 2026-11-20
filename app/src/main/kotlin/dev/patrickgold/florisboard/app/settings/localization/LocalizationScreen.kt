@@ -109,6 +109,8 @@ fun LocalizationScreen() = FlorisScreen {
                             when (subtype.charactersLayout) {
                                 "qwerty" -> add("QWERTY")
                                 "qwertz" -> add("QWERTZ")
+                                "telugu" -> add("Telugu (Native)")
+                                "telugu-phonetic" -> add("Telugu (Phonetic)")
                                 else -> Unit
                             }
                             if (subtype.id == activeSubtype.id) {

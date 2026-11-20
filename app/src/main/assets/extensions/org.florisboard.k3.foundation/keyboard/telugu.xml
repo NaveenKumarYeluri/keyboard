@@ -1,5 +1,5 @@
 ﻿<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="te">
-    <info author="FlorisBoard contributors" name="Telugu" layout="Telugu" indicator="\u{0C24 0C46}" />
+    <info author="FlorisBoard contributors" name="Telugu" layout="Telugu" indicator="తె" />
 
     <displays>
         <display keyId="base" display="${base_display}" />
@@ -12,67 +12,67 @@
         <display keyId="symbols-numeric" display="${symbol_1_display}" />
         <display keyId="space-numeric" display="@fl:icon/space_bar" />
         <display keyId="ime-picker" display="@fl:icon/language_switch" />
-        <display keyId="te-a" display="\u{0C05}" />
-        <display keyId="te-aa" display="\u{0C06}" />
-        <display keyId="te-i" display="\u{0C07}" />
-        <display keyId="te-ee" display="\u{0C08}" />
-        <display keyId="te-u" display="\u{0C09}" />
-        <display keyId="te-oo" display="\u{0C0A}" />
-        <display keyId="te-e" display="\u{0C0E}" />
-        <display keyId="te-E" display="\u{0C0F}" />
-        <display keyId="te-ai" display="\u{0C10}" />
-        <display keyId="te-o" display="\u{0C12}" />
-        <display keyId="te-O" display="\u{0C13}" />
-        <display keyId="te-au" display="\u{0C14}" />
-        <display keyId="te-sign-aa" display="\u{0C3E}" />
-        <display keyId="te-sign-i" display="\u{0C3F}" />
-        <display keyId="te-sign-u" display="\u{0C41}" />
-        <display keyId="te-sign-uu" display="\u{0C42}" />
-        <display keyId="te-sign-e" display="\u{0C46}" />
-        <display keyId="te-sign-E" display="\u{0C47}" />
-        <display keyId="te-sign-ai" display="\u{0C48}" />
-        <display keyId="te-sign-o" display="\u{0C4A}" />
-        <display keyId="te-sign-O" display="\u{0C4B}" />
-        <display keyId="te-sign-au" display="\u{0C4C}" />
-        <display keyId="te-ka" display="\u{0C15}" />
-        <display keyId="te-kha" display="\u{0C16}" />
-        <display keyId="te-ga" display="\u{0C17}" />
-        <display keyId="te-gha" display="\u{0C18}" />
-        <display keyId="te-nga" display="\u{0C19}" />
-        <display keyId="te-ca" display="\u{0C1A}" />
-        <display keyId="te-cha" display="\u{0C1B}" />
-        <display keyId="te-ja" display="\u{0C1C}" />
-        <display keyId="te-jha" display="\u{0C1D}" />
-        <display keyId="te-nya" display="\u{0C1E}" />
-        <display keyId="te-tta" display="\u{0C1F}" />
-        <display keyId="te-ttha" display="\u{0C20}" />
-        <display keyId="te-dda" display="\u{0C21}" />
-        <display keyId="te-ddha" display="\u{0C22}" />
-        <display keyId="te-nna" display="\u{0C23}" />
-        <display keyId="te-ta" display="\u{0C24}" />
-        <display keyId="te-tha" display="\u{0C25}" />
-        <display keyId="te-da" display="\u{0C26}" />
-        <display keyId="te-dha" display="\u{0C27}" />
-        <display keyId="te-na" display="\u{0C28}" />
-        <display keyId="te-pa" display="\u{0C2A}" />
-        <display keyId="te-pha" display="\u{0C2B}" />
-        <display keyId="te-ba" display="\u{0C2C}" />
-        <display keyId="te-bha" display="\u{0C2D}" />
-        <display keyId="te-ma" display="\u{0C2E}" />
-        <display keyId="te-ya" display="\u{0C2F}" />
-        <display keyId="te-ra" display="\u{0C30}" />
-        <display keyId="te-la" display="\u{0C32}" />
-        <display keyId="te-va" display="\u{0C35}" />
-        <display keyId="te-sha" display="\u{0C36}" />
-        <display keyId="te-ssa" display="\u{0C37}" />
-        <display keyId="te-sa" display="\u{0C38}" />
-        <display keyId="te-ha" display="\u{0C39}" />
-        <display keyId="te-lla" display="\u{0C33}" />
-        <display keyId="te-ksha" display="\u{0C15 0C4D 0C37}" />
-        <display keyId="te-jnya" display="\u{0C1C 0C4D 0C1E}" />
-        <display keyId="te-anusvara" display="\u{0C02}" />
-        <display keyId="te-visarga" display="\u{0C03}" />
-        <display keyId="te-virama" display="\u{0C4D}" />
+        <display keyId="te-a" display="అ" />
+        <display keyId="te-aa" display="ఆ" />
+        <display keyId="te-i" display="ఇ" />
+        <display keyId="te-ee" display="ఈ" />
+        <display keyId="te-u" display="ఉ" />
+        <display keyId="te-oo" display="ఊ" />
+        <display keyId="te-e" display="ఎ" />
+        <display keyId="te-E" display="ఏ" />
+        <display keyId="te-ai" display="ఐ" />
+        <display keyId="te-o" display="ఒ" />
+        <display keyId="te-O" display="ఓ" />
+        <display keyId="te-au" display="ఔ" />
+        <display keyId="te-sign-aa" display="ా" />
+        <display keyId="te-sign-i" display="ి" />
+        <display keyId="te-sign-u" display="ు" />
+        <display keyId="te-sign-uu" display="ూ" />
+        <display keyId="te-sign-e" display="ె" />
+        <display keyId="te-sign-E" display="ే" />
+        <display keyId="te-sign-ai" display="ై" />
+        <display keyId="te-sign-o" display="ొ" />
+        <display keyId="te-sign-O" display="ో" />
+        <display keyId="te-sign-au" display="ౌ" />
+        <display keyId="te-ka" display="క" />
+        <display keyId="te-kha" display="ఖ" />
+        <display keyId="te-ga" display="గ" />
+        <display keyId="te-gha" display="ఘ" />
+        <display keyId="te-nga" display="ఙ" />
+        <display keyId="te-ca" display="చ" />
+        <display keyId="te-cha" display="ఛ" />
+        <display keyId="te-ja" display="జ" />
+        <display keyId="te-jha" display="ఝ" />
+        <display keyId="te-nya" display="ఞ" />
+        <display keyId="te-tta" display="ట" />
+        <display keyId="te-ttha" display="ఠ" />
+        <display keyId="te-dda" display="డ" />
+        <display keyId="te-ddha" display="ఢ" />
+        <display keyId="te-nna" display="ణ" />
+        <display keyId="te-ta" display="త" />
+        <display keyId="te-tha" display="థ" />
+        <display keyId="te-da" display="ద" />
+        <display keyId="te-dha" display="ధ" />
+        <display keyId="te-na" display="న" />
+        <display keyId="te-pa" display="ప" />
+        <display keyId="te-pha" display="ఫ" />
+        <display keyId="te-ba" display="బ" />
+        <display keyId="te-bha" display="భ" />
+        <display keyId="te-ma" display="మ" />
+        <display keyId="te-ya" display="య" />
+        <display keyId="te-ra" display="ర" />
+        <display keyId="te-la" display="ల" />
+        <display keyId="te-va" display="వ" />
+        <display keyId="te-sha" display="శ" />
+        <display keyId="te-ssa" display="ష" />
+        <display keyId="te-sa" display="స" />
+        <display keyId="te-ha" display="హ" />
+        <display keyId="te-lla" display="ళ" />
+        <display keyId="te-ksha" display="క్ష" />
+        <display keyId="te-jnya" display="జ్ఞ" />
+        <display keyId="te-anusvara" display="ం" />
+        <display keyId="te-visarga" display="ః" />
+        <display keyId="te-virama" display="్" />
     </displays>
 
     <keys>
@@ -364,67 +364,67 @@
         <key id="7-numeric" width="3" output="7" />
         <key id="8-numeric" width="3" output="8" />
         <key id="9-numeric" width="3" output="9" />
-        <key id="te-a" output="\u{0C05}" longPressKeyIds="te-aa te-ai te-au" longPressDefaultKeyId="te-aa" />
-        <key id="te-aa" output="\u{0C06}" />
-        <key id="te-i" output="\u{0C07}" />
-        <key id="te-ee" output="\u{0C08}" />
-        <key id="te-u" output="\u{0C09}" />
-        <key id="te-oo" output="\u{0C0A}" />
-        <key id="te-e" output="\u{0C0E}" longPressKeyIds="te-E" longPressDefaultKeyId="te-E" />
-        <key id="te-E" output="\u{0C0F}" />
-        <key id="te-ai" output="\u{0C10}" />
-        <key id="te-o" output="\u{0C12}" longPressKeyIds="te-O te-au" longPressDefaultKeyId="te-O" />
-        <key id="te-O" output="\u{0C13}" />
-        <key id="te-au" output="\u{0C14}" />
-        <key id="te-sign-aa" output="\u{0C3E}" />
-        <key id="te-sign-i" output="\u{0C3F}" />
-        <key id="te-sign-u" output="\u{0C41}" />
-        <key id="te-sign-uu" output="\u{0C42}" />
-        <key id="te-sign-e" output="\u{0C46}" />
-        <key id="te-sign-E" output="\u{0C47}" />
-        <key id="te-sign-ai" output="\u{0C48}" />
-        <key id="te-sign-o" output="\u{0C4A}" />
-        <key id="te-sign-O" output="\u{0C4B}" />
-        <key id="te-sign-au" output="\u{0C4C}" />
-        <key id="te-ka" output="\u{0C15}" longPressKeyIds="te-ksha te-kha" longPressDefaultKeyId="te-ksha" />
-        <key id="te-kha" output="\u{0C16}" />
-        <key id="te-ga" output="\u{0C17}" />
-        <key id="te-gha" output="\u{0C18}" />
-        <key id="te-nga" output="\u{0C19}" />
-        <key id="te-ca" output="\u{0C1A}" />
-        <key id="te-cha" output="\u{0C1B}" />
-        <key id="te-ja" output="\u{0C1C}" longPressKeyIds="te-jnya te-jha" longPressDefaultKeyId="te-jnya" />
-        <key id="te-jha" output="\u{0C1D}" />
-        <key id="te-nya" output="\u{0C1E}" />
-        <key id="te-tta" output="\u{0C1F}" />
-        <key id="te-ttha" output="\u{0C20}" />
-        <key id="te-dda" output="\u{0C21}" />
-        <key id="te-ddha" output="\u{0C22}" />
-        <key id="te-nna" output="\u{0C23}" />
-        <key id="te-ta" output="\u{0C24}" />
-        <key id="te-tha" output="\u{0C25}" />
-        <key id="te-da" output="\u{0C26}" />
-        <key id="te-dha" output="\u{0C27}" />
-        <key id="te-na" output="\u{0C28}" longPressKeyIds="te-anusvara te-nna" longPressDefaultKeyId="te-anusvara" />
-        <key id="te-pa" output="\u{0C2A}" />
-        <key id="te-pha" output="\u{0C2B}" />
-        <key id="te-ba" output="\u{0C2C}" />
-        <key id="te-bha" output="\u{0C2D}" />
-        <key id="te-ma" output="\u{0C2E}" />
-        <key id="te-ya" output="\u{0C2F}" />
-        <key id="te-ra" output="\u{0C30}" />
-        <key id="te-la" output="\u{0C32}" longPressKeyIds="te-lla" longPressDefaultKeyId="te-lla" />
-        <key id="te-va" output="\u{0C35}" />
-        <key id="te-sha" output="\u{0C36}" />
-        <key id="te-ssa" output="\u{0C37}" />
-        <key id="te-sa" output="\u{0C38}" longPressKeyIds="te-ssa te-sha" longPressDefaultKeyId="te-ssa" />
-        <key id="te-ha" output="\u{0C39}" />
-        <key id="te-lla" output="\u{0C33}" />
-        <key id="te-ksha" output="\u{0C15 0C4D 0C37}" />
-        <key id="te-jnya" output="\u{0C1C 0C4D 0C1E}" />
-        <key id="te-anusvara" output="\u{0C02}" longPressKeyIds="te-visarga" longPressDefaultKeyId="te-visarga" />
-        <key id="te-visarga" output="\u{0C03}" />
-        <key id="te-virama" output="\u{0C4D}" />
+        <key id="te-a" output="అ" longPressKeyIds="te-aa te-ai te-au" longPressDefaultKeyId="te-aa" />
+        <key id="te-aa" output="ఆ" />
+        <key id="te-i" output="ఇ" />
+        <key id="te-ee" output="ఈ" />
+        <key id="te-u" output="ఉ" />
+        <key id="te-oo" output="ఊ" />
+        <key id="te-e" output="ఎ" longPressKeyIds="te-E" longPressDefaultKeyId="te-E" />
+        <key id="te-E" output="ఏ" />
+        <key id="te-ai" output="ఐ" />
+        <key id="te-o" output="ఒ" longPressKeyIds="te-O te-au" longPressDefaultKeyId="te-O" />
+        <key id="te-O" output="ఓ" />
+        <key id="te-au" output="ఔ" />
+        <key id="te-sign-aa" output="ా" />
+        <key id="te-sign-i" output="ి" />
+        <key id="te-sign-u" output="ు" />
+        <key id="te-sign-uu" output="ూ" />
+        <key id="te-sign-e" output="ె" />
+        <key id="te-sign-E" output="ే" />
+        <key id="te-sign-ai" output="ై" />
+        <key id="te-sign-o" output="ొ" />
+        <key id="te-sign-O" output="ో" />
+        <key id="te-sign-au" output="ౌ" />
+        <key id="te-ka" output="క" longPressKeyIds="te-ksha te-kha" longPressDefaultKeyId="te-ksha" />
+        <key id="te-kha" output="ఖ" />
+        <key id="te-ga" output="గ" />
+        <key id="te-gha" output="ఘ" />
+        <key id="te-nga" output="ఙ" />
+        <key id="te-ca" output="చ" />
+        <key id="te-cha" output="ఛ" />
+        <key id="te-ja" output="జ" longPressKeyIds="te-jnya te-jha" longPressDefaultKeyId="te-jnya" />
+        <key id="te-jha" output="ఝ" />
+        <key id="te-nya" output="ఞ" />
+        <key id="te-tta" output="ట" />
+        <key id="te-ttha" output="ఠ" />
+        <key id="te-dda" output="డ" />
+        <key id="te-ddha" output="ఢ" />
+        <key id="te-nna" output="ణ" />
+        <key id="te-ta" output="త" />
+        <key id="te-tha" output="థ" />
+        <key id="te-da" output="ద" />
+        <key id="te-dha" output="ధ" />
+        <key id="te-na" output="న" longPressKeyIds="te-anusvara te-nna" longPressDefaultKeyId="te-anusvara" />
+        <key id="te-pa" output="ప" />
+        <key id="te-pha" output="ఫ" />
+        <key id="te-ba" output="బ" />
+        <key id="te-bha" output="భ" />
+        <key id="te-ma" output="మ" />
+        <key id="te-ya" output="య" />
+        <key id="te-ra" output="ర" />
+        <key id="te-la" output="ల" longPressKeyIds="te-lla" longPressDefaultKeyId="te-lla" />
+        <key id="te-va" output="వ" />
+        <key id="te-sha" output="శ" />
+        <key id="te-ssa" output="ష" />
+        <key id="te-sa" output="స" longPressKeyIds="te-ssa te-sha" longPressDefaultKeyId="te-ssa" />
+        <key id="te-ha" output="హ" />
+        <key id="te-lla" output="ళ" />
+        <key id="te-ksha" output="క్ష" />
+        <key id="te-jnya" output="జ్ఞ" />
+        <key id="te-anusvara" output="ం" longPressKeyIds="te-visarga" longPressDefaultKeyId="te-visarga" />
+        <key id="te-visarga" output="ః" />
+        <key id="te-virama" output="్" />
     </keys>
 
     <layers formId="iso">

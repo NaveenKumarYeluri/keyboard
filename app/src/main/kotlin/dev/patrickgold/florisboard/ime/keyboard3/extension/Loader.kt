@@ -254,11 +254,14 @@ suspend fun loadFoundationKeyboard(imeController: ImeController, storage: Storag
     }, keyboardXml)
     val result = file.compileToModel(importResolver, impliedImports)
     for (report in result.reports) {
-        flogError { report.cause?.stackTraceToString() ?: "" }
+        flogError { "K3 layout '$layoutId' report [${report.level}]: ${report.message}" }
+        report.cause?.let { cause -> flogError { cause.stackTraceToString() } }
     }
     if (result is K3CompileResult.Success) {
         imeController.updateState {
             switchModel(result.model)
         }
+    } else {
+        flogError { "Failed to compile K3 layout '$layoutId': ${result.error.stackTraceToString()}" }
     }
 }
