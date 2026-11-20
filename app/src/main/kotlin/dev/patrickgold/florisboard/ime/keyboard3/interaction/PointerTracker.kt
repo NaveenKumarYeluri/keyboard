@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.input.pointer.PointerEvent
 import androidx.compose.ui.input.pointer.PointerId
 import androidx.compose.ui.input.pointer.PointerInputChange
 import androidx.compose.ui.input.pointer.changedToDown
@@ -51,6 +52,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -832,32 +834,31 @@ fun rememberPointerTracker(
     return pointerTracker
 }
 
+private data class QueuedPointerEvent(
+    val event: PointerEvent,
+    val size: IntSize,
+)
+
 fun Modifier.trackPointerInput(
     pointerTracker: PointerTracker,
     model: K3Model,
 ) = this.pointerInput(pointerTracker, model) {
     try {
         coroutineScope {
+            // awaitPointerEventScope is a restricted coroutine scope: it may only call
+            // suspending members of that scope. Queue events with the non-suspending trySend and
+            // process them in one regular coroutine, avoiding both the restriction and the lag of
+            // launching a new job for every pointer move.
+            val events = Channel<QueuedPointerEvent>(Channel.UNLIMITED)
+            launch {
+                for (queued in events) {
+                    processPointerEvent(pointerTracker, queued.event, queued.size)
+                }
+            }
             awaitPointerEventScope {
                 while (true) {
                     val event = awaitPointerEvent()
-                    val sizeAtEvent = size
-                    // Process each event inline instead of spawning multiple coroutines per move.
-                    // The old approach queued hundreds of jobs during a long swipe, which both
-                    // lagged and made the last processed position lag behind the finger.
-                    pointerTracker.mutateLocked {
-                        cancelNonPresent(event.changes)
-                    }
-                    event.changes.fastForEach { change ->
-                        pointerTracker.mutateLocked {
-                            when {
-                                change.changedToDown() -> handleDown(change, sizeAtEvent)
-                                change.changedToUp() -> handleUp(change, sizeAtEvent)
-                                !change.isConsumed -> handleMove(change, sizeAtEvent)
-                            }
-                        }
-                        change.consume()
-                    }
+                    events.trySend(QueuedPointerEvent(event, size))
                 }
             }
         }
@@ -867,5 +868,26 @@ fun Modifier.trackPointerInput(
                 cancelAll()
             }
         }
+    }
+}
+
+context(scope: CoroutineScope)
+private suspend fun processPointerEvent(
+    pointerTracker: PointerTracker,
+    event: PointerEvent,
+    size: IntSize,
+) {
+    pointerTracker.mutateLocked {
+        cancelNonPresent(event.changes)
+    }
+    event.changes.fastForEach { change ->
+        pointerTracker.mutateLocked {
+            when {
+                change.changedToDown() -> handleDown(change, size)
+                change.changedToUp() -> handleUp(change, size)
+                !change.isConsumed -> handleMove(change, size)
+            }
+        }
+        change.consume()
     }
 }
