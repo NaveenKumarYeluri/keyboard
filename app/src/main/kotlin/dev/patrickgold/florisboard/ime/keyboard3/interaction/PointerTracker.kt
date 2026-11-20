@@ -144,6 +144,7 @@ data class SpaceBarSwipe(
     val unitPx: Float,
     val thresholdPx: Float,
     val direction: SpaceBarSwipeDirection? = null,
+    val lastPosition: Offset = start,
     val unitCount: Int = 0,
     val executedCount: Int = 0,
     val active: Boolean = false,
@@ -495,49 +496,78 @@ class PointerTracker(
         val dy = move.position.y - swipe.start.y
         val absX = abs(dx)
         val absY = abs(dy)
-        // Once a direction is known, keep it even if the finger comes back towards the origin;
-        // this lets long swipes count down again instead of abruptly changing direction.
-        if (swipe.direction == null && absX < swipe.thresholdPx && absY < swipe.thresholdPx) return
 
-        val direction = swipe.direction ?: when {
-            absX >= absY -> if (dx < 0f) SpaceBarSwipeDirection.LEFT else SpaceBarSwipeDirection.RIGHT
-            dy < 0f -> SpaceBarSwipeDirection.UP
-            // Downward spacebar swipes are intentionally ignored.
-            else -> return
+        // Follow the finger instead of locking the first direction. Hysteresis only flips once the
+        // finger is clearly past the threshold on the other side, so it cannot flap near the start.
+        val currentDirection = swipe.direction
+        val direction = when (currentDirection) {
+            null -> when {
+                max(absX, absY) < swipe.thresholdPx -> return
+                absX >= absY -> if (dx < 0f) SpaceBarSwipeDirection.LEFT else SpaceBarSwipeDirection.RIGHT
+                dy < 0f -> SpaceBarSwipeDirection.UP
+                else -> return // downward swipes are intentionally ignored
+            }
+            SpaceBarSwipeDirection.UP -> when {
+                absY >= swipe.thresholdPx && absY >= absX -> SpaceBarSwipeDirection.UP
+                absX >= swipe.thresholdPx && absX > absY -> {
+                    if (dx < 0f) SpaceBarSwipeDirection.LEFT else SpaceBarSwipeDirection.RIGHT
+                }
+                else -> SpaceBarSwipeDirection.UP
+            }
+            else -> when {
+                dx <= -swipe.thresholdPx -> SpaceBarSwipeDirection.LEFT
+                dx >= swipe.thresholdPx -> SpaceBarSwipeDirection.RIGHT
+                absY >= swipe.thresholdPx && absY > absX && dy < 0f -> SpaceBarSwipeDirection.UP
+                else -> currentDirection
+            }
         }
         val action = when (direction) {
             SpaceBarSwipeDirection.LEFT -> prefs.gestures.spaceBarSwipeLeft.get()
             SpaceBarSwipeDirection.RIGHT -> prefs.gestures.spaceBarSwipeRight.get()
             SpaceBarSwipeDirection.UP -> prefs.gestures.spaceBarSwipeUp.get()
         }
-        val distancePx = if (direction == SpaceBarSwipeDirection.UP) absY else absX
-        val unitCount = max(0, floor(distancePx / swipe.unitPx).toInt())
         val isCursorMovement =
             direction == SpaceBarSwipeDirection.LEFT && action == SwipeAction.MOVE_CURSOR_LEFT ||
                 direction == SpaceBarSwipeDirection.RIGHT && action == SwipeAction.MOVE_CURSOR_RIGHT
-        val isActive = direction == SpaceBarSwipeDirection.UP || action != SwipeAction.NO_ACTION
-        var newSwipe = swipe.copy(
-            direction = direction,
-            active = swipe.active || isActive,
-            unitCount = unitCount,
-        )
+
+        var newLastPosition = move.position
+        var executedCount = swipe.executedCount
         if (isCursorMovement) {
-            val delta = unitCount - swipe.executedCount
-            if (delta > 0) {
-                imeController.executeSwipeAction(action, delta)
-            } else if (delta < 0) {
-                val reverseAction = if (action == SwipeAction.MOVE_CURSOR_LEFT) {
-                    SwipeAction.MOVE_CURSOR_RIGHT
-                } else {
-                    SwipeAction.MOVE_CURSOR_LEFT
-                }
-                imeController.executeSwipeAction(reverseAction, -delta)
+            // Use signed movement since the last processed position. Going left, reversing, and
+            // going left again now moves the cursor left, right, left instead of always left.
+            val deltaPx = move.position.x - swipe.lastPosition.x
+            val steps = floor(abs(deltaPx) / swipe.unitPx).toInt()
+            if (steps > 0) {
+                val sign = if (deltaPx < 0f) -1 else 1
+                val moveAction = if (sign < 0) SwipeAction.MOVE_CURSOR_LEFT else SwipeAction.MOVE_CURSOR_RIGHT
+                imeController.executeSwipeAction(moveAction, steps)
+                newLastPosition = Offset(
+                    x = swipe.lastPosition.x + sign * steps * swipe.unitPx,
+                    y = swipe.lastPosition.y,
+                )
+                executedCount += sign * steps
+            } else {
+                newLastPosition = swipe.lastPosition
             }
-            newSwipe = newSwipe.copy(unitCount = unitCount, executedCount = unitCount)
         }
+
+        // Net distance in the current direction gives the count for actions applied on lift, so
+        // reversing the swipe correctly reduces the amount that will be deleted/selected.
+        val netDistance = when (direction) {
+            SpaceBarSwipeDirection.LEFT -> -dx
+            SpaceBarSwipeDirection.RIGHT -> dx
+            SpaceBarSwipeDirection.UP -> -dy
+        }
+        val unitCount = max(0, floor(netDistance / swipe.unitPx).toInt())
         // handleMove already cancelled long-press/repeat when the slop was exceeded. Keep the
         // gesture in a plain field so pointer moves do not recompose every key on the keyboard.
-        activeSpaceBarSwipe = newSwipe
+        activeSpaceBarSwipe = swipe.copy(
+            direction = direction,
+            lastPosition = newLastPosition,
+            unitCount = unitCount,
+            executedCount = executedCount,
+            active = swipe.active || direction == SpaceBarSwipeDirection.UP || action != SwipeAction.NO_ACTION,
+        )
     }
 
     /**
@@ -812,9 +842,9 @@ fun rememberPointerTracker(
     // Fine-grained units let a single continuous swipe cover many characters/words instead of
     // capping out after one or two. The recognition threshold stays unchanged.
     val deleteSwipeUnitPx = (baseSwipeUnitPx / 8f).fastCoerceAtLeast(1f)
-    val spaceBarSwipeUnitPx = (baseSwipeUnitPx / 8f).fastCoerceAtLeast(1f)
-    val spaceBarSwipeThresholdPx = (baseSwipeUnitPx * 1.5f).fastCoerceAtLeast(1f)
+    val spaceBarSwipeUnitPx = (baseSwipeUnitPx / 12f).fastCoerceAtLeast(1f)
     val gestureSlopPx = (baseSwipeUnitPx * 0.5f).fastCoerceAtLeast(4f)
+    val spaceBarSwipeThresholdPx = gestureSlopPx
 
     val pointerTracker = remember(
         touchKeyboard,
