@@ -175,6 +175,9 @@ private data class LastUpKey(
 
 private val ASCII_SPACE = " ".asK3String()
 
+private const val GESTURE_STATE_STEP = 2
+private const val GESTURE_FEEDBACK_STEP = 4
+
 private fun TouchKey.isSpaceKey(): Boolean = attrs.output == ASCII_SPACE
 
 // TODO the sync of this class is a bit messy
@@ -188,6 +191,7 @@ class PointerTracker(
     val deleteSwipeUnitPx: Float,
     val spaceBarSwipeUnitPx: Float,
     val spaceBarSwipeThresholdPx: Float,
+    val gestureSlopPx: Float,
 ) {
     private val prefs by FlorisPreferenceStore
     private val mutationGuard = Mutex()
@@ -378,7 +382,25 @@ class PointerTracker(
                 )
             }
         }
-        trackedOutputPointer.value?.takeIf { it.id == move.id }?.let { trackedPointer ->
+        trackedOutputPointer.value?.takeIf { it.id == move.id }?.let { pointerAtMove ->
+            var trackedPointer = pointerAtMove
+            val swipeCandidate = trackedPointer.deleteSwipe != null || trackedPointer.spaceBarSwipe != null
+            if (swipeCandidate &&
+                (move.position - pointerAtMove.down.position).getDistanceSquared() >= gestureSlopPx * gestureSlopPx
+            ) {
+                // Kill long-press popups and key repeat as soon as a real swipe starts. Waiting for
+                // unitCount/slop recognition let these jobs fire first and either blocked spacebar
+                // swipe updates entirely (directLongPressActionEmitted) or deleted text behind the
+                // delete-swipe selection.
+                val longPressJob = pointerAtMove.longPress.extendedJob
+                val repeatJob = pointerAtMove.repeatJob
+                if (longPressJob?.isActive == true || repeatJob?.isActive == true) {
+                    longPressJob?.cancel()
+                    repeatJob?.cancel()
+                    trackedPointer = pointerAtMove.copy(longPress = LongPress.None, repeatJob = null)
+                    trackedOutputPointer.value = trackedPointer
+                }
+            }
             if (trackedPointer.deleteSwipe != null) {
                 updateDeleteSwipe(trackedPointer, move)
                 return@let
@@ -410,16 +432,22 @@ class PointerTracker(
     private suspend fun updateDeleteSwipe(
         trackedPointer: TrackedPointer.Output,
         move: PointerInputChange,
+        force: Boolean = false,
     ) {
         val swipe = trackedPointer.deleteSwipe ?: return
         val distancePx = max(0f, swipe.start.x - move.position.x)
         val unitCount = max(0, floor(distancePx / swipe.unitPx).toInt() - 1)
         val editor = imeController.snapshotState().editor
         val baseSelection = swipe.baseSelection ?: editor.getSelectionRange() ?: return
+        // Writing the native selection rebuilds the whole editor state. Only do it when the
+        // coarse step changes (or on release), otherwise a long swipe stutters badly.
+        if (!force && swipe.baseSelection != null && unitCount / GESTURE_STATE_STEP == swipe.unitCount / GESTURE_STATE_STEP) {
+            return
+        }
         val unit = if (swipe.action.usesWordUnits()) OperationUnit.WORDS else OperationUnit.CHARACTERS
         val targetSelection = editor.selectionBefore(unitCount, unit, baseSelection) ?: return
 
-        if (unitCount != swipe.unitCount) {
+        if (!force && unitCount / GESTURE_FEEDBACK_STEP != swipe.unitCount / GESTURE_FEEDBACK_STEP) {
             interactionController.performFeedback(InteractionKind.GestureSwipe)
         }
         imeController.updateState {
@@ -446,7 +474,9 @@ class PointerTracker(
         trackedPointer: TrackedPointer.Output,
         move: PointerInputChange,
     ) {
-        if (trackedPointer.directLongPressActionEmitted || trackedPointer.repeatEmitted) return
+        // A long-press that already fired must no longer block a swipe which started afterwards;
+        // the early-move cancellation in handleMove normally prevents this anyway.
+        if (trackedPointer.repeatEmitted) return
         val swipe = trackedPointer.spaceBarSwipe ?: return
         val dx = move.position.x - swipe.start.x
         val dy = move.position.y - swipe.start.y
@@ -588,7 +618,7 @@ class PointerTracker(
             // into the gesture calculation first, otherwise the last part of the travel is lost.
             if (!up.pressed) {
                 if (pointerAtUp.deleteSwipe != null) {
-                    updateDeleteSwipe(pointerAtUp, up)
+                    updateDeleteSwipe(pointerAtUp, up, force = true)
                 } else if (pointerAtUp.spaceBarSwipe != null) {
                     updateSpaceBarSwipe(pointerAtUp, up)
                 }
@@ -774,6 +804,7 @@ fun rememberPointerTracker(
     val deleteSwipeUnitPx = (baseSwipeUnitPx / 8f).fastCoerceAtLeast(1f)
     val spaceBarSwipeUnitPx = (baseSwipeUnitPx / 2f).fastCoerceAtLeast(1f)
     val spaceBarSwipeThresholdPx = (baseSwipeUnitPx * 1.5f).fastCoerceAtLeast(1f)
+    val gestureSlopPx = (baseSwipeUnitPx * 0.5f).fastCoerceAtLeast(4f)
 
     val pointerTracker = remember(
         touchKeyboard,
@@ -782,6 +813,7 @@ fun rememberPointerTracker(
         deleteSwipeUnitPx,
         spaceBarSwipeUnitPx,
         spaceBarSwipeThresholdPx,
+        gestureSlopPx,
     ) {
         PointerTracker(
             touchKeyboard = touchKeyboard,
@@ -793,6 +825,7 @@ fun rememberPointerTracker(
             deleteSwipeUnitPx = deleteSwipeUnitPx,
             spaceBarSwipeUnitPx = spaceBarSwipeUnitPx,
             spaceBarSwipeThresholdPx = spaceBarSwipeThresholdPx,
+            gestureSlopPx = gestureSlopPx,
         )
     }
 
@@ -805,34 +838,22 @@ fun Modifier.trackPointerInput(
 ) = this.pointerInput(pointerTracker, model) {
     try {
         coroutineScope {
-            val scope = this
             awaitPointerEventScope {
                 while (true) {
                     val event = awaitPointerEvent()
                     val sizeAtEvent = size
-                    scope.launch {
-                        pointerTracker.mutateLocked {
-                            cancelNonPresent(event.changes)
-                        }
+                    // Process each event inline instead of spawning multiple coroutines per move.
+                    // The old approach queued hundreds of jobs during a long swipe, which both
+                    // lagged and made the last processed position lag behind the finger.
+                    pointerTracker.mutateLocked {
+                        cancelNonPresent(event.changes)
                     }
                     event.changes.fastForEach { change ->
-                        if (change.changedToDown()) {
-                            scope.launch {
-                                pointerTracker.mutateLocked {
-                                    handleDown(change, sizeAtEvent)
-                                }
-                            }
-                        } else if (change.changedToUp()) {
-                            scope.launch {
-                                pointerTracker.mutateLocked {
-                                    handleUp(change, sizeAtEvent)
-                                }
-                            }
-                        } else if (!change.isConsumed) {
-                            scope.launch {
-                                pointerTracker.mutateLocked {
-                                    handleMove(change, sizeAtEvent)
-                                }
+                        pointerTracker.mutateLocked {
+                            when {
+                                change.changedToDown() -> handleDown(change, sizeAtEvent)
+                                change.changedToUp() -> handleUp(change, sizeAtEvent)
+                                !change.isConsumed -> handleMove(change, sizeAtEvent)
                             }
                         }
                         change.consume()

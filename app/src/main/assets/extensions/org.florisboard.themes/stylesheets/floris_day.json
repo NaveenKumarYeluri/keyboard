@@ -502,12 +502,12 @@
     "text-overflow": "ellipsis"
   },
   "key[targetlayer=`base`]": {
-    "font-size": "12sp"
+    "font-size": "18sp"
   },
   "key[targetlayer=`symbol-1`]": {
-    "font-size": "12sp"
+    "font-size": "18sp"
   },
   "key[targetlayer=`symbol-2`]": {
-    "font-size": "12sp"
+    "font-size": "18sp"
   }
 }

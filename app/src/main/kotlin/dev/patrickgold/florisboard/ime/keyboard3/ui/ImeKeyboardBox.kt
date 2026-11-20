@@ -264,18 +264,17 @@ private fun ImeKeyboardKeyBox(
     val display = displayOverride ?: touchKey.display
     val output = touchKey.attrs.output
     val layerId = touchKey.attrs.layerId
-    // Layer-switch labels (ABC / ?123 / =\<) are short strings, so unlike single-letter keys they
-    // do not get scaled down by scaleToFitHorizontally on wide devices. Cap them in code as well
-    // as in the themes so they can never appear larger than regular key labels. Multi-line labels
-    // such as the numeric key are left alone.
-    val layerLabelFontSize = remember(display, layerId) {
-        if (layerId != null && display is K3String && display.toText().let {
+    // Layer-switch labels (ABC / ?123 / =\<) use 18sp, matching FlorisBoard's own layer keys and
+    // staying slightly below the 22sp letter labels. The spacebar label uses 12sp; the classical
+    // theme rules target `code=32`, which K3 keys do not have, so without this code-level cap the
+    // spacebar text renders at the full 22sp key size.
+    val labelFontSize = remember(display, layerId, output) {
+        when {
+            layerId != null && display is K3String && display.toText().let {
                 it.isNotEmpty() && it.length <= 4 && !it.contains('\n')
-            }
-        ) {
-            12.sp
-        } else {
-            null
+            } -> 18.sp
+            layerId == null && output is K3String && output.toText() == " " -> 12.sp
+            else -> null
         }
     }
     val attributes: SnyggQueryAttributes = remember(output, layerId, inputShiftState) {
@@ -311,11 +310,11 @@ private fun ImeKeyboardKeyBox(
                             Modifier.background(Color.Red) // TODO customizable
                         } else Modifier,
                         display = multiTapKey.display,
-                        fontSize = layerLabelFontSize,
+                        fontSize = labelFontSize,
                     )
                 }
             } else {
-                Display3(display, fontSize = layerLabelFontSize)
+                Display3(display, fontSize = labelFontSize)
             }
         }
         if (touchKey.longPressKeyHint != null) {
