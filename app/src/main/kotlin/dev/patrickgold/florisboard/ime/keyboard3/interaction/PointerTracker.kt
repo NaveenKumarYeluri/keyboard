@@ -177,7 +177,6 @@ private data class LastUpKey(
 
 private val ASCII_SPACE = " ".asK3String()
 
-private const val GESTURE_STATE_STEP = 2
 private const val GESTURE_FEEDBACK_STEP = 4
 
 private fun TouchKey.isSpaceKey(): Boolean = attrs.output == ASCII_SPACE
@@ -455,14 +454,17 @@ class PointerTracker(
     ) {
         val swipe = activeDeleteSwipe ?: return
         val distancePx = max(0f, swipe.start.x - move.position.x)
-        val unitCount = max(0, floor(distancePx / swipe.unitPx).toInt() - 1)
-        // Only touch the native selection when the coarse step changes (or on release). The
-        // baseline text is captured at touch-down, so this stays correct for arbitrarily long
-        // swipes and never has to re-read a selection that is itself moving.
-        if (!force && unitCount / GESTURE_STATE_STEP == swipe.unitCount / GESTURE_STATE_STEP) {
+        val usesWords = swipe.action.usesWordUnits()
+        // Characters advance one at a time; words use a wider unit so a word swipe is not
+        // uncontrollably fast with the fine character unit.
+        val effectiveUnitPx = if (usesWords) swipe.unitPx * 4f else swipe.unitPx
+        val unitCount = max(0, floor(distancePx / effectiveUnitPx).toInt())
+        // The baseline text is captured at touch-down, so selection is always measured against a
+        // fixed string and never has to re-read a selection that is itself moving.
+        if (!force && unitCount == swipe.unitCount) {
             return
         }
-        val unit = if (swipe.action.usesWordUnits()) OperationUnit.WORDS else OperationUnit.CHARACTERS
+        val unit = if (usesWords) OperationUnit.WORDS else OperationUnit.CHARACTERS
         val targetSelection = imeController.snapshotState().editor.selectionBefore(
             count = unitCount,
             unit = unit,
