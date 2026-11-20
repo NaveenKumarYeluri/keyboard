@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.fastRoundToInt
+import dev.patrickgold.florisboard.FlorisApplication
 import dev.patrickgold.florisboard.app.FlorisPreferenceStore
 import dev.patrickgold.florisboard.ime.core.DisplayLanguageNamesIn
 import dev.patrickgold.florisboard.ime.keyboard.FlorisImeSizing
@@ -60,7 +61,6 @@ import dev.patrickgold.florisboard.ime.theme.FlorisImeUi
 import dev.patrickgold.florisboard.ime.theme.ImeUiAttrs
 import dev.patrickgold.florisboard.ime.theme.putAttr
 import dev.patrickgold.florisboard.ime.window.LocalWindowController
-import dev.patrickgold.florisboard.lib.FlorisLocale
 import dev.patrickgold.jetpref.datastore.model.collectAsState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -106,12 +106,15 @@ fun ImeKeyboardBox(
 
     val spaceBarMode by prefs.keyboard.spaceBarMode.collectAsState()
     val displayLanguageNamesIn by prefs.localization.displayLanguageNamesIn.collectAsState()
-    val spaceBarDisplayOverride = remember(model, spaceBarMode, displayLanguageNamesIn) {
+    // The compiled K3 model's locale comes from the layout XML (which is always "en" in the
+    // foundation layouts), so it cannot be used for the spacebar language. Use the active subtype
+    // instead, which is what the user actually selected in the language/subtype picker.
+    val activeSubtype by FlorisApplication.getHack().subtypeManager.value.activeSubtypeFlow.collectAsState()
+    val spaceBarDisplayOverride = remember(activeSubtype, spaceBarMode, displayLanguageNamesIn) {
         when (spaceBarMode) {
             SpaceBarMode.NOTHING -> K3String.Empty
             SpaceBarMode.CURRENT_LANGUAGE -> {
-                // TODO this might not be the right locale, get from new suntypes once impl
-                val locale = FlorisLocale.from(model.locales.getOrElse(0) { "en" })
+                val locale = activeSubtype.primaryLocale
                 when (displayLanguageNamesIn) {
                     DisplayLanguageNamesIn.SYSTEM_LOCALE -> locale.displayName()
                     DisplayLanguageNamesIn.NATIVE_LOCALE -> locale.displayName(locale)
