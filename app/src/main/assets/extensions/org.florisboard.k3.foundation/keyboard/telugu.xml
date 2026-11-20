@@ -1,4 +1,4 @@
-﻿<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="te">
+<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="te">
     <info author="FlorisBoard contributors" name="Telugu" layout="Telugu" indicator="తె" />
 
     <displays>
