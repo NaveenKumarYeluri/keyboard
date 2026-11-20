@@ -454,27 +454,35 @@ class ImeController(
         }
 
         fun handleUpdateSelection(newSelection: K3TextRange) {
-            val content = expectedContentQueue.popUntilOrNull { it.selection == newSelection }
-            if (content != null) {
+            val expected = expectedContentQueue.popUntilOrNull { it == newSelection }
+            if (expected != null) {
                 flogDebug { "DEDUPLICATED!!1" }
                 return
             }
             resetContent(newSelection, state.editor.getSurroundingText(50, 10))
-            expectedContentQueue.push(state.content)
+            expectedContentQueue.push(state.content.selection)
         }
 
         /**
-         * Applies a swipe-delete selection to both the native editor and the K3 state, so the
-         * Android text handles become visible and the pending deletion is tracked correctly.
+         * Applies a swipe-delete selection to the native editor. During a live swipe we only push
+         * the expected selection into the dedup queue and skip [resetContent]; the expensive K3
+         * content rebuild is done once when the gesture finishes. This keeps long swipes smooth.
          */
-        fun updateSelectionFromGesture(selection: EditorSelection) {
+        fun updateSelectionFromGesture(selection: EditorSelection, syncState: Boolean = true) {
             val start = selection.start.coerceAtLeast(0)
             val end = selection.end.coerceAtLeast(start)
             val safeSelection = EditorSelection(start, end)
-            state.editor.setSelectionRange(safeSelection)
             val newSelection = K3TextRange(start, end)
-            resetContent(newSelection, state.editor.getSurroundingText(50, 10))
-            expectedContentQueue.push(state.content)
+            if (syncState) {
+                // Keep the original ordering so resetContent sees the new native selection.
+                state.editor.setSelectionRange(safeSelection)
+                resetContent(newSelection, state.editor.getSurroundingText(50, 10))
+                expectedContentQueue.push(state.content.selection)
+            } else {
+                // Suppress the selection callback's expensive resetContent during a live swipe.
+                expectedContentQueue.push(newSelection)
+                state.editor.setSelectionRange(safeSelection)
+            }
         }
 
         /**
@@ -535,7 +543,7 @@ class ImeController(
 
         override fun emitText(value: K3String) {
             super.emitText(value)
-            expectedContentQueue.push(state.content)
+            expectedContentQueue.push(state.content.selection)
             reevaluateInputShiftState()
         }
 
@@ -652,7 +660,7 @@ class ImeController(
 
         override fun emitBackspace() {
             super.emitBackspace()
-            expectedContentQueue.push(state.content)
+            expectedContentQueue.push(state.content.selection)
         }
 
         override fun emitEnter() {
@@ -776,7 +784,7 @@ class ImeController(
                         inputContext = newInputContext,
                     ),
                 )
-                expectedContentQueue.push(state.content)
+                expectedContentQueue.push(state.content.selection)
                 reevaluateInputShiftState()
                 state.editor.replaceText(range, newSurroundingText.textBefore, newSelection, newComposition)
                 if (autoSpace) {
@@ -920,9 +928,9 @@ fun interface EmitInterceptor {
 }
 
 private class ExpectedContentQueue {
-    private val list = mutableListOf<K3Content>()
+    private val list = mutableListOf<K3TextRange>()
 
-    fun popUntilOrNull(predicate: (K3Content) -> Boolean): K3Content? {
+    fun popUntilOrNull(predicate: (K3TextRange) -> Boolean): K3TextRange? {
         while (list.isNotEmpty()) {
             val item = list[0]
             if (predicate(item)) return item
@@ -931,8 +939,8 @@ private class ExpectedContentQueue {
         return null
     }
 
-    fun push(item: K3Content) {
-        list.add(item)
+    fun push(selection: K3TextRange) {
+        list.add(selection)
     }
 
     fun clear() {

@@ -88,6 +88,15 @@ open class ImeEditor(
     }
 
     /**
+     * Returns the text before the current selection. Gestures capture this once at touch-down so
+     * long swipes do not repeatedly query the editor while the selection is moving.
+     */
+    fun getTextBeforeSelection(limit: Int = SELECTION_LOOKBACK): String? {
+        val ic = ic.get() ?: return null
+        return ic.getTextBeforeCursor(limit, 0)?.toString()
+    }
+
+    /**
      * Sets the native selection so Android draws the usual text selector handles/highlight.
      */
     fun setSelectionRange(selection: EditorSelection) {
@@ -109,9 +118,22 @@ open class ImeEditor(
         unit: OperationUnit,
         base: EditorSelection,
     ): EditorSelection? {
+        val textBefore = getTextBeforeSelection() ?: return null
+        return selectionBefore(count, unit, base, textBefore)
+    }
+
+    /**
+     * Calculates a selection relative to a fixed [base] using text captured at gesture start.
+     * Keeping the text fixed is both faster and avoids the moving-selection rounding that made
+     * long swipes stall after a few words.
+     */
+    fun selectionBefore(
+        count: Int,
+        unit: OperationUnit,
+        base: EditorSelection,
+        textBefore: String,
+    ): EditorSelection {
         if (count <= 0) return base
-        val ic = ic.get() ?: return null
-        val textBefore = ic.getTextBeforeCursor(SELECTION_LOOKBACK, 0)?.toString() ?: return null
         val length = when (unit) {
             OperationUnit.CHARACTERS -> breakIterators.measureLastUChars(
                 text = textBefore,

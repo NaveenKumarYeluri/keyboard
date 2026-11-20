@@ -98,8 +98,6 @@ sealed interface TrackedPointer {
         val repeatJob: Job?,
         val directLongPressActionEmitted: Boolean = false,
         val repeatEmitted: Boolean = false,
-        val deleteSwipe: DeleteSwipe? = null,
-        val spaceBarSwipe: SpaceBarSwipe? = null,
     ) : TrackedPointer
 }
 
@@ -124,7 +122,8 @@ data class DeleteSwipe(
     val start: Offset,
     val action: SwipeAction,
     val unitPx: Float,
-    val baseSelection: EditorSelection? = null,
+    val baseSelection: EditorSelection,
+    val baseTextBefore: String,
     val currentSelection: EditorSelection? = null,
     val unitCount: Int = 0,
     val active: Boolean = false,
@@ -209,6 +208,11 @@ class PointerTracker(
 
     private var lastUpKeyState: LastUpKey? = null
 
+    // Gesture state is intentionally not part of trackedOutputPointer: updating that StateFlow on
+    // every pointer move recomposes every key in the keyboard and is the main source of swipe lag.
+    private var activeDeleteSwipe: DeleteSwipe? = null
+    private var activeSpaceBarSwipe: SpaceBarSwipe? = null
+
     suspend fun mutateLocked(action: suspend PointerTracker.() -> Unit) {
         mutationGuard.withLock { action() }
     }
@@ -269,6 +273,33 @@ class PointerTracker(
             )
             interactionController.performFeedback(InteractionKind.KeyPress)
         } else {
+            activeDeleteSwipe = if (isDeleteSwipeKey) {
+                val editor = imeController.snapshotState().editor
+                val baseSelection = editor.getSelectionRange()
+                val baseTextBefore = editor.getTextBeforeSelection()
+                if (baseSelection != null && baseTextBefore != null) {
+                    DeleteSwipe(
+                        start = down.position,
+                        action = deleteSwipeAction,
+                        unitPx = deleteSwipeUnitPx,
+                        baseSelection = baseSelection,
+                        baseTextBefore = baseTextBefore,
+                    )
+                } else {
+                    null
+                }
+            } else {
+                null
+            }
+            activeSpaceBarSwipe = if (isSpaceBarKey) {
+                SpaceBarSwipe(
+                    start = down.position,
+                    unitPx = spaceBarSwipeUnitPx,
+                    thresholdPx = spaceBarSwipeThresholdPx,
+                )
+            } else {
+                null
+            }
             trackedOutputPointer.value = TrackedPointer.Output(
                 id = down.id,
                 down = down,
@@ -316,20 +347,6 @@ class PointerTracker(
                             delay(keyRepeatDelay)
                         }
                     }
-                } else null,
-                deleteSwipe = if (isDeleteSwipeKey) {
-                    DeleteSwipe(
-                        start = down.position,
-                        action = deleteSwipeAction,
-                        unitPx = deleteSwipeUnitPx,
-                    )
-                } else null,
-                spaceBarSwipe = if (isSpaceBarKey) {
-                    SpaceBarSwipe(
-                        start = down.position,
-                        unitPx = spaceBarSwipeUnitPx,
-                        thresholdPx = spaceBarSwipeThresholdPx,
-                    )
                 } else null,
             )
             trackedMultiTapSeq.value.let { multiTapSeq ->
@@ -386,7 +403,7 @@ class PointerTracker(
         }
         trackedOutputPointer.value?.takeIf { it.id == move.id }?.let { pointerAtMove ->
             var trackedPointer = pointerAtMove
-            val swipeCandidate = trackedPointer.deleteSwipe != null || trackedPointer.spaceBarSwipe != null
+            val swipeCandidate = activeDeleteSwipe != null || activeSpaceBarSwipe != null
             if (swipeCandidate &&
                 (move.position - pointerAtMove.down.position).getDistanceSquared() >= gestureSlopPx * gestureSlopPx
             ) {
@@ -403,11 +420,11 @@ class PointerTracker(
                     trackedOutputPointer.value = trackedPointer
                 }
             }
-            if (trackedPointer.deleteSwipe != null) {
-                updateDeleteSwipe(trackedPointer, move)
+            if (activeDeleteSwipe != null) {
+                updateDeleteSwipe(move)
                 return@let
             }
-            if (trackedPointer.spaceBarSwipe != null) {
+            if (activeSpaceBarSwipe != null) {
                 updateSpaceBarSwipe(trackedPointer, move)
                 return@let
             }
@@ -432,44 +449,38 @@ class PointerTracker(
     }
 
     private suspend fun updateDeleteSwipe(
-        trackedPointer: TrackedPointer.Output,
         move: PointerInputChange,
         force: Boolean = false,
     ) {
-        val swipe = trackedPointer.deleteSwipe ?: return
+        val swipe = activeDeleteSwipe ?: return
         val distancePx = max(0f, swipe.start.x - move.position.x)
         val unitCount = max(0, floor(distancePx / swipe.unitPx).toInt() - 1)
-        val editor = imeController.snapshotState().editor
-        val baseSelection = swipe.baseSelection ?: editor.getSelectionRange() ?: return
-        // Writing the native selection rebuilds the whole editor state. Only do it when the
-        // coarse step changes (or on release), otherwise a long swipe stutters badly.
-        if (!force && swipe.baseSelection != null && unitCount / GESTURE_STATE_STEP == swipe.unitCount / GESTURE_STATE_STEP) {
+        // Only touch the native selection when the coarse step changes (or on release). The
+        // baseline text is captured at touch-down, so this stays correct for arbitrarily long
+        // swipes and never has to re-read a selection that is itself moving.
+        if (!force && unitCount / GESTURE_STATE_STEP == swipe.unitCount / GESTURE_STATE_STEP) {
             return
         }
         val unit = if (swipe.action.usesWordUnits()) OperationUnit.WORDS else OperationUnit.CHARACTERS
-        val targetSelection = editor.selectionBefore(unitCount, unit, baseSelection) ?: return
+        val targetSelection = imeController.snapshotState().editor.selectionBefore(
+            count = unitCount,
+            unit = unit,
+            base = swipe.baseSelection,
+            textBefore = swipe.baseTextBefore,
+        )
 
         if (!force && unitCount / GESTURE_FEEDBACK_STEP != swipe.unitCount / GESTURE_FEEDBACK_STEP) {
             interactionController.performFeedback(InteractionKind.GestureSwipe)
         }
         imeController.updateState {
-            updateSelectionFromGesture(targetSelection)
+            updateSelectionFromGesture(targetSelection, syncState = false)
         }
 
-        var newPointer = trackedPointer.copy(
-            deleteSwipe = swipe.copy(
-                baseSelection = baseSelection,
-                currentSelection = targetSelection,
-                unitCount = unitCount,
-                active = swipe.active || unitCount > 0,
-            ),
+        activeDeleteSwipe = swipe.copy(
+            currentSelection = targetSelection,
+            unitCount = unitCount,
+            active = swipe.active || unitCount > 0,
         )
-        if (unitCount > 0 && !swipe.active) {
-            newPointer.longPress.extendedJob?.cancel()
-            newPointer.repeatJob?.cancel()
-            newPointer = newPointer.copy(longPress = LongPress.None)
-        }
-        trackedOutputPointer.value = newPointer
     }
 
     private suspend fun updateSpaceBarSwipe(
@@ -479,7 +490,7 @@ class PointerTracker(
         // A long-press that already fired must no longer block a swipe which started afterwards;
         // the early-move cancellation in handleMove normally prevents this anyway.
         if (trackedPointer.repeatEmitted) return
-        val swipe = trackedPointer.spaceBarSwipe ?: return
+        val swipe = activeSpaceBarSwipe ?: return
         val dx = move.position.x - swipe.start.x
         val dy = move.position.y - swipe.start.y
         val absX = abs(dx)
@@ -524,14 +535,9 @@ class PointerTracker(
             }
             newSwipe = newSwipe.copy(unitCount = unitCount, executedCount = unitCount)
         }
-        // Once a swipe is recognized, neither the long-press nor the repeat action may fire anymore.
-        trackedPointer.longPress.extendedJob?.cancel()
-        trackedPointer.repeatJob?.cancel()
-        trackedOutputPointer.value = trackedPointer.copy(
-            longPress = LongPress.None,
-            repeatJob = null,
-            spaceBarSwipe = newSwipe,
-        )
+        // handleMove already cancelled long-press/repeat when the slop was exceeded. Keep the
+        // gesture in a plain field so pointer moves do not recompose every key on the keyboard.
+        activeSpaceBarSwipe = newSwipe
     }
 
     /**
@@ -619,17 +625,17 @@ class PointerTracker(
             // On fast swipes the final coordinates often arrive only with the UP event. Feed them
             // into the gesture calculation first, otherwise the last part of the travel is lost.
             if (!up.pressed) {
-                if (pointerAtUp.deleteSwipe != null) {
-                    updateDeleteSwipe(pointerAtUp, up, force = true)
-                } else if (pointerAtUp.spaceBarSwipe != null) {
+                if (activeDeleteSwipe != null) {
+                    updateDeleteSwipe(up, force = true)
+                } else if (activeSpaceBarSwipe != null) {
                     updateSpaceBarSwipe(pointerAtUp, up)
                 }
             }
             val trackedPointer = trackedOutputPointer.value?.takeIf { it.id == up.id } ?: pointerAtUp
             trackedPointer.longPress.extendedJob?.cancel()
             trackedPointer.repeatJob?.cancel()
-            val deleteSwipe = trackedPointer.deleteSwipe
-            val spaceBarSwipe = trackedPointer.spaceBarSwipe
+            val deleteSwipe = activeDeleteSwipe
+            val spaceBarSwipe = activeSpaceBarSwipe
             if (deleteSwipe != null && deleteSwipe.active) {
                 finishDeleteSwipe(deleteSwipe)
             } else if (spaceBarSwipe != null && spaceBarSwipe.direction != null) {
@@ -655,6 +661,8 @@ class PointerTracker(
                 }
             }
             trackedPeekPointer.update { it?.copy(peekMustSwitchBack = true) }
+            activeDeleteSwipe = null
+            activeSpaceBarSwipe = null
             trackedOutputPointer.value = null
             lastUpKeyState = LastUpKey(trackedPointer.downKey, up.uptimeMillis)
         }
@@ -710,14 +718,14 @@ class PointerTracker(
 
     private suspend fun cancelOutput() {
         cancelMultiTap()
-        val trackedPointer = trackedOutputPointer.getAndUpdate { null } ?: return
-        trackedPointer.longPress.extendedJob?.cancel()
-        trackedPointer.repeatJob?.cancel()
-        val swipe = trackedPointer.deleteSwipe
+        val trackedPointer = trackedOutputPointer.getAndUpdate { null }
+        trackedPointer?.longPress?.extendedJob?.cancel()
+        trackedPointer?.repeatJob?.cancel()
+        val swipe = activeDeleteSwipe
+        activeDeleteSwipe = null
+        activeSpaceBarSwipe = null
         if (swipe != null && swipe.active) {
-            swipe.baseSelection?.let { base ->
-                imeController.updateState { updateSelectionFromGesture(base) }
-            }
+            imeController.updateState { updateSelectionFromGesture(swipe.baseSelection) }
         }
     }
 
