@@ -24,6 +24,8 @@ object LayoutCatalog {
     val characters: List<Pair<String, String>> = listOf(
         "qwerty" to "QWERTY",
         "qwertz" to "QWERTZ",
+        "telugu" to "Telugu (Native)",
+        "telugu-phonetic" to "Telugu (Phonetic)",
     )
 
     val symbols: List<Pair<String, String>> = listOf(

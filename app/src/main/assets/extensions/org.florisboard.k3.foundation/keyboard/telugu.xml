@@ -1,0 +1,511 @@
+﻿<keyboard3 xmlns="https://schemas.unicode.org/cldr/45/keyboard3" conformsTo="45" locale="te">
+    <info author="FlorisBoard contributors" name="Telugu" layout="Telugu" indicator="\u{0C24 0C46}" />
+
+    <displays>
+        <display keyId="base" display="${base_display}" />
+        <display keyId="base-to-shift" display="@fl:icon/shift" />
+        <display keyId="shift-to-base" display="@fl:icon/shift" />
+        <display keyId="symbol-1" display="${symbol_1_display}" />
+        <display keyId="symbol-2" display="${symbol_2_display}" />
+        <display keyId="numeric" display="${numeric_display}" />
+        <display keyId="base-numeric" display="${base_display}" />
+        <display keyId="symbols-numeric" display="${symbol_1_display}" />
+        <display keyId="space-numeric" display="@fl:icon/space_bar" />
+        <display keyId="ime-picker" display="@fl:icon/language_switch" />
+        <display keyId="te-a" display="\u{0C05}" />
+        <display keyId="te-aa" display="\u{0C06}" />
+        <display keyId="te-i" display="\u{0C07}" />
+        <display keyId="te-ee" display="\u{0C08}" />
+        <display keyId="te-u" display="\u{0C09}" />
+        <display keyId="te-oo" display="\u{0C0A}" />
+        <display keyId="te-e" display="\u{0C0E}" />
+        <display keyId="te-E" display="\u{0C0F}" />
+        <display keyId="te-ai" display="\u{0C10}" />
+        <display keyId="te-o" display="\u{0C12}" />
+        <display keyId="te-O" display="\u{0C13}" />
+        <display keyId="te-au" display="\u{0C14}" />
+        <display keyId="te-sign-aa" display="\u{0C3E}" />
+        <display keyId="te-sign-i" display="\u{0C3F}" />
+        <display keyId="te-sign-u" display="\u{0C41}" />
+        <display keyId="te-sign-uu" display="\u{0C42}" />
+        <display keyId="te-sign-e" display="\u{0C46}" />
+        <display keyId="te-sign-E" display="\u{0C47}" />
+        <display keyId="te-sign-ai" display="\u{0C48}" />
+        <display keyId="te-sign-o" display="\u{0C4A}" />
+        <display keyId="te-sign-O" display="\u{0C4B}" />
+        <display keyId="te-sign-au" display="\u{0C4C}" />
+        <display keyId="te-ka" display="\u{0C15}" />
+        <display keyId="te-kha" display="\u{0C16}" />
+        <display keyId="te-ga" display="\u{0C17}" />
+        <display keyId="te-gha" display="\u{0C18}" />
+        <display keyId="te-nga" display="\u{0C19}" />
+        <display keyId="te-ca" display="\u{0C1A}" />
+        <display keyId="te-cha" display="\u{0C1B}" />
+        <display keyId="te-ja" display="\u{0C1C}" />
+        <display keyId="te-jha" display="\u{0C1D}" />
+        <display keyId="te-nya" display="\u{0C1E}" />
+        <display keyId="te-tta" display="\u{0C1F}" />
+        <display keyId="te-ttha" display="\u{0C20}" />
+        <display keyId="te-dda" display="\u{0C21}" />
+        <display keyId="te-ddha" display="\u{0C22}" />
+        <display keyId="te-nna" display="\u{0C23}" />
+        <display keyId="te-ta" display="\u{0C24}" />
+        <display keyId="te-tha" display="\u{0C25}" />
+        <display keyId="te-da" display="\u{0C26}" />
+        <display keyId="te-dha" display="\u{0C27}" />
+        <display keyId="te-na" display="\u{0C28}" />
+        <display keyId="te-pa" display="\u{0C2A}" />
+        <display keyId="te-pha" display="\u{0C2B}" />
+        <display keyId="te-ba" display="\u{0C2C}" />
+        <display keyId="te-bha" display="\u{0C2D}" />
+        <display keyId="te-ma" display="\u{0C2E}" />
+        <display keyId="te-ya" display="\u{0C2F}" />
+        <display keyId="te-ra" display="\u{0C30}" />
+        <display keyId="te-la" display="\u{0C32}" />
+        <display keyId="te-va" display="\u{0C35}" />
+        <display keyId="te-sha" display="\u{0C36}" />
+        <display keyId="te-ssa" display="\u{0C37}" />
+        <display keyId="te-sa" display="\u{0C38}" />
+        <display keyId="te-ha" display="\u{0C39}" />
+        <display keyId="te-lla" display="\u{0C33}" />
+        <display keyId="te-ksha" display="\u{0C15 0C4D 0C37}" />
+        <display keyId="te-jnya" display="\u{0C1C 0C4D 0C1E}" />
+        <display keyId="te-anusvara" display="\u{0C02}" />
+        <display keyId="te-visarga" display="\u{0C03}" />
+        <display keyId="te-virama" display="\u{0C4D}" />
+    </displays>
+
+    <keys>
+        <import base="cldr" path="45/keys-Zyyy-punctuation.xml" />
+        <import base="cldr" path="45/keys-Zyyy-currency.xml" />
+
+        <key id="base" layerId="base" width="2" />
+        <key id="base-to-shift" layerId="shift" width="1.5" />
+        <key id="shift-to-base" layerId="base" width="1.5" />
+        <key id="numeric" layerId="numeric" />
+        <key id="symbol-1" layerId="symbol-1" width="2" />
+        <key id="symbol-2" layerId="symbol-2" width="2" />
+
+        <key id="bksp" output="@k3:action/backspace" stretch="true" />
+        <key id="enter" output="@k3:action/enter" width="1.6" />
+        <key id="space-no-stretch" output="\u{0020}" />
+        <key id="bksp-no-stretch" output="@k3:action/backspace" />
+        <key id="ime-picker" output="@fl:action/show_input_method_picker" />
+        <key id="space" output="\u{0020}" stretch="true" />
+
+        <!-- Numbers with Gboard-style symbol hints -->
+        <key id="0" output="0" longPressKeyIds="close-paren" longPressDefaultKeyId="close-paren" />
+        <key id="1" output="1" longPressKeyIds="bang" longPressDefaultKeyId="bang" />
+        <key id="2" output="2" longPressKeyIds="at" longPressDefaultKeyId="at" />
+        <key id="3" output="3" longPressKeyIds="hash" longPressDefaultKeyId="hash" />
+        <key id="4" output="4" longPressKeyIds="dollar" longPressDefaultKeyId="dollar" />
+        <key id="5" output="5" longPressKeyIds="percent" longPressDefaultKeyId="percent" />
+        <key id="6" output="6" longPressKeyIds="caret" longPressDefaultKeyId="caret" />
+        <key id="7" output="7" longPressKeyIds="amp" longPressDefaultKeyId="amp" />
+        <key id="8" output="8" longPressKeyIds="asterisk" longPressDefaultKeyId="asterisk" />
+        <key id="9" output="9" longPressKeyIds="open-paren" longPressDefaultKeyId="open-paren" />
+
+        <!-- Punctuation key popups, mirroring FlorisBoard's en.json "~right" popup mapping -->
+        <key id="comma" output=","
+             longPressKeyIds="amp percent plus double-quote hyphen colon apos at semi-colon slash open-paren close-paren hash bang question" />
+
+        <!-- Currency slots. Their outputs are substituted at load time based on the subtype's
+             currency set. Slot 1 is the primary currency of the set, the rest are common ones. -->
+        <key id="currency-1" output="€"
+             longPressKeyIds="currency-2 currency-6 currency-3 currency-4 currency-5" />
+        <key id="currency-2" output="¥" />
+        <key id="currency-3" output="£" />
+        <key id="currency-4" output="$" />
+        <key id="currency-5" output="¢" />
+        <key id="currency-6" output="₹" />
+
+        <!-- Capital keys (popup order mirrors FlorisBoard's en.json popup mapping) -->
+        <key id="A" output="A"
+             longPressKeyIds="at AE-lig A-tilde A-ring A-charon A-grave A-acute A-caret A-umlaut" longPressDefaultKeyId="at" />
+        <key id="A-umlaut" output="Ä" />
+        <key id="A-grave" output="À" />
+        <key id="A-acute" output="Á" />
+        <key id="A-caret" output="Â" />
+        <key id="A-tilde" output="Ã" />
+        <key id="A-ring" output="Å" />
+        <key id="A-charon" output="Ā" />
+        <key id="AE-lig" output="Æ" />
+        <key id="B" output="B" longPressKeyIds="semi-colon" longPressDefaultKeyId="semi-colon" />
+        <key id="C" output="C" longPressKeyIds="apos C-cedilla" longPressDefaultKeyId="apos" />
+        <key id="C-cedilla" output="Ç" />
+        <key id="C-acute" output="Ć" />
+        <key id="C-caron" output="Č" />
+        <key id="D" output="D" longPressKeyIds="currency-1 D-stroke" longPressDefaultKeyId="currency-1" />
+        <key id="D-stroke" output="Đ" />
+        <key id="E" output="E" longPressKeyIds="pipe E-charon E-caret E-acute E-grave E-umlaut" longPressDefaultKeyId="pipe" />
+        <key id="E-umlaut" output="Ë" />
+        <key id="E-grave" output="È" />
+        <key id="E-acute" output="É" />
+        <key id="E-caret" output="Ê" />
+        <key id="E-tilde" output="Ẽ" />
+        <key id="E-ring" output="Ė" />
+        <key id="E-charon" output="Ē" />
+        <key id="E-ogonek" output="Ę" />
+        <key id="F" output="F" longPressKeyIds="underscore" longPressDefaultKeyId="underscore" />
+        <key id="G" output="G" longPressKeyIds="amp" longPressDefaultKeyId="amp" />
+        <key id="H" output="H" longPressKeyIds="hyphen" longPressDefaultKeyId="hyphen" />
+        <key id="I" output="I" longPressKeyIds="close-angle I-grave I-umlaut I-acute I-caret I-charon" longPressDefaultKeyId="close-angle" />
+        <key id="I-umlaut" output="Ï" />
+        <key id="I-grave" output="Ì" />
+        <key id="I-acute" output="Í" />
+        <key id="I-caret" output="Î" />
+        <key id="I-tilde" output="Ĩ" />
+        <key id="I-charon" output="Ī" />
+        <key id="J" output="J" longPressKeyIds="plus" longPressDefaultKeyId="plus" />
+        <key id="K" output="K" longPressKeyIds="open-paren" longPressDefaultKeyId="open-paren" />
+        <key id="L" output="L" longPressKeyIds="close-paren L-stroke" longPressDefaultKeyId="close-paren" />
+        <key id="L-stroke" output="Ł" />
+        <key id="M" output="M" longPressKeyIds="question" longPressDefaultKeyId="question" />
+        <key id="N" output="N" longPressKeyIds="bang N-tilde N-acute" longPressDefaultKeyId="bang" />
+        <key id="N-tilde" output="Ñ" />
+        <key id="N-acute" output="Ń" />
+        <key id="N-caron" output="Ň" />
+        <key id="O" output="O"
+             longPressKeyIds="open-curly O-tilde O-charon OE-lig O-stroke O-grave O-umlaut O-acute O-caret" longPressDefaultKeyId="open-curly" />
+        <key id="O-umlaut" output="Ö" />
+        <key id="O-grave" output="Ò" />
+        <key id="O-acute" output="Ó" />
+        <key id="O-caret" output="Ô" />
+        <key id="O-tilde" output="Õ" />
+        <key id="O-charon" output="Ō" />
+        <key id="O-stroke" output="Ø" />
+        <key id="OE-lig" output="Œ" />
+        <key id="P" output="P" longPressKeyIds="close-curly" longPressDefaultKeyId="close-curly" />
+        <key id="Q" output="Q" longPressKeyIds="percent" longPressDefaultKeyId="percent" />
+        <key id="R" output="R" longPressKeyIds="equal" longPressDefaultKeyId="equal" />
+        <key id="S" output="S" longPressKeyIds="hash S-sharp" longPressDefaultKeyId="hash" />
+        <key id="S-sharp" output="ẞ" />
+        <key id="S-caron" output="Š" />
+        <key id="S-acute" output="Ś" />
+        <key id="T" output="T" longPressKeyIds="open-square" longPressDefaultKeyId="open-square" />
+        <key id="U" output="U" longPressKeyIds="open-angle U-acute U-charon U-umlaut U-caret U-grave" longPressDefaultKeyId="open-angle" />
+        <key id="U-umlaut" output="Ü" />
+        <key id="U-grave" output="Ù" />
+        <key id="U-acute" output="Ú" />
+        <key id="U-caret" output="Û" />
+        <key id="U-tilde" output="Ũ" />
+        <key id="U-ring" output="Ů" />
+        <key id="U-charon" output="Ū" />
+        <key id="V" output="V" longPressKeyIds="colon" longPressDefaultKeyId="colon" />
+        <key id="W" output="W" longPressKeyIds="backslash" longPressDefaultKeyId="backslash" />
+        <key id="X" output="X" longPressKeyIds="double-quote" longPressDefaultKeyId="double-quote" />
+        <key id="Y" output="Y" longPressKeyIds="close-square" longPressDefaultKeyId="close-square" />
+        <key id="Y-umlaut" output="Ÿ" />
+        <key id="Y-grave" output="Ỳ" />
+        <key id="Y-acute" output="Ý" />
+        <key id="Y-caret" output="Ŷ" />
+        <key id="Y-tilde" output="Ỹ" />
+        <key id="Y-charon" output="Ȳ" />
+        <key id="Z" output="Z" longPressKeyIds="asterisk" longPressDefaultKeyId="asterisk" />
+        <key id="Z-acute" output="Ź" />
+        <key id="Z-caron" output="Ž" />
+        <key id="Z-dot" output="Ż" />
+
+        <!-- Lowercase keys (popup order mirrors FlorisBoard's en.json popup mapping) -->
+        <key id="a" output="a"
+             longPressKeyIds="at ae-lig a-tilde a-ring a-charon a-grave a-acute a-caret a-umlaut" longPressDefaultKeyId="at" />
+        <key id="a-umlaut" output="ä" />
+        <key id="a-grave" output="à" />
+        <key id="a-acute" output="á" />
+        <key id="a-caret" output="â" />
+        <key id="a-tilde" output="ã" />
+        <key id="a-ring" output="å" />
+        <key id="a-charon" output="ā" />
+        <key id="ae-lig" output="æ" />
+        <key id="b" output="b" longPressKeyIds="semi-colon" longPressDefaultKeyId="semi-colon" />
+        <key id="c" output="c" longPressKeyIds="apos c-cedilla" longPressDefaultKeyId="apos" />
+        <key id="c-cedilla" output="ç" />
+        <key id="c-acute" output="ć" />
+        <key id="c-caron" output="č" />
+        <key id="d" output="d" longPressKeyIds="currency-1 d-stroke" longPressDefaultKeyId="currency-1" />
+        <key id="d-stroke" output="đ" />
+        <key id="e" output="e" longPressKeyIds="pipe e-charon e-caret e-acute e-grave e-umlaut" longPressDefaultKeyId="pipe" />
+        <key id="e-umlaut" output="ë" />
+        <key id="e-grave" output="è" />
+        <key id="e-acute" output="é" />
+        <key id="e-caret" output="ê" />
+        <key id="e-tilde" output="ẽ" />
+        <key id="e-ring" output="ė" />
+        <key id="e-charon" output="ē" />
+        <key id="e-ogonek" output="ę" />
+        <key id="f" output="f" longPressKeyIds="underscore" longPressDefaultKeyId="underscore" />
+        <key id="g" output="g" longPressKeyIds="amp" longPressDefaultKeyId="amp" />
+        <key id="h" output="h" longPressKeyIds="hyphen" longPressDefaultKeyId="hyphen" />
+        <key id="i" output="i" longPressKeyIds="close-angle i-grave i-umlaut i-acute i-caret i-charon" longPressDefaultKeyId="close-angle" />
+        <key id="i-umlaut" output="ï" />
+        <key id="i-grave" output="ì" />
+        <key id="i-acute" output="í" />
+        <key id="i-caret" output="î" />
+        <key id="i-tilde" output="ĩ" />
+        <key id="i-charon" output="ī" />
+        <key id="j" output="j" longPressKeyIds="plus" longPressDefaultKeyId="plus" />
+        <key id="k" output="k" longPressKeyIds="open-paren" longPressDefaultKeyId="open-paren" />
+        <key id="l" output="l" longPressKeyIds="close-paren l-stroke" longPressDefaultKeyId="close-paren" />
+        <key id="l-stroke" output="ł" />
+        <key id="m" output="m" longPressKeyIds="question" longPressDefaultKeyId="question" />
+        <key id="n" output="n" longPressKeyIds="bang n-tilde n-acute" longPressDefaultKeyId="bang" />
+        <key id="n-tilde" output="ñ" />
+        <key id="n-acute" output="ń" />
+        <key id="n-caron" output="ň" />
+        <key id="o" output="o"
+             longPressKeyIds="open-curly o-tilde o-charon oe-lig o-stroke o-grave o-umlaut o-acute o-caret" longPressDefaultKeyId="open-curly" />
+        <key id="o-umlaut" output="ö" />
+        <key id="o-grave" output="ò" />
+        <key id="o-acute" output="ó" />
+        <key id="o-caret" output="ô" />
+        <key id="o-tilde" output="õ" />
+        <key id="o-charon" output="ō" />
+        <key id="o-stroke" output="ø" />
+        <key id="oe-lig" output="œ" />
+        <key id="p" output="p" longPressKeyIds="close-curly" longPressDefaultKeyId="close-curly" />
+        <key id="q" output="q" longPressKeyIds="percent" longPressDefaultKeyId="percent" />
+        <key id="r" output="r" longPressKeyIds="equal" longPressDefaultKeyId="equal" />
+        <key id="s" output="s" longPressKeyIds="hash s-sharp" longPressDefaultKeyId="hash" />
+        <key id="s-caron" output="š" />
+        <key id="s-sharp" output="ß" />
+        <key id="s-acute" output="ś" />
+        <key id="t" output="t" longPressKeyIds="open-square" longPressDefaultKeyId="open-square" />
+        <key id="u" output="u" longPressKeyIds="open-angle u-acute u-charon u-umlaut u-caret u-grave" longPressDefaultKeyId="open-angle" />
+        <key id="u-umlaut" output="ü" />
+        <key id="u-grave" output="ù" />
+        <key id="u-acute" output="ú" />
+        <key id="u-caret" output="û" />
+        <key id="u-tilde" output="ũ" />
+        <key id="u-ring" output="ů" />
+        <key id="u-charon" output="ū" />
+        <key id="v" output="v" longPressKeyIds="colon" longPressDefaultKeyId="colon" />
+        <key id="w" output="w" longPressKeyIds="backslash" longPressDefaultKeyId="backslash" />
+        <key id="x" output="x" longPressKeyIds="double-quote" longPressDefaultKeyId="double-quote" />
+        <key id="y" output="y" longPressKeyIds="close-square" longPressDefaultKeyId="close-square" />
+        <key id="y-umlaut" output="ÿ" />
+        <key id="y-grave" output="ỳ" />
+        <key id="y-acute" output="ý" />
+        <key id="y-caret" output="ŷ" />
+        <key id="y-tilde" output="ỹ" />
+        <key id="y-charon" output="ȳ" />
+        <key id="z" output="z" longPressKeyIds="asterisk" longPressDefaultKeyId="asterisk" />
+        <key id="z-acute" output="ź" />
+        <key id="z-caron" output="ž" />
+        <key id="z-dot" output="ż" />
+        <!-- extra chars -->
+        <key id="numero-sign" output="\u{2116}" />
+        <key id="permille" output="\u{2030}" />
+        <key id="care-of" output="\u{2105}" />
+        <key id="acute" output="´" />
+
+        <!-- Symbols matching FlorisBoard's Western (Additional symbols) and symbols2 layers -->
+        <key id="percent" output="%" longPressKeyIds="permille care-of" />
+        <key id="equal" output="=" longPressKeyIds="not-equal infinity approximately" />
+        <key id="not-equal" output="\u{2260}" />
+        <key id="infinity" output="\u{221E}" />
+        <key id="approximately" output="\u{2248}" />
+        <key id="caret" output="^" longPressKeyIds="arrow-up arrow-left arrow-down arrow-right" />
+        <key id="arrow-up" output="\u{2191}" />
+        <key id="arrow-left" output="\u{2190}" />
+        <key id="arrow-down" output="\u{2193}" />
+        <key id="arrow-right" output="\u{2192}" />
+        <key id="degree" output="°" longPressKeyIds="prime double-prime" />
+        <key id="prime" output="\u{2032}" />
+        <key id="double-prime" output="\u{2033}" />
+        <key id="open-curly" output="{" longPressKeyIds="open-paren" />
+        <key id="close-curly" output="}" longPressKeyIds="close-paren" />
+        <key id="bullet" output="\u{2022}"
+             longPressKeyIds="music-note club-suit spade-suit heart-suit diamond-suit" />
+        <key id="music-note" output="\u{266A}" />
+        <key id="club-suit" output="\u{2663}" />
+        <key id="spade-suit" output="\u{2660}" />
+        <key id="heart-suit" output="\u{2665}" />
+        <key id="diamond-suit" output="\u{2666}" />
+        <key id="root" output="\u{221A}" />
+        <key id="pi" output="π"
+             longPressKeyIds="capital-pi omega alpha beta capital-omega mu" />
+        <key id="capital-pi" output="\u{03A0}" />
+        <key id="omega" output="\u{03C9}" />
+        <key id="alpha" output="\u{03B1}" />
+        <key id="beta" output="\u{03B2}" />
+        <key id="capital-omega" output="\u{03A9}" />
+        <key id="mu" output="\u{03BC}" />
+        <key id="divide" output="÷" />
+        <key id="multiply" output="×" />
+        <key id="paragraph" output="¶" longPressKeyIds="section-sign" />
+        <key id="section-sign" output="\u{00A7}" />
+        <key id="delta" output="\u{2206}" />
+        <key id="copyright" output="\u{00A9}" />
+        <key id="registered" output="\u{00AE}" />
+        <key id="trademark" output="\u{2122}" />
+        <key id="checkmark" output="\u{2713}" />
+
+        <!-- numeric layout keys -->
+        <key id="plus-numeric" output="+" width="1.8" longPressKeyIds="hyphen asterisk slash" />
+        <key id="open-paren-numeric" output="(" width="1.8" longPressKeyIds="open-square open-curly" />
+        <key id="close-paren-numeric" output=")" width="1.8"
+             longPressKeyIds="close-square close-curly" />
+        <key id="percent-numeric" output="%" width="1.8" />
+        <key id="space-numeric" output="\u{0020}" width="1.8" />
+        <key id="bksp-numeric" output="@k3:action/backspace" width="1.8" />
+        <key id="base-numeric" layerId="base" width="1.8" />
+        <key id="comma-numeric" output="," width="1.1" />
+        <key id="symbols-numeric" layerId="symbol-1" width="1.9" />
+        <key id="equal-numeric" output="=" width="1.9" />
+        <key id="period-numeric" output="." width="1.1" />
+        <key id="enter-numeric" output="@k3:action/enter" width="1.8" />
+        <key id="0-numeric" width="3" output="0" />
+        <key id="1-numeric" width="3" output="1" />
+        <key id="2-numeric" width="3" output="2" />
+        <key id="3-numeric" width="3" output="3" />
+        <key id="4-numeric" width="3" output="4" />
+        <key id="5-numeric" width="3" output="5" />
+        <key id="6-numeric" width="3" output="6" />
+        <key id="7-numeric" width="3" output="7" />
+        <key id="8-numeric" width="3" output="8" />
+        <key id="9-numeric" width="3" output="9" />
+        <key id="te-a" output="\u{0C05}" longPressKeyIds="te-aa te-ai te-au" longPressDefaultKeyId="te-aa" />
+        <key id="te-aa" output="\u{0C06}" />
+        <key id="te-i" output="\u{0C07}" />
+        <key id="te-ee" output="\u{0C08}" />
+        <key id="te-u" output="\u{0C09}" />
+        <key id="te-oo" output="\u{0C0A}" />
+        <key id="te-e" output="\u{0C0E}" longPressKeyIds="te-E" longPressDefaultKeyId="te-E" />
+        <key id="te-E" output="\u{0C0F}" />
+        <key id="te-ai" output="\u{0C10}" />
+        <key id="te-o" output="\u{0C12}" longPressKeyIds="te-O te-au" longPressDefaultKeyId="te-O" />
+        <key id="te-O" output="\u{0C13}" />
+        <key id="te-au" output="\u{0C14}" />
+        <key id="te-sign-aa" output="\u{0C3E}" />
+        <key id="te-sign-i" output="\u{0C3F}" />
+        <key id="te-sign-u" output="\u{0C41}" />
+        <key id="te-sign-uu" output="\u{0C42}" />
+        <key id="te-sign-e" output="\u{0C46}" />
+        <key id="te-sign-E" output="\u{0C47}" />
+        <key id="te-sign-ai" output="\u{0C48}" />
+        <key id="te-sign-o" output="\u{0C4A}" />
+        <key id="te-sign-O" output="\u{0C4B}" />
+        <key id="te-sign-au" output="\u{0C4C}" />
+        <key id="te-ka" output="\u{0C15}" longPressKeyIds="te-ksha te-kha" longPressDefaultKeyId="te-ksha" />
+        <key id="te-kha" output="\u{0C16}" />
+        <key id="te-ga" output="\u{0C17}" />
+        <key id="te-gha" output="\u{0C18}" />
+        <key id="te-nga" output="\u{0C19}" />
+        <key id="te-ca" output="\u{0C1A}" />
+        <key id="te-cha" output="\u{0C1B}" />
+        <key id="te-ja" output="\u{0C1C}" longPressKeyIds="te-jnya te-jha" longPressDefaultKeyId="te-jnya" />
+        <key id="te-jha" output="\u{0C1D}" />
+        <key id="te-nya" output="\u{0C1E}" />
+        <key id="te-tta" output="\u{0C1F}" />
+        <key id="te-ttha" output="\u{0C20}" />
+        <key id="te-dda" output="\u{0C21}" />
+        <key id="te-ddha" output="\u{0C22}" />
+        <key id="te-nna" output="\u{0C23}" />
+        <key id="te-ta" output="\u{0C24}" />
+        <key id="te-tha" output="\u{0C25}" />
+        <key id="te-da" output="\u{0C26}" />
+        <key id="te-dha" output="\u{0C27}" />
+        <key id="te-na" output="\u{0C28}" longPressKeyIds="te-anusvara te-nna" longPressDefaultKeyId="te-anusvara" />
+        <key id="te-pa" output="\u{0C2A}" />
+        <key id="te-pha" output="\u{0C2B}" />
+        <key id="te-ba" output="\u{0C2C}" />
+        <key id="te-bha" output="\u{0C2D}" />
+        <key id="te-ma" output="\u{0C2E}" />
+        <key id="te-ya" output="\u{0C2F}" />
+        <key id="te-ra" output="\u{0C30}" />
+        <key id="te-la" output="\u{0C32}" longPressKeyIds="te-lla" longPressDefaultKeyId="te-lla" />
+        <key id="te-va" output="\u{0C35}" />
+        <key id="te-sha" output="\u{0C36}" />
+        <key id="te-ssa" output="\u{0C37}" />
+        <key id="te-sa" output="\u{0C38}" longPressKeyIds="te-ssa te-sha" longPressDefaultKeyId="te-ssa" />
+        <key id="te-ha" output="\u{0C39}" />
+        <key id="te-lla" output="\u{0C33}" />
+        <key id="te-ksha" output="\u{0C15 0C4D 0C37}" />
+        <key id="te-jnya" output="\u{0C1C 0C4D 0C1E}" />
+        <key id="te-anusvara" output="\u{0C02}" longPressKeyIds="te-visarga" longPressDefaultKeyId="te-visarga" />
+        <key id="te-visarga" output="\u{0C03}" />
+        <key id="te-virama" output="\u{0C4D}" />
+    </keys>
+
+    <layers formId="iso">
+        <layer modifiers="none">
+            <row
+                keys="grave 1 2 3 4 5 6 7 8 9 0 hyphen equal" />
+            <row keys="q w e r t y u i o p open-square" />
+            <row keys="a s d f g h j k l semi-colon apos backslash" />
+            <row keys="open-angle z x c v b n m comma period slash" />
+            <row keys="space" />
+        </layer>
+        <layer modifiers="shift">
+            <row
+                keys="tilde bang at hash dollar percent caret amp asterisk open-paren close-paren underscore plus" />
+            <row keys="Q W E R T Y U I O P open-curly" />
+            <row keys="A S D F G H J K L colon double-quote pipe" />
+            <row keys="close-angle Z X C V B N M comma period question" />
+            <row keys="space" />
+        </layer>
+        <layer modifiers="altR">
+            <row
+                keys="not gap gap gap gap gap not open-curly open-square close-square close-curly backslash gap" />
+            <row keys="at gap euro gap gap gap gap gap gap gap gap tilde" />
+            <row keys="gap gap gap gap gap gap gap gap gap gap gap gap" />
+            <row keys="pipe gap gap gap gap gap gap micro gap gap gap" />
+            <row keys="space" />
+        </layer>
+    </layers>
+
+    <layers formId="touch" minDeviceWidth="1">
+        <import path="flex://org.florisboard.k3.foundation/layers-touch.xml" />
+
+        <layer id="numrow">
+            <row keys="numrow-1 numrow-2 numrow-3 numrow-4 numrow-5 numrow-6 numrow-7 numrow-8 numrow-9 numrow-0" />
+        </layer>
+
+        <layer id="base">
+            <row keys="te-a te-aa te-i te-ee te-u te-oo te-e te-E te-ai te-o" />
+            <row keys="te-ka te-kha te-ga te-gha te-nga te-ca te-cha te-ja te-jha te-nya" />
+            <row keys="te-tta te-ttha te-dda te-ddha te-nna te-ta te-tha te-dha te-na" />
+            <row keys="base-to-shift te-pa te-pha te-ba te-bha te-ma te-ya te-ra te-la bksp" />
+            <row keys="symbol-1 comma fn-key space period enter" />
+        </layer>
+
+        <layer id="shift">
+            <row keys="te-sign-aa te-sign-i te-sign-u te-sign-uu te-sign-e te-sign-E te-sign-ai te-sign-o te-sign-O te-sign-au" />
+            <row keys="te-va te-sha te-ssa te-sa te-ha te-lla te-ksha te-jnya te-anusvara te-virama" />
+            <row keys="te-tta te-ttha te-dda te-ddha te-nna te-ta te-tha te-dha te-na" />
+            <row keys="shift-to-base te-pa te-pha te-ba te-bha te-ma te-ya te-ra te-la bksp" />
+            <row keys="symbol-1 comma fn-key space period enter" />
+        </layer>
+
+        <layer id="symbol-1">
+            <row keys="1 2 3 4 5 6 7 8 9 0" />
+            <row keys="at hash currency-1 underscore amp hyphen plus open-paren close-paren slash" />
+            <row keys="symbol-2 asterisk double-quote apos colon semi-colon bang question bksp" />
+            <row keys="base comma numeric space period enter" />
+        </layer>
+
+        <layer id="symbol-2">
+            <row keys="tilde grave pipe bullet root pi divide multiply paragraph delta" />
+            <row keys="currency-5 currency-4 currency-3 currency-2 caret degree equal open-curly close-curly backslash" />
+            <row keys="symbol-1 underscore copyright registered trademark checkmark open-square close-square bksp" />
+            <row keys="base open-angle numeric space close-angle enter" />
+        </layer>
+
+        <layer id="numeric">
+            <row keys="plus-numeric 1-numeric 2-numeric 3-numeric percent-numeric" />
+            <row keys="open-paren-numeric 4-numeric 5-numeric 6-numeric space-numeric" />
+            <row keys="close-paren-numeric 7-numeric 8-numeric 9-numeric bksp-numeric" />
+            <row
+                keys="base-numeric comma-numeric symbols-numeric 0-numeric equal-numeric period-numeric enter-numeric" />
+        </layer>
+    </layers>
+
+    <variables>
+        <string id="base_display" value="ABC" />
+        <string id="shift_display" value="\u{21EA}" />
+        <string id="numeric_display" value="1 2&#10;3 4" />
+        <string id="symbol_1_display" value="?123" />
+        <string id="symbol_2_display" value="\u{003D 005C 003C}" />
+    </variables>
+</keyboard3>
+

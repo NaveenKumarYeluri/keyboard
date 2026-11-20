@@ -43,12 +43,18 @@ private val SCOPE_FOUNDATION = K3Descriptor("fl", "ext", "org.florisboard.k3.fou
 private val FOUNDATION_KEYBOARD_LAYOUTS = mapOf(
     "qwerty" to "keyboard/qwerty.xml",
     "qwertz" to "keyboard/qwertz.xml",
+    "telugu" to "keyboard/telugu.xml",
+    "telugu-phonetic" to "keyboard/telugu_phonetic.xml",
 )
 
 private fun resolveLayoutId(subtype: Subtype): String {
     return when (subtype.charactersLayout) {
         in FOUNDATION_KEYBOARD_LAYOUTS -> subtype.charactersLayout
-        else -> if (subtype.primaryLocale.language == "de") "qwertz" else "qwerty"
+        else -> when (subtype.primaryLocale.language) {
+            "de" -> "qwertz"
+            "te" -> "telugu"
+            else -> "qwerty"
+        }
     }
 }
 
