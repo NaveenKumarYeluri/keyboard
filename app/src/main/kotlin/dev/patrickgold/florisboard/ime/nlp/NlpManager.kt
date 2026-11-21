@@ -65,7 +65,7 @@ class NlpManager(context: Context) {
     private val providers = guardedByLock {
         mapOf<String, ProviderInstanceWrapper>(
             LatinLanguageProvider.ProviderId to ProviderInstanceWrapper(latinLanguageProvider),
-            AiLanguageProvider.ProviderId to ProviderInstanceWrapper(AiLanguageProvider(latinLanguageProvider)),
+            AiLanguageProvider.ProviderId to ProviderInstanceWrapper(AiLanguageProvider(context, latinLanguageProvider)),
             //HanShapeBasedLanguageProvider.ProviderId to ProviderInstanceWrapper(HanShapeBasedLanguageProvider(context)),
         )
     }

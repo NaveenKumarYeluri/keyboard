@@ -16,7 +16,7 @@
 
 package dev.patrickgold.florisboard.ime.nlp.ai
 
-import dev.patrickgold.florisboard.appContext
+import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.builtins.MapSerializer
@@ -64,10 +64,10 @@ class ContextLanguageModel private constructor(
             MapSerializer(String.serializer(), Int.serializer()),
         )
 
-        suspend fun get(language: String): ContextLanguageModel? = withContext(Dispatchers.IO) {
+        suspend fun get(context: Context, language: String): ContextLanguageModel? = withContext(Dispatchers.IO) {
             models.computeIfAbsent(language) { lang ->
                 runCatching {
-                    val rawData = appContext.assets.readText("$ASSET_PATH/${lang}_context.json")
+                    val rawData = context.applicationContext.assets.readText("$ASSET_PATH/${lang}_context.json")
                     ContextLanguageModel(Json.decodeFromString(serializer, rawData))
                 }.getOrDefault(EMPTY)
             }.takeIf { it !== EMPTY }

@@ -16,6 +16,7 @@
 
 package dev.patrickgold.florisboard.ime.nlp.ai
 
+import android.content.Context
 import android.icu.text.BreakIterator
 import dev.patrickgold.florisboard.app.FlorisPreferenceStore
 import dev.patrickgold.florisboard.ime.core.Subtype
@@ -38,6 +39,7 @@ import java.util.Locale
  * leaves the device, no network permission is used, and no user input is stored for training.
  */
 class AiLanguageProvider(
+    context: Context,
     private val latin: LatinLanguageProvider,
 ) : SpellingProvider, SuggestionProvider {
     companion object {
@@ -49,6 +51,7 @@ class AiLanguageProvider(
     }
 
     private val prefs by FlorisPreferenceStore
+    private val appContext = context.applicationContext
 
     override val providerId = ProviderId
 
@@ -58,7 +61,7 @@ class AiLanguageProvider(
 
     override suspend fun preload(subtype: Subtype) {
         latin.preload(subtype)
-        ContextLanguageModel.get(subtype.primaryLocale.language)
+        ContextLanguageModel.get(appContext, subtype.primaryLocale.language)
     }
 
     override suspend fun destroy() {
@@ -104,7 +107,7 @@ class AiLanguageProvider(
             baseCandidates.withSource(this@AiLanguageProvider)
         } else {
             val previousWords = extractPreviousWords(content, subtype, MAX_CONTEXT_WORDS)
-            val model = ContextLanguageModel.get(subtype.primaryLocale.language)
+            val model = ContextLanguageModel.get(appContext, subtype.primaryLocale.language)
             val probabilities = if (previousWords.isEmpty() || model == null) {
                 emptyMap()
             } else {
