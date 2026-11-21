@@ -156,7 +156,7 @@ fun KeyboardScreen() {
                     entries = enumDisplayEntriesOf(IncognitoDisplayMode::class),
                 )
                 DialogSliderPreference(
-                    primaryPref = prefs.keyboard.floatingKeyboardOpacity,
+                    pref = prefs.keyboard.floatingKeyboardOpacity,
                     shapes = ListItemDefaults.segmentedShapes(8, count),
                     title = stringRes(R.string.pref__keyboard__floating_keyboard_opacity__label),
                     valueLabel = { stringRes(R.string.unit__percent__symbol, "v" to it) },
