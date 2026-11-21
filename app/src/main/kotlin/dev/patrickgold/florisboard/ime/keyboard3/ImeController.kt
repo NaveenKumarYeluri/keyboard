@@ -302,15 +302,23 @@ class ImeController(
             return source.content
         }
         val raw = phoneticLatin
+        val surrounding = source.content.surroundingText
+        val before = surrounding.textBefore
+        val contextPrefix = if (phoneticOutput.isNotEmpty() && before.endsWith(phoneticOutput)) {
+            before.dropLast(phoneticOutput.length)
+        } else {
+            before.removeSuffix(before.takeLastWhile { it.isLetterOrDigit() || it == '\'' })
+        }
+        val syntheticBefore = contextPrefix + raw
         return source.content.copy(
-            selection = K3TextRange(raw.length),
+            selection = K3TextRange(syntheticBefore.length),
             composition = null,
-            surroundingText = source.content.surroundingText.copy(
-                textBefore = raw,
+            surroundingText = surrounding.copy(
+                textBefore = syntheticBefore,
                 textSelected = "",
-                textAfter = "",
+                textAfter = surrounding.textAfter,
             ),
-            inputContext = raw.asK3String(),
+            inputContext = syntheticBefore.asK3String(),
         )
     }
 

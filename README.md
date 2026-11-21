@@ -58,6 +58,8 @@ offline extension import/export, and the Keyboard3 layout engine.
 
 - The app **does not request the `INTERNET` permission** and makes no network connections.
   All suggestion, spell-check, glide-typing, and emoji processing happens locally on-device.
+  Contextual AI suggestions use a small bundled n-gram model; no cloud LLM is used and typed
+  text is never uploaded.
 - Emoji rendering uses AndroidX EmojiCompat with the **system emoji font as the first
   choice**; on devices lacking an emoji font, Google Play Services may be used as a local
   fallback to obtain one (a device-local font lookup, not data transfer).

@@ -62,6 +62,7 @@ import dev.patrickgold.florisboard.app.components.FlorisScreen
 import dev.patrickgold.florisboard.ime.core.DisplayLanguageNamesIn
 import dev.patrickgold.florisboard.ime.core.Subtype
 import dev.patrickgold.florisboard.ime.core.SubtypeNlpProviderMap
+import dev.patrickgold.florisboard.ime.nlp.ai.AiLanguageProvider
 import dev.patrickgold.florisboard.ime.nlp.latin.LatinLanguageProvider
 import dev.patrickgold.florisboard.lib.FlorisLocale
 import dev.patrickgold.florisboard.subtypeManager
@@ -124,7 +125,7 @@ fun SubtypeEditorScreen(id: Long?) = FlorisScreen {
     var composer by rememberSaveable { mutableStateOf(initialSubtype?.composer ?: "") }
     var currencySet by rememberSaveable { mutableStateOf(initialSubtype?.currencySet ?: "") }
     var suggestionProvider by rememberSaveable {
-        mutableStateOf(initialSubtype?.nlpProviders?.suggestion ?: LatinLanguageProvider.ProviderId)
+        mutableStateOf(initialSubtype?.nlpProviders?.suggestion ?: AiLanguageProvider.ProviderId)
     }
     var localeSelectionTarget by rememberSaveable {
         mutableStateOf(LocaleSelectionTarget.PRIMARY)
@@ -287,6 +288,7 @@ fun SubtypeEditorScreen(id: Long?) = FlorisScreen {
         "none" to stringRes(R.string.settings__localization__subtype_popup_mapping_none),
     )
     val suggestionProviderOptions = listOf(
+        AiLanguageProvider.ProviderId to "AI (offline)",
         LatinLanguageProvider.ProviderId to "Latin",
         "" to stringRes(R.string.settings__localization__subtype_nlp_none),
     )

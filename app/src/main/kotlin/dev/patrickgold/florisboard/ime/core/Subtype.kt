@@ -16,7 +16,7 @@
 
 package dev.patrickgold.florisboard.ime.core
 
-import dev.patrickgold.florisboard.ime.nlp.latin.LatinLanguageProvider
+import dev.patrickgold.florisboard.ime.nlp.ai.AiLanguageProvider
 import dev.patrickgold.florisboard.lib.FlorisLocale
 import kotlinx.serialization.Serializable
 
@@ -129,8 +129,8 @@ data class Subtype(
 
 @Serializable
 data class SubtypeNlpProviderMap(
-    val spelling: String = LatinLanguageProvider.ProviderId,
-    val suggestion: String = LatinLanguageProvider.ProviderId,
+    val spelling: String = AiLanguageProvider.ProviderId,
+    val suggestion: String = AiLanguageProvider.ProviderId,
 ) {
     inline fun forEach(action: (String, String) -> Unit) {
         action("spelling", spelling)

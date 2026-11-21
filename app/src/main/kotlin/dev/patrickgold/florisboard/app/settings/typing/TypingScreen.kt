@@ -83,7 +83,7 @@ fun TypingScreen() {
 
             SegmentedListColumn(title = stringRes(R.string.pref__suggestion__title)) {
                 val countOffset = if (AndroidVersion.ATLEAST_API30_R) 1 else 0
-                val count = 4 + countOffset
+                val count = 5 + countOffset
                 SwitchPreference(
                     prefs.suggestion.enabled,
                     shapes = ListItemDefaults.segmentedShapes(0, count),
@@ -105,17 +105,24 @@ fun TypingScreen() {
                     summary = stringRes(R.string.pref__suggestion__block_possibly_offensive__summary),
                     enabledIf = { prefs.suggestion.enabled isEqualTo true },
                 )
+                SwitchPreference(
+                    prefs.suggestion.aiEnabled,
+                    shapes = ListItemDefaults.segmentedShapes(3, count),
+                    title = stringRes(R.string.pref__suggestion__ai_enabled__label),
+                    summary = stringRes(R.string.pref__suggestion__ai_enabled__summary),
+                    enabledIf = { prefs.suggestion.enabled isEqualTo true },
+                )
                 if (AndroidVersion.ATLEAST_API30_R) {
                     SwitchPreference(
                         prefs.suggestion.api30InlineSuggestionsEnabled,
-                        shapes = ListItemDefaults.segmentedShapes(3, count),
+                        shapes = ListItemDefaults.segmentedShapes(4, count),
                         title = stringRes(R.string.pref__suggestion__api30_inline_suggestions_enabled__label),
                         summary = stringRes(R.string.pref__suggestion__api30_inline_suggestions_enabled__summary),
                     )
                 }
                 ListPreference(
                     prefs.suggestion.incognitoMode,
-                    shapes = ListItemDefaults.segmentedShapes(3 + countOffset, count),
+                    shapes = ListItemDefaults.segmentedShapes(4 + countOffset, count),
                     icon = ImageVector.vectorResource(id = R.drawable.ic_incognito),
                     title = stringRes(R.string.pref__suggestion__incognito_mode__label),
                     entries = enumDisplayEntriesOf(IncognitoMode::class),

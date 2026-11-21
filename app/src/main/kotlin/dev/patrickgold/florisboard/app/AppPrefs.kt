@@ -26,6 +26,7 @@ import dev.patrickgold.florisboard.ime.clipboard.CLIPBOARD_HISTORY_NUM_GRID_COLU
 import dev.patrickgold.florisboard.ime.clipboard.ClipboardSyncBehavior
 import dev.patrickgold.florisboard.ime.core.DisplayLanguageNamesIn
 import dev.patrickgold.florisboard.ime.core.Subtype
+import dev.patrickgold.florisboard.ime.core.SubtypeJsonConfig
 import dev.patrickgold.florisboard.ime.extension.ExtensionComponentName
 import dev.patrickgold.florisboard.ime.extension.extCoreTheme
 import dev.patrickgold.florisboard.ime.keyboard.IncognitoMode
@@ -42,6 +43,8 @@ import dev.patrickgold.florisboard.ime.media.emoji.EmojiHistory
 import dev.patrickgold.florisboard.ime.media.emoji.EmojiSkinTone
 import dev.patrickgold.florisboard.ime.media.emoji.EmojiSuggestionType
 import dev.patrickgold.florisboard.ime.nlp.SpellingLanguageMode
+import dev.patrickgold.florisboard.ime.nlp.ai.AiLanguageProvider
+import dev.patrickgold.florisboard.ime.nlp.latin.LatinLanguageProvider
 import dev.patrickgold.florisboard.ime.smartbar.CandidatesDisplayMode
 import dev.patrickgold.florisboard.ime.smartbar.ExtendedActionsPlacement
 import dev.patrickgold.florisboard.ime.smartbar.IncognitoDisplayMode
@@ -648,6 +651,10 @@ abstract class FlorisPreferenceModel : PreferenceModel() {
             key = "suggestion__block_possibly_offensive",
             default = true,
         )
+        val aiEnabled = boolean(
+            key = "suggestion__ai_enabled",
+            default = true,
+        )
         val incognitoMode = enum(
             key = "suggestion__incognito_mode",
             default = IncognitoMode.DYNAMIC_ON_OFF,
@@ -787,6 +794,36 @@ abstract class FlorisPreferenceModel : PreferenceModel() {
                 }
                 val json = QuickActionJsonConfig.encodeToString(newArrangement.distinct())
                 entry.transform(rawValue = json)
+            }
+
+            // Switch existing subtypes to the offline AI reranker. Idempotent: only entries still
+            // pointing at the plain Latin provider are changed.
+            // Keep migration rule until: forever
+            "localization__subtypes" -> {
+                val subtypes = runCatching {
+                    SubtypeJsonConfig.decodeFromString<List<Subtype>>(entry.rawValue)
+                }.getOrNull()
+                if (subtypes == null) {
+                    entry.keepAsIs()
+                } else {
+                    val migrated = subtypes.map { subtype ->
+                        val providers = subtype.nlpProviders
+                        if (
+                            providers.suggestion == LatinLanguageProvider.ProviderId ||
+                            providers.spelling == LatinLanguageProvider.ProviderId
+                        ) {
+                            subtype.copy(
+                                nlpProviders = providers.copy(
+                                    spelling = AiLanguageProvider.ProviderId,
+                                    suggestion = AiLanguageProvider.ProviderId,
+                                ),
+                            )
+                        } else {
+                            subtype
+                        }
+                    }
+                    entry.transform(rawValue = SubtypeJsonConfig.encodeToString(migrated))
+                }
             }
 
             // Migrate theme editor fine-tuning
