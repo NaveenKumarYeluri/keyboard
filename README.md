@@ -26,7 +26,8 @@ supporting or contributing to the original project.
 
 ### Completed roadmap features (implemented in this fork)
 - **Word suggestions and spell checking** — a real, offline suggestion engine built on the
-  bundled English frequency dictionary (`ime/dict/data.json`) and the user dictionaries.
+  bundled English and Telugu frequency dictionaries and the user dictionaries. Telugu also has
+  native and phonetic layouts, romanized aliases, and a bundled contextual n-gram model.
   Suggestions are tap-to-pick only (no auto-commit), so there are no false-positive
   autocorrections.
 - **Physical keyboard support** — hardware key events are handled by the IME (letters,

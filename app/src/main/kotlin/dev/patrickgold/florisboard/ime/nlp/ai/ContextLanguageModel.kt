@@ -26,7 +26,7 @@ import org.florisboard.lib.android.readText
 import java.util.concurrent.ConcurrentHashMap
 
 /**
- * Small offline n-gram model used to reorder suggestions.
+ * Small offline n-gram model used to rank and inject suggestions.
  *
  * The asset maps a context key to next-word scores scaled to 0-255. Trigram keys use
  * `word1|word2`; bigram keys use a single word. All data is bundled in the APK and no network

@@ -34,9 +34,10 @@ import java.util.Locale
 /**
  * Offline contextual suggestion provider.
  *
- * Candidate generation is delegated to [LatinLanguageProvider]. This provider only reorders those
- * candidates using a small bundled n-gram model, so it cannot invent arbitrary text. No typed text
- * leaves the device, no network permission is used, and no user input is stored for training.
+ * Candidate generation is delegated to [LatinLanguageProvider]. This provider reranks those
+ * candidates with a small bundled n-gram model and may inject contextually strong words from that
+ * same bundled dictionary. It never generates arbitrary text. No typed text leaves the device, no
+ * network permission is used, and no user input is stored for training.
  */
 class AiLanguageProvider(
     context: Context,
@@ -116,16 +117,36 @@ class AiLanguageProvider(
             if (probabilities.isEmpty()) {
                 baseCandidates.withSource(this@AiLanguageProvider)
             } else {
-                baseCandidates
-                    .map { candidate ->
-                        val word = candidate.text.toString().lowercase()
-                        val contextScore = probabilities[word] ?: UNKNOWN_CONTEXT_SCORE
-                        candidate.withScore(
-                            confidence = (candidate.confidence * (1.0 - AI_WEIGHT) + contextScore * AI_WEIGHT)
+                val composingWord = currentComposingWord(content, subtype)
+                val reranked = baseCandidates.map { candidate ->
+                    val word = candidate.text.toString().lowercase()
+                    val contextScore = probabilities[word] ?: UNKNOWN_CONTEXT_SCORE
+                    candidate.withScore(
+                        confidence = (candidate.confidence * (1.0 - AI_WEIGHT) + contextScore * AI_WEIGHT)
+                            .coerceIn(0.0, 1.0),
+                        sourceProvider = this@AiLanguageProvider,
+                    )
+                }
+                val alreadySuggested = reranked.map { it.text.toString().lowercase() }.toSet()
+                // The base provider only returns prefix/correction candidates. A contextually strong
+                // word can still be missing when the user's spelling or romanization differs, so add
+                // matching words from the same bundled model without ever auto-committing them.
+                val injected = mutableListOf<SuggestionCandidate>()
+                for ((word, score) in probabilities) {
+                    if (score <= 0.0 || word in alreadySuggested) continue
+                    if (!latin.isCandidateRelevantForInput(subtype.primaryLocale, word, composingWord)) continue
+                    val frequency = latin.getFrequencyForWord(subtype, word)
+                    injected.add(
+                        WordSuggestionCandidate(
+                            text = word,
+                            confidence = (frequency * (1.0 - AI_WEIGHT) + score * AI_WEIGHT)
                                 .coerceIn(0.0, 1.0),
+                            isEligibleForAutoCommit = false,
                             sourceProvider = this@AiLanguageProvider,
                         )
-                    }
+                    )
+                }
+                (reranked + injected)
                     .sortedByDescending { it.confidence }
                     .take(maxCandidateCount)
             }
@@ -152,6 +173,15 @@ class AiLanguageProvider(
 
     override suspend fun getFrequencyForWord(subtype: Subtype, word: String): Double {
         return latin.getFrequencyForWord(subtype, word)
+    }
+
+    /** Gets the word currently being composed, including the raw Latin buffer in phonetic mode. */
+    private fun currentComposingWord(content: K3Content, subtype: Subtype): String {
+        val fromComposition = content.compositionText?.toString().orEmpty()
+        val raw = fromComposition.ifEmpty {
+            content.surroundingText.textBefore.toString().takeLastWhile { it.isLetterOrDigit() || it == '\'' }
+        }
+        return raw.lowercase(Locale(subtype.primaryLocale.language))
     }
 
     /**

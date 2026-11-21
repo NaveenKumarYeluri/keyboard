@@ -75,6 +75,8 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
 
     // Romanized aliases for the Telugu phonetic layout: raw Latin word -> canonical Telugu word.
     private val aliasDictionaries = ConcurrentHashMap<String, Map<String, String>>()
+    // Reverse index used to check whether a context candidate matches the raw word being typed.
+    private val aliasesByWord = ConcurrentHashMap<String, Map<String, List<String>>>()
     private val aliasDataSerializer = MapSerializer(String.serializer(), String.serializer())
 
     override val providerId = ProviderId
@@ -116,6 +118,29 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
 
     private fun getAliases(language: String): Map<String, String> {
         return aliasDictionaries.computeIfAbsent(language) { loadAliases(it) }
+    }
+
+    /**
+     * Checks whether [word] is a plausible completion of the raw [input]. Direct prefix matches
+     * cover native Telugu; alias matches cover the phonetic layout, where the user types Latin but
+     * the suggestion candidate is Telugu. The AI provider uses this to avoid injecting contextually
+     * likely words that have nothing to do with the current keystrokes.
+     */
+    fun isCandidateRelevantForInput(locale: FlorisLocale, word: String, input: String): Boolean {
+        val typed = input.lowercase(locale)
+        if (typed.isEmpty()) return false
+        if (word.startsWith(typed)) return true
+        if (!typed.all { it in 'a'..'z' || it == '\'' }) return false
+
+        val byWord = aliasesByWord.computeIfAbsent(locale.language) { language ->
+            getAliases(language).entries.groupBy({ it.value }) { it.key }
+        }
+        for (alias in byWord[word].orEmpty()) {
+            if (alias.startsWith(typed) || typed.startsWith(alias)) return true
+            val sharedPrefix = alias.zip(typed).takeWhile { (a, b) -> a == b }.size
+            if (sharedPrefix >= 6) return true
+        }
+        return false
     }
 
     override suspend fun preload(subtype: Subtype) = withContext(Dispatchers.IO) {
