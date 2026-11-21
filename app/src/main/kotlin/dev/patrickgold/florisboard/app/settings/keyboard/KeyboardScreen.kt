@@ -88,7 +88,7 @@ fun KeyboardScreen() {
     ) { contentPadding ->
         ScrollableScreenColumn(contentPadding) {
             SegmentedListColumn {
-                val count = 8
+                val count = 9
                 SwitchPreference(
                     prefs.keyboard.numberRow,
                     shapes = ListItemDefaults.segmentedShapes(0, count),
@@ -155,10 +155,19 @@ fun KeyboardScreen() {
                     title = stringRes(R.string.pref__keyboard__incognito_indicator__label),
                     entries = enumDisplayEntriesOf(IncognitoDisplayMode::class),
                 )
+                DialogSliderPreference(
+                    primaryPref = prefs.keyboard.floatingKeyboardOpacity,
+                    shapes = ListItemDefaults.segmentedShapes(8, count),
+                    title = stringRes(R.string.pref__keyboard__floating_keyboard_opacity__label),
+                    valueLabel = { stringRes(R.string.unit__percent__symbol, "v" to it) },
+                    min = 25,
+                    max = 100,
+                    stepIncrement = 5,
+                )
             }
 
             SegmentedListColumn(title = stringRes(R.string.pref__keyboard__group_keypress__label)) {
-                val count = 3
+                val count = 2
                 Preference(
                     shapes = ListItemDefaults.segmentedShapes(0, count),
                     title = stringRes(R.string.settings__input_feedback__title),
@@ -169,12 +178,6 @@ fun KeyboardScreen() {
                     shapes = ListItemDefaults.segmentedShapes(1, count),
                     title = stringRes(R.string.pref__keyboard__popup_enabled__label),
                     summary = stringRes(R.string.pref__keyboard__popup_enabled__summary),
-                )
-                SwitchPreference(
-                    prefs.keyboard.spaceBarSwitchesToCharacters,
-                    shapes = ListItemDefaults.segmentedShapes(2, count),
-                    title = stringRes(R.string.pref__keyboard__space_bar_switches_to_characters__label),
-                    summary = stringRes(R.string.pref__keyboard__space_bar_switches_to_characters__summary),
                 )
             }
 

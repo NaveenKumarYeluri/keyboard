@@ -38,7 +38,6 @@ import dev.patrickgold.florisboard.ime.dictionary.FlorisUserDictionaryDatabase
 import dev.patrickgold.florisboard.ime.keyboard3.interaction.LocalInteractionController
 import dev.patrickgold.florisboard.ime.keyboard3.interaction.showLongToast
 import dev.patrickgold.florisboard.ime.smartbar.quickaction.QuickActionArrangement
-import dev.patrickgold.jetpref.datastore.model.collectAsState
 import dev.patrickgold.jetpref.datastore.ui.Preference
 import dev.patrickgold.jetpref.datastore.ui.SwitchPreference
 import kotlinx.coroutines.launch
@@ -75,7 +74,7 @@ fun DevtoolsScreen() {
             )
 
             SegmentedListColumn(title = stringRes(R.string.devtools__title)) {
-                val count = 13
+                val count = 12
                 SwitchPreference(
                     prefs.devtools.showPrimaryClip,
                     shapes = ListItemDefaults.segmentedShapes(0, count),
@@ -161,16 +160,8 @@ fun DevtoolsScreen() {
                     enabledIf = { prefs.devtools.enabled isEqualTo true },
                 )
                 SwitchPreference(
-                    prefs.glide.enabled,
-                    shapes = ListItemDefaults.segmentedShapes(11, count),
-                    title = "prefs.glide.enabled (debug)",
-                    summaryOn = "This impacts your performance and may trigger the all keys invisible bug!",
-                    summaryOff = "Recommended to keep this off!",
-                    enabledIf = { prefs.devtools.enabled isEqualTo true },
-                )
-                SwitchPreference(
                     prefs.emoji.experimentalEmojiSearchEnabled,
-                    shapes = ListItemDefaults.segmentedShapes(12, count),
+                    shapes = ListItemDefaults.segmentedShapes(11, count),
                     title = "prefs.emoji.experimentalEmojiSearchEnabled",
                     summary = "Enables the technical PoC UI of emoji search. No proper UX yet!",
                     enabledIf = { prefs.devtools.enabled isEqualTo true },
@@ -248,31 +239,6 @@ fun DevtoolsScreen() {
                     shapes = ListItemDefaults.segmentedShapes(3, count),
                     title = stringRes(R.string.devtools__android_locales__title),
                     enabledIf = { prefs.devtools.enabled isEqualTo true },
-                )
-            }
-
-            SegmentedListColumn(title = "prefs.internal.version*") {
-                val count = 3
-                val versionOnInstall by noBackupPrefs.versionOnInstall.collectAsState()
-                Preference(
-                    onClick = {},
-                    shapes = ListItemDefaults.segmentedShapes(0, count),
-                    title = "prefs.internal.versionOnInstall",
-                    summary = versionOnInstall,
-                )
-                val versionLastUse by noBackupPrefs.versionLastUse.collectAsState()
-                Preference(
-                    onClick = {},
-                    shapes = ListItemDefaults.segmentedShapes(1, count),
-                    title = "prefs.internal.versionLastUse",
-                    summary = versionLastUse,
-                )
-                val versionLastChangelog by noBackupPrefs.versionLastChangelog.collectAsState()
-                Preference(
-                    onClick = {},
-                    shapes = ListItemDefaults.segmentedShapes(2, count),
-                    title = "prefs.internal.versionLastChangelog",
-                    summary = versionLastChangelog,
                 )
             }
         }

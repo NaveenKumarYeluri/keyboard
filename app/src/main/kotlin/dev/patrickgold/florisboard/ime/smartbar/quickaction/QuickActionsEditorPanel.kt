@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.safeDrawingPadding
@@ -33,6 +34,8 @@ import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
@@ -141,6 +144,40 @@ fun QuickActionsEditorPanel() {
             dynamicActions.add(NoopAction)
         }
         hiddenActions.remove(DragMarkerAction)
+        if (hiddenActions.isEmpty()) {
+            hiddenActions.add(NoopAction)
+        }
+    }
+
+    fun isEditableAction(action: QuickAction): Boolean {
+        return action != NoopAction && action != DragMarkerAction
+    }
+
+    fun hideAction(action: QuickAction) {
+        if (!isEditableAction(action)) return
+        if (stickyAction == action) {
+            stickyAction = NoopAction
+        } else {
+            dynamicActions.remove(action)
+        }
+        hiddenActions.remove(NoopAction)
+        hiddenActions.remove(DragMarkerAction)
+        if (!hiddenActions.contains(action)) {
+            hiddenActions.add(0, action)
+        }
+        if (dynamicActions.isEmpty()) {
+            dynamicActions.add(NoopAction)
+        }
+    }
+
+    fun showAction(action: QuickAction) {
+        if (!isEditableAction(action)) return
+        hiddenActions.remove(action)
+        dynamicActions.remove(NoopAction)
+        dynamicActions.remove(DragMarkerAction)
+        if (!dynamicActions.contains(action)) {
+            dynamicActions.add(action)
+        }
         if (hiddenActions.isEmpty()) {
             hiddenActions.add(NoopAction)
         }
@@ -295,11 +332,20 @@ fun QuickActionsEditorPanel() {
                     )
                 }
                 item(key = keyOf(stickyAction)) {
-                    QuickActionButton(
-                        modifier = Modifier.animateItem(),
-                        action = stickyAction,
-                        type = QuickActionBarType.EDITOR_TILE,
-                    )
+                    if (isEditableAction(stickyAction)) {
+                        EditorActionTile(
+                            modifier = Modifier.animateItem(),
+                            action = stickyAction,
+                            hidden = false,
+                            onToggleHidden = { hideAction(stickyAction) },
+                        )
+                    } else {
+                        QuickActionButton(
+                            modifier = Modifier.animateItem(),
+                            action = stickyAction,
+                            type = QuickActionBarType.EDITOR_TILE,
+                        )
+                    }
                 }
                 item(span = { GridItemSpan(maxLineSpan) }) {
                     val n = dynamicActions.count { it != NoopAction }
@@ -308,11 +354,20 @@ fun QuickActionsEditorPanel() {
                     )
                 }
                 itemsIndexed(dynamicActions, key = { i, a -> keyOf(a) ?: i }) { _, action ->
-                    QuickActionButton(
-                        modifier = Modifier.animateItem(),
-                        action = action,
-                        type = QuickActionBarType.EDITOR_TILE,
-                    )
+                    if (isEditableAction(action)) {
+                        EditorActionTile(
+                            modifier = Modifier.animateItem(),
+                            action = action,
+                            hidden = false,
+                            onToggleHidden = { hideAction(action) },
+                        )
+                    } else {
+                        QuickActionButton(
+                            modifier = Modifier.animateItem(),
+                            action = action,
+                            type = QuickActionBarType.EDITOR_TILE,
+                        )
+                    }
                 }
                 item(span = { GridItemSpan(maxLineSpan) }) {
                     val n = hiddenActions.count { it != NoopAction }
@@ -321,11 +376,20 @@ fun QuickActionsEditorPanel() {
                     )
                 }
                 itemsIndexed(hiddenActions, key = { i, a -> keyOf(a) ?: i }) { _, action ->
-                    QuickActionButton(
-                        modifier = Modifier.animateItem(),
-                        action = action,
-                        type = QuickActionBarType.EDITOR_TILE,
-                    )
+                    if (isEditableAction(action)) {
+                        EditorActionTile(
+                            modifier = Modifier.animateItem(),
+                            action = action,
+                            hidden = true,
+                            onToggleHidden = { showAction(action) },
+                        )
+                    } else {
+                        QuickActionButton(
+                            modifier = Modifier.animateItem(),
+                            action = action,
+                            type = QuickActionBarType.EDITOR_TILE,
+                        )
+                    }
                 }
             }
             if (activeDragAction != null) {
@@ -341,6 +405,37 @@ fun QuickActionsEditorPanel() {
                     type = QuickActionBarType.EDITOR_TILE,
                 )
             }
+        }
+    }
+}
+
+@Composable
+private fun EditorActionTile(
+    action: QuickAction,
+    hidden: Boolean,
+    onToggleHidden: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Box(modifier = modifier.aspectRatio(1f)) {
+        QuickActionButton(
+            action = action,
+            modifier = Modifier.fillMaxSize(),
+            type = QuickActionBarType.EDITOR_TILE,
+        )
+        SnyggIconButton(
+            elementName = FlorisImeUi.SmartbarActionsEditorHeaderButton.elementName,
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .size(24.dp),
+            onClick = onToggleHidden,
+        ) {
+            SnyggIcon(
+                imageVector = if (hidden) Icons.Default.Visibility else Icons.Default.VisibilityOff,
+                contentDescription = stringRes(
+                    if (hidden) R.string.quick_actions_editor__show_action
+                    else R.string.quick_actions_editor__hide_action,
+                ),
+            )
         }
     }
 }

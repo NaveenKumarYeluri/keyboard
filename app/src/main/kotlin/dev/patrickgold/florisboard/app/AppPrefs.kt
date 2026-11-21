@@ -424,6 +424,10 @@ abstract class FlorisPreferenceModel : PreferenceModel() {
             default = emptyMap(),
             serializer = ImeWindowConfig.ByTypeSerializer,
         )
+        val floatingKeyboardOpacity = int(
+            key = "keyboard__floating_keyboard_opacity",
+            default = 100,
+        )
         val numberRow = boolean(
             key = "keyboard__number_row",
             default = false,

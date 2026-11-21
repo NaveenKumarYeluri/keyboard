@@ -65,7 +65,8 @@ fun OtherScreen() {
     ) { contentPadding ->
         ScrollableScreenColumn(contentPadding) {
             SegmentedListColumn {
-                val count = 6
+                val showAppIconSetting = AndroidVersion.ATMOST_API28_P
+                val count = if (showAppIconSetting) 6 else 5
                 ListPreference(
                     prefs.other.settingsTheme,
                     shapes = ListItemDefaults.segmentedShapes(0, count),
@@ -157,25 +158,23 @@ fun OtherScreen() {
                         }
                     },
                 )
-                SwitchPreference(
-                    prefs.other.showAppIcon,
-                    shapes = ListItemDefaults.segmentedShapes(3, count),
-                    icon = Icons.Default.Preview,
-                    title = stringRes(R.string.pref__other__show_app_icon__label),
-                    summary = when {
-                        AndroidVersion.ATLEAST_API29_Q -> stringRes(R.string.pref__other__show_app_icon__summary_atleast_q)
-                        else -> null
-                    },
-                    enabledIf = { AndroidVersion.ATMOST_API28_P },
-                )
+                if (showAppIconSetting) {
+                    SwitchPreference(
+                        prefs.other.showAppIcon,
+                        shapes = ListItemDefaults.segmentedShapes(3, count),
+                        icon = Icons.Default.Preview,
+                        title = stringRes(R.string.pref__other__show_app_icon__label),
+                        enabledIf = { AndroidVersion.ATMOST_API28_P },
+                    )
+                }
                 Preference(
-                    shapes = ListItemDefaults.segmentedShapes(4, count),
+                    shapes = ListItemDefaults.segmentedShapes(if (showAppIconSetting) 4 else 3, count),
                     icon = ImageVector.vectorResource(R.drawable.ic_keyboard_keys),
                     title = stringRes(R.string.physical_keyboard__title),
                     onClick = { navController.navigate(Routes.Settings.PhysicalKeyboard) },
                 )
                 Preference(
-                    shapes = ListItemDefaults.segmentedShapes(5, count),
+                    shapes = ListItemDefaults.segmentedShapes(if (showAppIconSetting) 5 else 4, count),
                     icon = Icons.Default.Adb,
                     title = stringRes(R.string.devtools__title),
                     onClick = { navController.navigate(Routes.Devtools.Home) },

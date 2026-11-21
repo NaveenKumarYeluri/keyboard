@@ -56,6 +56,7 @@ import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.roundToIntRect
 import dev.patrickgold.florisboard.R
+import dev.patrickgold.florisboard.app.FlorisPreferenceStore
 import dev.patrickgold.florisboard.app.devtools.DevtoolsOverlay
 import dev.patrickgold.florisboard.ime.ImeUiMode
 import dev.patrickgold.florisboard.ime.clipboard.ClipboardInputLayout
@@ -68,6 +69,7 @@ import dev.patrickgold.florisboard.ime.sheet.BottomSheetWindow
 import dev.patrickgold.florisboard.ime.text.TextInputLayout
 import dev.patrickgold.florisboard.ime.theme.FlorisImeUi
 import dev.patrickgold.florisboard.ime.theme.ImeUiAttrs
+import dev.patrickgold.jetpref.datastore.model.collectAsState
 import kotlinx.coroutines.delay
 import org.florisboard.lib.compose.ProvideActualLayoutDirection
 import org.florisboard.lib.compose.conditional
@@ -144,9 +146,12 @@ fun ImeRootWindow() {
 fun BoxScope.ImeWindow() {
     val density = LocalDensity.current
     val windowController = LocalWindowController.current
+    val prefs by FlorisPreferenceStore
 
     val windowSpec by windowController.activeWindowSpec.collectAsState()
     val windowConfig by windowController.activeWindowConfig.collectAsState()
+    val floatingOpacity by prefs.keyboard.floatingKeyboardOpacity.collectAsState()
+    val backgroundAlpha = if (windowSpec is ImeWindowSpec.Floating) floatingOpacity / 100f else 1f
 
     val attributes = remember(windowConfig.mode) {
         mapOf(
@@ -178,6 +183,7 @@ fun BoxScope.ImeWindow() {
             },
         supportsBackgroundImage = true,
         allowClip = false,
+        backgroundAlpha = backgroundAlpha,
     ) {
         OneHandedPanel()
         ProvideKeyboardRowBaseHeight {

@@ -25,7 +25,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.LibraryBooks
 import androidx.compose.material.icons.filled.Code
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
@@ -289,7 +288,7 @@ fun ExtensionEditScreen(extensionId: String?, type: ExtensionType) {
         ) { contentPadding ->
             ScrollableScreenColumn(contentPadding) {
                 SegmentedListColumn {
-                    val count = 3
+                    val count = 2
                     SegmentedListItem(
                         onClick = { editorAction = EditorAction.ManageMetaData },
                         shapes = ListItemDefaults.segmentedShapes(0, count),
@@ -297,14 +296,8 @@ fun ExtensionEditScreen(extensionId: String?, type: ExtensionType) {
                         content = { Text(stringRes(R.string.ext__editor__metadata__title)) },
                     )
                     SegmentedListItem(
-                        onClick = { editorAction = EditorAction.ManageDependencies },
-                        shapes = ListItemDefaults.segmentedShapes(1, count),
-                        leadingContent = { Icon(Icons.AutoMirrored.Outlined.LibraryBooks, null) },
-                        content = { Text(stringRes(R.string.ext__editor__dependencies__title)) },
-                    )
-                    SegmentedListItem(
                         onClick = { editorAction = EditorAction.ManageFiles },
-                        shapes = ListItemDefaults.segmentedShapes(2, count),
+                        shapes = ListItemDefaults.segmentedShapes(1, count),
                         leadingContent = { Icon(ImageVector.vectorResource(R.drawable.ic_file_blank), null) },
                         content = { Text(stringRes(R.string.ext__editor__files__title)) },
                     )
@@ -363,18 +356,6 @@ fun ExtensionEditScreen(extensionId: String?, type: ExtensionType) {
                             isCreateExt = isCreateExt,
                             onConfirm = { newMeta ->
                                 editorState = state.copy(meta = newMeta)
-                                editorAction = EditorAction.None
-                            },
-                            onDismiss = {
-                                editorAction = EditorAction.None
-                            },
-                        )
-                    }
-                    is EditorAction.ManageDependencies -> {
-                        ExtensionEditDependenciesOverlay(
-                            dependencies = state.dependencies,
-                            onConfirm = { newDependencies ->
-                                editorState = state.copy(dependencies = newDependencies)
                                 editorAction = EditorAction.None
                             },
                             onDismiss = {

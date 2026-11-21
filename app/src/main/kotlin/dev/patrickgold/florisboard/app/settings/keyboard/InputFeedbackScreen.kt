@@ -39,7 +39,7 @@ fun InputFeedbackScreen() {
     ) { contentPadding ->
         ScrollableScreenColumn(contentPadding) {
             SegmentedListColumn(title = stringRes(R.string.pref__input_feedback__group_audio__label)) {
-                val count = 7
+                val count = 6
                 SwitchPreference(
                     prefs.inputFeedback.audioEnabled,
                     shapes = ListItemDefaults.segmentedShapes(0, count),
@@ -82,20 +82,13 @@ fun InputFeedbackScreen() {
                     prefs.inputFeedback.audioFeatGestureSwipe,
                     shapes = ListItemDefaults.segmentedShapes(5, count),
                     title = stringRes(R.string.pref__input_feedback__audio_feat_gesture_swipe__label),
-                    summary = stringRes(R.string.pref__input_feedback__any_feat_gesture_swipe__summary),
-                    enabledIf = { prefs.inputFeedback.audioEnabled isEqualTo true },
-                )
-                SwitchPreference(
-                    prefs.inputFeedback.audioFeatGestureMovingSwipe,
-                    shapes = ListItemDefaults.segmentedShapes(6, count),
-                    title = stringRes(R.string.pref__input_feedback__audio_feat_gesture_moving_swipe__label),
-                    summary = stringRes(R.string.pref__input_feedback__audio_feat_gesture_moving_swipe__label),
+                    summary = stringRes(R.string.pref__input_feedback__audio_feat_gesture_swipe__summary),
                     enabledIf = { prefs.inputFeedback.audioEnabled isEqualTo true },
                 )
             }
 
             SegmentedListColumn(title = stringRes(R.string.pref__input_feedback__group_haptic__label)) {
-                val count = 6
+                val count = 4
                 SwitchPreference(
                     prefs.inputFeedback.hapticEnabled,
                     shapes = ListItemDefaults.segmentedShapes(0, count),
@@ -122,20 +115,6 @@ fun InputFeedbackScreen() {
                     shapes = ListItemDefaults.segmentedShapes(3, count),
                     title = stringRes(R.string.pref__input_feedback__haptic_feat_key_repeated_action__label),
                     summary = stringRes(R.string.pref__input_feedback__any_feat_key_repeated_action__summary),
-                    enabledIf = { prefs.inputFeedback.hapticEnabled isEqualTo true },
-                )
-                SwitchPreference(
-                    prefs.inputFeedback.hapticFeatGestureSwipe,
-                    shapes = ListItemDefaults.segmentedShapes(4, count),
-                    title = stringRes(R.string.pref__input_feedback__haptic_feat_gesture_swipe__label),
-                    summary = stringRes(R.string.pref__input_feedback__any_feat_gesture_swipe__summary),
-                    enabledIf = { prefs.inputFeedback.hapticEnabled isEqualTo true },
-                )
-                SwitchPreference(
-                    prefs.inputFeedback.hapticFeatGestureMovingSwipe,
-                    shapes = ListItemDefaults.segmentedShapes(5, count),
-                    title = stringRes(R.string.pref__input_feedback__haptic_feat_gesture_moving_swipe__label),
-                    summary = stringRes(R.string.pref__input_feedback__audio_feat_gesture_moving_swipe__label),
                     enabledIf = { prefs.inputFeedback.hapticEnabled isEqualTo true },
                 )
             }

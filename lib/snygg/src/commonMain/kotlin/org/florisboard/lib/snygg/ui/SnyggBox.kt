@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -47,6 +48,7 @@ import org.florisboard.lib.snygg.SnyggStylesheet
  * @param supportsBackgroundImage controls if this Box supports background images.
  * @param backgroundImageDescription The content description of the background image.
  * @param allowClip If clipping should be allowed on this box.
+ * @param backgroundAlpha Alpha multiplier applied only to the resolved background color or image.
  * @param content The content of the Box
  *
  * @since 0.5.0-alpha01
@@ -65,6 +67,7 @@ fun SnyggBox(
     supportsBackgroundImage: Boolean = false,
     backgroundImageDescription: String? = null,
     allowClip: Boolean = true,
+    backgroundAlpha: Float = 1f,
     content: @Composable BoxScope.() -> Unit,
 ) {
     ProvideSnyggStyle(elementName, attributes, selector) { style ->
@@ -82,7 +85,7 @@ fun SnyggBox(
                 .snyggMargin(style)
                 .snyggShadow(style)
                 .snyggBorder(style)
-                .snyggBackground(style, allowClip = allowClip)
+                .snyggBackground(style, allowClip = allowClip, backgroundAlpha = backgroundAlpha)
                 .then(clickAndSemanticsModifier)
                 .snyggPadding(style),
             contentAlignment = contentAlignment,
@@ -92,7 +95,8 @@ fun SnyggBox(
                 AsyncImage(
                     modifier = Modifier
                         .matchParentSize()
-                        .clip(style.shape()),
+                        .clip(style.shape())
+                        .graphicsLayer { alpha = backgroundAlpha },
                     // https://github.com/coil-kt/coil/issues/159
                     model = rememberImageRequest(imagePath),
                     contentScale = style.contentScale(),

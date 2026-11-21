@@ -54,7 +54,7 @@ fun PhysicalKeyboardScreen() {
     ) { contentPadding ->
         ScrollableScreenColumn(contentPadding) {
             SegmentedListColumn {
-                val count = 2
+                val count = if (physicalKeyboardAttached) 2 else 1
                 if (physicalKeyboardAttached) {
                     Preference(
                         shapes = ListItemDefaults.segmentedShapes(0, count),
@@ -64,17 +64,10 @@ fun PhysicalKeyboardScreen() {
                             activityForResult.launch(Intent(Settings.ACTION_HARD_KEYBOARD_SETTINGS))
                         }
                     )
-                } else {
-                    Preference(
-                        onClick = {},
-                        shapes = ListItemDefaults.segmentedShapes(0, count),
-                        title = stringRes(R.string.physical_keyboard__system_settings__title),
-                        summary = stringRes(R.string.physical_keyboard__system_settings__summary_not_attached),
-                    )
                 }
                 SwitchPreference(
                     pref = prefs.physicalKeyboard.showOnScreenKeyboard,
-                    shapes = ListItemDefaults.segmentedShapes(1, count),
+                    shapes = ListItemDefaults.segmentedShapes(if (physicalKeyboardAttached) 1 else 0, count),
                     title = stringRes(R.string.physical_keyboard__show_on_screen_keyboard__title),
                     summary = stringRes(R.string.physical_keyboard__show_on_screen_keyboard__summary),
                 )
