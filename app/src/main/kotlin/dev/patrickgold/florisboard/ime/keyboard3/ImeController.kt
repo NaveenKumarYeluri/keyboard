@@ -851,20 +851,38 @@ class ImeController(
         }
 
         fun emitCompletion(candidate: SuggestionCandidate): Boolean {
-            clearPhoneticBuffer()
             val text = candidate.text.toString()
             if (text.isEmpty() || state.editor.info.isRawInputEditor) return false
             val content = state.content
             val composition = content.composition
             val compositionText = content.compositionText
+            val hasComposition = composition != null && compositionText != null && composition.min < content.selection.min
+            // Some editors (browser search fields, launcher search, etc.) disable composing. The
+            // suggestion engine still derives the current word from the surrounding text, so remove
+            // that same word here before committing; otherwise "compl" + "complete" becomes
+            // "complcomplete". In phonetic mode the editor holds the transliterated word, not the
+            // raw Latin buffer, so use the tracked phonetic output as the word to replace.
+            if (!hasComposition) {
+                val currentWord = if (isTeluguPhonetic && phoneticOutput.isNotEmpty()) {
+                    phoneticOutput
+                } else {
+                    content.surroundingText.textBefore.takeLastWhile { it.isLetterOrDigit() || it == '\'' }
+                }
+                repeat(currentWord.codePointCount(0, currentWord.length)) {
+                    super.emitBackspace()
+                    expectedContentQueue.push(state.content.selection)
+                }
+                reevaluateInputShiftState()
+            }
+            clearPhoneticBuffer()
             // Optionally commit a trailing space together with the picked word (like most keyboards do).
             // Skipped when the character right after the cursor is already whitespace.
             val autoSpace = prefs.suggestion.autoSpaceAfterSuggestionPick.get() &&
                 content.surroundingText.textAfter.firstOrNull()?.isWhitespace() != true
-            return if (composition != null && compositionText != null && composition.min < content.selection.min) {
+            return if (hasComposition) {
                 // Replace the currently composed word with the candidate text. This mirrors the logic of
                 // `emitText`, but removes the composed word from the tracked input context first.
-                val tail = compositionText.asK3String().normalize(NormalizationForm.NFD)
+                val tail = compositionText!!.asK3String().normalize(NormalizationForm.NFD)
                 val headLength = (content.inputContext.length - tail.length).coerceAtLeast(0)
                 val newInputContext = buildK3String {
                     append(content.inputContext.slice(0..<headLength))
@@ -892,8 +910,11 @@ class ImeController(
                 }
                 true
             } else {
-                // No composition region present: simply commit the candidate text at the cursor position.
-                emitText(if (autoSpace) "${text} ".asK3String() else text.asK3String())
+                // The current word is already gone; commit the candidate directly through the base
+                // implementation so a single-letter candidate is not mistaken for phonetic input.
+                super.emitText(if (autoSpace) "${text} ".asK3String() else text.asK3String())
+                expectedContentQueue.push(state.content.selection)
+                reevaluateInputShiftState()
                 true
             }
         }
