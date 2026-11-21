@@ -6,13 +6,12 @@ on:
   workflow_dispatch:
 
 env:
-  # Fallback signing credentials for the auto-generated personal keystore.
-  # If you prefer to manage your own signing key, add the following repository secrets
-  # (see README.md, section "Signing") and this workflow will use them instead:
-  #   SIGNING_KEYSTORE_BASE64, SIGNING_KEYSTORE_PASSWORD, SIGNING_KEY_ALIAS, SIGNING_KEY_PASSWORD
+  # The cached key is the canonical signing key for this project. Do not replace it unless you
+  # are willing to uninstall the installed app once (Android forbids signature changes).
   FALLBACK_KEYSTORE_PASSWORD: personal-keystore
   FALLBACK_KEY_ALIAS: personal
   FALLBACK_KEY_PASSWORD: personal-keystore
+  SIGNING_KEYSTORE_CACHE_KEY: personal-signing-keystore-v1
 
 jobs:
   build:
@@ -32,42 +31,28 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v6
 
-      - name: Determine signing source
-        id: signing
-        run: |
-          if [ -n "$SIGNING_KEYSTORE_BASE64" ]; then
-            echo "use-secrets=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "use-secrets=false" >> "$GITHUB_OUTPUT"
-          fi
-        env:
-          SIGNING_KEYSTORE_BASE64: ${{ secrets.SIGNING_KEYSTORE_BASE64 }}
-
-      - name: Decode signing keystore from secrets (if provided)
-        if: ${{ steps.signing.outputs.use-secrets == 'true' }}
-        run: |
-          mkdir -p signing
-          echo "${{ secrets.SIGNING_KEYSTORE_BASE64 }}" | base64 --decode > signing/app.keystore
-
-      - name: Restore auto-generated signing keystore
-        if: ${{ steps.signing.outputs.use-secrets != 'true' }}
+      - name: Restore canonical signing keystore
         id: keystore-cache
         uses: actions/cache@v6
         with:
           path: signing/app.keystore
-          key: personal-signing-keystore-v1
+          key: ${{ env.SIGNING_KEYSTORE_CACHE_KEY }}
 
-      - name: Generate signing keystore (first run only)
-        if: ${{ steps.signing.outputs.use-secrets != 'true' && steps.keystore-cache.outputs.cache-hit != 'true' }}
+      - name: Fail if canonical signing keystore is missing
+        if: ${{ steps.keystore-cache.outputs.cache-hit != 'true' }}
         run: |
-          mkdir -p signing
-          keytool -genkeypair -v \
+          echo "::error::Missing cached signing keystore '${SIGNING_KEYSTORE_CACHE_KEY}'."
+          echo "::error::Do not generate a replacement key: installed APKs would get a signature mismatch."
+          echo "::error::Restore the original Actions cache or provide the original keystore before rebuilding."
+          exit 1
+
+      - name: Show signing certificate fingerprint
+        run: |
+          keytool -list -v \
             -keystore signing/app.keystore \
-            -alias "$FALLBACK_KEY_ALIAS" \
-            -keyalg RSA -keysize 4096 -validity 10950 \
+            -storetype PKCS12 \
             -storepass "$FALLBACK_KEYSTORE_PASSWORD" \
-            -keypass "$FALLBACK_KEY_PASSWORD" \
-            -dname "CN=Personal Keyboard"
+            -alias "$FALLBACK_KEY_ALIAS" | grep "SHA256:"
 
       - name: Build release APK
         run: ./gradlew assembleRelease --stacktrace --warning-mode=all
@@ -75,9 +60,9 @@ jobs:
           # Absolute path: the Gradle signing config resolves relative paths against the
           # app module directory, not the repo root.
           FL_SIGNING_STORE_FILE: ${{ github.workspace }}/signing/app.keystore
-          FL_SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_KEYSTORE_PASSWORD || env.FALLBACK_KEYSTORE_PASSWORD }}
-          FL_SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS || env.FALLBACK_KEY_ALIAS }}
-          FL_SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD || env.FALLBACK_KEY_PASSWORD }}
+          FL_SIGNING_STORE_PASSWORD: ${{ env.FALLBACK_KEYSTORE_PASSWORD }}
+          FL_SIGNING_KEY_ALIAS: ${{ env.FALLBACK_KEY_ALIAS }}
+          FL_SIGNING_KEY_PASSWORD: ${{ env.FALLBACK_KEY_PASSWORD }}
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v7

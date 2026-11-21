@@ -78,20 +78,15 @@ Builds run on **GitHub Actions**; nothing needs to be installed locally.
 
 ### Signing
 
-By default, the workflow generates a 4096-bit RSA keystore on its first run, caches it
-between runs, and signs releases with it. To use your own keystore instead, set these
-repository secrets — they take precedence:
+The workflow restores a fixed Actions cache entry named `personal-signing-keystore-v1` and
+signs every release artifact with that key (alias `personal`). Repository signing secrets are
+intentionally not used: switching between the cached key and a different secret would change
+the APK signature and Android would refuse to update the installed app.
 
-| Secret | Description |
-|---|---|
-| `SIGNING_KEYSTORE_BASE64` | Base64-encoded `.keystore`/`.jks` file |
-| `SIGNING_KEYSTORE_PASSWORD` | Keystore password |
-| `SIGNING_KEY_ALIAS` | Key alias |
-| `SIGNING_KEY_PASSWORD` | Key password |
-
-> If the auto-generated keystore cache is ever lost, a *new* key is generated and installed
-> APKs will need to be uninstalled and reinstalled (Android treats it as a different
-> signature). Using the secrets above avoids this.
+If that cache entry is missing, the build fails instead of generating a replacement key. A
+replacement key would require uninstalling the app once and losing its local settings. The
+workflow log prints the signing certificate's SHA-256 fingerprint so the key can be verified
+between builds.
 
 ## Installing
 
