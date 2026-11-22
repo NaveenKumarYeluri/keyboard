@@ -17,9 +17,12 @@
 package dev.patrickgold.florisboard.ime.keyboard3.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -29,6 +32,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
+import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
@@ -156,6 +160,10 @@ fun ImeKeyboardBox(
         val trackedOutputPointer by pointerTracker.trackedOutputPointer.collectAsState()
         val trackedPeekPointer by pointerTracker.trackedPeekPointer.collectAsState()
         val trackedMultiTapSeq by pointerTracker.trackedMultiTapSeq.collectAsState()
+        val glideTrailPoints by pointerTracker.glideTrailPoints.collectAsState()
+        val glidePreview by pointerTracker.glidePreview.collectAsState()
+        val showGlideTrail by prefs.glide.showTrail.collectAsState()
+        val showGlidePreview by prefs.glide.showPreview.collectAsState()
 
         val keyboardRowHeightDp = FlorisImeSizing.keyboardRowBaseHeight
         val peekLineWidthPx = with(density) { 8.dp.toPx() }
@@ -183,6 +191,19 @@ fun ImeKeyboardBox(
                                 start = peekLine.start,
                                 end = peekLine.end,
                                 strokeWidth = peekLineWidthPx,
+                                cap = StrokeCap.Round,
+                            )
+                        }
+                    }
+                    if (showGlideTrail && glideTrailPoints.size >= 2) {
+                        val trailColor = Color(0x88FFFFFF)
+                        val trailWidth = with(density) { 6.dp.toPx() }
+                        for (i in 1 until glideTrailPoints.size) {
+                            drawLine(
+                                color = trailColor,
+                                start = glideTrailPoints[i - 1].position,
+                                end = glideTrailPoints[i].position,
+                                strokeWidth = trailWidth,
                                 cap = StrokeCap.Round,
                             )
                         }
@@ -247,6 +268,27 @@ fun ImeKeyboardBox(
                                     style = Stroke(width = 1.dp.toPx()),
                                 )
                             }
+                    )
+                }
+            }
+        }
+        if (showGlidePreview && glidePreview.isNotEmpty()) {
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .offset(y = (-40).dp),
+                contentAlignment = Alignment.TopCenter,
+            ) {
+                Box(
+                    modifier = Modifier
+                        .background(color = Color(0xCC000000), shape = RoundedCornerShape(8.dp))
+                        .padding(horizontal = 10.dp, vertical = 2.dp),
+                ) {
+                    Text(
+                        text = glidePreview,
+                        color = Color.White,
+                        fontSize = 18.sp,
+                        maxLines = 1,
                     )
                 }
             }

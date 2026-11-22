@@ -119,6 +119,13 @@ class ImeController(
     private var phoneticOutput = ""
 
     /**
+     * Number of code points to delete on the next backspace right after a committed glide, when the
+     * "always delete word" preference is enabled. Zero means the shortcut is not armed.
+     */
+    @Volatile
+    private var glideBackspaceWordLength = 0
+
+    /**
      * SubtypeManager reads the preference datastore when it is constructed, so it must only be
      * created after [FlorisApplication.preferenceStoreLoaded] becomes true. Creating it eagerly
      * here crashed Application.onCreate before the datastore was ready.
@@ -286,6 +293,7 @@ class ImeController(
      */
     fun setActiveLayoutId(layoutId: String) {
         activeLayoutId = layoutId
+        glideBackspaceWordLength = 0
         clearPhoneticBuffer()
     }
 
@@ -338,12 +346,20 @@ class ImeController(
         val resolved = withContext(Dispatchers.Default) {
             nlpManager.glideCandidates(subtype, normalized, 3).firstOrNull()?.text?.toString()
         }
+        var committed = ""
         updateState {
-            if (resolved != null) {
+            committed = if (resolved != null) {
                 emitGlideText(resolved, transliterate = false)
             } else {
                 emitGlideText(normalized, transliterate = activeLayoutId == "telugu-phonetic")
             }
+        }
+        glideBackspaceWordLength = if (
+            committed.isNotEmpty() && prefs.glide.immediateBackspaceDeletesWord.get()
+        ) {
+            committed.codePointCount(0, committed.length)
+        } else {
+            0
         }
     }
 
@@ -354,6 +370,7 @@ class ImeController(
      * @param count How many units (characters, words, cursor steps) the action should apply.
      */
     suspend fun executeSwipeAction(action: SwipeAction, count: Int = 1) {
+        glideBackspaceWordLength = 0
         if (count <= 0) return
         when (action) {
             SwipeAction.NO_ACTION -> Unit
@@ -642,6 +659,7 @@ class ImeController(
         }
 
         override fun emitText(value: K3String) {
+            glideBackspaceWordLength = 0
             val text = value.toText()
             if (isTeluguPhonetic && text.length == 1 && text[0].let { it in 'a'..'z' || it in 'A'..'Z' }) {
                 val raw = phoneticLatin + text.lowercase()
@@ -660,6 +678,7 @@ class ImeController(
         }
 
         override fun emitDescriptor(descriptor: K3Descriptor) {
+            glideBackspaceWordLength = 0
             val windowController = FlorisImeService.windowControllerOrNull()
             when (descriptor) {
                 // TODO once k3lp supports this remove
@@ -771,6 +790,19 @@ class ImeController(
         }
 
         override fun emitBackspace() {
+            val glideWordLength = glideBackspaceWordLength
+            if (glideWordLength > 0) {
+                // "Pressing delete right after a glide deletes the whole word": consume the whole
+                // just-committed glide output in one go, then fall back to normal backspace behavior.
+                glideBackspaceWordLength = 0
+                clearPhoneticBuffer()
+                repeat(glideWordLength) {
+                    super.emitBackspace()
+                    expectedContentQueue.push(state.content.selection)
+                }
+                reevaluateInputShiftState()
+                return
+            }
             if (isTeluguPhonetic && phoneticLatin.isNotEmpty()) {
                 val raw = phoneticLatin.dropLast(1)
                 val output = TeluguPhoneticTransliterator.transliterate(raw)
@@ -786,6 +818,7 @@ class ImeController(
         }
 
         override fun emitEnter() {
+            glideBackspaceWordLength = 0
             val info = state.editor.info
             val isShiftPressed = false // TODO inputEventDispatcher.isPressed(KeyCode.SHIFT)
             if (info.imeOptions.flagNoEnterAction || info.inputAttributes.flagTextMultiLine && isShiftPressed) {
@@ -818,6 +851,7 @@ class ImeController(
         }
 
         fun emitForwardDelete() {
+            glideBackspaceWordLength = 0
             // TODO request additional text if too low on context length
             if (state.content.selection.isNotCollapsed()) {
                 emitBackspace()
@@ -841,6 +875,7 @@ class ImeController(
         }
 
         fun emitCandidate(candidate: SuggestionCandidate) {
+            glideBackspaceWordLength = 0
 //            scope.launch {
 //                candidate.sourceProvider?.notifySuggestionAccepted(subtypeManager.activeSubtype, candidate)
 //            }
@@ -873,14 +908,15 @@ class ImeController(
             }
         }
 
-        fun emitGlideText(text: String, transliterate: Boolean) {
-            if (text.isEmpty() || state.editor.info.isRawInputEditor) return
+        /** Returns the text actually committed, so the glide backspace shortcut can use its length. */
+        fun emitGlideText(text: String, transliterate: Boolean): String {
+            if (text.isEmpty() || state.editor.info.isRawInputEditor) return ""
             val output = if (transliterate) {
                 TeluguPhoneticTransliterator.transliterate(text)
             } else {
                 text
             }
-            if (output.isEmpty()) return
+            if (output.isEmpty()) return ""
             val autoSpace = prefs.suggestion.autoSpaceAfterSuggestionPick.get() &&
                 state.content.surroundingText.textAfter.firstOrNull()?.isWhitespace() != true
             val finalText = if (autoSpace) "$output " else output
@@ -894,6 +930,7 @@ class ImeController(
             } else {
                 emitText(finalText.asK3String())
             }
+            return finalText
         }
 
         fun emitCompletion(candidate: SuggestionCandidate): Boolean {

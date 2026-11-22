@@ -161,6 +161,12 @@ data class GlideSwipe(
     val active: Boolean = false,
 )
 
+/** A single sampled point of a glide trail, with the time it was recorded. */
+data class GlideTrailPoint(
+    val position: Offset,
+    val time: Long,
+)
+
 private fun SwipeAction.supportsDeleteSwipe(): Boolean = when (this) {
     SwipeAction.DELETE_CHARACTERS_PRECISELY,
     SwipeAction.SELECT_CHARACTERS_PRECISELY,
@@ -238,6 +244,14 @@ class PointerTracker(
     val trackedMultiTapSeq: StateFlow<TrackedMultiTapSeq?>
         field = MutableStateFlow(null)
 
+    /** Sampled glide trail points for the current or just-finished glide. */
+    val glideTrailPoints: StateFlow<List<GlideTrailPoint>>
+        field = MutableStateFlow(emptyList())
+
+    /** Current glide sequence shown as a preview while gliding. */
+    val glidePreview: StateFlow<String>
+        field = MutableStateFlow("")
+
     private var lastUpKeyState: LastUpKey? = null
 
     // Gesture state is intentionally not part of trackedOutputPointer: updating that StateFlow on
@@ -245,6 +259,11 @@ class PointerTracker(
     private var activeDeleteSwipe: DeleteSwipe? = null
     private var activeSpaceBarSwipe: SpaceBarSwipe? = null
     private var activeGlide: GlideSwipe? = null
+    private var lastGlidePreviewUpdateMs = 0L
+    private val trailClearHandler = android.os.Handler(android.os.Looper.getMainLooper())
+    private val trailClearRunnable = Runnable {
+        glideTrailPoints.value = emptyList()
+    }
 
     suspend fun mutateLocked(action: suspend PointerTracker.() -> Unit) {
         mutationGuard.withLock { action() }
@@ -333,13 +352,23 @@ class PointerTracker(
             } else {
                 null
             }
-            activeGlide = downKey.glideOutput()?.let { output ->
-                GlideSwipe(
-                    start = down.position,
-                    layerId = downLayerId,
-                    sequence = output,
-                    lastKey = downKey,
-                )
+            activeGlide = if (prefs.glide.enabled.get()) {
+                downKey.glideOutput()?.let { output ->
+                    GlideSwipe(
+                        start = down.position,
+                        layerId = downLayerId,
+                        sequence = output,
+                        lastKey = downKey,
+                    )
+                }
+            } else {
+                null
+            }
+            if (activeGlide != null) {
+                trailClearHandler.removeCallbacks(trailClearRunnable)
+                glideTrailPoints.value = emptyList()
+                glidePreview.value = ""
+                lastGlidePreviewUpdateMs = 0L
             }
             trackedOutputPointer.value = TrackedPointer.Output(
                 id = down.id,
@@ -530,6 +559,17 @@ class PointerTracker(
             lastPosition = to,
             active = true,
         )
+
+        val now = android.os.SystemClock.elapsedRealtime()
+        if (prefs.glide.showTrail.get()) {
+            glideTrailPoints.update { it + GlideTrailPoint(to, now) }
+        }
+        if (prefs.glide.showPreview.get() &&
+            now - lastGlidePreviewUpdateMs >= prefs.glide.previewRefreshDelay.get()
+        ) {
+            lastGlidePreviewUpdateMs = now
+            glidePreview.value = sequence
+        }
     }
 
     private suspend fun updateDeleteSwipe(
@@ -789,6 +829,7 @@ class PointerTracker(
             activeDeleteSwipe = null
             activeSpaceBarSwipe = null
             activeGlide = null
+            finishGlideVisuals()
             trackedOutputPointer.value = null
             lastUpKeyState = LastUpKey(trackedPointer.downKey, up.uptimeMillis)
         }
@@ -851,6 +892,7 @@ class PointerTracker(
         activeDeleteSwipe = null
         activeSpaceBarSwipe = null
         activeGlide = null
+        finishGlideVisuals()
         if (swipe != null && swipe.active) {
             imeController.updateState { updateSelectionFromGesture(swipe.baseSelection) }
         }
@@ -859,6 +901,21 @@ class PointerTracker(
     private suspend fun cancelMultiTap() {
         val multiTapSeq = trackedMultiTapSeq.getAndUpdate { null } ?: return
         multiTapSeq.commitJob?.cancel()
+    }
+
+    /** Clear the glide preview and schedule removal of the trail after its fade duration. */
+    private fun finishGlideVisuals() {
+        glidePreview.value = ""
+        trailClearHandler.removeCallbacks(trailClearRunnable)
+        if (prefs.glide.showTrail.get() && glideTrailPoints.value.isNotEmpty()) {
+            trailClearHandler.postDelayed(
+                trailClearRunnable,
+                prefs.glide.trailDuration.get().toLong(),
+            )
+        } else {
+            glideTrailPoints.value = emptyList()
+        }
+        lastGlidePreviewUpdateMs = 0L
     }
 
     private fun Offset.normalized(size: IntSize): Offset {
