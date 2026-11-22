@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.minimumInteractiveComponentSize
@@ -33,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import dev.patrickgold.florisboard.app.FlorisPreferenceStore
 import dev.patrickgold.florisboard.ime.keyboard.FlorisImeSizing
 import dev.patrickgold.florisboard.ime.keyboard3.ImeActions
@@ -79,13 +81,20 @@ fun MediaInputLayout(
                 elementName = FlorisImeUi.MediaBottomRow.elementName,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(FlorisImeSizing.keyboardRowBaseHeight * 0.8f),
+                    .height(FlorisImeSizing.keyboardRowBaseHeight),
             ) {
                 ImeKeyButton(
                     elementName = FlorisImeUi.MediaBottomRowButton.elementName,
                     output = ImeActions.ShowTextPanel,
-                    modifier = Modifier.fillMaxHeight(),
-                )
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .width(64.dp),
+                ) { _ ->
+                    SnyggText(
+                        elementName = "${FlorisImeUi.MediaBottomRowButton.elementName}-text",
+                        text = "ABC",
+                    )
+                }
                 Spacer(modifier = Modifier.weight(1f))
                 // TODO no feature gate once emoji search PR is implemented!
                 val experimentalEmojiSearch by prefs.emoji.experimentalEmojiSearchEnabled.collectAsState()
@@ -108,7 +117,9 @@ fun MediaInputLayout(
                 ImeKeyButton(
                     elementName = FlorisImeUi.MediaBottomRowButton.elementName,
                     output = ImeActions.Backspace,
-                    modifier = Modifier.fillMaxHeight(),
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .width(64.dp),
                 )
             }
         }
