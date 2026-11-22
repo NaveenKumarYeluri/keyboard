@@ -56,6 +56,13 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
         private const val MAX_EDIT_DISTANCE_LONG = 2
         private const val CONFIDENCE_DECAY_PER_DISTANCE = 0.25
 
+        // Glides are noisier than typed input: a turn can be missed or an adjacent key crossed.
+        // Allow a wider search, but decay confidence hard so an exact match always wins and
+        // unrelated high-frequency words do not take over.
+        private const val GLIDE_MAX_EDIT_DISTANCE_SHORT = 2
+        private const val GLIDE_MAX_EDIT_DISTANCE_LONG = 3
+        private const val GLIDE_CONFIDENCE_DECAY_PER_DISTANCE = 0.45
+
         private const val DICT_ASSET_PATH = "ime/dict"
 
         private val DEFAULT_DICTIONARY = Dictionary(emptyMap(), 255)
@@ -314,22 +321,25 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
         val dictionary = getDictionary(locale.language)
         if (dictionary.words.isEmpty()) return@withContext emptyList()
         val maxDistance = if (typed.length <= LONG_WORD_THRESHOLD) {
-            MAX_EDIT_DISTANCE_SHORT
+            GLIDE_MAX_EDIT_DISTANCE_SHORT
         } else {
-            MAX_EDIT_DISTANCE_LONG
+            GLIDE_MAX_EDIT_DISTANCE_LONG
         }
         val candidates = mutableMapOf<String, Double>()
 
+        // An exact sequence match must win, even if a longer high-frequency word sits one edit away.
         dictionary.words[typed]?.let { frequency ->
-            candidates[typed] = computeBaseConfidence(frequency, dictionary)
+            candidates[typed] = maxOf(computeBaseConfidence(frequency, dictionary), 0.95)
         }
         for ((word, frequency) in dictionary.words) {
             if (word == typed) continue
             if (word.length < typed.length - maxDistance || word.length > typed.length + maxDistance) continue
-            if (word.firstOrNull() != typed.firstOrNull()) continue
+            val prefix = sharedPrefixLength(word, typed)
+            if (word.firstOrNull() != typed.firstOrNull() && prefix < 2) continue
             val distance = boundedLevenshteinDistance(typed, word, maxDistance) ?: continue
             val confidence = computeBaseConfidence(frequency, dictionary) *
-                (1.0 - CONFIDENCE_DECAY_PER_DISTANCE * distance)
+                (1.0 - GLIDE_CONFIDENCE_DECAY_PER_DISTANCE * distance) *
+                (1.0 + 0.05 * prefix)
             candidates[word] = maxOf(candidates.getOrDefault(word, 0.0), confidence.coerceIn(0.01, 1.0))
         }
 
@@ -345,11 +355,12 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
             }
             for ((alias, word) in aliases) {
                 if (alias.length < typed.length - maxDistance || alias.length > typed.length + maxDistance) continue
-                if (alias.firstOrNull() != typed.firstOrNull()) continue
                 val distance = boundedLevenshteinDistance(typed, alias, maxDistance) ?: continue
+                val prefix = sharedPrefixLength(alias, typed)
                 val frequency = dictionary.words[word] ?: 128
                 val confidence = computeBaseConfidence(frequency, dictionary) *
-                    (1.0 - CONFIDENCE_DECAY_PER_DISTANCE * distance)
+                    (1.0 - GLIDE_CONFIDENCE_DECAY_PER_DISTANCE * distance) *
+                    (1.0 + 0.05 * prefix)
                 candidates[word] = maxOf(candidates.getOrDefault(word, 0.0), confidence.coerceIn(0.01, 1.0))
             }
         }
@@ -376,6 +387,15 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
     override suspend fun destroy() {
         // Here we have the chance to de-allocate memory and finish our work. However this might never be called if
         // the app process is killed (which will most likely always be the case).
+    }
+
+    private fun sharedPrefixLength(a: String, b: String): Int {
+        val limit = minOf(a.length, b.length)
+        var index = 0
+        while (index < limit && a[index] == b[index]) {
+            index++
+        }
+        return index
     }
 
     private fun collapseRepeats(input: String): String {

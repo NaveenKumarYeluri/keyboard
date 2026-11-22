@@ -339,13 +339,22 @@ class ImeController(
      * dictionaries/aliases. A glide never emits partial text, so the result is inserted as a new
      * word instead of replacing the current composing word.
      */
-    suspend fun commitGlide(sequence: String) {
+    suspend fun commitGlide(sequence: String, alternateSequence: String? = null) {
         val subtype = FlorisApplication.getHack().subtypeManager.value.activeSubtype
         val normalized = sequence.lowercase(subtype.primaryLocale)
         if (normalized.codePointCount(0, normalized.length) < 2) return
-        val resolved = withContext(Dispatchers.Default) {
-            nlpManager.glideCandidates(subtype, normalized, 3).firstOrNull()?.text?.toString()
+        val alternate = alternateSequence?.lowercase(subtype.primaryLocale)?.takeIf {
+            it != normalized && it.codePointCount(0, it.length) >= 2
         }
+        val resolved = withContext(Dispatchers.Default) {
+            val primary = nlpManager.glideCandidates(subtype, normalized, 3).firstOrNull()
+            if (alternate == null) {
+                primary
+            } else {
+                val alternateCandidate = nlpManager.glideCandidates(subtype, alternate, 3).firstOrNull()
+                chooseGlideCandidate(primary, normalized, alternateCandidate, alternate)
+            }
+        }?.text?.toString()
         var committed = ""
         updateState {
             committed = if (resolved != null) {
@@ -360,6 +369,31 @@ class ImeController(
             committed.codePointCount(0, committed.length)
         } else {
             0
+        }
+    }
+
+    /**
+     * Picks the better offline match between the turn-based glide path and the full crossed-key path.
+     * Confidence decides normally; on a tie the longer exact match wins because straight segments
+     * can legitimately contain letters the turn decoder misses.
+     */
+    private fun chooseGlideCandidate(
+        primary: SuggestionCandidate?,
+        primarySequence: String,
+        alternate: SuggestionCandidate?,
+        alternateSequence: String,
+    ): SuggestionCandidate? {
+        if (primary == null) return alternate
+        if (alternate == null) return primary
+        if (alternate.confidence > primary.confidence + 0.01) return alternate
+        if (primary.confidence > alternate.confidence + 0.01) return primary
+        val alternateExact = alternate.text.toString().equals(alternateSequence, ignoreCase = true)
+        return if (alternateExact && alternateSequence.codePointCount(0, alternateSequence.length) >
+            primarySequence.codePointCount(0, primarySequence.length)
+        ) {
+            alternate
+        } else {
+            primary
         }
     }
 

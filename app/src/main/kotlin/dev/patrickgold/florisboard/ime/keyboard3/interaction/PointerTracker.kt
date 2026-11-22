@@ -151,7 +151,10 @@ data class SpaceBarSwipe(
     val active: Boolean = false,
 )
 
-/** State for a glide: the sequence of eligible text keys visited since touch-down. */
+/**
+ * State for a glide. [sequence] is the decoded word from intentional turns; [rawSequence] keeps every
+ * crossed letter as an alternate decoding for straight segments where turns miss interior letters.
+ */
 data class GlideSwipe(
     val start: Offset,
     val layerId: K3LayerId,
@@ -159,6 +162,13 @@ data class GlideSwipe(
     val lastKey: TouchKey? = null,
     val lastPosition: Offset = start,
     val active: Boolean = false,
+    val rawSequence: String = sequence,
+    val glideKeyCount: Int = 1,
+    val lastSamplePosition: Offset = start,
+    val lastStepDirection: Offset? = null,
+    val lastSampleKey: TouchKey? = null,
+    val lastCommittedPosition: Offset = start,
+    val lastCommittedKey: TouchKey? = null,
 )
 
 /** A single sampled point of a glide trail, with the time it was recorded. */
@@ -359,6 +369,9 @@ class PointerTracker(
                         layerId = downLayerId,
                         sequence = output,
                         lastKey = downKey,
+                        rawSequence = output,
+                        lastSampleKey = downKey,
+                        lastCommittedKey = downKey,
                     )
                 }
             } else {
@@ -524,20 +537,32 @@ class PointerTracker(
 
     private fun updateGlide(move: PointerInputChange, size: IntSize) {
         val glide = activeGlide ?: return
-        if (!glide.active &&
-            (move.position - glide.start).getDistanceSquared() < gestureSlopPx * gestureSlopPx
-        ) {
+        // A small movement is a sloppy tap, not a glide. Require a real journey across at least two
+        // letter keys before a tap is replaced with a glide commit.
+        val activationPx = gestureSlopPx * 1.5f
+        val distanceFromStartSq = (move.position - glide.start).getDistanceSquared()
+        if (!glide.active && distanceFromStartSq < activationPx * activationPx) {
             return
         }
-        // Sample along the travelled segment: fast pointer events can otherwise skip whole keys
-        // and produce a sequence with missing letters.
+        // Sample along the travelled segment: fast pointer events can otherwise skip whole keys.
         val from = glide.lastPosition
         val to = move.position
-        val distance = (to - from).getDistance()
-        val stepPx = (gestureSlopPx * 0.75f).fastCoerceAtLeast(1f)
-        val steps = max(1, floor(distance / stepPx).toInt())
+        val segmentDistance = (to - from).getDistance()
+        val stepPx = (gestureSlopPx * 0.5f).fastCoerceAtLeast(1f)
+        val steps = max(1, floor(segmentDistance / stepPx).toInt())
+        val minStepPx = (gestureSlopPx * 0.25f).fastCoerceAtLeast(1f)
+        val turnSegmentPx = gestureSlopPx * 1.25f
+
         var sequence = glide.sequence
+        var rawSequence = glide.rawSequence
+        var glideKeyCount = glide.glideKeyCount
         var lastKey = glide.lastKey
+        var lastCommittedKey = glide.lastCommittedKey
+        var lastSamplePosition = glide.lastSamplePosition
+        var lastStepDirection = glide.lastStepDirection
+        var lastSampleKey = glide.lastSampleKey
+        var lastCommittedPosition = glide.lastCommittedPosition
+
         for (step in 1..steps) {
             val position = if (steps == 1) {
                 to
@@ -546,18 +571,56 @@ class PointerTracker(
             }
             val key = touchKeyboard.findKey(glide.layerId, position.normalized(size))
             val output = key?.glideOutput()
-            if (key != null && output != null && key !== lastKey) {
-                sequence += output
-            }
             if (key != null) {
+                if (output != null && key !== lastKey) {
+                    rawSequence += output
+                    glideKeyCount++
+                }
                 lastKey = key
             }
+
+            // Glide typing is a path of intentional turns. Compare consecutive direction vectors;
+            // a sharp change means the previous sample was a letter the user steered through. Keys
+            // merely crossed on a straight segment are ignored, which removes the random extra
+            // letters the old "every crossed key" decoder produced.
+            val stepVector = position - lastSamplePosition
+            val stepLength = stepVector.getDistance()
+            if (stepLength >= minStepPx) {
+                val stepDirection = stepVector / stepLength
+                val previousDirection = lastStepDirection
+                val travelled = (position - lastCommittedPosition).getDistance()
+                if (previousDirection != null && travelled >= turnSegmentPx &&
+                    stepDirection.x * previousDirection.x + stepDirection.y * previousDirection.y < 0.75f
+                ) {
+                    val turnKey = lastSampleKey
+                    val turnOutput = turnKey?.glideOutput()
+                    if (turnKey != null && turnKey !== lastCommittedKey && turnOutput != null) {
+                        sequence += turnOutput
+                        lastCommittedKey = turnKey
+                        lastCommittedPosition = lastSamplePosition
+                    }
+                }
+                lastStepDirection = stepDirection
+            }
+            lastSamplePosition = position
+            if (output != null) {
+                lastSampleKey = key
+            }
         }
+
+        val active = glide.active || (distanceFromStartSq >= activationPx * activationPx && glideKeyCount >= 2)
         activeGlide = glide.copy(
             sequence = sequence,
+            rawSequence = rawSequence,
+            glideKeyCount = glideKeyCount,
             lastKey = lastKey,
             lastPosition = to,
-            active = true,
+            active = active,
+            lastSamplePosition = lastSamplePosition,
+            lastStepDirection = lastStepDirection,
+            lastSampleKey = lastSampleKey,
+            lastCommittedPosition = lastCommittedPosition,
+            lastCommittedKey = lastCommittedKey,
         )
 
         val now = android.os.SystemClock.elapsedRealtime()
@@ -570,6 +633,26 @@ class PointerTracker(
             lastGlidePreviewUpdateMs = now
             glidePreview.value = sequence
         }
+    }
+
+    /** Adds the release key; the crossed-key path stays available as an alternate decoding. */
+    private fun finalizeGlideSequence(
+        glide: GlideSwipe,
+        up: PointerInputChange,
+        size: IntSize,
+    ): String {
+        val key = touchKeyboard.findKey(glide.layerId, up.position.normalized(size))
+        val output = key?.glideOutput()
+        var sequence = glide.sequence
+        if (key != null && output != null && key !== glide.lastCommittedKey) {
+            sequence += output
+        }
+        if (sequence.codePointCount(0, sequence.length) < 2 &&
+            glide.rawSequence.codePointCount(0, glide.rawSequence.length) >= 2
+        ) {
+            sequence = glide.rawSequence
+        }
+        return sequence
     }
 
     private suspend fun updateDeleteSwipe(
@@ -795,14 +878,18 @@ class PointerTracker(
             val deleteSwipe = activeDeleteSwipe
             val spaceBarSwipe = activeSpaceBarSwipe
             val glide = activeGlide
+            val glideSequence = if (glide != null && glide.active) {
+                finalizeGlideSequence(glide, up, size)
+            } else {
+                ""
+            }
+            val glideAlternate = glide?.takeIf { it.active }?.rawSequence
             if (deleteSwipe != null && deleteSwipe.active) {
                 finishDeleteSwipe(deleteSwipe)
-            } else if (glide != null && glide.active &&
-                glide.sequence.codePointCount(0, glide.sequence.length) >= 2
-            ) {
+            } else if (glideSequence.codePointCount(0, glideSequence.length) >= 2) {
                 // A completed glide replaces the pending tap and any multi-tap commit.
                 trackedMultiTapSeq.value = null
-                imeController.commitGlide(glide.sequence)
+                imeController.commitGlide(glideSequence, glideAlternate)
             } else if (spaceBarSwipe != null && spaceBarSwipe.direction != null) {
                 if (!trackedPointer.directLongPressActionEmitted && !trackedPointer.repeatEmitted) {
                     val suppressSpace = finishSpaceBarSwipe(spaceBarSwipe)
