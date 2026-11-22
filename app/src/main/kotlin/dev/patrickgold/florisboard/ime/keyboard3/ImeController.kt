@@ -873,7 +873,7 @@ class ImeController(
             }
         }
 
-        private fun emitGlideText(text: String, transliterate: Boolean) {
+        fun emitGlideText(text: String, transliterate: Boolean) {
             if (text.isEmpty() || state.editor.info.isRawInputEditor) return
             val output = if (transliterate) {
                 TeluguPhoneticTransliterator.transliterate(text)
