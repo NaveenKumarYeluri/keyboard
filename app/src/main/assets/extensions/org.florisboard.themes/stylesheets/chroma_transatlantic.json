@@ -80,9 +80,9 @@
     "foreground": "var(--on-surface)"
   },
   "key[output=` `]": {
-    "foreground": "#FFFFFF",
-    "font-size": "12sp",
-    "background": "#493736"
+    "background": "var(--surface)",
+    "foreground": "var(--on-surface)",
+    "font-size": "12sp"
   },
   "key-hint": {
     "background": "transparent",
