@@ -687,6 +687,7 @@
     <string name="backup_and_restore__back_up__destination_share_intent">Third-party app via share menu</string>
     <string name="backup_and_restore__back_up__files">Select what to back up</string>
     <string name="backup_and_restore__back_up__files_jetpref_datastore">Preferences</string>
+    <string name="backup_and_restore__back_up__files_jetpref_datastore_always">Preferences (always included)</string>
     <string name="backup_and_restore__back_up__files_ime_keyboard">Keyboard extensions</string>
     <string name="backup_and_restore__back_up__files_ime_spelling">Spelling extensions / dictionaries</string>
     <string name="backup_and_restore__back_up__files_ime_theme">Theme extensions</string>
@@ -708,6 +709,7 @@
     <string name="backup_and_restore__restore__mode">Restore mode</string>
     <string name="backup_and_restore__restore__mode_merge">Merge with current data</string>
     <string name="backup_and_restore__restore__mode_erase_and_overwrite">Erase and overwrite current data</string>
+    <string name="backup_and_restore__restore__mode_settings_note">Preferences are always restored exactly from the backup. Extensions and clipboard follow the selected mode when available.</string>
     <string name="backup_and_restore__restore__success">Successfully restored data!</string>
     <string name="backup_and_restore__restore__failure">Failed to restore data: {error_message}</string>
 

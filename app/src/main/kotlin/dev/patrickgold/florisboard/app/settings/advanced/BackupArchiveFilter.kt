@@ -29,6 +29,7 @@ import org.florisboard.lib.compose.stringRes
 
 @Serializable
 data class BackupArchiveFilter(
+    // Retained for archive and saved UI-state compatibility. Preferences are always included/restored.
     val inclPrefs: Boolean = true,
     val inclThemeExtensions: Boolean = true,
     val inclKeyboard3Extensions: Boolean = true,
@@ -62,12 +63,8 @@ data class BackupArchiveFilter(
     }
 
     fun atLeastOneSelected(): Boolean {
-        return inclPrefs ||
-            inclThemeExtensions ||
-            inclKeyboard3Extensions ||
-            inclClipboardTextItems ||
-            inclClipboardImageItems ||
-            inclClipboardVideoItems
+        // Preferences are mandatory, so there is always at least one item to back up/restore.
+        return true
     }
 }
 
@@ -80,15 +77,11 @@ fun BackupArchiveFilterColumn(
     SegmentedListColumn(title = title) {
         val count = 7
         CheckboxListItem(
-            onClick = {
-                val newFilter = filter.copy(
-                    inclPrefs = !filter.inclPrefs,
-                )
-                onUpdateFilter(newFilter)
-            },
+            onClick = {},
             shapes = ListItemDefaults.segmentedShapes(0, count),
-            checked = filter.inclPrefs,
-            text = stringRes(R.string.backup_and_restore__back_up__files_jetpref_datastore),
+            checked = true,
+            text = stringRes(R.string.backup_and_restore__back_up__files_jetpref_datastore_always),
+            enabled = false,
         )
         CheckboxListItem(
             onClick = {

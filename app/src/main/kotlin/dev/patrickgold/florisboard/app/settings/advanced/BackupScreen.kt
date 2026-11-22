@@ -121,13 +121,11 @@ fun BackupScreen() {
     suspend fun prepareBackupWorkspace(filter: BackupArchiveFilter): BackupWorkspace {
         val workspaceRef = storage.createWorkspace()
         val backupDirRef = workspaceRef.subRef(BackupDefaults.ARCHIVE_DIR_NAME)
-        if (filter.inclPrefs) {
-            val prefRef = backupDirRef
-                .subRef(AndroidAppDataStorage.JETPREF_DIR_NAME)
-                .subRef("${FlorisPreferenceModel.NAME}.${AndroidAppDataStorage.JETPREF_FILE_EXT}")
-            val (_, prefPath) = storage.resolve(prefRef)
-            FlorisPreferenceStore.export(FileBasedStorage(prefPath.toString())).getOrThrow()
-        }
+        val prefRef = backupDirRef
+            .subRef(AndroidAppDataStorage.JETPREF_DIR_NAME)
+            .subRef("${FlorisPreferenceModel.NAME}.${AndroidAppDataStorage.JETPREF_FILE_EXT}")
+        val (_, prefPath) = storage.resolve(prefRef)
+        FlorisPreferenceStore.export(FileBasedStorage(prefPath.toString())).getOrThrow()
         if (filter.includesAnyExtension()) {
             extensionController.backup(
                 backupDirRef = backupDirRef,

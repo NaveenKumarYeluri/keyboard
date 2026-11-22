@@ -61,6 +61,22 @@
       "isNight": true
     },
     {
+      "id": "floris_pure_white",
+      "label": "Floris Pure White",
+      "authors": [
+        "personal build"
+      ],
+      "isNight": false
+    },
+    {
+      "id": "floris_pure_white_borderless",
+      "label": "Floris Pure White (Borderless)",
+      "authors": [
+        "personal build"
+      ],
+      "isNight": false
+    },
+    {
       "id": "chroma_winter",
       "label": "Chroma Winter night",
       "authors": [

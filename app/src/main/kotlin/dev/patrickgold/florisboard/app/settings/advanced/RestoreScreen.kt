@@ -211,6 +211,7 @@ fun RestoreScreen(isSetup: Boolean) {
                             workspaceRef = workspaceRef,
                             restoreErrorId = R.string.backup_and_restore__restore__metadata_error_invalid_metadata,
                         )
+                        return@launch
                     }
                     restoreScreenState = RestoreScreenState.Ready(
                         fileName = fileName,
@@ -235,16 +236,14 @@ fun RestoreScreen(isSetup: Boolean) {
     )
 
     suspend fun performRestore(state: RestoreScreenState.Ready) {
-        val shouldReset = state.importStrategy == ImportStrategy.Erase
-        if (state.filter.inclPrefs) {
-            val prefRef = state.backupDirRef
-                .subRef(AndroidAppDataStorage.JETPREF_DIR_NAME)
-                .subRef("${FlorisPreferenceModel.NAME}.${AndroidAppDataStorage.JETPREF_FILE_EXT}")
-            if (storage.exists(prefRef)) {
-                val (_, prefPath) = storage.resolve(prefRef)
-                val fileBasedStorage = FileBasedStorage(prefPath.toString())
-                FlorisPreferenceStore.import(state.importStrategy, fileBasedStorage).getOrThrow()
-            }
+        val shouldResetOtherData = state.importStrategy == ImportStrategy.Erase
+        val prefRef = state.backupDirRef
+            .subRef(AndroidAppDataStorage.JETPREF_DIR_NAME)
+            .subRef("${FlorisPreferenceModel.NAME}.${AndroidAppDataStorage.JETPREF_FILE_EXT}")
+        if (storage.exists(prefRef)) {
+            val (_, prefPath) = storage.resolve(prefRef)
+            val fileBasedStorage = FileBasedStorage(prefPath.toString())
+            FlorisPreferenceStore.import(ImportStrategy.Erase, fileBasedStorage).getOrThrow()
         }
 
         if (state.filter.includesAnyExtension()) {
@@ -257,7 +256,7 @@ fun RestoreScreen(isSetup: Boolean) {
         }
 
         val clipboardManager = context.inferFlorisApplication().clipboardManager.value
-        if (shouldReset) {
+        if (shouldResetOtherData) {
             clipboardManager.clearFullHistory()
             ClipboardFileStorage.resetClipboardFileStorage(context)
         }
@@ -545,6 +544,12 @@ private fun ReadyColumn(
                 )
             }
         }
+        Text(
+            modifier = Modifier.padding(top = SegmentedListColumnVerticalPadding),
+            text = stringRes(R.string.backup_and_restore__restore__mode_settings_note),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
         BackupArchiveFilterColumn(
             filter = state.filter,
             onUpdateFilter = { onUpdateState(state.copy(filter = it)) },

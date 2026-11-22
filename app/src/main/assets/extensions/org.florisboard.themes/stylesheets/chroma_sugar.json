@@ -60,15 +60,15 @@
     "background": "var(--primary)"
   },
   "key": {
-    "background": "transparent",
+    "background": "var(--surface)",
     "foreground": "var(--on-surface)",
     "font-size": "22sp",
     "shape": "var(--shape)",
-    "shadow-elevation": "0dp",
+    "shadow-elevation": "2dp",
     "text-max-lines": "1"
   },
   "key:pressed": {
-    "background": "rgba(16, 16, 16, 0.12)",
+    "background": "var(--surface-variant)",
     "foreground": "var(--on-surface)"
   },
   "key[output=`@k3:action/enter`]": {

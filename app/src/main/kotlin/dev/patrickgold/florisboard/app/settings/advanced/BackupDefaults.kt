@@ -28,11 +28,13 @@ object BackupDefaults {
 
     const val PACKAGE_NAME_PREFIX = "com.personal.keyboard"
 
-    const val RESTORE_MIN_VERSION_CODE = 64
+    // Personal builds use version code 2; allow restoring archives created by this app.
+    const val RESTORE_MIN_VERSION_CODE = 2
     const val ARCHIVE_FILE_NAME = "backup.zip"
     const val ARCHIVE_DIR_NAME = "backup.zip.d"
 
-    const val OLD_EXT_VERSION_CODE_CUTOFF = 119 // v0.6.0-alpha02
+    // Personal backups already use the current extension layout; only older upstream archives are legacy.
+    const val OLD_EXT_VERSION_CODE_CUTOFF = 1
     const val OLD_EXT_IME_THEME_PATH = "ime/theme"
 
     fun defaultFileName(metadata: BackupArchiveMetadata): String {
