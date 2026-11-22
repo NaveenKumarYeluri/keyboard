@@ -111,7 +111,7 @@ internal fun CheckboxListItem(
     isSecondaryListItem: Boolean = false,
     enabled: Boolean = true,
 ) {
-    val handleClick: () -> Unit = if (enabled) onClick else {}
+    val handleClick: () -> Unit = { if (enabled) onClick() }
     SegmentedListItem(
         onClick = handleClick,
         shapes = shapes,
