@@ -198,6 +198,17 @@ interface SuggestionProvider : NlpProvider {
     suspend fun getFrequencyForWord(subtype: Subtype, word: String): Double
 
     /**
+     * Resolves a sequence of keys visited during glide typing into offline word candidates.
+     * Providers with dictionary/alias data should override this; the default keeps unsupported
+     * providers harmless by returning no candidates.
+     */
+    suspend fun glideCandidates(
+        subtype: Subtype,
+        sequence: String,
+        maxCandidateCount: Int,
+    ): List<SuggestionCandidate> = emptyList()
+
+    /**
      * When initializing composing text given a new context, the suggestion engine determines the composing range.
      * The default behavior gets the last word according to the current subtype's primaryLocale.
      * @param subtype The current subtype used to determine word or character boundary.

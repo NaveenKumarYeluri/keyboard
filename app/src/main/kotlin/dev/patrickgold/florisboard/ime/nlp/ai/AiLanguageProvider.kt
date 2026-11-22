@@ -175,6 +175,14 @@ class AiLanguageProvider(
         return latin.getFrequencyForWord(subtype, word)
     }
 
+    override suspend fun glideCandidates(
+        subtype: Subtype,
+        sequence: String,
+        maxCandidateCount: Int,
+    ): List<SuggestionCandidate> {
+        return latin.glideCandidates(subtype, sequence, maxCandidateCount)
+    }
+
     /** Gets the word currently being composed, including the raw Latin buffer in phonetic mode. */
     private fun currentComposingWord(content: K3Content, subtype: Subtype): String {
         val fromComposition = content.compositionText?.toString().orEmpty()

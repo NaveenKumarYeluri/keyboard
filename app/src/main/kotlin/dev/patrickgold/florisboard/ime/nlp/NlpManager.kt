@@ -279,6 +279,15 @@ class NlpManager(context: Context) {
         return runBlocking { getSuggestionProvider(subtype).getFrequencyForWord(subtype, word) }
     }
 
+    /** Suspend variant of the glide interop API, safe to call from the pointer event coroutine. */
+    suspend fun glideCandidates(
+        subtype: Subtype,
+        sequence: String,
+        maxCandidateCount: Int,
+    ): List<SuggestionCandidate> {
+        return getSuggestionProvider(subtype).glideCandidates(subtype, sequence, maxCandidateCount)
+    }
+
     private fun assembleCandidates() {
         runBlocking {
             val candidates = when {

@@ -300,9 +300,97 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
         return dictionary.words.getOrDefault(word.lowercase(subtype.primaryLocale), 0) / maxFreq
     }
 
+    override suspend fun glideCandidates(
+        subtype: Subtype,
+        sequence: String,
+        maxCandidateCount: Int,
+    ): List<SuggestionCandidate> = withContext(Dispatchers.IO) {
+        if (maxCandidateCount <= 0) return@withContext emptyList()
+        val locale = subtype.primaryLocale
+        // A glide visits each key once even when the intended word contains double letters.
+        val typed = collapseRepeats(sequence.lowercase(locale))
+        if (typed.length < 2) return@withContext emptyList()
+
+        val dictionary = getDictionary(locale.language)
+        if (dictionary.words.isEmpty()) return@withContext emptyList()
+        val maxDistance = if (typed.length <= LONG_WORD_THRESHOLD) {
+            MAX_EDIT_DISTANCE_SHORT
+        } else {
+            MAX_EDIT_DISTANCE_LONG
+        }
+        val candidates = mutableMapOf<String, Double>()
+
+        dictionary.words[typed]?.let { frequency ->
+            candidates[typed] = computeBaseConfidence(frequency, dictionary)
+        }
+        for ((word, frequency) in dictionary.words) {
+            if (word == typed) continue
+            if (word.length < typed.length - maxDistance || word.length > typed.length + maxDistance) continue
+            if (word.firstOrNull() != typed.firstOrNull()) continue
+            val distance = boundedLevenshteinDistance(typed, word, maxDistance) ?: continue
+            val confidence = computeBaseConfidence(frequency, dictionary) *
+                (1.0 - CONFIDENCE_DECAY_PER_DISTANCE * distance)
+            candidates[word] = maxOf(candidates.getOrDefault(word, 0.0), confidence.coerceIn(0.01, 1.0))
+        }
+
+        // Telugu phonetic glides produce raw Latin sequences; aliases map them to canonical Telugu words.
+        val aliases = getAliases(locale.language)
+        if (typed.all { it in 'a'..'z' || it == '\'' }) {
+            aliases[typed]?.let { word ->
+                val frequency = dictionary.words[word] ?: 255
+                candidates[word] = maxOf(
+                    candidates.getOrDefault(word, 0.0),
+                    maxOf(computeBaseConfidence(frequency, dictionary), 0.99),
+                )
+            }
+            for ((alias, word) in aliases) {
+                if (alias.length < typed.length - maxDistance || alias.length > typed.length + maxDistance) continue
+                if (alias.firstOrNull() != typed.firstOrNull()) continue
+                val distance = boundedLevenshteinDistance(typed, alias, maxDistance) ?: continue
+                val frequency = dictionary.words[word] ?: 128
+                val confidence = computeBaseConfidence(frequency, dictionary) *
+                    (1.0 - CONFIDENCE_DECAY_PER_DISTANCE * distance)
+                candidates[word] = maxOf(candidates.getOrDefault(word, 0.0), confidence.coerceIn(0.01, 1.0))
+            }
+        }
+
+        for (userCandidate in queryUserDictionary(typed, locale)) {
+            val userWord = userCandidate.text.toString()
+            if (userWord.isBlank()) continue
+            candidates[userWord] = maxOf(candidates.getOrDefault(userWord, 0.0), userCandidate.confidence)
+        }
+
+        candidates.toList()
+            .sortedWith(compareByDescending<Pair<String, Double>> { it.second }.thenBy { it.first.length })
+            .take(maxCandidateCount)
+            .map { (word, confidence) ->
+                WordSuggestionCandidate(
+                    text = word,
+                    confidence = confidence,
+                    isEligibleForAutoCommit = false,
+                    sourceProvider = this@LatinLanguageProvider,
+                )
+            }
+    }
+
     override suspend fun destroy() {
         // Here we have the chance to de-allocate memory and finish our work. However this might never be called if
         // the app process is killed (which will most likely always be the case).
+    }
+
+    private fun collapseRepeats(input: String): String {
+        if (input.length < 2) return input
+        val builder = StringBuilder(input.length)
+        var previous = '\u0000'
+        var hasPrevious = false
+        for (char in input) {
+            if (!hasPrevious || char != previous) {
+                builder.append(char)
+                previous = char
+                hasPrevious = true
+            }
+        }
+        return builder.toString()
     }
 
     private fun isKnownWord(wordLowercase: String, locale: FlorisLocale): Boolean {

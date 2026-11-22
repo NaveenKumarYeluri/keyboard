@@ -49,6 +49,7 @@ import dev.patrickgold.florisboard.ime.text.gestures.SwipeAction
 import dev.patrickgold.florisboard.ime.text.key.KeyVariation
 import dev.patrickgold.florisboard.lib.FlorisLocale
 import dev.patrickgold.florisboard.lib.devtools.flogDebug
+import dev.patrickgold.florisboard.lib.lowercase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -62,6 +63,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import org.florisboard.lib.kotlin.collectIn
 import org.k3lp.lib.text.K3Descriptor
 import org.k3lp.lib.text.K3String
@@ -323,6 +325,27 @@ class ImeController(
     }
 
     fun snapshotState(): ImeState = activeState.value
+
+    /**
+     * Commits a completed glide by resolving the visited-key sequence against the offline
+     * dictionaries/aliases. A glide never emits partial text, so the result is inserted as a new
+     * word instead of replacing the current composing word.
+     */
+    suspend fun commitGlide(sequence: String) {
+        val subtype = FlorisApplication.getHack().subtypeManager.value.activeSubtype
+        val normalized = sequence.lowercase(subtype.primaryLocale)
+        if (normalized.codePointCount(0, normalized.length) < 2) return
+        val resolved = withContext(Dispatchers.Default) {
+            nlpManager.glideCandidates(subtype, normalized, 3).firstOrNull()?.text?.toString()
+        }
+        updateState {
+            if (resolved != null) {
+                emitGlideText(resolved, transliterate = false)
+            } else {
+                emitGlideText(normalized, transliterate = activeLayoutId == "telugu-phonetic")
+            }
+        }
+    }
 
     /**
      * Executes a general [SwipeAction] triggered by a gesture, such as a spacebar swipe or long-press.
@@ -847,6 +870,29 @@ class ImeController(
                         flags = state.flags.withImeUiMode(ImeUiMode.TEXT)
                     )
                 }
+            }
+        }
+
+        private fun emitGlideText(text: String, transliterate: Boolean) {
+            if (text.isEmpty() || state.editor.info.isRawInputEditor) return
+            val output = if (transliterate) {
+                TeluguPhoneticTransliterator.transliterate(text)
+            } else {
+                text
+            }
+            if (output.isEmpty()) return
+            val autoSpace = prefs.suggestion.autoSpaceAfterSuggestionPick.get() &&
+                state.content.surroundingText.textAfter.firstOrNull()?.isWhitespace() != true
+            val finalText = if (autoSpace) "$output " else output
+            if (!transliterate && activeLayoutId == "telugu-phonetic") {
+                // Resolved candidates are already final output; do not feed them back through the
+                // raw-Latin phonetic buffer where a single-letter word would be transliterated.
+                clearPhoneticBuffer()
+                super.emitText(finalText.asK3String())
+                expectedContentQueue.push(state.content.selection)
+                reevaluateInputShiftState()
+            } else {
+                emitText(finalText.asK3String())
             }
         }
 

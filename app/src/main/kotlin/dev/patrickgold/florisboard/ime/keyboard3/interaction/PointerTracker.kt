@@ -64,6 +64,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import org.k3lp.lib.text.K3String
 import org.k3lp.lib.text.asK3String
 import org.k3lp.model.K3Model
 import org.k3lp.model.layer.K3LayerId
@@ -150,6 +151,16 @@ data class SpaceBarSwipe(
     val active: Boolean = false,
 )
 
+/** State for a glide: the sequence of eligible text keys visited since touch-down. */
+data class GlideSwipe(
+    val start: Offset,
+    val layerId: K3LayerId,
+    val sequence: String,
+    val lastKey: TouchKey? = null,
+    val lastPosition: Offset = start,
+    val active: Boolean = false,
+)
+
 private fun SwipeAction.supportsDeleteSwipe(): Boolean = when (this) {
     SwipeAction.DELETE_CHARACTERS_PRECISELY,
     SwipeAction.SELECT_CHARACTERS_PRECISELY,
@@ -180,6 +191,27 @@ private val ASCII_SPACE = " ".asK3String()
 private const val GESTURE_FEEDBACK_STEP = 4
 
 private fun TouchKey.isSpaceKey(): Boolean = attrs.output == ASCII_SPACE
+
+/** Accepts single Latin letters and Telugu glyph keys, but not actions, symbols or punctuation. */
+private fun String.isGlideTextOutput(): Boolean {
+    if (isEmpty()) return false
+    if (length == 1 && (this[0] in 'a'..'z' || this[0] in 'A'..'Z')) return true
+    var index = 0
+    var codePointCount = 0
+    while (index < length) {
+        val codePoint = codePointAt(index)
+        if (codePoint !in 0x0C00..0x0C7F) return false
+        index += Character.charCount(codePoint)
+        codePointCount++
+        if (codePointCount > 3) return false
+    }
+    return true
+}
+
+private fun TouchKey.glideOutput(): String? {
+    val output = attrs.output as? K3String ?: return null
+    return output.toText().takeIf { it.isGlideTextOutput() }
+}
 
 // TODO the sync of this class is a bit messy
 class PointerTracker(
@@ -212,6 +244,7 @@ class PointerTracker(
     // every pointer move recomposes every key in the keyboard and is the main source of swipe lag.
     private var activeDeleteSwipe: DeleteSwipe? = null
     private var activeSpaceBarSwipe: SpaceBarSwipe? = null
+    private var activeGlide: GlideSwipe? = null
 
     suspend fun mutateLocked(action: suspend PointerTracker.() -> Unit) {
         mutationGuard.withLock { action() }
@@ -299,6 +332,14 @@ class PointerTracker(
                 )
             } else {
                 null
+            }
+            activeGlide = downKey.glideOutput()?.let { output ->
+                GlideSwipe(
+                    start = down.position,
+                    layerId = downLayerId,
+                    sequence = output,
+                    lastKey = downKey,
+                )
             }
             trackedOutputPointer.value = TrackedPointer.Output(
                 id = down.id,
@@ -403,7 +444,7 @@ class PointerTracker(
         }
         trackedOutputPointer.value?.takeIf { it.id == move.id }?.let { pointerAtMove ->
             var trackedPointer = pointerAtMove
-            val swipeCandidate = activeDeleteSwipe != null || activeSpaceBarSwipe != null
+            val swipeCandidate = activeDeleteSwipe != null || activeSpaceBarSwipe != null || activeGlide != null
             if (swipeCandidate &&
                 (move.position - pointerAtMove.down.position).getDistanceSquared() >= gestureSlopPx * gestureSlopPx
             ) {
@@ -428,6 +469,10 @@ class PointerTracker(
                 updateSpaceBarSwipe(trackedPointer, move)
                 return@let
             }
+            if (activeGlide != null) {
+                updateGlide(move, size)
+                if (activeGlide?.active == true) return@let
+            }
             val longPress = trackedPointer.longPress
             if (longPress.shouldShowExtendedPopup()) {
                 val position = move.position.normalized(size).let { position ->
@@ -446,6 +491,45 @@ class PointerTracker(
                 }
             }
         }
+    }
+
+    private fun updateGlide(move: PointerInputChange, size: IntSize) {
+        val glide = activeGlide ?: return
+        if (!glide.active &&
+            (move.position - glide.start).getDistanceSquared() < gestureSlopPx * gestureSlopPx
+        ) {
+            return
+        }
+        // Sample along the travelled segment: fast pointer events can otherwise skip whole keys
+        // and produce a sequence with missing letters.
+        val from = glide.lastPosition
+        val to = move.position
+        val distance = (to - from).getDistance()
+        val stepPx = (gestureSlopPx * 0.75f).fastCoerceAtLeast(1f)
+        val steps = max(1, floor(distance / stepPx).toInt())
+        var sequence = glide.sequence
+        var lastKey = glide.lastKey
+        for (step in 1..steps) {
+            val position = if (steps == 1) {
+                to
+            } else {
+                from + (to - from) * (step.toFloat() / steps)
+            }
+            val key = touchKeyboard.findKey(glide.layerId, position.normalized(size))
+            val output = key?.glideOutput()
+            if (key != null && output != null && key !== lastKey) {
+                sequence += output
+            }
+            if (key != null) {
+                lastKey = key
+            }
+        }
+        activeGlide = glide.copy(
+            sequence = sequence,
+            lastKey = lastKey,
+            lastPosition = to,
+            active = true,
+        )
     }
 
     private suspend fun updateDeleteSwipe(
@@ -661,6 +745,8 @@ class PointerTracker(
                     updateDeleteSwipe(up, force = true)
                 } else if (activeSpaceBarSwipe != null) {
                     updateSpaceBarSwipe(pointerAtUp, up)
+                } else if (activeGlide != null) {
+                    updateGlide(up, size)
                 }
             }
             val trackedPointer = trackedOutputPointer.value?.takeIf { it.id == up.id } ?: pointerAtUp
@@ -668,8 +754,15 @@ class PointerTracker(
             trackedPointer.repeatJob?.cancel()
             val deleteSwipe = activeDeleteSwipe
             val spaceBarSwipe = activeSpaceBarSwipe
+            val glide = activeGlide
             if (deleteSwipe != null && deleteSwipe.active) {
                 finishDeleteSwipe(deleteSwipe)
+            } else if (glide != null && glide.active &&
+                glide.sequence.codePointCount(0, glide.sequence.length) >= 2
+            ) {
+                // A completed glide replaces the pending tap and any multi-tap commit.
+                trackedMultiTapSeq.value = null
+                imeController.commitGlide(glide.sequence)
             } else if (spaceBarSwipe != null && spaceBarSwipe.direction != null) {
                 if (!trackedPointer.directLongPressActionEmitted && !trackedPointer.repeatEmitted) {
                     val suppressSpace = finishSpaceBarSwipe(spaceBarSwipe)
@@ -695,6 +788,7 @@ class PointerTracker(
             trackedPeekPointer.update { it?.copy(peekMustSwitchBack = true) }
             activeDeleteSwipe = null
             activeSpaceBarSwipe = null
+            activeGlide = null
             trackedOutputPointer.value = null
             lastUpKeyState = LastUpKey(trackedPointer.downKey, up.uptimeMillis)
         }
@@ -756,6 +850,7 @@ class PointerTracker(
         val swipe = activeDeleteSwipe
         activeDeleteSwipe = null
         activeSpaceBarSwipe = null
+        activeGlide = null
         if (swipe != null && swipe.active) {
             imeController.updateState { updateSelectionFromGesture(swipe.baseSelection) }
         }
