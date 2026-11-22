@@ -77,7 +77,7 @@
   },
   "key[output=`@k3:action/enter`]": {
     "background": "var(--primary)",
-    "foreground": "var(--on-surface)",
+    "foreground": "var(--on-primary)",
     "margin": "0dp 6dp"
   },
   "key[code=10]:pressed": {
@@ -86,7 +86,7 @@
   },
   "key[output=`@k3:action/enter`]:pressed": {
     "background": "var(--primary-variant)",
-    "foreground": "var(--on-surface)"
+    "foreground": "var(--on-primary)"
   },
   "key[code=32]": {
     "background": "transparent",

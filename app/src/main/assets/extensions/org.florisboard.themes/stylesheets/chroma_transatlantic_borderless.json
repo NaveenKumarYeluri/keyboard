@@ -70,6 +70,14 @@
     "background": "var(--surface)",
     "foreground": "#FFFFFF"
   },
+  "key[output=`@k3:action/enter`]": {
+    "background": "var(--primary)",
+    "foreground": "var(--on-primary)"
+  },
+  "key[output=`@k3:action/enter`]:pressed": {
+    "background": "var(--primary-variant)",
+    "foreground": "var(--on-primary)"
+  },
   "key-hint": {
     "background": "transparent",
     "foreground": "rgba(16, 16, 16, 0.7)",

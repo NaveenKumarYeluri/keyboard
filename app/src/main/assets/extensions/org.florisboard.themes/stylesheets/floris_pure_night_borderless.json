@@ -70,6 +70,15 @@
     "background": "var(--surface)",
     "foreground": "var(--on-surface)"
   },
+  "key[output=`@k3:action/enter`]": {
+    "background": "var(--primary)",
+    "foreground": "var(--on-primary)",
+    "margin": "0dp 6dp"
+  },
+  "key[output=`@k3:action/enter`]:pressed": {
+    "background": "var(--primary-variant)",
+    "foreground": "var(--on-primary)"
+  },
   "key[code=10]": {
     "background": "var(--primary)",
     "foreground": "var(--on-surface)",
@@ -493,7 +502,7 @@
     "text-overflow": "ellipsis"
   },
   "key[output=` `]": {
-    "background": "var(--surface)",
+    "background": "transparent",
     "foreground": "var(--on-surface)",
     "font-size": "12sp",
     "margin": "0dp 6dp",
