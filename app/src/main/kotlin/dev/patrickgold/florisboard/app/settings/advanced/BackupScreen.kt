@@ -49,6 +49,8 @@ import dev.patrickgold.florisboard.app.components.SegmentedListColumn
 import dev.patrickgold.florisboard.app.components.SegmentedRadioListItem
 import dev.patrickgold.florisboard.ime.clipboard.provider.ClipboardFileStorage
 import dev.patrickgold.florisboard.ime.clipboard.provider.ItemType
+import dev.patrickgold.florisboard.ime.dictionary.DictionaryManager
+import dev.patrickgold.florisboard.ime.dictionary.UserDictionaryBackupEntry
 import dev.patrickgold.florisboard.ime.extension.LocalExtensionController
 import dev.patrickgold.florisboard.ime.io.FileRegistry
 import dev.patrickgold.florisboard.ime.io.FlorisRef
@@ -168,6 +170,23 @@ fun BackupScreen() {
                     )
                 }
             }
+        }
+        if (filter.inclUserDictionaryWords) {
+            val words = DictionaryManager.default()
+                .forceOpenFlorisUserDictionaryDatabase()
+                ?.userDictionaryDao()
+                ?.queryAll()
+                .orEmpty()
+                .map { entry ->
+                    UserDictionaryBackupEntry(
+                        word = entry.word,
+                        freq = entry.freq,
+                        locale = entry.locale,
+                        shortcut = entry.shortcut,
+                    )
+                }
+            val wordsRef = backupDirRef.subRef(BackupDefaults.USER_DICTIONARY_WORDS_JSON_NAME)
+            storage.writeJson(wordsRef, words)
         }
         val metadata = BackupArchiveMetadata(
             packageName = BuildConfig.APPLICATION_ID,

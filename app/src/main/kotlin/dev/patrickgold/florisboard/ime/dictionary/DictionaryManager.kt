@@ -144,16 +144,27 @@ class DictionaryManager private constructor(context: Context) {
         }
     }
 
+    /** Opens the internal dictionary DB even if the dictionary pref is currently disabled. */
+    @Synchronized
+    fun forceOpenFlorisUserDictionaryDatabase(): FlorisUserDictionaryDatabase? {
+        if (florisUserDictionaryDatabase != null) {
+            return florisUserDictionaryDatabase
+        }
+        val context = applicationContext.get() ?: return null
+        florisUserDictionaryDatabase = Room.databaseBuilder(
+            context,
+            FlorisUserDictionaryDatabase::class.java,
+            FlorisUserDictionaryDatabase.DB_FILE_NAME
+        ).allowMainThreadQueries().build()
+        return florisUserDictionaryDatabase
+    }
+
     @Synchronized
     fun loadUserDictionariesIfNecessary() {
         val context = applicationContext.get() ?: return
 
         if (florisUserDictionaryDatabase == null && prefs.dictionary.enableFlorisUserDictionary.get()) {
-            florisUserDictionaryDatabase = Room.databaseBuilder(
-                context,
-                FlorisUserDictionaryDatabase::class.java,
-                FlorisUserDictionaryDatabase.DB_FILE_NAME
-            ).allowMainThreadQueries().build()
+            forceOpenFlorisUserDictionaryDatabase()
         }
         if (systemUserDictionaryDatabase == null && prefs.dictionary.enableSystemUserDictionary.get()) {
             systemUserDictionaryDatabase = SystemUserDictionaryDatabase(context)

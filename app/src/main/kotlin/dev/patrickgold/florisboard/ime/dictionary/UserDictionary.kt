@@ -36,6 +36,7 @@ import androidx.room.Update
 import dev.patrickgold.florisboard.R
 import dev.patrickgold.florisboard.lib.FlorisLocale
 import dev.patrickgold.florisboard.lib.ValidationRule
+import kotlinx.serialization.Serializable
 import org.florisboard.lib.android.readText
 import org.florisboard.lib.android.writeText
 import org.florisboard.lib.kotlin.tryOrNull
@@ -77,6 +78,14 @@ data class UserDictionaryEntry(
     val locale: String?,
     @ColumnInfo(name = UserDictionary.Words.SHORTCUT)
     val shortcut: String?,
+)
+
+@Serializable
+data class UserDictionaryBackupEntry(
+    val word: String,
+    val freq: Int = FREQUENCY_DEFAULT,
+    val locale: String? = null,
+    val shortcut: String? = null,
 )
 
 @Dao
@@ -475,7 +484,7 @@ class SystemUserDictionaryDatabase(context: Context) : UserDictionaryDatabase {
 }
 
 object UserDictionaryValidation {
-    private val WordRegex = """^[^\s;,]+${'$'}""".toRegex()
+    val WordRegex = """^[^\s;,]+${'$'}""".toRegex()
 
     val Word = ValidationRule<String> {
         forKlass = UserDictionaryEntry::class
@@ -528,5 +537,40 @@ object UserDictionaryValidation {
                 else -> resultValid()
             }
         }
+    }
+}
+
+object UserDictionaryBackup {
+    fun sanitize(entry: UserDictionaryBackupEntry): UserDictionaryEntry? {
+        val word = entry.word.trim()
+        if (word.isBlank() || !word.matches(UserDictionaryValidation.WordRegex)) return null
+        if (entry.freq !in FREQUENCY_MIN..FREQUENCY_MAX) return null
+
+        val shortcut = entry.shortcut?.trim()?.takeIf { it.isNotBlank() }
+        if (shortcut != null && !shortcut.matches(UserDictionaryValidation.WordRegex)) return null
+
+        val locale = entry.locale?.trim()?.takeIf { it.isNotBlank() }?.let { tag ->
+            when {
+                tag.equals("all", ignoreCase = true) || tag.equals("null", ignoreCase = true) -> null
+                else -> {
+                    val normalized = tryOrNull { FlorisLocale.fromTag(tag) }?.localeTag()
+                    normalized ?: return null
+                }
+            }
+        }
+        return UserDictionaryEntry(
+            id = 0,
+            word = word,
+            freq = entry.freq,
+            locale = locale,
+            shortcut = shortcut,
+        )
+    }
+
+    fun insertIfMissing(dao: UserDictionaryDao, entry: UserDictionaryEntry): Boolean {
+        val locale = entry.locale?.let { tag -> tryOrNull { FlorisLocale.fromTag(tag) } }
+        if (dao.queryExact(entry.word, locale).isNotEmpty()) return false
+        dao.insert(entry)
+        return true
     }
 }

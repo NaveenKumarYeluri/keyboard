@@ -36,6 +36,7 @@ data class BackupArchiveFilter(
     val inclClipboardTextItems: Boolean = false,
     val inclClipboardImageItems: Boolean = false,
     val inclClipboardVideoItems: Boolean = false,
+    val inclUserDictionaryWords: Boolean = true,
 ) {
     fun inclClipboard(): ToggleableState {
         return when {
@@ -75,7 +76,7 @@ fun BackupArchiveFilterColumn(
     title: String,
 ) {
     SegmentedListColumn(title = title) {
-        val count = 7
+        val count = 8
         CheckboxListItem(
             onClick = {},
             shapes = ListItemDefaults.segmentedShapes(0, count),
@@ -163,6 +164,16 @@ fun BackupArchiveFilterColumn(
             text = stringRes(R.string.backup_and_restore__back_up__files_clipboard_history__clipboard_video_items),
             isSecondaryListItem = true,
         )
-
+        CheckboxListItem(
+            onClick = {
+                val newFilter = filter.copy(
+                    inclUserDictionaryWords = !filter.inclUserDictionaryWords,
+                )
+                onUpdateFilter(newFilter)
+            },
+            shapes = ListItemDefaults.segmentedShapes(7, count),
+            checked = filter.inclUserDictionaryWords,
+            text = stringRes(R.string.backup_and_restore__back_up__files_user_dictionary_words),
+        )
     }
 }

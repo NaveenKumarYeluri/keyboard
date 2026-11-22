@@ -100,6 +100,9 @@ import dev.patrickgold.florisboard.app.components.SegmentedRadioListItem
 import dev.patrickgold.florisboard.ime.clipboard.provider.ClipboardFileStorage
 import dev.patrickgold.florisboard.ime.clipboard.provider.ClipboardItem
 import dev.patrickgold.florisboard.ime.clipboard.provider.ItemType
+import dev.patrickgold.florisboard.ime.dictionary.DictionaryManager
+import dev.patrickgold.florisboard.ime.dictionary.UserDictionaryBackup
+import dev.patrickgold.florisboard.ime.dictionary.UserDictionaryBackupEntry
 import dev.patrickgold.florisboard.ime.extension.LocalExtensionController
 import dev.patrickgold.florisboard.ime.io.AndroidStorage
 import dev.patrickgold.florisboard.ime.io.FlorisRef
@@ -253,6 +256,31 @@ fun RestoreScreen(isSetup: Boolean) {
                 filter = state.filter,
                 isLegacyMode = state.metadata.versionCode <= BackupDefaults.OLD_EXT_VERSION_CODE_CUTOFF,
             )
+        }
+
+        if (state.filter.inclUserDictionaryWords) {
+            val wordsRef = state.backupDirRef.subRef(BackupDefaults.USER_DICTIONARY_WORDS_JSON_NAME)
+            if (storage.exists(wordsRef)) {
+                val dao = DictionaryManager.default()
+                    .forceOpenFlorisUserDictionaryDatabase()
+                    ?.userDictionaryDao()
+                if (dao != null) {
+                    if (shouldResetOtherData) {
+                        dao.deleteAll()
+                    }
+                    val insertedKeys = mutableSetOf<Pair<String, String?>>()
+                    for (archiveEntry in storage.readJson<List<UserDictionaryBackupEntry>>(wordsRef)) {
+                        val entry = UserDictionaryBackup.sanitize(archiveEntry) ?: continue
+                        val key = entry.word to entry.locale
+                        if (!insertedKeys.add(key)) continue
+                        if (shouldResetOtherData) {
+                            dao.insert(entry)
+                        } else if (!UserDictionaryBackup.insertIfMissing(dao, entry)) {
+                            continue
+                        }
+                    }
+                }
+            }
         }
 
         val clipboardManager = context.inferFlorisApplication().clipboardManager.value

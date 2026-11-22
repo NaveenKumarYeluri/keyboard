@@ -21,6 +21,7 @@ import dev.patrickgold.florisboard.BuildConfig
 object BackupDefaults {
     const val FILE_PROVIDER_AUTHORITY = "${BuildConfig.APPLICATION_ID}.provider.file"
     const val METADATA_JSON_NAME = "backup_metadata.json"
+    const val USER_DICTIONARY_WORDS_JSON_NAME = "user_dictionary_words.json"
     const val CLIPBOARD_TEXT_ITEMS_JSON_NAME = "clipboard_text_items.json"
     const val CLIPBOARD_IMAGES_JSON_NAME = "clipboard_images.json"
     const val CLIPBOARD_VIDEO_JSON_NAME = "clipboard_video.json"
