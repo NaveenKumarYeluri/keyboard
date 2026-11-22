@@ -33,6 +33,7 @@ object ImeIcons {
     val DragMarker = flIcon("drag_marker")
     val Enter = flIcon("enter")
     val HideKeyboard = flIcon("hide_keyboard")
+    val Incognito = flIcon("incognito")
     val LanguageSwitch = flIcon("language_switch")
     val ClipboardPanel = flIcon("clipboard_panel")
     val MediaPanel = flIcon("media_panel")

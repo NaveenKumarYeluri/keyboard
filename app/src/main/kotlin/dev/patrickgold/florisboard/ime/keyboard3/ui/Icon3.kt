@@ -154,6 +154,7 @@ fun staticIcon3(value: K3Descriptor, context: Context): ImageVector? {
         ImeIcons.DragMarker -> Icons.Default.Close
         ImeIcons.Enter -> Icons.AutoMirrored.Filled.KeyboardReturn
         ImeIcons.HideKeyboard -> Icons.Default.KeyboardHide
+        ImeIcons.Incognito -> context.vectorResource(R.drawable.ic_incognito)
         ImeIcons.LanguageSwitch -> Icons.Default.Language
         ImeIcons.ClipboardPanel -> Icons.AutoMirrored.Outlined.Assignment
         ImeIcons.MediaPanel -> Icons.Default.SentimentSatisfiedAlt

@@ -63,7 +63,7 @@ the mapping to a different display value.
     <display output="@fl:action/toggle_actions_editor" display="TODO" />
     <display output="@fl:action/toggle_actions_overflow" display="@fl:icon/toggle_actions_overflow" />
     <display output="@fl:action/toggle_autocorrect" display="@fl:icon/toggle_autocorrect" />
-    <display output="@fl:action/toggle_personalized_learning" display="TODO" />
+    <display output="@fl:action/toggle_personalized_learning" display="@fl:icon/incognito" />
 
     <display output="@fl:action/external_voice_input" display="@fl:icon/voice" />
 
