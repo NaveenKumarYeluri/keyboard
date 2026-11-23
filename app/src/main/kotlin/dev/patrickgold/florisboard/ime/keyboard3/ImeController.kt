@@ -355,12 +355,20 @@ class ImeController(
                 chooseGlideCandidate(primary, normalized, alternateCandidate, alternate)
             }
         }?.text?.toString()
+        // A glide that started on a shifted letter must not be forced back to lowercase.
+        val capitalize = sequence.firstOrNull()?.isUppercase() == true
+        fun applyGlideCase(text: String): String {
+            return if (capitalize) text.replaceFirstChar { it.uppercaseChar() } else text
+        }
         var committed = ""
         updateState {
             committed = if (resolved != null) {
-                emitGlideText(resolved, transliterate = false)
+                emitGlideText(applyGlideCase(resolved), transliterate = false)
             } else {
-                emitGlideText(normalized, transliterate = activeLayoutId == "telugu-phonetic")
+                emitGlideText(
+                    applyGlideCase(normalized),
+                    transliterate = activeLayoutId == "telugu-phonetic",
+                )
             }
         }
         glideBackspaceWordLength = if (
@@ -555,6 +563,10 @@ class ImeController(
                     .withInputShiftState(
                         when {
                             rememberCapsLockState -> InputShiftState.CAPS_LOCK
+                            prefs.typing.autoCapitalization.get() &&
+                                info.initialCapsMode != InputAttributes.CapsMode.NONE -> {
+                                InputShiftState.SHIFTED_AUTOMATIC
+                            }
                             else -> InputShiftState.UNSHIFTED
                         }
                     )
@@ -1111,7 +1123,12 @@ class ImeController(
         fun reevaluateInputShiftState() {
             val isPeekOngoing = false // TODO
             if (state.flags.inputShiftState == InputShiftState.CAPS_LOCK || isPeekOngoing) return
-            val capsMode = state.content.cursorCapsMode(state.editor.info.inputAttributes)
+            // Query the editor directly: the cached K3 content can lag by one character in browsers,
+            // which made auto-capitalization miss the start of the next word.
+            val textBefore = state.editor.getTextBeforeSelection(50).orEmpty()
+            val capsMode = InputAttributes.CapsMode.fromFlags(
+                TextUtils.getCapsMode(textBefore, textBefore.length, state.editor.info.inputAttributes.raw)
+            )
             val shift = prefs.typing.autoCapitalization.get()
                 && capsMode != InputAttributes.CapsMode.NONE
                 // && subtypeManager.activeSubtype.primaryLocale.supportsCapitalization
