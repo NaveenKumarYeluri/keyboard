@@ -294,16 +294,24 @@ class NlpManager(context: Context) {
         runBlocking {
             val candidates = when {
                 isSuggestionOn() -> {
-                    clipboardSuggestionProvider.suggest(
+                    val clipboardSuggestions = clipboardSuggestionProvider.suggest(
                         subtype = Subtype.DEFAULT,
                         content = imeController.snapshotState().content,
                         maxCandidateCount = 8,
                         allowPossiblyOffensive = !prefs.suggestion.blockPossiblyOffensive.get(),
                         isPrivateSession = false // TODO keyboardManager.activeState.isIncognitoMode,
-                    ).ifEmpty {
-                        buildList {
-                            internalSuggestionsGuard.withLock {
-                                addAll(internalSuggestions.second)
+                    )
+                    val nlpSuggestions = buildList {
+                        internalSuggestionsGuard.withLock {
+                            addAll(internalSuggestions.second)
+                        }
+                    }
+                    // Clipboard matches are useful but must not hide ordinary word suggestions.
+                    buildList {
+                        val seen = mutableSetOf<String>()
+                        for (candidate in clipboardSuggestions + nlpSuggestions) {
+                            if (seen.add(candidate.text.toString().lowercase())) {
+                                add(candidate)
                             }
                         }
                     }

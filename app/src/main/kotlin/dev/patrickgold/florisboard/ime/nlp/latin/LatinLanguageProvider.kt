@@ -224,6 +224,13 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
         // Ranked candidate text -> confidence map.
         val candidates = mutableMapOf<String, Double>()
 
+        // Keep the exact typed word available. Without this, typing a complete known word could
+        // show only longer extensions and corrections, making the suggestions feel wrong.
+        if (typedWordIsKnown) {
+            val frequency = dictionary.words[composingWord] ?: 255
+            candidates[composingWord] = maxOf(computeBaseConfidence(frequency, dictionary), 0.98)
+        }
+
         // 1. Close corrections, only relevant if the typed word is unknown so far.
         if (!typedWordIsKnown) {
             for (correction in findCorrections(composingWord, locale, maxCandidateCount)) {

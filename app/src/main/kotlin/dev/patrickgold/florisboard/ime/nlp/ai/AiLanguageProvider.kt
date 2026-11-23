@@ -46,8 +46,10 @@ class AiLanguageProvider(
     companion object {
         const val ProviderId = "org.florisboard.nlp.providers.ai"
 
-        private const val AI_WEIGHT = 0.65
-        private const val UNKNOWN_CONTEXT_SCORE = 0.05
+        // Keep dictionary/prefix evidence dominant. Context may refine the order, but it must not
+        // push a strong exact match out of the visible candidates.
+        private const val AI_WEIGHT = 0.35
+        private const val UNKNOWN_CONTEXT_SCORE = 0.02
         private const val MAX_CONTEXT_WORDS = 2
     }
 
