@@ -356,7 +356,7 @@ class ImeController(
             }
         }?.text?.toString()
         // A glide that started on a shifted letter must not be forced back to lowercase.
-        val capitalize = sequence.firstOrNull()?.isUppercase() == true
+        val capitalize = sequence.firstOrNull()?.isUpperCase() == true
         fun applyGlideCase(text: String): String {
             return if (capitalize) text.replaceFirstChar { it.uppercaseChar() } else text
         }
