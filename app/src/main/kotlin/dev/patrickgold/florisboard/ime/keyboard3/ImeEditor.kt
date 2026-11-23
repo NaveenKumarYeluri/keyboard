@@ -187,21 +187,62 @@ open class ImeEditor(
         newComposition: K3TextRange?,
     ) {
         val ic = ic.get() ?: return
-        val start = range.first.coerceAtLeast(0)
-        val end = (range.last + 1).coerceAtLeast(start)
         ic.beginBatchEdit()
         ic.finishComposingText()
-        ic.setSelection(start, end)
-        if (text.isEmpty()) {
-            if (end > start) {
-                ic.deleteSurroundingText(end - start, 0)
-            }
-        } else {
+
+        // K3 asks us to replace an absolute context range, but browsers and rich editors often give
+        // us stale surrounding text. Never rewrite that whole range: derive the smallest edit from
+        // the native selection/cursor so preceding paragraphs and list points cannot be overwritten.
+        val selectedLength = ic.getSelectedText(0)?.length ?: 0
+        if (selectedLength > 0) {
+            // commitText replaces the current native selection; an empty string deletes it.
             ic.commitText(text, 1)
+        } else {
+            val contextLength = (range.last + 1 - range.first).coerceAtLeast(0)
+            val probe = ic.getTextBeforeCursor(contextLength, 0)?.toString().orEmpty()
+            val actual = if (probe.length >= contextLength) probe.takeLast(contextLength) else probe
+            val currentWordLength = probe.takeLastWhile { it.isLetterOrDigit() || it == '\'' }.length
+            // A normal auto-correct/replacement only touches the current word (plus a space). If the
+            // requested context diverges earlier than that, the K3 state is stale: cap the deletion
+            // instead of trusting it and deleting whole list points or paragraphs.
+            val maxReplace = (currentWordLength + 2).coerceAtLeast(8)
+            when {
+                // Normal typing: existing context is an exact prefix of the requested context.
+                // Commit only the newly appended characters at the native cursor.
+                text.startsWith(actual) -> {
+                    val insertion = text.substring(actual.length)
+                    if (insertion.isNotEmpty()) {
+                        ic.commitText(insertion, 1)
+                    }
+                }
+                // Native deletion already removed a suffix; delete only the safe tail.
+                actual.startsWith(text) -> {
+                    val deleteCount = (actual.length - text.length).coerceAtMost(maxReplace)
+                    if (deleteCount > 0) {
+                        ic.deleteSurroundingText(deleteCount, 0)
+                    }
+                }
+                else -> {
+                    var common = 0
+                    val limit = minOf(actual.length, text.length)
+                    while (common < limit && actual[common] == text[common]) {
+                        common++
+                    }
+                    val oldTail = actual.length - common
+                    val newTail = text.substring(common)
+                    if (oldTail <= maxReplace && newTail.length <= maxReplace) {
+                        if (oldTail > 0) ic.deleteSurroundingText(oldTail, 0)
+                        if (newTail.isNotEmpty()) ic.commitText(newTail, 1)
+                    } else if (newTail.isNotEmpty() && newTail.length <= maxReplace) {
+                        // Stale context would delete too much; insert only the replacement tail.
+                        ic.commitText(newTail, 1)
+                    }
+                }
+            }
         }
-        // Only apply an explicit non-collapsed selection/composition from K3. For normal typing
-        // commitText already places the cursor; forcing a computed selection caused caret jumps in
-        // browsers when editor state changed asynchronously.
+
+        // Do not force a computed collapsed selection; commitText/deleteSurroundingText already
+        // leave the cursor where it belongs, and overriding it caused caret jumps in browsers.
         if (!newSelection.isCollapsed()) {
             ic.setSelection(newSelection.start, newSelection.end)
         }

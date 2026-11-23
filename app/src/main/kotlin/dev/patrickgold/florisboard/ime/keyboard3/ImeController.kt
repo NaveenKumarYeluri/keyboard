@@ -727,8 +727,17 @@ class ImeController(
                 val autoCandidate = if (typedWord.isEmpty()) {
                     null
                 } else {
-                    nlpManager.getAutoCommitCandidate(typedWord)?.takeIf {
-                        it.text.toString() != typedWord
+                    val beforeWord = state.content.surroundingText.textBefore
+                        .removeSuffix(typedWord)
+                    val prevChar = beforeWord.lastOrNull()
+                    val standaloneI = typedWord != "i" ||
+                        (prevChar == null || !prevChar.isLetterOrDigit() && prevChar != '\'')
+                    if (!standaloneI) {
+                        null
+                    } else {
+                        nlpManager.getAutoCommitCandidate(typedWord)?.takeIf {
+                            it.text.toString() != typedWord
+                        }
                     }
                 }
                 if (autoCandidate != null) {
