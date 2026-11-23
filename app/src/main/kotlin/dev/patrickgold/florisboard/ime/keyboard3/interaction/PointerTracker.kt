@@ -1080,10 +1080,10 @@ fun rememberPointerTracker(
     val baseSwipeUnitPx = with(density) {
         swipeDistanceThreshold.coerceAtLeast(4).dp.toPx().fastCoerceAtLeast(1f)
     }
-    // Delete swipe stays fine-grained so long swipes can cover multiple words. Spacebar swipes use
-    // the full configured distance per step; dividing it further made cursor movement far too fast.
+    // Delete swipe stays fine-grained so long swipes can cover multiple words. Spacebar cursor
+    // swipes need a smaller unit than the full gesture distance, but not as tiny as before.
     val deleteSwipeUnitPx = (baseSwipeUnitPx / 8f).fastCoerceAtLeast(1f)
-    val spaceBarSwipeUnitPx = baseSwipeUnitPx
+    val spaceBarSwipeUnitPx = (baseSwipeUnitPx / 4f).fastCoerceAtLeast(1f)
     val gestureSlopPx = (baseSwipeUnitPx * 0.5f).fastCoerceAtLeast(4f)
     val spaceBarSwipeThresholdPx = gestureSlopPx
 
