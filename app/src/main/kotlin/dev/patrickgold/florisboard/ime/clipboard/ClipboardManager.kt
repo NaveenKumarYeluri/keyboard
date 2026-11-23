@@ -159,6 +159,14 @@ class ClipboardManager(
     }
 
     /**
+     * Writes [item] to the system clipboard even when internal clipboard sync is disabled. Used by
+     * keyboard copy/cut fallbacks so other apps can paste what was copied.
+     */
+    fun forceSyncToSystem(item: ClipboardItem?) {
+        systemClipboardManager.setOrClearPrimaryClip(item?.toClipData(appContext))
+    }
+
+    /**
      * Called by system clipboard when the system primary clip has changed.
      */
     override fun onPrimaryClipChanged() {

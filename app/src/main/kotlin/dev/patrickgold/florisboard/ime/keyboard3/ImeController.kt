@@ -752,31 +752,34 @@ class ImeController(
                 ImeActions.ArrowUp -> state.editor.sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_UP)
                 // TODO clipboard manager needs a rewrite to match the new state paradigm
                 ImeActions.ClipboardCopy -> {
-                    if (state.editor.info.isRichInputEditor) {
-                        val text = state.content.surroundingText.textSelected
+                    // Prefer the app's own action; it preserves app-specific clipboard data and
+                    // works even when our cached selection is stale.
+                    if (!state.editor.performClipboardCopy()) {
+                        val text = state.editor.getSelectedText()
+                            .ifEmpty { state.content.surroundingText.textSelected }
                         if (text.isNotEmpty()) {
                             clipboardManager.addNewPlaintext(text)
+                            clipboardManager.forceSyncToSystem(clipboardManager.primaryClip)
                         }
-                    } else {
-                        state.editor.performClipboardCopy()
                     }
                 }
                 ImeActions.ClipboardCut -> {
-                    if (state.editor.info.isRichInputEditor) {
-                        val text = state.content.surroundingText.textSelected
+                    if (!state.editor.performClipboardCut()) {
+                        val text = state.editor.getSelectedText()
+                            .ifEmpty { state.content.surroundingText.textSelected }
+                        val selection = state.editor.getSelectionRange()
                         if (text.isNotEmpty()) {
                             clipboardManager.addNewPlaintext(text)
-                            emitBackspace()
+                            clipboardManager.forceSyncToSystem(clipboardManager.primaryClip)
                         }
-                    } else {
-                        state.editor.performClipboardCut()
+                        if (selection != null && selection.end > selection.start) {
+                            deleteSelectionFromGesture(selection)
+                        }
                     }
                 }
                 ImeActions.ClipboardPaste -> {
-                    if (state.editor.info.isRichInputEditor) {
+                    if (!state.editor.performClipboardPaste()) {
                         emitClipboardItem(clipboardManager.primaryClip)
-                    } else {
-                        state.editor.performClipboardPaste()
                     }
                 }
                 ImeActions.ClipboardClearHistory -> clipboardManager.clearHistory()

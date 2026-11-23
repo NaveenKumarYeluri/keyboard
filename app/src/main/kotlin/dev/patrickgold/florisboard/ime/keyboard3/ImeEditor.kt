@@ -202,17 +202,25 @@ open class ImeEditor(
 
     fun performClipboardCopy(): Boolean {
         val ic = ic.get() ?: return false
-        return ic.performContextMenuAction(android.R.id.copy)
+        if (ic.performContextMenuAction(android.R.id.copy)) return true
+        return sendDownUpKeyEvent(KeyEvent.KEYCODE_C, meta(ctrl = true))
     }
 
     fun performClipboardCut(): Boolean {
         val ic = ic.get() ?: return false
-        return ic.performContextMenuAction(android.R.id.cut)
+        if (ic.performContextMenuAction(android.R.id.cut)) return true
+        return sendDownUpKeyEvent(KeyEvent.KEYCODE_X, meta(ctrl = true))
     }
 
     fun performClipboardPaste(): Boolean {
         val ic = ic.get() ?: return false
-        return ic.performContextMenuAction(android.R.id.paste)
+        if (ic.performContextMenuAction(android.R.id.paste)) return true
+        return sendDownUpKeyEvent(KeyEvent.KEYCODE_V, meta(ctrl = true))
+    }
+
+    /** Reads the current selection directly from the editor, avoiding stale cached content. */
+    fun getSelectedText(): String {
+        return ic.get()?.getSelectedText(0)?.toString().orEmpty()
     }
 
     fun performClipboardPasteMedia(item: ClipboardItem): Boolean {
@@ -236,11 +244,9 @@ open class ImeEditor(
     fun performSelectAll(): Boolean {
         val ic = ic.get() ?: return false
         ic.finishComposingText()
-        return if (info.isRawInputEditor) {
-            sendDownUpKeyEvent(KeyEvent.KEYCODE_A, meta(ctrl = true))
-        } else {
-            ic.performContextMenuAction(android.R.id.selectAll)
-        }
+        if (ic.performContextMenuAction(android.R.id.selectAll)) return true
+        // Many WebView/browser fields do not implement SELECT_ALL but do handle Ctrl+A.
+        return sendDownUpKeyEvent(KeyEvent.KEYCODE_A, meta(ctrl = true))
     }
 
     fun performUndo(): Boolean {

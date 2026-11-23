@@ -57,24 +57,24 @@ fun rememberDerivedEnabledState(
 
     return remember(output) {
         derivedStateOf {
-            val isSelectionCollapsed = imeState.content.selection.isCollapsed()
             val isPrimaryClipPastable = clipboardManager.canBePasted(primaryClip)
-            val isRichInputEditor = imeState.editor.info.isRichInputEditor
             val isMultiLingual = subtypes.size > 1
             val isDeviceLocked = isDeviceLocked
             when (output) {
                 is K3Descriptor -> when (output.name) {
                     ImeActions.ClipboardCopy.name, ImeActions.ClipboardCut.name -> {
-                        !isSelectionCollapsed
+                        // The action falls back to key events and a fresh selection read, so a stale
+                        // cached selection must not disable the button in some apps.
+                        true
                     }
                     ImeActions.ClipboardPaste.name -> {
-                        !isDeviceLocked && isPrimaryClipPastable
+                        !isDeviceLocked
                     }
                     ImeActions.ClipboardClearPrimaryClip.name -> {
                         isPrimaryClipPastable
                     }
                     ImeActions.SelectAll.name -> {
-                        isRichInputEditor
+                        true
                     }
                     ImeActions.SwitchToNextSubtype.name -> {
                         isMultiLingual
