@@ -233,11 +233,14 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
             }
         }
 
-        // 2. Prefix completions of the currently typed word.
+        // 2. Prefix completions of the currently typed word. Strongly prefer completions close in
+        // length so "swi" offers swim/swift/swipe before much longer high-frequency words such as
+        // "switzerland" or "swimming".
         for ((word, frequency) in dictionary.words) {
             if (word.length > composingWord.length && word.startsWith(composingWord)) {
                 candidates.getOrPut(word) {
-                    computeBaseConfidence(frequency, dictionary)
+                    computeBaseConfidence(frequency, dictionary) *
+                        prefixProximity(word.length - composingWord.length)
                 }
             }
         }
@@ -256,7 +259,10 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
             for ((alias, word) in aliases) {
                 if (alias.length > composingWord.length && alias.startsWith(composingWord)) {
                     val frequency = dictionary.words[word] ?: 128
-                    candidates.getOrPut(word) { computeBaseConfidence(frequency, dictionary) }
+                    candidates.getOrPut(word) {
+                        computeBaseConfidence(frequency, dictionary) *
+                            prefixProximity(alias.length - composingWord.length)
+                    }
                 }
             }
         }
@@ -469,6 +475,12 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
         } else {
             (frequency.toDouble() / dictionary.maxFrequency).coerceIn(0.01, 1.0)
         }
+    }
+
+    /** Penalizes long prefix completions quadratically, without affecting exact matches. */
+    private fun prefixProximity(lengthDelta: Int): Double {
+        if (lengthDelta <= 0) return 1.0
+        return 1.0 / (1.0 + 0.12 * lengthDelta * lengthDelta)
     }
 
     /**

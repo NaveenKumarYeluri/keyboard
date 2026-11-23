@@ -49,6 +49,8 @@ import kotlin.properties.Delegates
 
 private const val BLANK_STR_PATTERN = "^\\s*$"
 
+private const val DEFAULT_MAX_CANDIDATE_COUNT = 16
+
 class NlpManager(context: Context) {
     private val blankStrRegex = Regex(BLANK_STR_PATTERN)
 
@@ -221,7 +223,7 @@ class NlpManager(context: Context) {
                     getSuggestionProvider(subtype).suggest(
                         subtype = subtype,
                         content = content,
-                        maxCandidateCount = 8,
+                        maxCandidateCount = DEFAULT_MAX_CANDIDATE_COUNT,
                         allowPossiblyOffensive = !prefs.suggestion.blockPossiblyOffensive.get(),
                         isPrivateSession = false // TODO keyboardManager.activeState.isIncognitoMode,
                     )
