@@ -988,6 +988,9 @@ class ImeController(
             // Skipped when the character right after the cursor is already whitespace.
             val autoSpace = prefs.suggestion.autoSpaceAfterSuggestionPick.get() &&
                 content.surroundingText.textAfter.firstOrNull()?.isWhitespace() != true
+            // Commit the word and its trailing space in one editor write. A separate emitText(" ")
+            // performs another whole-context composing replace, which some rich editors drop.
+            val finalText = if (autoSpace) "$text " else text
             return if (hasComposition) {
                 // Replace the currently composed word with the candidate text. This mirrors the logic of
                 // `emitText`, but removes the composed word from the tracked input context first.
@@ -995,7 +998,7 @@ class ImeController(
                 val headLength = (content.inputContext.length - tail.length).coerceAtLeast(0)
                 val newInputContext = buildK3String {
                     append(content.inputContext.slice(0..<headLength))
-                    append(text.asK3String())
+                    append(finalText.asK3String())
                 }
                 val newSurroundingText = content.surroundingText.copy(
                     textBefore = newInputContext.normalize(NormalizationForm.NFC).toText(),
@@ -1014,14 +1017,11 @@ class ImeController(
                 expectedContentQueue.push(state.content.selection)
                 reevaluateInputShiftState()
                 state.editor.replaceText(range, newSurroundingText.textBefore, newSelection, newComposition)
-                if (autoSpace) {
-                    emitText(" ".asK3String())
-                }
                 true
             } else {
                 // The current word is already gone; commit the candidate directly through the base
                 // implementation so a single-letter candidate is not mistaken for phonetic input.
-                super.emitText(if (autoSpace) "${text} ".asK3String() else text.asK3String())
+                super.emitText(finalText.asK3String())
                 expectedContentQueue.push(state.content.selection)
                 reevaluateInputShiftState()
                 true
