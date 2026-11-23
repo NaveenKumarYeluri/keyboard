@@ -676,17 +676,13 @@ class ImeController(
             get() = activeLayoutId == "telugu-phonetic"
 
         /**
-         * Replaces the Telugu output for the current raw Latin buffer. All editor writes still go
-         * through the K3 base implementation, so input context, selection and composition stay in
-         * sync with the editor.
+         * Replaces the Telugu output for the current raw Latin buffer. The old output is removed with
+         * a native deletion so a replacement cannot rewrite across list/paragraph boundaries; the
+         * new output is inserted through the K3 base implementation.
          */
         private fun replacePhoneticOutput(newOutput: String) {
             val oldOutput = phoneticOutput
-            var remaining = oldOutput.codePointCount(0, oldOutput.length)
-            while (remaining > 0) {
-                super.emitBackspace()
-                remaining--
-            }
+            deletePrecisely(oldOutput.codePointCount(0, oldOutput.length), OperationUnit.CHARACTERS)
             if (newOutput.isNotEmpty()) {
                 super.emitText(newOutput.asK3String())
             }
@@ -827,13 +823,10 @@ class ImeController(
             val glideWordLength = glideBackspaceWordLength
             if (glideWordLength > 0) {
                 // "Pressing delete right after a glide deletes the whole word": consume the whole
-                // just-committed glide output in one go, then fall back to normal backspace behavior.
+                // just-committed glide output in one native deletion.
                 glideBackspaceWordLength = 0
                 clearPhoneticBuffer()
-                repeat(glideWordLength) {
-                    super.emitBackspace()
-                    expectedContentQueue.push(state.content.selection)
-                }
+                deletePrecisely(glideWordLength, OperationUnit.CHARACTERS)
                 reevaluateInputShiftState()
                 return
             }
@@ -843,12 +836,14 @@ class ImeController(
                 replacePhoneticOutput(output)
                 phoneticLatin = raw
                 phoneticOutput = output
-                expectedContentQueue.push(state.content.selection)
                 return
             }
             clearPhoneticBuffer()
-            super.emitBackspace()
-            expectedContentQueue.push(state.content.selection)
+            // Native deletion is essential here: the K3 base implementation rewrites the whole
+            // 50-character context as a composing region, which crosses newlines in list editors and
+            // makes one backspace delete an entire bullet/numbered point.
+            deletePrecisely(1, OperationUnit.CHARACTERS)
+            reevaluateInputShiftState()
         }
 
         override fun emitEnter() {
@@ -985,10 +980,7 @@ class ImeController(
                 } else {
                     content.surroundingText.textBefore.takeLastWhile { it.isLetterOrDigit() || it == '\'' }
                 }
-                repeat(currentWord.codePointCount(0, currentWord.length)) {
-                    super.emitBackspace()
-                    expectedContentQueue.push(state.content.selection)
-                }
+                deletePrecisely(currentWord.codePointCount(0, currentWord.length), OperationUnit.CHARACTERS)
                 reevaluateInputShiftState()
             }
             clearPhoneticBuffer()
