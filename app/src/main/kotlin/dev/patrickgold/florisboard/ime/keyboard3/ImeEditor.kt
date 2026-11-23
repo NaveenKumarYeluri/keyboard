@@ -187,53 +187,27 @@ open class ImeEditor(
         newComposition: K3TextRange?,
     ) {
         val ic = ic.get() ?: return
-        val rangeEnd = range.last + 1
-        val existingLength = (rangeEnd - range.first).coerceAtLeast(0)
-        val existing = if (existingLength > 0) {
-            ic.getTextBeforeCursor(existingLength, 0)?.toString().orEmpty()
-        } else {
-            ""
-        }
-        // Replace only the part that actually changed. Marking the whole surrounding text as a
-        // composing region made browsers place the caret one character behind and let rich editors
-        // treat ordinary typing as a paragraph replacement.
-        var prefix = 0
-        val commonPrefixLimit = minOf(existing.length, text.length)
-        while (prefix < commonPrefixLimit && existing[prefix] == text[prefix]) {
-            prefix++
-        }
-        var suffix = 0
-        val commonSuffixLimit = minOf(existing.length - prefix, text.length - prefix)
-        while (suffix < commonSuffixLimit &&
-            existing[existing.length - 1 - suffix] == text[text.length - 1 - suffix]
-        ) {
-            suffix++
-        }
-        val replaceStart = range.first + prefix
-        val replaceEnd = range.first + existing.length - suffix
-        val replacement = text.substring(prefix, text.length - suffix)
-
+        val start = range.first.coerceAtLeast(0)
+        val end = (range.last + 1).coerceAtLeast(start)
         ic.beginBatchEdit()
         ic.finishComposingText()
-        if (replaceEnd > replaceStart) {
-            ic.setSelection(replaceStart, replaceEnd)
-            if (replacement.isEmpty()) {
-                ic.deleteSurroundingText(replaceEnd - replaceStart, 0)
-            } else {
-                ic.commitText(replacement, 1)
+        ic.setSelection(start, end)
+        if (text.isEmpty()) {
+            if (end > start) {
+                ic.deleteSurroundingText(end - start, 0)
             }
-        } else if (replacement.isNotEmpty()) {
-            ic.setSelection(replaceEnd, replaceEnd)
-            ic.commitText(replacement, 1)
+        } else {
+            ic.commitText(text, 1)
         }
-        val naturalCursor = range.first + text.length
-        val target = if (newSelection.isCollapsed()) K3TextRange(naturalCursor) else newSelection
-        ic.setSelection(target.start, target.end)
-        val composition = newComposition?.takeIf { !it.isCollapsed() && it.end <= target.end }
+        // Only apply an explicit non-collapsed selection/composition from K3. For normal typing
+        // commitText already places the cursor; forcing a computed selection caused caret jumps in
+        // browsers when editor state changed asynchronously.
+        if (!newSelection.isCollapsed()) {
+            ic.setSelection(newSelection.start, newSelection.end)
+        }
+        val composition = newComposition?.takeIf { !it.isCollapsed() }
         if (composition != null) {
             ic.setComposingRegion(composition.start, composition.end)
-        } else {
-            ic.finishComposingText()
         }
         ic.endBatchEdit()
     }
