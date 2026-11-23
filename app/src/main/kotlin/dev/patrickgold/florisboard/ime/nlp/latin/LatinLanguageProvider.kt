@@ -223,6 +223,7 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
 
         // Ranked candidate text -> confidence map.
         val candidates = mutableMapOf<String, Double>()
+        val autoCommitCorrections = mutableSetOf<String>()
 
         // Keep the exact typed word available. Without this, typing a complete known word could
         // show only longer extensions and corrections, making the suggestions feel wrong.
@@ -234,9 +235,28 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
         // 1. Close corrections, only relevant if the typed word is unknown so far.
         if (!typedWordIsKnown) {
             for (correction in findCorrections(composingWord, locale, maxCandidateCount)) {
-                candidates.getOrPut(correction) {
-                    computeConfidence(correction, composingWord, locale)
+                val confidence = computeConfidence(correction, composingWord, locale)
+                candidates.getOrPut(correction) { confidence }
+                // Only one-edit substitutions are safe enough for silent replacement. Prefix
+                // completions and fuzzy two-edit matches must remain manual picks.
+                if (confidence >= 0.7 &&
+                    boundedLevenshteinDistance(composingWord, correction, 1) == 1
+                ) {
+                    autoCommitCorrections.add(correction)
                 }
+            }
+            // Handle common adjacent-letter swaps such as "teh" -> "the", which Levenshtein
+            // distance alone scores as two edits and would otherwise miss.
+            for (index in 0 until composingWord.length - 1) {
+                val chars = composingWord.toCharArray()
+                val swapped = chars[index]
+                chars[index] = chars[index + 1]
+                chars[index + 1] = swapped
+                val correction = String(chars)
+                if (correction == composingWord || !isKnownWord(correction, locale)) continue
+                val confidence = maxOf(computeConfidence(correction, composingWord, locale), 0.8)
+                candidates[correction] = maxOf(candidates.getOrDefault(correction, 0.0), confidence)
+                autoCommitCorrections.add(correction)
             }
         }
 
@@ -287,9 +307,10 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
                 WordSuggestionCandidate(
                     text = adaptCase(word, rawCompositionText),
                     confidence = confidence,
-                    // We deliberately never auto-commit: the user decides which candidate to pick. This avoids
-                    // frustrating false-positive autocorrections with the small on-device dictionaries.
-                    isEligibleForAutoCommit = false,
+                    // Only high-confidence one-edit corrections may be applied silently, and only
+                    // when the auto-correct preference is enabled at the commit site.
+                    isEligibleForAutoCommit = word in autoCommitCorrections,
+                    autocorrectInput = if (word in autoCommitCorrections) composingWord else null,
                     // We set ourselves as the source provider so we can get notify events for our candidate
                     sourceProvider = this@LatinLanguageProvider,
                 )

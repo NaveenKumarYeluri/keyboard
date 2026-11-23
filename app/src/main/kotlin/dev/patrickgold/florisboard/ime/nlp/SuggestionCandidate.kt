@@ -111,6 +111,8 @@ data class WordSuggestionCandidate(
     override val isEligibleForAutoCommit: Boolean = false,
     override val isEligibleForUserRemoval: Boolean = true,
     override val sourceProvider: SuggestionProvider? = null,
+    /** The exact typed word this candidate corrects, used to avoid applying stale autocorrections. */
+    val autocorrectInput: String? = null,
 ) : SuggestionCandidate {
     override val icon: ImageVector? = null
 }

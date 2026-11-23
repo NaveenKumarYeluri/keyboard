@@ -156,6 +156,10 @@ abstract class FlorisPreferenceModel : PreferenceModel() {
 
     val correction = Correction()
     inner class Correction {
+        val autoReplaceMistypedWords = boolean(
+            key = "correction__auto_replace_mistyped_words",
+            default = true,
+        )
         val autoSpacePunctuation = boolean(
             key = "correction__auto_space_punctuation",
             default = false,

@@ -236,6 +236,7 @@ class AiLanguageProvider(
             isEligibleForAutoCommit = isEligibleForAutoCommit,
             isEligibleForUserRemoval = isEligibleForUserRemoval,
             sourceProvider = sourceProvider,
+            autocorrectInput = (this as? WordSuggestionCandidate)?.autocorrectInput,
         )
     }
 
@@ -250,6 +251,7 @@ class AiLanguageProvider(
                 isEligibleForAutoCommit = candidate.isEligibleForAutoCommit,
                 isEligibleForUserRemoval = candidate.isEligibleForUserRemoval,
                 sourceProvider = sourceProvider,
+                autocorrectInput = (candidate as? WordSuggestionCandidate)?.autocorrectInput,
             )
         }
     }

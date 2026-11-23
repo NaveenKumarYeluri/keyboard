@@ -702,6 +702,38 @@ class ImeController(
                 return
             }
             clearPhoneticBuffer()
+            if (prefs.correction.autoReplaceMistypedWords.get() &&
+                text.length == 1 && (text[0].isWhitespace() || text[0] in ".,!?;:")
+            ) {
+                val typedWord = state.content.compositionText?.toString().orEmpty().ifEmpty {
+                    state.content.surroundingText.textBefore.takeLastWhile {
+                        it.isLetterOrDigit() || it == '\''
+                    }
+                }
+                val autoCandidate = if (typedWord.isEmpty()) {
+                    null
+                } else {
+                    nlpManager.getAutoCommitCandidate(typedWord)?.takeIf {
+                        it.text.toString().lowercase() != typedWord.lowercase()
+                    }
+                }
+                if (autoCandidate != null) {
+                    emitCompletion(autoCandidate, forceAutoSpace = false)
+                    super.emitText(value)
+                    expectedContentQueue.push(state.content.selection)
+                    reevaluateInputShiftState()
+                    return
+                }
+                // "hello ." -> "hello." is a common mistyped-punctuation case.
+                if (text[0] in ".,!?;:") {
+                    val before = state.editor.getTextBeforeSelection(4).orEmpty()
+                    if (before.endsWith(' ') &&
+                        before.trimEnd().lastOrNull()?.let { it.isLetterOrDigit() } == true
+                    ) {
+                        deletePrecisely(1, OperationUnit.CHARACTERS)
+                    }
+                }
+            }
             super.emitText(value)
             expectedContentQueue.push(state.content.selection)
             reevaluateInputShiftState()
@@ -758,6 +790,9 @@ class ImeController(
                     //  appContext.showShortToastSync(R.string.clipboard__cleared_primary_clip)
                 }
                 ImeActions.SelectAll -> state.editor.performSelectAll()
+                ImeActions.ToggleAutocorrect -> prefs.correction.autoReplaceMistypedWords.set(
+                    !prefs.correction.autoReplaceMistypedWords.get(),
+                )
                 ImeActions.ShowImeWindow -> FlorisImeService.showUi()
                 ImeActions.HideImeWindow -> FlorisImeService.hideUi()
                 ImeActions.ShowTextPanel -> {
@@ -962,7 +997,7 @@ class ImeController(
             return finalText
         }
 
-        fun emitCompletion(candidate: SuggestionCandidate): Boolean {
+        fun emitCompletion(candidate: SuggestionCandidate, forceAutoSpace: Boolean? = null): Boolean {
             val text = candidate.text.toString()
             if (text.isEmpty() || state.editor.info.isRawInputEditor) return false
             val content = state.content
@@ -986,8 +1021,10 @@ class ImeController(
             clearPhoneticBuffer()
             // Optionally commit a trailing space together with the picked word (like most keyboards do).
             // Skipped when the character right after the cursor is already whitespace.
-            val autoSpace = prefs.suggestion.autoSpaceAfterSuggestionPick.get() &&
-                content.surroundingText.textAfter.firstOrNull()?.isWhitespace() != true
+            val autoSpace = forceAutoSpace ?: (
+                prefs.suggestion.autoSpaceAfterSuggestionPick.get() &&
+                    content.surroundingText.textAfter.firstOrNull()?.isWhitespace() != true
+                )
             // Commit the word and its trailing space in one editor write. A separate emitText(" ")
             // performs another whole-context composing replace, which some rich editors drop.
             val finalText = if (autoSpace) "$text " else text

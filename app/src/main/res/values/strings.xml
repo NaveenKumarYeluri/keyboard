@@ -519,6 +519,8 @@
     <string name="pref__suggestion__api30_inline_suggestions_enabled__summary" comment="Preference summary">Show inline suggestions provided by autofill services</string>
     <string name="pref__suggestion__incognito_mode__label" comment="Label of Incognito mode preference in Typing">Incognito mode</string>
     <string name="pref__correction__title" comment="Preference group title">Corrections</string>
+    <string name="pref__correction__auto_replace_mistyped_words__label" comment="Preference title">Auto-correct mistyped words</string>
+    <string name="pref__correction__auto_replace_mistyped_words__summary" comment="Preference summary">Replace common misspellings and fix spaces before punctuation while typing</string>
     <string name="pref__correction__auto_space_punctuation__label" comment="Preference title">Auto-space after punctuation</string>
     <string name="pref__correction__auto_space_punctuation__summary" comment="Preference summary">Automatically insert a space after a punctuation</string>
     <string name="pref__correction__double_space_period__label" comment="Preference title">Double-space period</string>

@@ -71,6 +71,15 @@ fun TypingScreen() {
                 )
             }
 
+            SegmentedListColumn(title = stringRes(R.string.pref__correction__title)) {
+                SwitchPreference(
+                    prefs.correction.autoReplaceMistypedWords,
+                    shapes = ListItemDefaults.segmentedShapes(0, 1),
+                    title = stringRes(R.string.pref__correction__auto_replace_mistyped_words__label),
+                    summary = stringRes(R.string.pref__correction__auto_replace_mistyped_words__summary),
+                )
+            }
+
             SegmentedListColumn(title = stringRes(R.string.pref__suggestion__title)) {
                 val countOffset = if (AndroidVersion.ATLEAST_API30_R) 1 else 0
                 val count = 5 + countOffset

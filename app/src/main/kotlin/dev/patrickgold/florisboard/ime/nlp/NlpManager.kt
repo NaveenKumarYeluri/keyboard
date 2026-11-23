@@ -258,6 +258,15 @@ class NlpManager(context: Context) {
         return activeCandidates.firstOrNull { it.isEligibleForAutoCommit }
     }
 
+    /** Returns an autocorrection only when it still matches the word currently being typed. */
+    fun getAutoCommitCandidate(typedWord: String): SuggestionCandidate? {
+        return activeCandidates.firstOrNull { candidate ->
+            candidate.isEligibleForAutoCommit &&
+                candidate is WordSuggestionCandidate &&
+                candidate.autocorrectInput.equals(typedWord, ignoreCase = true)
+        }
+    }
+
     fun removeSuggestion(subtype: Subtype, candidate: SuggestionCandidate): Boolean {
         return runBlocking { candidate.sourceProvider?.removeSuggestion(subtype, candidate) == true }.also { result ->
             if (result) {
