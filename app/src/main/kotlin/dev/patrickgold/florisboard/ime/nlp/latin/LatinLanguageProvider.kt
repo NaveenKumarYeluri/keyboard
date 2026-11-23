@@ -231,6 +231,11 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
             val frequency = dictionary.words[composingWord] ?: 255
             candidates[composingWord] = maxOf(computeBaseConfidence(frequency, dictionary), 0.98)
         }
+        // Common English standalone "i" should become "I".
+        if (locale.language == "en" && composingWord == "i") {
+            candidates["i"] = maxOf(candidates.getOrDefault("i", 0.0), 0.99)
+            autoCommitCorrections.add("i")
+        }
 
         // 1. Close corrections, only relevant if the typed word is unknown so far.
         if (!typedWordIsKnown) {
@@ -304,8 +309,13 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
             .sortedByDescending { it.value }
             .take(maxCandidateCount)
             .map { (word, confidence) ->
+                val displayText = if (locale.language == "en" && composingWord == "i" && word == "i") {
+                    "I"
+                } else {
+                    adaptCase(word, rawCompositionText)
+                }
                 WordSuggestionCandidate(
-                    text = adaptCase(word, rawCompositionText),
+                    text = displayText,
                     confidence = confidence,
                     // Only high-confidence one-edit corrections may be applied silently, and only
                     // when the auto-correct preference is enabled at the commit site.

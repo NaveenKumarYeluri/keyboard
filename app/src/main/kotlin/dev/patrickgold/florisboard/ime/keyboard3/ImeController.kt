@@ -728,7 +728,7 @@ class ImeController(
                     null
                 } else {
                     nlpManager.getAutoCommitCandidate(typedWord)?.takeIf {
-                        it.text.toString().lowercase() != typedWord.lowercase()
+                        it.text.toString() != typedWord
                     }
                 }
                 if (autoCandidate != null) {
