@@ -458,7 +458,9 @@ class ImeController(
             SwipeAction.SWITCH_TO_MEDIA_CONTEXT -> updateState { setImeUiMode(ImeUiMode.MEDIA) }
             SwipeAction.SWITCH_TO_PREV_KEYBOARD -> FlorisImeService.switchToPrevInputMethod()
             SwipeAction.TOGGLE_COMPACT_LAYOUT -> FlorisImeService.windowControllerOrNull()?.actions?.toggleCompactLayout()
-            SwipeAction.TOGGLE_SMARTBAR_VISIBILITY -> prefs.smartbar.enabled.set(!prefs.smartbar.enabled.get())
+            SwipeAction.TOGGLE_SMARTBAR_VISIBILITY -> scope.launch {
+                prefs.smartbar.enabled.set(!prefs.smartbar.enabled.get())
+            }
             SwipeAction.UNDO -> updateState { state.editor.performUndo() }
         }
     }
@@ -805,9 +807,11 @@ class ImeController(
                     //  appContext.showShortToastSync(R.string.clipboard__cleared_primary_clip)
                 }
                 ImeActions.SelectAll -> state.editor.performSelectAll()
-                ImeActions.ToggleAutocorrect -> prefs.correction.autoReplaceMistypedWords.set(
-                    !prefs.correction.autoReplaceMistypedWords.get(),
-                )
+                ImeActions.ToggleAutocorrect -> scope.launch {
+                    prefs.correction.autoReplaceMistypedWords.set(
+                        !prefs.correction.autoReplaceMistypedWords.get(),
+                    )
+                }
                 ImeActions.ShowImeWindow -> FlorisImeService.showUi()
                 ImeActions.HideImeWindow -> FlorisImeService.hideUi()
                 ImeActions.ShowTextPanel -> {
@@ -1221,15 +1225,17 @@ private class ExpectedContentQueue {
 
     fun popUntilOrNull(predicate: (K3TextRange) -> Boolean): K3TextRange? {
         while (list.isNotEmpty()) {
-            val item = list[0]
+            val item = list.removeAt(0)
             if (predicate(item)) return item
-            list.removeAt(0)
         }
         return null
     }
 
     fun push(selection: K3TextRange) {
         list.add(selection)
+        while (list.size > 8) {
+            list.removeAt(0)
+        }
     }
 
     fun clear() {
