@@ -505,10 +505,10 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
         }
     }
 
-    /** Penalizes long prefix completions quadratically, without affecting exact matches. */
+    /** Penalizes long prefix completions, but keeps close completions visible. */
     private fun prefixProximity(lengthDelta: Int): Double {
         if (lengthDelta <= 0) return 1.0
-        return 1.0 / (1.0 + 0.12 * lengthDelta * lengthDelta)
+        return 1.0 / (1.0 + 0.05 * lengthDelta * lengthDelta)
     }
 
     /**
