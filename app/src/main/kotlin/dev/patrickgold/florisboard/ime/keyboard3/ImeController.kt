@@ -791,12 +791,13 @@ class ImeController(
                     }
                 }
             }
-            // Insert short ordinary output directly at the native cursor. K3's whole-context
-            // replacement can insert a stale prefix when the cursor has been moved into the middle
-            // of text (e.g. "IND VS NZ" becoming "IND VSINDIND VS NZ" after typing only "I").
-            // Rebuilding K3 content from the native editor keeps suggestions in sync.
-            if (!state.editor.info.isRawInputEditor && text.length <= MAX_NATIVE_INSERT_LENGTH &&
-                state.editor.commitTextAtCursor(text)
+            // Insert short ordinary output directly at the native cursor only for editors where
+            // composing is disabled. K3's whole-context replacement can insert a stale prefix in
+            // middle-of-text edits there (e.g. "IND VS NZ" becoming "IND VSINDIND VS NZ" after
+            // typing only "I"). In composing editors such as Joplin, a direct commit would replace
+            // K3's stale composing region and delete the previous word, so keep the K3 path there.
+            if (!state.editor.info.isRawInputEditor && !state.flags.isComposingEnabled &&
+                text.length <= MAX_NATIVE_INSERT_LENGTH && state.editor.commitTextAtCursor(text)
             ) {
                 resyncContentAfterNativeEdit()
                 reevaluateInputShiftState()
