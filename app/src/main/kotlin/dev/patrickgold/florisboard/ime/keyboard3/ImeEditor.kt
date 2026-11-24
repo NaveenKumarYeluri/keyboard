@@ -176,6 +176,20 @@ open class ImeEditor(
         return EditorSelection(selection.start, selection.start)
     }
 
+    /**
+     * Deletes an existing native selection without first moving the cursor or finishing composing.
+     * Browsers keep URL inline autocomplete outside the normal composing state; moving the selection
+     * discards it, so a single backspace must let the editor delete its own selection.
+     */
+    fun deleteSelectedTextIfAny(): Boolean {
+        val ic = ic.get() ?: return false
+        if (ic.getSelectedText(0)?.toString().isNullOrEmpty()) return false
+        ic.beginBatchEdit()
+        ic.commitText("", 1)
+        ic.endBatchEdit()
+        return true
+    }
+
     // TODO this function is very heavy => we need to optimize k3lp to provide:
     //  insertAtSelection() (for simple appends)
     //  deleteAroundSelection() for bksp/fw delete

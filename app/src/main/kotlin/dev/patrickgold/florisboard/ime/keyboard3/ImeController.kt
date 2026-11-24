@@ -640,11 +640,33 @@ class ImeController(
         }
 
         /**
+         * Re-reads native editor state after a direct InputConnection edit. This deliberately does
+         * not call setSelection: browsers may still be handling inline autocomplete removal.
+         */
+        private fun resyncContentAfterNativeEdit() {
+            val editor = state.editor
+            val selection = editor.getSelectionRange() ?: return
+            val newSelection = K3TextRange(selection.start, selection.end)
+            resetContent(newSelection, editor.getSurroundingText(50, 10))
+            expectedContentQueue.push(state.content.selection)
+        }
+
+        /**
          * Deletes [count] units before the cursor, or the current selection if there is one.
          */
         fun deletePrecisely(count: Int, unit: OperationUnit) {
             if (count <= 0) return
             val editor = state.editor
+            if (count == 1 && unit == OperationUnit.CHARACTERS) {
+                // A plain backspace must go straight to the editor. Browsers delete inline URL
+                // autocomplete first when they receive deleteSurroundingText; calling setSelection
+                // or finishComposingText here destroys that state and deletes the typed character.
+                if (!editor.deleteSelectedTextIfAny()) {
+                    editor.deleteSurroundingText(1, 0)
+                }
+                resyncContentAfterNativeEdit()
+                return
+            }
             val selection = editor.getSelectionRange() ?: return
             if (selection.end > selection.start) {
                 deleteSelectionFromGesture(selection)
