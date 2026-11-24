@@ -307,6 +307,17 @@ class ImeController(
      * suggestions match better against the raw Latin word the user actually typed. Feed that raw
      * word to the NLP pipeline without changing the editor state.
      */
+    /**
+     * Gecko web text fields frequently leave composing regions and cursor updates out of sync with
+     * the JavaScript editor. That can surface as stray characters which cannot be deleted. The
+     * offline suggestion pipeline already supports non-composing editors, so disable composing for
+     * Mozilla browsers and drive suggestions from surrounding text instead.
+     */
+    private fun shouldDisableComposingForEditor(info: FlorisEditorInfo): Boolean {
+        val packageName = info.packageName.orEmpty()
+        return packageName.startsWith("org.mozilla.") || packageName.contains("fennec")
+    }
+
     private fun contentForSuggestions(source: ImeState): K3Content {
         if (activeLayoutId != "telugu-phonetic" || phoneticLatin.isEmpty()) {
             return source.content
@@ -577,8 +588,9 @@ class ImeController(
                             ImeLayerIds.Numpad, ImeLayerIds.Telpad -> false
                             else -> keyVariation != KeyVariation.PASSWORD &&
                                 // TODO review if this is the correct approach for composing region support detection
-                                //  important: for codemirror6 in browsers, it is important that composing is disabled,
-                                //  else all sorts of weird behavior starts to occur
+                                //  important: for codemirror6 in browsers and Gecko web text fields, composing
+                                //  must be disabled, else stray/stuck characters start to appear.
+                                !shouldDisableComposingForEditor(info) &&
                                 info.isRichInputEditor &&
                                 info.inputAttributes.flagTextAutoCorrect
                         }
