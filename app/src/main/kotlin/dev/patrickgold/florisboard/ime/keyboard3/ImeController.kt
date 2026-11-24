@@ -308,14 +308,18 @@ class ImeController(
      * word to the NLP pipeline without changing the editor state.
      */
     /**
-     * Gecko web text fields frequently leave composing regions and cursor updates out of sync with
-     * the JavaScript editor. That can surface as stray characters which cannot be deleted. The
-     * offline suggestion pipeline already supports non-composing editors, so disable composing for
-     * Mozilla browsers and drive suggestions from surrounding text instead.
+     * Gecko web text fields and Joplin's note editor frequently leave composing regions and cursor
+     * updates out of sync with the JavaScript editor. That can surface as stray characters, vanished
+     * words on space, or text that cannot be deleted. The offline suggestion pipeline already
+     * supports non-composing editors, so disable composing for these editors and drive suggestions
+     * from surrounding text instead.
      */
     private fun shouldDisableComposingForEditor(info: FlorisEditorInfo): Boolean {
         val packageName = info.packageName.orEmpty()
-        return packageName.startsWith("org.mozilla.") || packageName.contains("fennec")
+        return packageName.startsWith("org.mozilla.") ||
+            packageName.contains("fennec") ||
+            packageName.startsWith("net.cozic.joplin") ||
+            packageName.contains("joplin")
     }
 
     private fun contentForSuggestions(source: ImeState): K3Content {
