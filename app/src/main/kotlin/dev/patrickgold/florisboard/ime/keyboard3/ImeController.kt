@@ -994,7 +994,15 @@ class ImeController(
 
         fun emitForwardDelete() {
             glideBackspaceWordLength = 0
-            // TODO request additional text if too low on context length
+            // Prefer the real editor state and app-level fallbacks. Custom editors such as PDF
+            // viewers can ignore deleteSurroundingText, so ImeEditor falls back to key events and
+            // explicit native selection deletion before we give up.
+            if (state.editor.performForwardDelete()) {
+                resyncContentAfterNativeEdit()
+                reevaluateInputShiftState()
+                return
+            }
+            // Legacy state-based fallback for editors that provide no readable text snapshot.
             if (state.content.selection.isNotCollapsed()) {
                 emitBackspace()
             } else {
@@ -1013,6 +1021,7 @@ class ImeController(
                     charsBefore = 0,
                     charsAfter = 1, // TODO
                 )
+                expectedContentQueue.push(state.content.selection)
             }
         }
 

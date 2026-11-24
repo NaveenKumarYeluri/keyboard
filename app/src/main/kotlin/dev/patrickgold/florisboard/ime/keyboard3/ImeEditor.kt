@@ -46,6 +46,12 @@ data class EditorSelection(val start: Int, val end: Int) {
     }
 }
 
+private data class EditorContentSnapshot(
+    val text: String,
+    val selectionStart: Int,
+    val selectionEnd: Int,
+)
+
 open class ImeEditor(
     val ic: WeakReference<InputConnection>,
     val info: FlorisEditorInfo,
@@ -346,12 +352,112 @@ open class ImeEditor(
         return InputConnectionCompat.commitContent(ic, info.base, inputContentInfo, flags, null)
     }
 
+    /**
+     * Reads a bounded snapshot of the editor text and its selection. ExtractedText is preferred
+     * because custom editors (PDF viewers, for example) often return little or no text from the
+     * getText*Cursor calls but do implement extracted text and setSelection correctly.
+     */
+    private fun getEditableSnapshot(limit: Int): EditorContentSnapshot? {
+        val ic = ic.get() ?: return null
+        val request = ExtractedTextRequest().apply {
+            hintMaxLines = Int.MAX_VALUE
+            hintMaxChars = limit
+        }
+        val extracted = ic.getExtractedText(request, 0)
+        if (extracted != null && extracted.text != null) {
+            val all = extracted.text.toString()
+            val startOffset = extracted.startOffset.coerceIn(0, all.length)
+            val start = (extracted.selectionStart - startOffset).coerceIn(0, all.length)
+            val end = (extracted.selectionEnd - startOffset).coerceIn(start, all.length)
+            return EditorContentSnapshot(all, start, end)
+        }
+        val before = ic.getTextBeforeCursor(limit, 0)?.toString() ?: return null
+        val selected = ic.getSelectedText(0)?.toString().orEmpty()
+        val after = ic.getTextAfterCursor(limit, 0)?.toString() ?: return null
+        return EditorContentSnapshot(
+            text = before + selected + after,
+            selectionStart = before.length,
+            selectionEnd = before.length + selected.length,
+        )
+    }
+
     fun performSelectAll(): Boolean {
         val ic = ic.get() ?: return false
         ic.finishComposingText()
+        val fullTextLength = getEditableSnapshot(SELECT_ALL_LOOKBACK)?.text?.length ?: -1
         if (ic.performContextMenuAction(android.R.id.selectAll)) return true
         // Many WebView/browser fields do not implement SELECT_ALL but do handle Ctrl+A.
-        return sendDownUpKeyEvent(KeyEvent.KEYCODE_A, meta(ctrl = true))
+        sendDownUpKeyEvent(KeyEvent.KEYCODE_A, meta(ctrl = true))
+        val selectedLength = ic.getSelectedText(0)?.length ?: 0
+        if (fullTextLength < 0 || (selectedLength > 0 && selectedLength >= fullTextLength)) {
+            return true
+        }
+        // Final fallback for editors that ignore both app actions and key events: select the whole
+        // text through the native selection API so the usual handles/highlight are drawn.
+        val snapshot = getEditableSnapshot(SELECT_ALL_LOOKBACK) ?: return false
+        if (snapshot.text.isEmpty()) return true
+        ic.beginBatchEdit()
+        ic.setSelection(0, snapshot.text.length)
+        ic.endBatchEdit()
+        return (ic.getSelectedText(0)?.length ?: 0) > 0
+    }
+
+    /**
+     * Forward-deletes the selection or the next character. Some custom editors ignore
+     * deleteSurroundingText entirely, so fall back to app key events and finally to an explicit
+     * native selection removal.
+     */
+    fun performForwardDelete(): Boolean {
+        val ic = ic.get() ?: return false
+        val nativeSelection = getSelectionRange()
+        val hasNativeSelection = nativeSelection != null && nativeSelection.end > nativeSelection.start
+        val snapshotLimit = if (hasNativeSelection) SELECT_ALL_LOOKBACK else FORWARD_DELETE_LOOKBACK
+        val before = getEditableSnapshot(snapshotLimit) ?: return false
+
+        val snapshotSelectionLength = before.selectionEnd - before.selectionStart
+        val nativeSelectionLength = if (hasNativeSelection) {
+            nativeSelection!!.end - nativeSelection.start
+        } else {
+            0
+        }
+        val hasSelection = snapshotSelectionLength > 0 || nativeSelectionLength > 0
+        val start = if (snapshotSelectionLength > 0) {
+            before.selectionStart
+        } else {
+            nativeSelection?.start ?: before.selectionStart
+        }
+        val end = when {
+            snapshotSelectionLength > 0 -> before.selectionEnd
+            nativeSelectionLength > 0 -> nativeSelection!!.end
+            start >= before.text.length -> return true
+            else -> start + Character.charCount(before.text.codePointAt(start))
+        }
+        val length = end - start
+
+        ic.beginBatchEdit()
+        if (hasSelection) {
+            ic.commitText("", 1)
+        } else {
+            ic.deleteSurroundingText(0, length)
+        }
+        ic.endBatchEdit()
+        if (editorTextChanged(ic, before.text, snapshotLimit)) return true
+
+        sendDownUpKeyEvent(KeyEvent.KEYCODE_FORWARD_DEL)
+        if (editorTextChanged(ic, before.text, snapshotLimit)) return true
+
+        // Last resort: select exactly the target range and delete through the native selection.
+        ic.beginBatchEdit()
+        ic.setSelection(end, end)
+        ic.deleteSurroundingText(length, 0)
+        ic.setSelection(start, start)
+        ic.endBatchEdit()
+        return editorTextChanged(ic, before.text, snapshotLimit)
+    }
+
+    private fun editorTextChanged(ic: InputConnection, previousText: String, limit: Int): Boolean {
+        val snapshot = getEditableSnapshot(limit) ?: return false
+        return snapshot.text != previousText
     }
 
     fun performUndo(): Boolean {
@@ -436,6 +542,8 @@ open class ImeEditor(
 
     companion object {
         private const val SELECTION_LOOKBACK = 10000
+        private const val SELECT_ALL_LOOKBACK = 100000
+        private const val FORWARD_DELETE_LOOKBACK = 256
 
         /**
          * The input connection update cursor flags.
