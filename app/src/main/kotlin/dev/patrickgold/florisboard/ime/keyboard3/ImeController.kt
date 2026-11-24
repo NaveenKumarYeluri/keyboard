@@ -791,6 +791,17 @@ class ImeController(
                     }
                 }
             }
+            // Insert short ordinary output directly at the native cursor. K3's whole-context
+            // replacement can insert a stale prefix when the cursor has been moved into the middle
+            // of text (e.g. "IND VS NZ" becoming "IND VSINDIND VS NZ" after typing only "I").
+            // Rebuilding K3 content from the native editor keeps suggestions in sync.
+            if (!state.editor.info.isRawInputEditor && text.length <= MAX_NATIVE_INSERT_LENGTH &&
+                state.editor.commitTextAtCursor(text)
+            ) {
+                resyncContentAfterNativeEdit()
+                reevaluateInputShiftState()
+                return
+            }
             super.emitText(value)
             expectedContentQueue.push(state.content.selection)
             reevaluateInputShiftState()
@@ -1251,6 +1262,9 @@ class ImeController(
     companion object {
         private val NEWLINE_SEQ = "\n".asK3String()
         private val SPACE_SEQ = " ".asK3String()
+        // Ordinary key output is one code point; allow a few for transforms and auto-space, but keep
+        // longer/glide/pasted text on the K3 path where whole-context handling is intentional.
+        private const val MAX_NATIVE_INSERT_LENGTH = 16
     }
 }
 

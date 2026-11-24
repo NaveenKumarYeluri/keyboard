@@ -190,6 +190,19 @@ open class ImeEditor(
         return true
     }
 
+    /**
+     * Commits ordinary typed text at the real native cursor. This bypasses K3's whole-context
+     * replacement, which can insert a stale prefix when the cursor is moved into the middle of text.
+     */
+    fun commitTextAtCursor(text: String): Boolean {
+        val ic = ic.get() ?: return false
+        if (text.isEmpty()) return true
+        ic.beginBatchEdit()
+        ic.commitText(text, 1)
+        ic.endBatchEdit()
+        return true
+    }
+
     // TODO this function is very heavy => we need to optimize k3lp to provide:
     //  insertAtSelection() (for simple appends)
     //  deleteAroundSelection() for bksp/fw delete
