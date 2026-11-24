@@ -203,6 +203,26 @@ open class ImeEditor(
         return true
     }
 
+    /** Fresh lookahead from the native editor; cached K3 content can lag in web/plain-text editors. */
+    fun getTextAfterSelection(limit: Int = 1): String? {
+        return ic.get()?.getTextAfterCursor(limit, 0)?.toString()
+    }
+
+    /**
+     * Replaces the word before the cursor and the candidate in one native editor write, so the
+     * intermediate "typed word disappearing" frame is never drawn.
+     */
+    fun replaceTextBeforeCursorNatively(deleteChars: Int, text: String): Boolean {
+        val ic = ic.get() ?: return false
+        ic.beginBatchEdit()
+        if (deleteChars > 0) {
+            ic.deleteSurroundingText(deleteChars, 0)
+        }
+        ic.commitText(text, 1)
+        ic.endBatchEdit()
+        return true
+    }
+
     // TODO this function is very heavy => we need to optimize k3lp to provide:
     //  insertAtSelection() (for simple appends)
     //  deleteAroundSelection() for bksp/fw delete

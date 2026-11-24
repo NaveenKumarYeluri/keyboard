@@ -1082,26 +1082,22 @@ class ImeController(
             val composition = content.composition
             val compositionText = content.compositionText
             val hasComposition = composition != null && compositionText != null && composition.min < content.selection.min
-            // Some editors (browser search fields, launcher search, etc.) disable composing. The
-            // suggestion engine still derives the current word from the surrounding text, so remove
-            // that same word here before committing; otherwise "compl" + "complete" becomes
-            // "complcomplete". In phonetic mode the editor holds the transliterated word, not the
-            // raw Latin buffer, so use the tracked phonetic output as the word to replace.
-            if (!hasComposition) {
-                val currentWord = if (isTeluguPhonetic && phoneticOutput.isNotEmpty()) {
-                    phoneticOutput
-                } else {
-                    content.surroundingText.textBefore.takeLastWhile { it.isLetterOrDigit() || it == '\'' }
-                }
-                deletePrecisely(currentWord.codePointCount(0, currentWord.length), OperationUnit.CHARACTERS)
-                reevaluateInputShiftState()
+            // Read the word and lookahead from the native editor. Cached K3 content can lag in web
+            // and plain-text editors, which previously made auto-space think a space already existed.
+            val nativeBefore = state.editor.getTextBeforeSelection(100).orEmpty()
+            val currentWord = if (isTeluguPhonetic && phoneticOutput.isNotEmpty()) {
+                phoneticOutput
+            } else {
+                nativeBefore.takeLastWhile { it.isLetterOrDigit() || it == '\'' }
             }
+            val currentWordLength = currentWord.codePointCount(0, currentWord.length)
+            val nativeAfter = state.editor.getTextAfterSelection(1)
             clearPhoneticBuffer()
             // Optionally commit a trailing space together with the picked word (like most keyboards do).
-            // Skipped when the character right after the cursor is already whitespace.
+            // Skipped only when the native editor says the next character is already whitespace.
             val autoSpace = forceAutoSpace ?: (
                 prefs.suggestion.autoSpaceAfterSuggestionPick.get() &&
-                    content.surroundingText.textAfter.firstOrNull()?.isWhitespace() != true
+                    nativeAfter?.firstOrNull()?.isWhitespace() != true
                 )
             // Commit the word and its trailing space in one editor write. A separate emitText(" ")
             // performs another whole-context composing replace, which some rich editors drop.
@@ -1134,11 +1130,18 @@ class ImeController(
                 state.editor.replaceText(range, newSurroundingText.textBefore, newSelection, newComposition)
                 true
             } else {
-                // The current word is already gone; commit the candidate directly through the base
-                // implementation so a single-letter candidate is not mistaken for phonetic input.
-                super.emitText(finalText.asK3String())
-                expectedContentQueue.push(state.content.selection)
-                reevaluateInputShiftState()
+                // Delete the typed word and commit the candidate in a single native edit. Doing the
+                // deletion first made the typed word visibly blink before the suggestion appeared.
+                if (!state.editor.replaceTextBeforeCursorNatively(currentWordLength, finalText)) {
+                    deletePrecisely(currentWordLength, OperationUnit.CHARACTERS)
+                    reevaluateInputShiftState()
+                    super.emitText(finalText.asK3String())
+                    expectedContentQueue.push(state.content.selection)
+                    reevaluateInputShiftState()
+                } else {
+                    resyncContentAfterNativeEdit()
+                    reevaluateInputShiftState()
+                }
                 true
             }
         }
