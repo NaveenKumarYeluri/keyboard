@@ -1175,6 +1175,11 @@ class ImeController(
                 state.touchLayerId.isTextLayer() -> inputShiftState.correspondingLayerId
                 else -> state.touchLayerId
             }
+            // Most keystrokes do not change capitalization. Avoid publishing a brand-new state (and
+            // recomposing the whole keyboard plus re-running suggestions) when nothing changed.
+            if (touchLayerId == state.touchLayerId && inputShiftState == state.flags.inputShiftState) {
+                return
+            }
             state = state.copy(
                 touchLayerId = touchLayerId,
                 flags = state.flags.withInputShiftState(inputShiftState),

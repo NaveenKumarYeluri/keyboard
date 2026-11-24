@@ -387,6 +387,11 @@ class FlorisImeService : LifecycleInputMethodService() {
             start = cursorAnchorInfo.selectionStart,
             end = cursorAnchorInfo.selectionEnd,
         )
+        if (newSelection.start < 0 || newSelection.end < 0) return
+        // Cursor anchor callbacks can fire several times for one caret move. Rebuilding K3 content
+        // and republishing the whole IME state for an unchanged selection is a major typing jank
+        // source, especially in browsers.
+        if (newSelection == imeController.snapshotState().content.selection) return
         flogInfo { "new=$newSelection" }
         imeController.updateStateBlocking {
             handleUpdateSelection(newSelection)

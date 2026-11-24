@@ -200,41 +200,43 @@ class NlpManager(context: Context) {
             || prefs.emoji.suggestionEnabled.get()
             || providerForcesSuggestionOn(subtypeManager.activeSubtype)
 
-    fun suggest(subtype: Subtype, content: K3Content) {
+    /**
+     * Runs in the caller's coroutine so superseded requests can be cancelled by `flatMapLatest`
+     * instead of piling up detached jobs and scanning the offline dictionaries in parallel.
+     */
+    suspend fun suggest(subtype: Subtype, content: K3Content) {
         val reqTime = SystemClock.uptimeMillis()
-        scope.launch {
-            val emojiSuggestions = when {
-                prefs.emoji.suggestionEnabled.get() -> {
-                    emojiSuggestionProvider.suggest(
-                        subtype = subtype,
-                        content = content,
-                        maxCandidateCount = prefs.emoji.suggestionCandidateMaxCount.get(),
-                        allowPossiblyOffensive = !prefs.suggestion.blockPossiblyOffensive.get(),
-                        isPrivateSession = false // TODO keyboardManager.activeState.isIncognitoMode,
-                    )
-                }
-                else -> emptyList()
+        val emojiSuggestions = when {
+            prefs.emoji.suggestionEnabled.get() -> {
+                emojiSuggestionProvider.suggest(
+                    subtype = subtype,
+                    content = content,
+                    maxCandidateCount = prefs.emoji.suggestionCandidateMaxCount.get(),
+                    allowPossiblyOffensive = !prefs.suggestion.blockPossiblyOffensive.get(),
+                    isPrivateSession = false // TODO keyboardManager.activeState.isIncognitoMode,
+                )
             }
-            val suggestions = when {
-                emojiSuggestions.isNotEmpty() && prefs.emoji.suggestionType.get().prefix.isNotEmpty() -> {
-                    emptyList()
-                }
-                else -> {
-                    getSuggestionProvider(subtype).suggest(
-                        subtype = subtype,
-                        content = content,
-                        maxCandidateCount = DEFAULT_MAX_CANDIDATE_COUNT,
-                        allowPossiblyOffensive = !prefs.suggestion.blockPossiblyOffensive.get(),
-                        isPrivateSession = false // TODO keyboardManager.activeState.isIncognitoMode,
-                    )
-                }
+            else -> emptyList()
+        }
+        val suggestions = when {
+            emojiSuggestions.isNotEmpty() && prefs.emoji.suggestionType.get().prefix.isNotEmpty() -> {
+                emptyList()
             }
-            internalSuggestionsGuard.withLock {
-                if (internalSuggestions.first < reqTime) {
-                    internalSuggestions = reqTime to buildList {
-                        addAll(emojiSuggestions)
-                        addAll(suggestions)
-                    }
+            else -> {
+                getSuggestionProvider(subtype).suggest(
+                    subtype = subtype,
+                    content = content,
+                    maxCandidateCount = DEFAULT_MAX_CANDIDATE_COUNT,
+                    allowPossiblyOffensive = !prefs.suggestion.blockPossiblyOffensive.get(),
+                    isPrivateSession = false // TODO keyboardManager.activeState.isIncognitoMode,
+                )
+            }
+        }
+        internalSuggestionsGuard.withLock {
+            if (internalSuggestions.first < reqTime) {
+                internalSuggestions = reqTime to buildList {
+                    addAll(emojiSuggestions)
+                    addAll(suggestions)
                 }
             }
         }
