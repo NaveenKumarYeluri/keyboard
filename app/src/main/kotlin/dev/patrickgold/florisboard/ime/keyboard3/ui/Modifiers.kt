@@ -31,16 +31,16 @@ import androidx.compose.ui.util.fastRoundToInt
 
 fun Modifier.layoutNormalized(bounds: Rect) =
     this.layout { measurable, constraints ->
+        val left = (constraints.maxWidth * bounds.left).fastRoundToInt()
+        val right = (constraints.maxWidth * bounds.right).fastRoundToInt()
+        val top = (constraints.maxHeight * bounds.top).fastRoundToInt()
+        val bottom = (constraints.maxHeight * bounds.bottom).fastRoundToInt()
         val effConstraints = Constraints.fixed(
-            width = (constraints.maxWidth * bounds.width).fastRoundToInt(),
-            height = (constraints.maxHeight * bounds.height).fastRoundToInt(),
+            width = (right - left).coerceAtLeast(1),
+            height = (bottom - top).coerceAtLeast(1),
         )
         val placeable = measurable.measure(effConstraints)
-        val offset = IntOffset(
-            x = (constraints.maxWidth * bounds.topLeft.x).fastRoundToInt(),
-            y = (constraints.maxHeight * bounds.topLeft.y).fastRoundToInt(),
-        )
-        layout(placeable.width, placeable.height) { placeable.place(offset) }
+        layout(placeable.width, placeable.height) { placeable.place(IntOffset(left, top)) }
     }
 
 fun Modifier.scaleToFitHorizontally() = composed {

@@ -54,6 +54,7 @@ import dev.patrickgold.florisboard.ime.keyboard.SpaceBarMode
 import dev.patrickgold.florisboard.ime.keyboard3.ImeIcons
 import dev.patrickgold.florisboard.ime.keyboard3.ImeLayerIds
 import dev.patrickgold.florisboard.ime.keyboard3.LocalImeController
+import dev.patrickgold.florisboard.ime.keyboard3.hint.LongPressKeyHintPlacement
 import dev.patrickgold.florisboard.ime.keyboard3.interaction.LongPress
 import dev.patrickgold.florisboard.ime.keyboard3.interaction.rememberPointerTracker
 import dev.patrickgold.florisboard.ime.keyboard3.interaction.trackPointerInput
@@ -244,16 +245,20 @@ fun ImeKeyboardBox(
                     multiTapIndex = multiTapIndex,
                     modifier = Modifier
                         .layout { measurable, constraints ->
+                            // Quantize the left/right (and top/bottom) edges once, then derive the
+                            // size from them. Rounding each key's width and origin independently
+                            // made adjacent gaps alternate between 0 and 1 px, which looked like
+                            // uneven spacing whenever the browser changed the keyboard width.
+                            val left = (constraints.maxWidth * touchKey.bounds.left + keyMarginHPx).fastRoundToInt()
+                            val right = (constraints.maxWidth * touchKey.bounds.right - keyMarginHPx).fastRoundToInt()
+                            val top = (constraints.maxHeight * touchKey.bounds.top + keyMarginVPx).fastRoundToInt()
+                            val bottom = (constraints.maxHeight * touchKey.bounds.bottom - keyMarginVPx).fastRoundToInt()
                             val effConstraints = Constraints.fixed(
-                                width = (constraints.maxWidth * touchKey.bounds.width - 2 * keyMarginHPx).fastRoundToInt(),
-                                height = (constraints.maxHeight * touchKey.bounds.height - 2 * keyMarginVPx).fastRoundToInt(),
+                                width = (right - left).coerceAtLeast(1),
+                                height = (bottom - top).coerceAtLeast(1),
                             )
                             val placeable = measurable.measure(effConstraints)
-                            val offset = IntOffset(
-                                x = (constraints.maxWidth * touchKey.bounds.topLeft.x + keyMarginHPx).fastRoundToInt(),
-                                y = (constraints.maxHeight * touchKey.bounds.topLeft.y + keyMarginVPx).fastRoundToInt(),
-                            )
-                            layout(placeable.width, placeable.height) { placeable.place(offset) }
+                            layout(placeable.width, placeable.height) { placeable.place(IntOffset(left, top)) }
                         },
                     inputShiftState = inputShiftState,
                 )
@@ -363,11 +368,23 @@ private fun ImeKeyboardKeyBox(
             }
         }
         if (touchKey.longPressKeyHint != null) {
+            // Keep edge-aligned hints (e.g. r=, t=[, c=', v=:) away from the keycap edge so their
+            // side bearings do not make the gap to the next key look smaller than it really is.
+            val hintPadding = when (touchKey.longPressKeyHintPlacement) {
+                LongPressKeyHintPlacement.TOP_END, LongPressKeyHintPlacement.BOTTOM_END -> {
+                    Modifier.padding(end = 2.dp)
+                }
+                LongPressKeyHintPlacement.TOP_START, LongPressKeyHintPlacement.BOTTOM_START -> {
+                    Modifier.padding(start = 2.dp)
+                }
+                else -> Modifier
+            }
             Display3(
                 elementName = FlorisImeUi.KeyHint.elementName,
                 attributes = attributes,
                 modifier = Modifier
                     .align(touchKey.longPressKeyHintPlacement.alignment)
+                    .then(hintPadding)
                     .scaleToFitHorizontally(),
                 display = touchKey.longPressKeyHint,
             )
