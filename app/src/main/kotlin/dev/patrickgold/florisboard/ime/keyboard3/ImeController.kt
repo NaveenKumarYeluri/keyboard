@@ -1084,6 +1084,14 @@ class ImeController(
             return finalText
         }
 
+        private fun hasHorizontalSpaceAfterCursor(): Boolean {
+            return state.editor.getTextAfterSelection(1)?.firstOrNull()?.let { it == ' ' || it == '\t' } == true
+        }
+
+        private fun hasHorizontalSpaceBeforeCursor(): Boolean {
+            return state.editor.getTextBeforeSelection(2)?.lastOrNull()?.let { it == ' ' || it == '\t' } == true
+        }
+
         fun emitCompletion(candidate: SuggestionCandidate, forceAutoSpace: Boolean? = null): Boolean {
             val text = candidate.text.toString()
             if (text.isEmpty() || state.editor.info.isRawInputEditor) return false
@@ -1100,13 +1108,12 @@ class ImeController(
                 nativeBefore.takeLastWhile { it.isLetterOrDigit() || it == '\'' }
             }
             val currentWordLength = currentWord.codePointCount(0, currentWord.length)
-            val nativeAfter = state.editor.getTextAfterSelection(1)
             clearPhoneticBuffer()
-            // Optionally commit a trailing space together with the picked word (like most keyboards do).
-            // Skipped only when the native editor says the next character is already whitespace.
+            // A newline is not an existing word separator for auto-space. Joplin/CodeMirror can
+            // report the end-of-line newline as the next character, which previously suppressed
+            // the space entirely.
             val autoSpace = forceAutoSpace ?: (
-                prefs.suggestion.autoSpaceAfterSuggestionPick.get() &&
-                    nativeAfter?.firstOrNull()?.isWhitespace() != true
+                prefs.suggestion.autoSpaceAfterSuggestionPick.get() && !hasHorizontalSpaceAfterCursor()
                 )
             // Commit the word and its trailing space in one editor write. A separate emitText(" ")
             // performs another whole-context composing replace, which some rich editors drop.
@@ -1148,6 +1155,11 @@ class ImeController(
                     expectedContentQueue.push(state.content.selection)
                     reevaluateInputShiftState()
                 } else {
+                    // Some plain-text web editors keep the word but drop the trailing space from a
+                    // combined replacement. Verify from the native cursor and add only if missing.
+                    if (autoSpace && !hasHorizontalSpaceBeforeCursor()) {
+                        state.editor.commitTextAtCursor(" ")
+                    }
                     resyncContentAfterNativeEdit()
                     reevaluateInputShiftState()
                 }
