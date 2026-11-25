@@ -430,7 +430,12 @@ open class ImeEditor(
         val nativeSelection = getSelectionRange()
         val hasNativeSelection = nativeSelection != null && nativeSelection.end > nativeSelection.start
         val snapshotLimit = if (hasNativeSelection) SELECT_ALL_LOOKBACK else FORWARD_DELETE_LOOKBACK
-        val before = getEditableSnapshot(snapshotLimit) ?: return false
+        val before = getEditableSnapshot(snapshotLimit)
+        if (before == null) {
+            // Raw editors and some PDF fields expose no readable text through InputConnection but
+            // still handle the hardware key. Let the app perform forward delete itself.
+            return sendDownUpKeyEvent(KeyEvent.KEYCODE_FORWARD_DEL)
+        }
 
         val snapshotSelectionLength = before.selectionEnd - before.selectionStart
         val nativeSelectionLength = if (hasNativeSelection) {

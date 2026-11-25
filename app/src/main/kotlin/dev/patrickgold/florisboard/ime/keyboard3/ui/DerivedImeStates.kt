@@ -60,21 +60,23 @@ fun rememberDerivedEnabledState(
             val isPrimaryClipPastable = clipboardManager.canBePasted(primaryClip)
             val isMultiLingual = subtypes.size > 1
             val isDeviceLocked = isDeviceLocked
+            // Raw editors (TYPE_NULL, e.g. PDF annotation fields) do not support clipboard
+            // editing. Match stock FlorisBoard and disable these actions instead of showing
+            // buttons that cannot work.
+            val isRichInputEditor = imeState.editor.info.isRichInputEditor
             when (output) {
                 is K3Descriptor -> when (output.name) {
                     ImeActions.ClipboardCopy.name, ImeActions.ClipboardCut.name -> {
-                        // The action falls back to key events and a fresh selection read, so a stale
-                        // cached selection must not disable the button in some apps.
-                        true
+                        isRichInputEditor
                     }
                     ImeActions.ClipboardPaste.name -> {
-                        !isDeviceLocked
+                        isRichInputEditor && !isDeviceLocked
                     }
                     ImeActions.ClipboardClearPrimaryClip.name -> {
                         isPrimaryClipPastable
                     }
                     ImeActions.SelectAll.name -> {
-                        true
+                        isRichInputEditor
                     }
                     ImeActions.SwitchToNextSubtype.name -> {
                         isMultiLingual
