@@ -1108,6 +1108,7 @@ class ImeController(
                 nativeBefore.takeLastWhile { it.isLetterOrDigit() || it == '\'' }
             }
             val currentWordLength = currentWord.codePointCount(0, currentWord.length)
+            val currentWordNativeLength = currentWord.length
             clearPhoneticBuffer()
             // A newline is not an existing word separator for auto-space. Joplin/CodeMirror can
             // report the end-of-line newline as the next character, which previously suppressed
@@ -1148,7 +1149,7 @@ class ImeController(
             } else {
                 // Delete the typed word and commit the candidate in a single native edit. Doing the
                 // deletion first made the typed word visibly blink before the suggestion appeared.
-                if (!state.editor.replaceTextBeforeCursorNatively(currentWordLength, finalText)) {
+                if (!state.editor.replaceTextBeforeCursorNatively(currentWordNativeLength, finalText)) {
                     deletePrecisely(currentWordLength, OperationUnit.CHARACTERS)
                     reevaluateInputShiftState()
                     super.emitText(finalText.asK3String())

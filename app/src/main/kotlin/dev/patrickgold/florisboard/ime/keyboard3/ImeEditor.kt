@@ -220,11 +220,29 @@ open class ImeEditor(
      */
     fun replaceTextBeforeCursorNatively(deleteChars: Int, text: String): Boolean {
         val ic = ic.get() ?: return false
+        val selection = getSelectionRange()
+        val beforeText = getTextBeforeSelection(SELECTION_LOOKBACK)
         ic.beginBatchEdit()
-        if (deleteChars > 0) {
-            ic.deleteSurroundingText(deleteChars, 0)
+        if (selection != null && beforeText != null && beforeText.length < SELECTION_LOOKBACK) {
+            // Selecting the typed word and committing in one call is atomic in editors that
+            // visibly render a separate deleteSurroundingText + commitText pair. Web editors such
+            // as Fennec otherwise show the typed word for a frame before the candidate appears.
+            val start = if (selection.end > selection.start) {
+                selection.start
+            } else {
+                (selection.end - deleteChars).coerceAtLeast(0)
+            }
+            if (start < selection.end) {
+                ic.setSelection(start, selection.end)
+            }
+            ic.commitText(text, 1)
+        } else {
+            // Unknown absolute position: keep the safer relative deletion path.
+            if (deleteChars > 0) {
+                ic.deleteSurroundingText(deleteChars, 0)
+            }
+            ic.commitText(text, 1)
         }
-        ic.commitText(text, 1)
         ic.endBatchEdit()
         return true
     }
