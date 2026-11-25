@@ -16,6 +16,7 @@
 
 package dev.patrickgold.florisboard.ime.keyboard3.touch
 
+import android.os.Build
 import dev.patrickgold.florisboard.ime.keyboard3.ImeActions
 import dev.patrickgold.jetpref.datastore.model.PreferenceSerializer
 import kotlinx.serialization.Serializable
@@ -38,11 +39,27 @@ data class FnKeyArrangement(
     }
 
     companion object {
-        val Default = FnKeyArrangement(
-            simpleAction = FnKeyAction(ImeActions.SwitchToNextSubtype),
+        private const val ANDROID_16_SDK_INT = 36
+
+        // Android 16 exposes a language switcher next to the navigation strip's hide-keyboard
+        // arrow, so the in-keyboard fn key no longer needs to duplicate it on tap.
+        val Android16Default = FnKeyArrangement(
+            simpleAction = FnKeyAction(ImeActions.Undo),
             longPressActions = listOf(
                 FnKeyAction(ImeActions.ShowSubtypePicker),
             ),
         )
+
+        val LegacyDefault = FnKeyArrangement(
+            simpleAction = FnKeyAction(ImeActions.SwitchToNextSubtype),
+            longPressActions = Android16Default.longPressActions,
+        )
+
+        val Default: FnKeyArrangement
+            get() = if (Build.VERSION.SDK_INT >= ANDROID_16_SDK_INT) {
+                Android16Default
+            } else {
+                LegacyDefault
+            }
     }
 }

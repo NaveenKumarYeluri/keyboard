@@ -16,6 +16,7 @@
 
 package dev.patrickgold.florisboard.app
 
+import android.os.Build
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
@@ -917,13 +918,35 @@ abstract class FlorisPreferenceModel : PreferenceModel() {
                             simpleAction = FnKeyAction(when (entry.rawValue) {
                                 "SWITCH_TO_EMOJIS" -> ImeActions.ShowMediaPanel
                                 "SWITCH_KEYBOARD_APP" -> ImeActions.SwitchToNextInputMethod
-                                else -> ImeActions.SwitchToNextSubtype
+                                else -> FnKeyArrangement.Default.simpleAction.output
                             }),
                             longPressActions = FnKeyArrangement.Default.longPressActions,
                         )
                         Json.encodeToString(fnKey)
                     },
                 )
+            }
+
+            // Android 16 has a system language button next to the hide-keyboard arrow. Replace only
+            // the untouched fn-key tap action with Undo; any user-configured action is preserved.
+            // Keep migration rule until: forever
+            "keyboard__fn_key_arrangement" -> {
+                val arrangement = runCatching {
+                    FnKeyArrangement.Serializer.deserialize(entry.rawValue)
+                }.getOrNull()
+                val migrated = if (
+                    Build.VERSION.SDK_INT >= 36 &&
+                    arrangement == FnKeyArrangement.LegacyDefault
+                ) {
+                    FnKeyArrangement.Serializer.serialize(FnKeyArrangement.Android16Default)
+                } else {
+                    null
+                }
+                if (migrated != null) {
+                    entry.transform(rawValue = migrated)
+                } else {
+                    entry.keepAsIs()
+                }
             }
 
             // Migrate long press delay name
