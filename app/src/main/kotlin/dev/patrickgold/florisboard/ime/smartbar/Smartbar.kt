@@ -194,16 +194,19 @@ private fun SmartbarMainRow(modifier: Modifier = Modifier) {
             val incognitoIcon = ImageVector.vectorResource(id = R.drawable.ic_incognito)
             val incognitoDisplayMode = prefs.keyboard.incognitoDisplayMode.collectAsState()
             val isIncognitoMode = imeState.flags.isIncognitoMode
-            val icon = if (isIncognitoMode) {
-                when (incognitoDisplayMode.value) {
-                    IncognitoDisplayMode.REPLACE_SHARED_ACTIONS_TOGGLE -> incognitoIcon
-                    IncognitoDisplayMode.DISPLAY_BEHIND_KEYBOARD -> arrowIcon
-                }
-            } else {
-                arrowIcon
-            }
+            // The old "behind keyboard" watermark showed through the gaps between bordered keys and
+            // made those gaps look uneven. Keep the incognito state visible in the smartbar instead.
+            val icon = if (isIncognitoMode) incognitoIcon else arrowIcon
             SnyggIcon(
-                modifier = Modifier.rotate(if (incognitoDisplayMode.value == IncognitoDisplayMode.DISPLAY_BEHIND_KEYBOARD) rotation else 0f),
+                modifier = Modifier.rotate(
+                    if (incognitoDisplayMode.value == IncognitoDisplayMode.DISPLAY_BEHIND_KEYBOARD &&
+                        !isIncognitoMode
+                    ) {
+                        rotation
+                    } else {
+                        0f
+                    }
+                ),
                 imageVector = icon,
             )
         }
