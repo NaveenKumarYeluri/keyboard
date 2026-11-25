@@ -469,11 +469,12 @@ open class ImeEditor(
         sendDownUpKeyEvent(KeyEvent.KEYCODE_FORWARD_DEL)
         if (editorTextChanged(ic, before.text, snapshotLimit)) return true
 
-        // Last resort: select exactly the target range and delete through the native selection.
+        // Last resort: select exactly the target range and delete it as a native replacement.
+        // PDF editors can ignore deleteSurroundingText entirely while still honoring a
+        // setSelection + empty commitText pair.
         ic.beginBatchEdit()
-        ic.setSelection(end, end)
-        ic.deleteSurroundingText(length, 0)
-        ic.setSelection(start, start)
+        ic.setSelection(start, end)
+        ic.commitText("", 1)
         ic.endBatchEdit()
         return editorTextChanged(ic, before.text, snapshotLimit)
     }
