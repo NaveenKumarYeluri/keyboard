@@ -252,7 +252,9 @@ class ImeController(
                 .distinctUntilChangedBy { it.key }
                 .debounce(SUGGESTION_DEBOUNCE_MS)
                 .flatMapLatest { request ->
-                    flow {
+                    // Explicit Unit type: this flow is only used to run the suggestion call in the
+                    // flatMapLatest coroutine, so it intentionally emits no values.
+                    flow<Unit> {
                         runCatching {
                             if (nlpManager.isSuggestionOn()) {
                                 nlpManager.suggest(request.subtype, request.content)
