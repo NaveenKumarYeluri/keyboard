@@ -28,7 +28,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -78,10 +77,9 @@ fun ImeKeyButton(
     val interactionController = LocalInteractionController.current
     val scope = rememberCoroutineScope()
 
-    val imeState by imeController.activeState.collectAsState()
-    val touchLayerId by remember { derivedStateOf { imeState.touchLayerId } }
-    val inputShiftState by remember { derivedStateOf { imeState.flags.inputShiftState } }
-    val model by remember { derivedStateOf { imeState.model } }
+    val touchLayerId by imeController.activeTouchLayerId.collectAsState()
+    val inputShiftState by imeController.activeInputShiftState.collectAsState()
+    val model by imeController.activeModel.collectAsState()
     val display = remember(model, output) { model.displays.byOutput[output]?.display ?: output }
 
     val isRepeatable = output.isRepeatable()

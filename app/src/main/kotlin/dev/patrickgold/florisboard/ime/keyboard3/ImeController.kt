@@ -28,6 +28,7 @@ import dev.patrickgold.florisboard.ime.ImeUiMode
 import dev.patrickgold.florisboard.ime.clipboard.ClipboardManager
 import dev.patrickgold.florisboard.ime.clipboard.provider.ClipboardItem
 import dev.patrickgold.florisboard.ime.clipboard.provider.ItemType
+import dev.patrickgold.florisboard.ime.core.Subtype
 import dev.patrickgold.florisboard.ime.editor.FlorisEditorInfo
 import dev.patrickgold.florisboard.ime.editor.ImeOptions
 import dev.patrickgold.florisboard.ime.editor.InputAttributes
@@ -56,8 +57,12 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -88,6 +93,25 @@ import kotlin.concurrent.atomics.ExperimentalAtomicApi
 val LocalImeController = staticCompositionLocalOf<ImeController> {
     error("No IME controller is associated with this composition tree.")
 }
+
+private data class SuggestionRequest(
+    val subtype: Subtype,
+    val content: K3Content,
+) {
+    /** Content equality on every keystroke is not reliable enough; key off the actual text. */
+    val key: String
+        get() = buildString {
+            append(subtype.id).append('\u0000')
+            val surrounding = content.surroundingText
+            append(surrounding.textBefore).append('\u0001')
+            append(surrounding.textSelected).append('\u0002')
+            append(surrounding.textAfter).append('\u0003')
+            append(content.compositionText ?: "").append('\u0004')
+            append(content.selection)
+        }
+}
+
+private const val SUGGESTION_DEBOUNCE_MS = 60L
 
 @OptIn(ExperimentalAtomicApi::class)
 class ImeController(
@@ -164,6 +188,24 @@ class ImeController(
         )
     }.stateIn(scope, SharingStarted.Eagerly, TouchModelOptions.Default)
 
+    // Key and icon composables only need these narrow values. Distinct flows keep content-only
+    // state updates (one per keystroke) from recomposing every key on the keyboard.
+    val activeModel = activeState.map { it.model }
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.Eagerly, initialState.model)
+    val activeTouchLayerId = activeState.map { it.touchLayerId }
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.Eagerly, initialState.touchLayerId)
+    val activeInputShiftState = activeState.map { it.flags.inputShiftState }
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.Eagerly, initialState.flags.inputShiftState)
+    val activeEditorInfo = activeState.map { it.editor.info }
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.Eagerly, initialState.editor.info)
+    val activeDebugShowDragAndDropHelpers = activeState.map { it.flags.debugShowDragAndDropHelpers }
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.Eagerly, initialState.flags.debugShowDragAndDropHelpers)
+
     // TODO check if we can implement this differently
     val activeSmartbarVisibleDynamicActionsCount = MutableStateFlow(0)
 
@@ -195,19 +237,30 @@ class ImeController(
                 }
         }
 
-        // Trigger the suggestion pipeline whenever the IME state (and with it the editor content) changes.
+        // Suggestions used to re-run for every state emission (cursor anchors, shift changes, popup
+        // toggles) and every keystroke triggered an offline dictionary scan. Only rerun when the
+        // editor text or active subtype actually changes, and coalesce bursts of keystrokes.
         scope.launch {
             FlorisApplication.getHack().preferenceStoreLoaded
                 .filter { it }
-                .flatMapLatest { activeState }
-                .collect { state ->
-                    runCatching {
-                        nlpManager.suggest(
-                            subtype = FlorisApplication.getHack().subtypeManager.value.activeSubtype,
-                            content = contentForSuggestions(state),
-                        )
-                    }.onFailure { flogDebug { "Suggestion pipeline failed: $it" } }
+                .flatMapLatest {
+                    combine(
+                        activeState.map { state -> contentForSuggestions(state) },
+                        FlorisApplication.getHack().subtypeManager.value.activeSubtypeFlow,
+                    ) { content, subtype -> SuggestionRequest(subtype, content) }
                 }
+                .distinctUntilChangedBy { it.key }
+                .debounce(SUGGESTION_DEBOUNCE_MS)
+                .flatMapLatest { request ->
+                    flow {
+                        runCatching {
+                            if (nlpManager.isSuggestionOn()) {
+                                nlpManager.suggest(request.subtype, request.content)
+                            }
+                        }.onFailure { flogDebug { "Suggestion pipeline failed: $it" } }
+                    }
+                }
+                .collect { }
         }
     }
 
@@ -803,8 +856,8 @@ class ImeController(
             if (!state.editor.info.isRawInputEditor && !state.flags.isComposingEnabled &&
                 text.length <= MAX_NATIVE_INSERT_LENGTH && state.editor.commitTextAtCursor(text)
             ) {
+                // resetContent inside resync already reevaluates capitalization.
                 resyncContentAfterNativeEdit()
-                reevaluateInputShiftState()
                 return
             }
             super.emitText(value)
@@ -999,7 +1052,6 @@ class ImeController(
             // explicit native selection deletion before we give up.
             if (state.editor.performForwardDelete()) {
                 resyncContentAfterNativeEdit()
-                reevaluateInputShiftState()
                 return
             }
             // Legacy state-based fallback for editors that provide no readable text snapshot.
@@ -1162,7 +1214,6 @@ class ImeController(
                         state.editor.commitTextAtCursor(" ")
                     }
                     resyncContentAfterNativeEdit()
-                    reevaluateInputShiftState()
                 }
                 true
             }

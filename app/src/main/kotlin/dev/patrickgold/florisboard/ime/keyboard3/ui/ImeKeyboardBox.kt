@@ -86,10 +86,9 @@ fun ImeKeyboardBox(
     val imeController = LocalImeController.current
     val windowController = LocalWindowController.current
 
-    val imeState by imeController.activeState.collectAsState()
-    val model by remember { derivedStateOf { imeState.model } }
-    val touchLayerId by remember { derivedStateOf { imeState.touchLayerId } }
-    val inputShiftState by remember { derivedStateOf { imeState.flags.inputShiftState } }
+    val model by imeController.activeModel.collectAsState()
+    val touchLayerId by imeController.activeTouchLayerId.collectAsState()
+    val inputShiftState by imeController.activeInputShiftState.collectAsState()
 
     val windowSpec by windowController.activeWindowSpec.collectAsState()
     val keyMarginHPx by remember {

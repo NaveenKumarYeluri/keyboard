@@ -79,13 +79,11 @@ fun Icon3(
     val imeController = LocalImeController.current
     val windowController = LocalWindowController.current
 
-    val imeState by imeController.activeState.collectAsState()
-    val imeOptions by remember { derivedStateOf { imeState.editor.info.imeOptions } }
-    val inputAttributes by remember { derivedStateOf { imeState.editor.info.inputAttributes } }
-    val inputShiftState by remember { derivedStateOf { imeState.flags.inputShiftState } }
-    val debugShowDragAndDropHelpers by remember {
-        derivedStateOf { imeState.flags.debugShowDragAndDropHelpers }
-    }
+    val editorInfo by imeController.activeEditorInfo.collectAsState()
+    val imeOptions by remember { derivedStateOf { editorInfo.imeOptions } }
+    val inputAttributes by remember { derivedStateOf { editorInfo.inputAttributes } }
+    val inputShiftState by imeController.activeInputShiftState.collectAsState()
+    val debugShowDragAndDropHelpers by imeController.activeDebugShowDragAndDropHelpers.collectAsState()
 
     val windowConfig by windowController.activeWindowConfig.collectAsState()
     val windowMode by remember { derivedStateOf { windowConfig.mode } }
