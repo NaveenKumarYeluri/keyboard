@@ -130,7 +130,7 @@ class DictionaryManager private constructor(context: Context) {
             // A shortcut entry already maps to this word; do not create a duplicate on top of it.
             existingEntries.isNotEmpty() -> false
             else -> {
-                dao.insert(UserDictionaryEntry(0, normalized, FREQUENCY_DEFAULT, locale, null))
+                dao.insert(UserDictionaryEntry(0, normalized, FREQUENCY_DEFAULT, locale.localeTag(), null))
                 true
             }
         }
