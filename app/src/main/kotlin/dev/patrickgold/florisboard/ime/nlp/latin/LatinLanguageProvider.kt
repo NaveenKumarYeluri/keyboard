@@ -342,6 +342,11 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
     }
 
     override suspend fun notifySuggestionAccepted(subtype: Subtype, candidate: SuggestionCandidate) {
+        // Learn only the final word the user chose. The raw typed buffer and surrounding text are
+        // never stored, uploaded, or used for training.
+        if (candidate is WordSuggestionCandidate) {
+            runCatching { dictionaryManager?.learnWord(candidate.text.toString(), subtype.primaryLocale) }
+        }
         // We can use flogDebug, flogInfo, flogWarning and flogError for debug logging, which is a wrapper for Logcat
         flogDebug { candidate.toString() }
     }

@@ -1081,9 +1081,17 @@ class ImeController(
 
         fun emitCandidate(candidate: SuggestionCandidate) {
             glideBackspaceWordLength = 0
-//            scope.launch {
-//                candidate.sourceProvider?.notifySuggestionAccepted(subtypeManager.activeSubtype, candidate)
-//            }
+            // Incognito picks must not influence the local user dictionary.
+            if (!state.flags.isIncognitoMode) {
+                scope.launch {
+                    runCatching {
+                        candidate.sourceProvider?.notifySuggestionAccepted(
+                            FlorisApplication.getHack().subtypeManager.value.activeSubtype,
+                            candidate,
+                        )
+                    }
+                }
+            }
             when (candidate) {
                 is ClipboardSuggestionCandidate -> emitClipboardItem(candidate.clipboardItem)
                 else -> emitCompletion(candidate)

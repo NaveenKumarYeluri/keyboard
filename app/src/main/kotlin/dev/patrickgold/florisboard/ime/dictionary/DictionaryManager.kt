@@ -108,6 +108,34 @@ class DictionaryManager private constructor(context: Context) {
         return ret
     }
 
+    /**
+     * Records a word the user picked from suggestions in Floris' own user dictionary. This is purely
+     * local: it never writes to the Android system dictionary and never leaves the device. Words
+     * learned here are included in backups through the normal user dictionary export.
+     */
+    @Synchronized
+    fun learnWord(word: String, locale: FlorisLocale): Boolean {
+        val dao = florisUserDictionaryDao() ?: return false
+        val normalized = word.trim()
+        if (normalized.length < 2 || normalized.any { it.isWhitespace() } || !normalized.any { it.isLetter() }) {
+            return false
+        }
+        val existingEntries = dao.queryExact(normalized, locale)
+        val existingWord = existingEntries.firstOrNull { it.shortcut.isNullOrBlank() }
+        return when {
+            existingWord != null -> {
+                dao.update(existingWord.copy(freq = (existingWord.freq + 1).coerceIn(FREQUENCY_MIN, FREQUENCY_MAX)))
+                true
+            }
+            // A shortcut entry already maps to this word; do not create a duplicate on top of it.
+            existingEntries.isNotEmpty() -> false
+            else -> {
+                dao.insert(UserDictionaryEntry(0, normalized, FREQUENCY_DEFAULT, locale, null))
+                true
+            }
+        }
+    }
+
     @Synchronized
     fun florisUserDictionaryDao(): UserDictionaryDao? {
         return if (prefs.dictionary.enableFlorisUserDictionary.get()) {
