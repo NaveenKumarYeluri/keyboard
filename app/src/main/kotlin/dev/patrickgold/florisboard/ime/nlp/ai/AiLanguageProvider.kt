@@ -51,6 +51,9 @@ class AiLanguageProvider(
         private const val AI_WEIGHT = 0.35
         private const val UNKNOWN_CONTEXT_SCORE = 0.02
         private const val MAX_CONTEXT_WORDS = 2
+        // When the typed input already resolves directly to a word, contextual injection must not
+        // displace it with a word that is only likely from the preceding words.
+        private const val MAX_INJECTED_CONFIDENCE_WITH_EXACT_MATCH = 0.89
     }
 
     private val prefs by FlorisPreferenceStore
@@ -120,14 +123,25 @@ class AiLanguageProvider(
                 baseCandidates.withSource(this@AiLanguageProvider)
             } else {
                 val composingWord = currentComposingWord(content, subtype)
+                val exactInputWords = baseCandidates
+                    .map { it.text.toString().lowercase() }
+                    .filterTo(mutableSetOf<String>()) { word ->
+                        latin.isExactInputMatch(subtype.primaryLocale, word, composingWord)
+                    }
                 val reranked = baseCandidates.map { candidate ->
                     val word = candidate.text.toString().lowercase()
-                    val contextScore = probabilities[word] ?: UNKNOWN_CONTEXT_SCORE
-                    candidate.withScore(
-                        confidence = (candidate.confidence * (1.0 - AI_WEIGHT) + contextScore * AI_WEIGHT)
-                            .coerceIn(0.0, 1.0),
-                        sourceProvider = this@AiLanguageProvider,
-                    )
+                    if (word in exactInputWords) {
+                        // Preserve direct dictionary/alias matches. Context may refine ambiguous
+                        // candidates, but it must not weaken what the user explicitly typed.
+                        candidate.withScore(candidate.confidence, this@AiLanguageProvider)
+                    } else {
+                        val contextScore = probabilities[word] ?: UNKNOWN_CONTEXT_SCORE
+                        candidate.withScore(
+                            confidence = (candidate.confidence * (1.0 - AI_WEIGHT) + contextScore * AI_WEIGHT)
+                                .coerceIn(0.0, 1.0),
+                            sourceProvider = this@AiLanguageProvider,
+                        )
+                    }
                 }
                 val alreadySuggested = reranked.map { it.text.toString().lowercase() }.toSet()
                 // The base provider only returns prefix/correction candidates. A contextually strong
@@ -138,11 +152,16 @@ class AiLanguageProvider(
                     if (score <= 0.0 || word in alreadySuggested) continue
                     if (!latin.isCandidateRelevantForInput(subtype.primaryLocale, word, composingWord)) continue
                     val frequency = latin.getFrequencyForWord(subtype, word)
+                    val contextConfidence = (frequency * (1.0 - AI_WEIGHT) + score * AI_WEIGHT)
+                        .coerceIn(0.0, 1.0)
                     injected.add(
                         WordSuggestionCandidate(
                             text = word,
-                            confidence = (frequency * (1.0 - AI_WEIGHT) + score * AI_WEIGHT)
-                                .coerceIn(0.0, 1.0),
+                            confidence = if (exactInputWords.isNotEmpty()) {
+                                minOf(contextConfidence, MAX_INJECTED_CONFIDENCE_WITH_EXACT_MATCH)
+                            } else {
+                                contextConfidence
+                            },
                             isEligibleForAutoCommit = false,
                             sourceProvider = this@AiLanguageProvider,
                         )

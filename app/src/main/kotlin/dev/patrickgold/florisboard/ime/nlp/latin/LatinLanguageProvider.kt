@@ -150,6 +150,20 @@ class LatinLanguageProvider(context: Context) : SpellingProvider, SuggestionProv
         return false
     }
 
+    /**
+     * Checks whether [word] is the direct result of the exact typed input, either as a dictionary
+     * word or as a romanized alias. The contextual provider uses this to avoid demoting a word the
+     * user explicitly typed in favor of a merely likely word from the local n-gram model.
+     */
+    fun isExactInputMatch(locale: FlorisLocale, word: String, input: String): Boolean {
+        val typed = input.lowercase(locale)
+        if (typed.isEmpty()) return false
+        val normalizedWord = word.lowercase(locale)
+        if (normalizedWord == typed && isKnownWord(typed, locale)) return true
+        if (!typed.all { it in 'a'..'z' || it == '\'' }) return false
+        return getAliases(locale.language)[typed]?.lowercase(locale) == normalizedWord
+    }
+
     override suspend fun preload(subtype: Subtype) = withContext(Dispatchers.IO) {
         val language = subtype.primaryLocale.language
         getDictionary(language)
