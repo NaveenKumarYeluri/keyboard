@@ -808,6 +808,18 @@ class ImeController(
                 reevaluateInputShiftState()
                 return
             }
+            // Telugu phonetic output is tracked in K3's composing region. A separator must commit
+            // that region before K3 sees the next letter, otherwise the next transliteration is
+            // inserted into the stale region and replaces the previous word.
+            if (isTeluguPhonetic && text.length == 1 && text[0].isWhitespace()) {
+                state.editor.finishComposingText()
+                resyncContentAfterNativeEdit()
+                clearPhoneticBuffer()
+                if (!state.editor.info.isRawInputEditor && state.editor.commitTextAtCursor(text)) {
+                    resyncContentAfterNativeEdit()
+                    return
+                }
+            }
             clearPhoneticBuffer()
             if (prefs.correction.autoReplaceMistypedWords.get() &&
                 text.length == 1 && (text[0].isWhitespace() || text[0] in ".,!?;:")

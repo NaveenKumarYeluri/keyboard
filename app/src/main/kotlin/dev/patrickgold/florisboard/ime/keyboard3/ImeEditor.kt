@@ -196,6 +196,11 @@ open class ImeEditor(
         return true
     }
 
+    /** Ends the active composing region so the next edit cannot replace an already committed word. */
+    fun finishComposingText() {
+        ic.get()?.finishComposingText()
+    }
+
     /**
      * Commits ordinary typed text at the real native cursor. This bypasses K3's whole-context
      * replacement, which can insert a stale prefix when the cursor is moved into the middle of text.
