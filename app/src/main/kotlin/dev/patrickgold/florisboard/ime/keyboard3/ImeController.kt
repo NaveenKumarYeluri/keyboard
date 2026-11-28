@@ -350,6 +350,17 @@ class ImeController(
         activeLayoutId = layoutId
         glideBackspaceWordLength = 0
         clearPhoneticBuffer()
+        // Switching layouts can happen after the editor info was applied. Keep composing off for
+        // Telugu phonetic so its word replacements never happen inside a K3 composing region.
+        state = state.copy(
+            flags = state.flags.withComposingEnabled(
+                shouldComposeForEditor(
+                    state.editor.info,
+                    state.touchLayerId,
+                    state.flags.keyVariation,
+                ),
+            ),
+        )
     }
 
     private fun clearPhoneticBuffer() {
@@ -357,11 +368,6 @@ class ImeController(
         phoneticOutput = ""
     }
 
-    /**
-     * While typing in Telugu phonetic mode the editor contains the transliterated Telugu text, but
-     * suggestions match better against the raw Latin word the user actually typed. Feed that raw
-     * word to the NLP pipeline without changing the editor state.
-     */
     /**
      * Gecko web text fields and Joplin's note editor frequently leave composing regions and cursor
      * updates out of sync with the JavaScript editor. That can surface as stray characters, vanished
@@ -377,6 +383,30 @@ class ImeController(
             packageName.contains("joplin")
     }
 
+    /**
+     * Telugu phonetic text is committed natively one step at a time. A K3 composing region would
+     * span the completed word and make the next transliteration replace or merge into it.
+     */
+    private fun shouldComposeForEditor(
+        info: FlorisEditorInfo,
+        touchLayerId: K3LayerId,
+        keyVariation: KeyVariation,
+    ): Boolean {
+        if (activeLayoutId == "telugu-phonetic") return false
+        return when (touchLayerId) {
+            ImeLayerIds.Numpad, ImeLayerIds.Telpad -> false
+            else -> keyVariation != KeyVariation.PASSWORD &&
+                info.isRichInputEditor &&
+                info.inputAttributes.flagTextAutoCorrect &&
+                !shouldDisableComposingForEditor(info)
+        }
+    }
+
+    /**
+     * While typing in Telugu phonetic mode the editor contains transliterated Telugu text, but
+     * suggestions match better against the raw Latin word the user actually typed. Feed that raw
+     * word to the NLP pipeline without changing the editor state.
+     */
     private fun contentForSuggestions(source: ImeState): K3Content {
         if (activeLayoutId != "telugu-phonetic" || phoneticLatin.isEmpty()) {
             return source.content
@@ -643,16 +673,10 @@ class ImeController(
                         }
                     )
                     .withComposingEnabled(
-                        when (newTouchLayerId) {
-                            ImeLayerIds.Numpad, ImeLayerIds.Telpad -> false
-                            else -> keyVariation != KeyVariation.PASSWORD &&
-                                // TODO review if this is the correct approach for composing region support detection
-                                //  important: for codemirror6 in browsers and Gecko web text fields, composing
-                                //  must be disabled, else stray/stuck characters start to appear.
-                                !shouldDisableComposingForEditor(info) &&
-                                info.isRichInputEditor &&
-                                info.inputAttributes.flagTextAutoCorrect
-                        }
+                        // TODO review if this is the correct approach for composing region support detection
+                        //  important: for codemirror6 in browsers and Gecko web text fields, composing
+                        //  must be disabled, else stray/stuck characters start to appear.
+                        shouldComposeForEditor(info, newTouchLayerId, keyVariation)
                     )
                     .withIncognitoMode(
                         when (prefs.suggestion.incognitoMode.get()) {
@@ -783,16 +807,22 @@ class ImeController(
             get() = activeLayoutId == "telugu-phonetic"
 
         /**
-         * Replaces the Telugu output for the current raw Latin buffer. The old output is removed with
-         * a native deletion so a replacement cannot rewrite across list/paragraph boundaries; the
-         * new output is inserted through the K3 base implementation.
+         * Replaces the Telugu output for the current raw Latin buffer entirely in the native editor.
+         * K3's whole-context emit marks the completed word as composing, which makes the next
+         * transliteration replace or merge into that word.
          */
         private fun replacePhoneticOutput(newOutput: String) {
             val oldOutput = phoneticOutput
-            deletePrecisely(oldOutput.codePointCount(0, oldOutput.length), OperationUnit.CHARACTERS)
-            if (newOutput.isNotEmpty()) {
-                super.emitText(newOutput.asK3String())
+            // Replace our own transliteration with a single native editor edit. K3's whole-context
+            // emitText marks the word as composing, and the next edit then replaces that completed
+            // word instead of appending to it.
+            state.editor.finishComposingText()
+            if (oldOutput.isNotEmpty()) {
+                state.editor.replaceTextBeforeCursorNatively(oldOutput.length, newOutput)
+            } else if (newOutput.isNotEmpty()) {
+                state.editor.commitTextAtCursor(newOutput)
             }
+            resyncContentAfterNativeEdit()
         }
 
         override fun emitText(value: K3String) {
@@ -807,18 +837,6 @@ class ImeController(
                 expectedContentQueue.push(state.content.selection)
                 reevaluateInputShiftState()
                 return
-            }
-            // Telugu phonetic output is tracked in K3's composing region. A separator must commit
-            // that region before K3 sees the next letter, otherwise the next transliteration is
-            // inserted into the stale region and replaces the previous word.
-            if (isTeluguPhonetic && text.length == 1 && text[0].isWhitespace()) {
-                state.editor.finishComposingText()
-                resyncContentAfterNativeEdit()
-                clearPhoneticBuffer()
-                if (!state.editor.info.isRawInputEditor && state.editor.commitTextAtCursor(text)) {
-                    resyncContentAfterNativeEdit()
-                    return
-                }
             }
             clearPhoneticBuffer()
             if (prefs.correction.autoReplaceMistypedWords.get() &&
@@ -1147,9 +1165,11 @@ class ImeController(
             val finalText = if (autoSpace) "$output " else output
             if (!transliterate && activeLayoutId == "telugu-phonetic") {
                 // Resolved candidates are already final output; do not feed them back through the
-                // raw-Latin phonetic buffer where a single-letter word would be transliterated.
+                // raw-Latin phonetic buffer or K3's composing region.
                 clearPhoneticBuffer()
-                super.emitText(finalText.asK3String())
+                state.editor.finishComposingText()
+                state.editor.commitTextAtCursor(finalText)
+                resyncContentAfterNativeEdit()
                 expectedContentQueue.push(state.content.selection)
                 reevaluateInputShiftState()
             } else {
@@ -1172,7 +1192,8 @@ class ImeController(
             val content = state.content
             val composition = content.composition
             val compositionText = content.compositionText
-            val hasComposition = composition != null && compositionText != null && composition.min < content.selection.min
+            val hasComposition = !isTeluguPhonetic &&
+                composition != null && compositionText != null && composition.min < content.selection.min
             // Read the word and lookahead from the native editor. Cached K3 content can lag in web
             // and plain-text editors, which previously made auto-space think a space already existed.
             val nativeBefore = state.editor.getTextBeforeSelection(100).orEmpty()
@@ -1336,7 +1357,7 @@ class ImeController(
             selection: K3TextRange,
             surroundingText: K3SurroundingText
         ): K3TextRange? {
-            if (selection.isNotCollapsed() || !state.flags.isComposingEnabled) {
+            if (isTeluguPhonetic || selection.isNotCollapsed() || !state.flags.isComposingEnabled) {
                 return null
             }
             // TODO rework how we get the primary locale
