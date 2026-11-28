@@ -350,17 +350,9 @@ class ImeController(
         activeLayoutId = layoutId
         glideBackspaceWordLength = 0
         clearPhoneticBuffer()
-        // Switching layouts can happen after the editor info was applied. Keep composing off for
-        // Telugu phonetic so its word replacements never happen inside a K3 composing region.
-        state = state.copy(
-            flags = state.flags.withComposingEnabled(
-                shouldComposeForEditor(
-                    state.editor.info,
-                    state.touchLayerId,
-                    state.flags.keyVariation,
-                ),
-            ),
-        )
+        // A layout switch can happen after the editor info was applied. Commit any region from the
+        // previous layout; evaluateCompositionOf also checks the active layout for future edits.
+        activeState.value.editor.finishComposingText()
     }
 
     private fun clearPhoneticBuffer() {
