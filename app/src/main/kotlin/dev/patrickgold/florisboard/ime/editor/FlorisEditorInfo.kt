@@ -16,6 +16,8 @@
 
 package dev.patrickgold.florisboard.ime.editor
 
+import android.text.InputType
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.inputmethod.EditorInfoCompat
 import androidx.emoji2.text.EmojiCompat
@@ -31,6 +33,21 @@ class FlorisEditorInfo private constructor(val base: EditorInfo) {
 
     val isRawInputEditor: Boolean
         get() = !isRichInputEditor
+
+    /**
+     * Jetpack Compose TextFields can return stale text from getTextBeforeCursor right after a
+     * backspace. The upstream workaround is to let the editor handle DEL as a hardware key event
+     * instead of deleting through InputConnection text APIs. Compose fields have no field id/name,
+     * while views, WebViews and custom engines set one of them.
+     */
+    val isLikelyComposeTextField: Boolean
+        get() {
+            if (base.fieldId != View.NO_ID || base.fieldName != null) return false
+            val variation = base.inputType and InputType.TYPE_MASK_VARIATION
+            return variation != InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT &&
+                variation != InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS &&
+                variation != InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD
+        }
 
     val packageName: String?
         get() = base.packageName

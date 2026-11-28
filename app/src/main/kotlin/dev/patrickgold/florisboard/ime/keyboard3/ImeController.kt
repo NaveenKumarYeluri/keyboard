@@ -739,12 +739,53 @@ class ImeController(
         }
 
         /**
+         * Compose TextFields return stale text immediately after a hardware DEL too, so the K3
+         * snapshot must be advanced locally instead of being re-read from the editor. Without this,
+         * the next edit would use the pre-delete text and remove spaces that were never typed in
+         * this session.
+         */
+        private fun applyLocalBackspaceToComposeContent() {
+            val content = state.content
+            val collapsed = content.selection.isCollapsed()
+            val newCursor = if (collapsed) {
+                (content.selection.start - 1).coerceAtLeast(0)
+            } else {
+                content.selection.min
+            }
+            val newSurrounding = if (collapsed) {
+                content.surroundingText.copy(
+                    textBefore = content.surroundingText.textBefore.dropLast(1),
+                )
+            } else {
+                content.surroundingText.copy(textSelected = "")
+            }
+            val newSelection = K3TextRange(newCursor)
+            state = state.copy(
+                content = content.copy(
+                    selection = newSelection,
+                    composition = null,
+                    surroundingText = newSurrounding,
+                ),
+            )
+            expectedContentQueue.push(newSelection)
+        }
+
+        /**
          * Deletes [count] units before the cursor, or the current selection if there is one.
          */
         fun deletePrecisely(count: Int, unit: OperationUnit) {
             if (count <= 0) return
             val editor = state.editor
             if (count == 1 && unit == OperationUnit.CHARACTERS) {
+                // Jetpack Compose TextFields report stale text after InputConnection deletions,
+                // which makes K3 target the preceding space (or older text) on the next backspace.
+                // Let the app handle DEL itself and advance our snapshot locally instead.
+                val useComposeBackspace = editor.info.isLikelyComposeTextField ||
+                    editor.info.packageName == "com.google.android.apps.tasks"
+                if (useComposeBackspace && editor.sendDownUpKeyEvent(KeyEvent.KEYCODE_DEL)) {
+                    applyLocalBackspaceToComposeContent()
+                    return
+                }
                 // A plain backspace must go straight to the editor. Browsers delete inline URL
                 // autocomplete first when they receive deleteSurroundingText; calling setSelection
                 // or finishComposingText here destroys that state and deletes the typed character.
